@@ -3,576 +3,615 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — KlothoLab</title>
+  <title>Dashboard — Eternal Health</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-  <div class="app-layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <a href="../index.html" class="logo">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="13" stroke="url(#sideLogoGrad)" stroke-width="2"/>
-            <path d="M8 14 C8 10 11 7 14 7 C17 7 20 10 20 14" stroke="url(#sideLogoGrad)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="14" cy="17" r="3" fill="url(#sideLogoGrad)"/>
-            <defs>
-              <linearGradient id="sideLogoGrad" x1="0" y1="0" x2="28" y2="28">
-                <stop stop-color="#00D4FF"/>
-                <stop offset="1" stop-color="#7C3AED"/>
-              </linearGradient>
-            </defs>
-          </svg>
-          <span class="logo-text">KlothoLab</span>
-        </a>
-      </div>
+<div class="app-layout">
 
-      <nav class="sidebar-nav">
-        <div class="nav-section-label">Principal</div>
-        <a class="nav-item active" data-page="overview" onclick="showPage('overview', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <rect x="1" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="10" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="1" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="10" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          Visão Geral
-        </a>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo-mark">EH</a>
+      <span class="sidebar-logo-text">Eternal Health</span>
+    </div>
 
-        <div class="nav-section-label">Análises</div>
-        <a class="nav-item" data-page="biomarkers" onclick="showPage('biomarkers', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <path d="M9 2V16M2 9H16M4.5 4.5L13.5 13.5M13.5 4.5L4.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Biomarcadores
-          <span class="nav-badge">+200</span>
-        </a>
-        <a class="nav-item" data-page="hallmarks" onclick="showPage('hallmarks', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M9 5V9L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Hallmarks of Aging
-        </a>
-        <a class="nav-item" data-page="epigenetics" onclick="showPage('epigenetics', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <path d="M4 5C4 3.34 5.34 2 7 2H11C12.66 2 14 3.34 14 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M4 13C4 14.66 5.34 16 7 16H11C12.66 16 14 14.66 14 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M4 5V13M14 5V13M7 7H11M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Epigenética
-        </a>
+    <!-- Nav -->
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="overview" onclick="showPage('overview', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="1" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.4"/>
+          <rect x="10" y="1" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.4"/>
+          <rect x="1" y="10" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.4"/>
+          <rect x="10" y="10" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+        <span class="nav-item-text">Overview</span>
+      </a>
 
-        <div class="nav-section-label">Protocolo</div>
-        <a class="nav-item" data-page="protocol" onclick="showPage('protocol', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <path d="M3 3H15V15H3V3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M6 7H12M6 11H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Protocolo IA
-        </a>
-        <a class="nav-item" data-page="inputs" onclick="showPage('inputs', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <path d="M9 2V16M2 9H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Inserir Dados
-        </a>
+      <div class="nav-divider"></div>
 
-        <div class="nav-section-label">Conta</div>
-        <a class="nav-item" data-page="profile" onclick="showPage('profile', this)">
-          <svg viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="6" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M2 16C2 12.69 5.13 10 9 10C12.87 10 16 12.69 16 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Meu Perfil
-        </a>
-      </nav>
+      <a class="nav-item" data-page="biomarkers" onclick="showPage('biomarkers', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M6 9H12M9 6V12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-item-text">Biomarkers</span>
+        <span class="nav-badge">+200</span>
+      </a>
 
-      <div class="sidebar-footer">
-        <div class="user-info">
-          <div class="user-avatar" id="sidebarAvatar">?</div>
-          <div>
-            <div class="user-name" id="sidebarName">Carregando...</div>
-            <div class="user-plan">Plano Starter ✦</div>
-          </div>
+      <a class="nav-item" data-page="hallmarks" onclick="showPage('hallmarks', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <path d="M9 2L11 7H16L12 10.5L13.5 16L9 13L4.5 16L6 10.5L2 7H7L9 2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-item-text">Hallmarks</span>
+      </a>
+
+      <a class="nav-item" data-page="epigenetics" onclick="showPage('epigenetics', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <path d="M5 3C5 3 7 5 7 9C7 13 5 15 5 15M13 3C13 3 11 5 11 9C11 13 13 15 13 15M5 7H13M5 11H13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-item-text">Epigenetics</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" data-page="protocol" onclick="showPage('protocol', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="14" height="14" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M5 7H13M5 10H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-item-text">Protocol</span>
+      </a>
+
+      <a class="nav-item" data-page="inputs" onclick="showPage('inputs', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <path d="M9 2V16M2 9H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-item-text">Add Data</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-item" data-page="profile" onclick="showPage('profile', this)">
+        <svg viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="6" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M2 16C2 12.69 5.13 10 9 10C12.87 10 16 12.69 16 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-item-text">Profile</span>
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="sidebarAvatar">?</div>
+        <div>
+          <div class="user-name" id="sidebarName">Loading...</div>
+          <div class="user-plan">Starter Plan</div>
         </div>
-        <button class="btn btn-ghost btn-full" onclick="handleLogout()" style="font-size:0.82rem;padding:8px 12px">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M5 2H2V12H5M9 4L13 7L9 10M13 7H5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </div>
+      <button class="sidebar-logout" onclick="handleLogout()">
+        <svg viewBox="0 0 14 14" fill="none">
+          <path d="M5 2H2V12H5M9 4L13 7L9 10M13 7H5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sidebar-logout-text">Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- COMMAND BAR TOP -->
+    <header class="command-bar-top" id="dashCommandBar">
+      <div class="cb-top-left">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2 4H16M2 9H16M2 14H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
-          Sair
         </button>
-      </div>
-    </aside>
-
-    <!-- OVERLAY -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-      <!-- TOPBAR -->
-      <header class="topbar">
-        <div style="display:flex;align-items:center;gap:16px">
-          <button class="mobile-menu-btn" onclick="toggleSidebar()">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M2 4H16M2 9H16M2 14H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-          <div>
-            <div class="topbar-title" id="topbarTitle">Visão Geral</div>
-            <div class="topbar-subtitle" id="topbarSubtitle">Painel de Longevidade</div>
-          </div>
+        <div>
+          <div class="topbar-title" id="topbarTitle">Overview</div>
+          <div class="topbar-subtitle" id="topbarSubtitle">Longevity Dashboard</div>
         </div>
+      </div>
+      <div class="cb-top-right">
         <div class="topbar-actions">
           <div class="topbar-date" id="topbarDate"></div>
-          <button class="btn btn-primary" style="font-size:0.8rem;padding:8px 16px" onclick="showPage('inputs', document.querySelector('[data-page=inputs]'))">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <button class="btn btn-primary" style="font-size:0.75rem;padding:7px 14px" onclick="showPage('inputs', document.querySelector('[data-page=inputs]'))">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            Adicionar Exame
+            Add Data
           </button>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <!-- CONTENT AREA -->
-      <div class="content-area">
+    <!-- CONTENT AREA -->
+    <div class="content-area">
 
-        <!-- ===========================
-             PAGE: OVERVIEW
-             =========================== -->
-        <div class="page active" id="page-overview">
-          <!-- SCORE HERO -->
-          <div class="score-hero">
-            <div class="score-hero-inner">
-              <div>
-                <div class="score-greeting">👋 Olá,</div>
-                <div class="score-name" id="heroName">Carregando...</div>
-                <div class="score-ages">
-                  <div class="age-block">
-                    <div class="age-label">Idade Biológica</div>
-                    <div class="age-big age-bio" id="bioAge">--</div>
-                  </div>
-                  <div style="color:var(--color-text-muted);font-size:1.5rem;align-self:flex-end;margin-bottom:8px">/</div>
-                  <div class="age-block">
-                    <div class="age-label">Idade Cronológica</div>
-                    <div class="age-big age-chron" id="chronAge">--</div>
-                  </div>
-                  <div class="age-diff younger" id="ageDiff" style="display:none">
-                    <span id="ageDiffVal"></span>
-                  </div>
+      <!-- ===========================
+           PAGE: OVERVIEW
+           =========================== -->
+      <div class="page active" id="page-overview">
+
+        <!-- BIO FOCAL — instrument age panel -->
+        <div class="bio-focal-section">
+          <div class="bfs-inner">
+            <div class="bfs-left">
+              <div class="bfs-greeting">System · Initialized</div>
+              <div class="bfs-name" id="heroName">Loading...</div>
+
+              <div class="score-hero" style="display:none"><!-- legacy compat --></div>
+
+              <div class="bfs-ages">
+                <div class="age-block">
+                  <div class="age-label">Biological Age</div>
+                  <div class="age-big age-bio" id="bioAge">--</div>
                 </div>
-                <p style="color:var(--color-text-secondary);font-size:0.875rem;max-width:500px" id="heroMessage">
-                  Analisando seus dados de longevidade...
-                </p>
+                <div class="age-sep">/</div>
+                <div class="age-block">
+                  <div class="age-label">Chronological Age</div>
+                  <div class="age-big age-chron" id="chronAge">--</div>
+                </div>
+                <div class="age-diff younger" id="ageDiff" style="display:none">
+                  <span id="ageDiffVal"></span>
+                </div>
               </div>
-              <div class="score-meter">
+
+              <p class="score-hero-message" id="heroMessage">Analyzing longevity data...</p>
+            </div>
+
+            <!-- KlothoScore ring -->
+            <div class="bfs-score-panel">
+              <div class="bfs-score-label">KlothoScore</div>
+              <div class="bfs-score-ring-wrap">
                 <svg class="meter-circle" viewBox="0 0 140 140">
-                  <defs>
-                    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#00D4FF"/>
-                      <stop offset="100%" stop-color="#7C3AED"/>
-                    </linearGradient>
-                  </defs>
                   <circle class="progress-ring-bg" cx="70" cy="70" r="58"/>
                   <circle class="progress-ring-fill" id="scoreRing" cx="70" cy="70" r="58"
                     stroke-dasharray="364.4"
                     stroke-dashoffset="364.4"/>
-                  <text x="70" y="65" text-anchor="middle" fill="white" font-size="22" font-weight="800" font-family="JetBrains Mono" id="scoreText">--</text>
-                  <text x="70" y="82" text-anchor="middle" fill="#94A3B8" font-size="9" font-family="Inter">KlothoScore</text>
                 </svg>
-                <div class="meter-label">Índice de Longevidade</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- STATS CARDS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-card-icon icon-cyan">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M9 2L11 7H16L12 10L13.5 16L9 13L4.5 16L6 10L2 7H7L9 2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div class="stat-card-value text-cyan" id="statScore">--</div>
-              <div class="stat-card-label">KlothoScore</div>
-              <div class="stat-card-delta delta-up" id="statScoreDelta"></div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-icon icon-green">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M9 2V16M3 9H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div class="stat-card-value text-green" id="statCRP">--</div>
-              <div class="stat-card-label">PCR-us (mg/L)</div>
-              <div class="stat-card-delta" id="statCRPDelta"></div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-icon icon-purple">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M6 9H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div class="stat-card-value" style="color:var(--color-purple)" id="statGlucose">--</div>
-              <div class="stat-card-label">Glicose (mg/dL)</div>
-              <div class="stat-card-delta delta-up" id="statGlucoseDelta"></div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-icon icon-orange">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M9 2C5.69 2 3 4.69 3 8C3 10.12 4.07 11.98 5.72 13.09V15C5.72 15.55 6.17 16 6.72 16H11.28C11.83 16 12.28 15.55 12.28 15V13.09C13.93 11.98 15 10.12 15 8C15 4.69 12.31 2 9 2Z" stroke="currentColor" stroke-width="1.3"/>
-                </svg>
-              </div>
-              <div class="stat-card-value text-orange" id="statTelomere">--</div>
-              <div class="stat-card-label">Telômeros (kb)</div>
-              <div class="stat-card-delta delta-up" id="statTelomereDelta"></div>
-            </div>
-          </div>
-
-          <!-- CHARTS -->
-          <div class="charts-grid">
-            <div class="chart-card">
-              <div class="chart-header">
-                <div>
-                  <div class="chart-title">Evolução do KlothoScore</div>
-                  <div class="chart-subtitle">Índice de longevidade ao longo do tempo</div>
-                </div>
-                <div class="chart-period-btns">
-                  <button class="period-btn active">3M</button>
-                  <button class="period-btn">6M</button>
-                  <button class="period-btn">1A</button>
+                <div class="bfs-score-overlay">
+                  <div class="bfs-score-num" id="scoreText">--</div>
+                  <div class="bfs-score-sub">Score</div>
                 </div>
               </div>
-              <canvas id="scoreChart" height="200"></canvas>
+              <div class="meter-label" style="font-size:0.56rem;color:var(--t-tertiary)">Longevity Index</div>
             </div>
-            <div class="chart-card">
-              <div class="chart-header">
-                <div>
-                  <div class="chart-title">Marcadores Chave</div>
-                  <div class="chart-subtitle">Status atual</div>
-                </div>
-              </div>
-              <canvas id="radarChart" height="200"></canvas>
-            </div>
-          </div>
-
-          <!-- RECENT BIOMARKERS -->
-          <div class="chart-card">
-            <div class="chart-header" style="margin-bottom:var(--space-md)">
-              <div>
-                <div class="chart-title">Biomarcadores Recentes</div>
-                <div class="chart-subtitle">Última atualização</div>
-              </div>
-              <button class="btn btn-outline" style="font-size:0.8rem;padding:6px 14px" onclick="showPage('biomarkers', document.querySelector('[data-page=biomarkers]'))">
-                Ver Todos
-              </button>
-            </div>
-            <div style="overflow-x:auto">
-              <table class="biomarker-table" id="recentBiomarkersTable">
-                <thead>
-                  <tr>
-                    <th>Biomarcador</th>
-                    <th>Valor</th>
-                    <th>Referência</th>
-                    <th>Status</th>
-                    <th>Data</th>
-                  </tr>
-                </thead>
-                <tbody id="recentBiomarkersBody">
-                  <tr><td colspan="5" style="text-align:center;color:var(--color-text-muted)">Carregando...</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- RECOMMENDATIONS -->
-          <div style="margin-top:var(--space-xl)">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-lg)">
-              <div>
-                <h3 style="font-size:1rem">Recomendações Personalizadas</h3>
-                <p style="font-size:0.8rem;color:var(--color-text-muted)">Baseadas em seu perfil e biomarcadores</p>
-              </div>
-            </div>
-            <div class="recommendations-list" id="recsList"></div>
           </div>
         </div>
 
-        <!-- ===========================
-             PAGE: BIOMARKERS
-             =========================== -->
-        <div class="page" id="page-biomarkers">
-          <div class="bm-page-header">
-            <div>
-              <h2 style="font-size:1.25rem;font-weight:700">Biomarcadores</h2>
-              <p style="font-size:0.85rem;color:var(--color-text-muted)">Monitoramento completo de saúde e longevidade</p>
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-cyan">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1L9 5.5H13.5L10 8.5L11.5 13L7 10L2.5 13L4 8.5L0.5 5.5H5L7 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+              </svg>
             </div>
-            <button class="btn btn-primary" style="font-size:0.85rem" onclick="showPage('inputs', document.querySelector('[data-page=inputs]'))">
-              + Adicionar Resultado
+            <div class="stat-card-value text-cyan" id="statScore">--</div>
+            <div class="stat-card-label">KlothoScore</div>
+            <div class="stat-card-delta delta-up" id="statScoreDelta"></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-icon icon-green">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4 7H10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="stat-card-value text-green" id="statCRP">--</div>
+            <div class="stat-card-label">PCR-us (mg/L)</div>
+            <div class="stat-card-delta" id="statCRPDelta"></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-icon icon-purple">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 11L5 7L8 9L12 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="stat-card-value" style="color:var(--vitae)" id="statGlucose">--</div>
+            <div class="stat-card-label">Glucose (mg/dL)</div>
+            <div class="stat-card-delta delta-up" id="statGlucoseDelta"></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-icon icon-orange">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1C4.24 1 2 3.24 2 6C2 7.73 2.88 9.25 4.26 10.15V12C4.26 12.55 4.71 13 5.26 13H8.74C9.29 13 9.74 12.55 9.74 12V10.15C11.12 9.25 12 7.73 12 6C12 3.24 9.76 1 7 1Z" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="stat-card-value text-orange" id="statTelomere">--</div>
+            <div class="stat-card-label">Telomere (kb)</div>
+            <div class="stat-card-delta delta-up" id="statTelomereDelta"></div>
+          </div>
+        </div>
+
+        <!-- CHARTS GRID -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div>
+                <div class="chart-title">KlothoScore Evolution</div>
+                <div class="chart-subtitle">Longevity index over time</div>
+              </div>
+              <div class="chart-period-btns">
+                <button class="period-btn active">3M</button>
+                <button class="period-btn">6M</button>
+                <button class="period-btn">1Y</button>
+              </div>
+            </div>
+            <canvas id="scoreChart" height="180"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div>
+                <div class="chart-title">Key Markers</div>
+                <div class="chart-subtitle">Current status</div>
+              </div>
+            </div>
+            <canvas id="radarChart" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- RECENT BIOMARKERS TABLE -->
+        <div class="chart-card" style="margin-bottom:var(--space-xl)">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Recent Biomarkers</div>
+              <div class="chart-subtitle">Latest readings</div>
+            </div>
+            <button class="btn btn-outline" style="font-size:0.75rem;padding:6px 12px" onclick="showPage('biomarkers', document.querySelector('[data-page=biomarkers]'))">
+              View All
+            </button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="biomarker-table">
+              <thead>
+                <tr>
+                  <th>Biomarker</th>
+                  <th>Value</th>
+                  <th>Reference</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="recentBiomarkersBody">
+                <tr><td colspan="5" style="text-align:center;color:var(--t-secondary);padding:var(--space-xl)">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+        <div style="margin-bottom:var(--space-xl)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-lg)">
+            <div>
+              <div class="chart-title">Personalized Protocols</div>
+              <div class="chart-subtitle">Based on your biomarker profile</div>
+            </div>
+          </div>
+          <div class="recommendations-list" id="recsList"></div>
+        </div>
+
+      </div><!-- end page-overview -->
+
+
+      <!-- ===========================
+           PAGE: BIOMARKERS
+           =========================== -->
+      <div class="page" id="page-biomarkers">
+        <div class="bm-page-header">
+          <div>
+            <div class="chart-title" style="font-size:1rem">Biomarkers</div>
+            <div class="chart-subtitle">Complete health & longevity monitoring</div>
+          </div>
+          <button class="btn btn-primary" style="font-size:0.8rem" onclick="showPage('inputs', document.querySelector('[data-page=inputs]'))">
+            + Add Result
+          </button>
+        </div>
+
+        <div class="bm-filters">
+          <button class="filter-btn active" onclick="filterBM('all', this)">All</button>
+          <button class="filter-btn" onclick="filterBM('metabolic', this)">Metabolic</button>
+          <button class="filter-btn" onclick="filterBM('inflammatory', this)">Inflammation</button>
+          <button class="filter-btn" onclick="filterBM('hormonal', this)">Hormonal</button>
+          <button class="filter-btn" onclick="filterBM('genetic', this)">Genetic</button>
+          <button class="filter-btn" onclick="filterBM('optimal', this)">✓ Optimal</button>
+          <button class="filter-btn" onclick="filterBM('warning', this)">⚠ Attention</button>
+        </div>
+
+        <div class="bm-cards-grid" id="bmCardsGrid">
+          <div style="grid-column:1/-1;text-align:center;color:var(--t-secondary);padding:var(--space-2xl)">
+            Loading biomarkers...
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===========================
+           PAGE: HALLMARKS
+           =========================== -->
+      <div class="page" id="page-hallmarks">
+        <div style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="font-size:1rem">Hallmarks of Aging</div>
+          <div class="chart-subtitle">Complete assessment of 9 cellular aging mechanisms</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-bottom:var(--space-xl)">
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:var(--space-xl)">Hallmarks Radar</div>
+            <canvas id="hallmarksRadar" height="260"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:var(--space-xl)">Status Distribution</div>
+            <canvas id="hallmarksDoughnut" height="260"></canvas>
+          </div>
+        </div>
+
+        <div class="hallmarks-grid" id="hallmarksGrid"></div>
+      </div>
+
+
+      <!-- ===========================
+           PAGE: EPIGENETICS
+           =========================== -->
+      <div class="page" id="page-epigenetics">
+        <div style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="font-size:1rem">Epigenetic Analysis</div>
+          <div class="chart-subtitle">DNA methylation biological clocks</div>
+        </div>
+
+        <!-- Clock cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-md);margin-bottom:var(--space-xl)">
+          <div class="stat-card" style="text-align:center;padding:var(--space-xl)">
+            <div class="stat-card-label" style="margin-bottom:var(--space-sm)">Horvath Clock</div>
+            <div class="stat-card-value" style="font-size:2.4rem;color:var(--aurum)" id="horvathAge">--</div>
+            <div style="font-family:var(--f-mono);font-size:0.58rem;color:var(--t-secondary);margin-top:4px">epigenetic years</div>
+          </div>
+          <div class="stat-card" style="text-align:center;padding:var(--space-xl)">
+            <div class="stat-card-label" style="margin-bottom:var(--space-sm)">GrimAge</div>
+            <div class="stat-card-value" style="font-size:2.4rem;color:var(--aurum)" id="grimAge">--</div>
+            <div style="font-family:var(--f-mono);font-size:0.58rem;color:var(--t-secondary);margin-top:4px">epigenetic years</div>
+          </div>
+          <div class="stat-card" style="text-align:center;padding:var(--space-xl)">
+            <div class="stat-card-label" style="margin-bottom:var(--space-sm)">PhenoAge</div>
+            <div class="stat-card-value" style="font-size:2.4rem;color:var(--aurum)" id="phenoAge">--</div>
+            <div style="font-family:var(--f-mono);font-size:0.58rem;color:var(--t-secondary);margin-top:4px">phenotypic years</div>
+          </div>
+        </div>
+
+        <div class="chart-card" style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="margin-bottom:var(--space-xl)">Biological Age Evolution</div>
+          <canvas id="bioAgeChart" height="180"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:var(--space-xl)">Methylation by Genomic Region</div>
+          <canvas id="methylationChart" height="180"></canvas>
+        </div>
+      </div>
+
+
+      <!-- ===========================
+           PAGE: PROTOCOL
+           =========================== -->
+      <div class="page" id="page-protocol">
+        <div style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="font-size:1rem">AI Personalized Protocol</div>
+          <div class="chart-subtitle">Interventions calibrated to your biomarker profile</div>
+        </div>
+        <div id="protocolContent"></div>
+      </div>
+
+
+      <!-- ===========================
+           PAGE: INPUTS
+           =========================== -->
+      <div class="page" id="page-inputs">
+        <div style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="font-size:1rem">Input Lab Data</div>
+          <div class="chart-subtitle">Add laboratory results manually</div>
+        </div>
+
+        <div class="input-form-container">
+          <div class="form-section">
+            <div class="form-section-title">Select Biomarker</div>
+            <div id="inputAlertContainer"></div>
+
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select class="form-select" id="bmCategory" onchange="updateBmOptions()">
+                <option value="">Select category...</option>
+                <option value="metabolic">Metabolic</option>
+                <option value="inflammatory">Inflammatory</option>
+                <option value="hormonal">Hormonal</option>
+                <option value="genetic">Genetic / Epigenetic</option>
+                <option value="cardiovascular">Cardiovascular</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Biomarker</label>
+              <select class="form-select" id="bmType">
+                <option value="">Select category first</option>
+              </select>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Value</label>
+                <input type="number" id="bmValue" class="form-input" placeholder="e.g. 89.5" step="0.01">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Unit</label>
+                <input type="text" id="bmUnit" class="form-input" placeholder="e.g. mg/dL" readonly>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" id="bmDate" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Notes (optional)</label>
+              <input type="text" id="bmNotes" class="form-input" placeholder="e.g. 12h fasting">
+            </div>
+
+            <button class="btn btn-primary" onclick="saveBiomarker()">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 8L5.5 11.5L12 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Save Result
             </button>
           </div>
 
-          <div class="bm-filters">
-            <button class="filter-btn active" onclick="filterBM('all', this)">Todos</button>
-            <button class="filter-btn" onclick="filterBM('metabolic', this)">Metabólico</button>
-            <button class="filter-btn" onclick="filterBM('inflammatory', this)">Inflamação</button>
-            <button class="filter-btn" onclick="filterBM('hormonal', this)">Hormonal</button>
-            <button class="filter-btn" onclick="filterBM('genetic', this)">Genético</button>
-            <button class="filter-btn" onclick="filterBM('optimal', this)">✓ Ótimos</button>
-            <button class="filter-btn" onclick="filterBM('warning', this)">⚠ Atenção</button>
-          </div>
-
-          <div class="bm-cards-grid" id="bmCardsGrid">
-            <div style="grid-column:1/-1;text-align:center;color:var(--color-text-muted);padding:40px">
-              Carregando biomarcadores...
-            </div>
+          <!-- Reference card -->
+          <div class="form-section" id="referenceCard" style="display:none">
+            <div class="form-section-title">Reference Ranges</div>
+            <div id="referenceContent"></div>
           </div>
         </div>
+      </div>
 
-        <!-- ===========================
-             PAGE: HALLMARKS
-             =========================== -->
-        <div class="page" id="page-hallmarks">
-          <div style="margin-bottom:var(--space-xl)">
-            <h2 style="font-size:1.25rem;font-weight:700">Hallmarks of Aging</h2>
-            <p style="font-size:0.85rem;color:var(--color-text-muted)">Avaliação completa dos 9 mecanismos do envelhecimento celular</p>
-          </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-bottom:var(--space-xl)">
-            <div class="chart-card">
-              <div class="chart-title" style="margin-bottom:var(--space-xl)">Radar de Hallmarks</div>
-              <canvas id="hallmarksRadar" height="300"></canvas>
-            </div>
-            <div class="chart-card">
-              <div class="chart-title" style="margin-bottom:var(--space-xl)">Distribuição de Status</div>
-              <canvas id="hallmarksDoughnut" height="300"></canvas>
-            </div>
-          </div>
-
-          <div class="hallmarks-grid" id="hallmarksGrid"></div>
+      <!-- ===========================
+           PAGE: PROFILE
+           =========================== -->
+      <div class="page" id="page-profile">
+        <div style="margin-bottom:var(--space-xl)">
+          <div class="chart-title" style="font-size:1rem">Profile</div>
+          <div class="chart-subtitle">Account settings & data</div>
         </div>
 
-        <!-- ===========================
-             PAGE: EPIGENETICS
-             =========================== -->
-        <div class="page" id="page-epigenetics">
-          <div style="margin-bottom:var(--space-xl)">
-            <h2 style="font-size:1.25rem;font-weight:700">Análise Epigenética</h2>
-            <p style="font-size:0.85rem;color:var(--color-text-muted)">Relógios biológicos de metilação do DNA</p>
-          </div>
-
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-md);margin-bottom:var(--space-xl)">
-            <div class="stat-card" style="text-align:center">
-              <div style="font-size:0.75rem;color:var(--color-text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em">Horvath Clock</div>
-              <div class="stat-card-value" style="font-size:2.5rem;background:linear-gradient(135deg,var(--color-cyan),var(--color-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="horvathAge">--</div>
-              <div style="font-size:0.75rem;color:var(--color-text-muted)">anos epigenéticos</div>
-            </div>
-            <div class="stat-card" style="text-align:center">
-              <div style="font-size:0.75rem;color:var(--color-text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em">GrimAge</div>
-              <div class="stat-card-value" style="font-size:2.5rem;background:linear-gradient(135deg,var(--color-cyan),var(--color-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="grimAge">--</div>
-              <div style="font-size:0.75rem;color:var(--color-text-muted)">anos epigenéticos</div>
-            </div>
-            <div class="stat-card" style="text-align:center">
-              <div style="font-size:0.75rem;color:var(--color-text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em">PhenoAge</div>
-              <div class="stat-card-value" style="font-size:2.5rem;background:linear-gradient(135deg,var(--color-cyan),var(--color-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="phenoAge">--</div>
-              <div style="font-size:0.75rem;color:var(--color-text-muted)">anos fenotípicos</div>
-            </div>
-          </div>
-
-          <div class="chart-card" style="margin-bottom:var(--space-xl)">
-            <div class="chart-title" style="margin-bottom:var(--space-xl)">Evolução da Idade Biológica</div>
-            <canvas id="bioAgeChart" height="200"></canvas>
-          </div>
-
-          <div class="chart-card">
-            <div class="chart-title" style="margin-bottom:var(--space-xl)">Metilação por Região Genômica</div>
-            <canvas id="methylationChart" height="200"></canvas>
-          </div>
-        </div>
-
-        <!-- ===========================
-             PAGE: PROTOCOL
-             =========================== -->
-        <div class="page" id="page-protocol">
-          <div style="margin-bottom:var(--space-xl)">
-            <h2 style="font-size:1.25rem;font-weight:700">Protocolo IA Personalizado</h2>
-            <p style="font-size:0.85rem;color:var(--color-text-muted)">Intervenções baseadas em seu perfil de biomarcadores</p>
-          </div>
-
-          <div id="protocolContent"></div>
-        </div>
-
-        <!-- ===========================
-             PAGE: INPUTS
-             =========================== -->
-        <div class="page" id="page-inputs">
-          <div style="margin-bottom:var(--space-xl)">
-            <h2 style="font-size:1.25rem;font-weight:700">Inserir Dados de Exame</h2>
-            <p style="font-size:0.85rem;color:var(--color-text-muted)">Adicione resultados de laboratório manualmente</p>
-          </div>
-
-          <div class="input-form-container">
-            <div id="inputAlertContainer"></div>
-            <div class="form-section">
-              <div class="form-section-title">Selecionar Biomarcador</div>
-              <div class="form-group">
-                <label class="form-label">Categoria</label>
-                <select class="form-select" id="bmCategory" onchange="updateBmOptions()">
-                  <option value="">Selecione a categoria...</option>
-                  <option value="metabolic">Metabólico</option>
-                  <option value="inflammatory">Inflamatório</option>
-                  <option value="hormonal">Hormonal</option>
-                  <option value="genetic">Genético/Epigenético</option>
-                  <option value="cardiovascular">Cardiovascular</option>
-                </select>
+        <div class="profile-grid">
+          <!-- Left: avatar & mini stats -->
+          <div>
+            <div class="card profile-avatar-section">
+              <div class="profile-avatar-big" id="profileAvatar">?</div>
+              <div class="profile-user-name" id="profileName">--</div>
+              <div class="profile-user-email" id="profileEmail">--</div>
+              <div style="margin-top:var(--space-sm)">
+                <span class="badge badge-info" id="profilePlan">Starter</span>
               </div>
-              <div class="form-group">
-                <label class="form-label">Biomarcador</label>
-                <select class="form-select" id="bmType">
-                  <option value="">Primeiro selecione uma categoria</option>
-                </select>
-              </div>
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label class="form-label">Valor</label>
-                  <input type="number" id="bmValue" class="form-input" placeholder="Ex: 89.5" step="0.01">
+              <div class="profile-stats-mini">
+                <div class="profile-stat-mini">
+                  <div class="profile-stat-mini-val" id="profileBioAge">--</div>
+                  <div class="profile-stat-mini-label">Bio Age</div>
                 </div>
-                <div class="form-group">
-                  <label class="form-label">Unidade</label>
-                  <input type="text" id="bmUnit" class="form-input" placeholder="Ex: mg/dL" readonly>
+                <div class="profile-stat-mini">
+                  <div class="profile-stat-mini-val" id="profileScore">--</div>
+                  <div class="profile-stat-mini-label">Score</div>
+                </div>
+                <div class="profile-stat-mini">
+                  <div class="profile-stat-mini-val" id="profileBmCount">--</div>
+                  <div class="profile-stat-mini-label">Exams</div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div>
+            <div class="profile-form-section">
+              <div class="profile-section-title">Personal Data</div>
+
               <div class="form-group">
-                <label class="form-label">Data do Exame</label>
-                <input type="date" id="bmDate" class="form-input" value="">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="profileNameInput" class="form-input">
               </div>
+
               <div class="form-group">
-                <label class="form-label">Observações (opcional)</label>
-                <input type="text" id="bmNotes" class="form-input" placeholder="Ex: Exame em jejum de 12h">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" id="profileBirthInput" class="form-input">
               </div>
-              <button class="btn btn-primary" onclick="saveBiomarker()">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M2 9L6 13L14 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                Salvar Resultado
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md)">
+                <div class="form-group">
+                  <label class="form-label">Height (cm)</label>
+                  <input type="number" id="profileHeightInput" class="form-input" placeholder="175">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Weight (kg)</label>
+                  <input type="number" id="profileWeightInput" class="form-input" placeholder="75">
+                </div>
+              </div>
+
+              <div class="profile-section-title" style="margin-top:var(--space-xl)">Lifestyle</div>
+
+              <div class="profile-slider-group">
+                <div class="profile-slider-label">
+                  <span>Sleep hours/night</span>
+                  <span class="profile-slider-val" id="profileSleepVal">7</span>
+                </div>
+                <input type="range" id="profileSleep" min="4" max="12" step="0.5" value="7"
+                  oninput="document.getElementById('profileSleepVal').textContent=this.value">
+              </div>
+
+              <div class="profile-slider-group">
+                <div class="profile-slider-label">
+                  <span>Exercise days/week</span>
+                  <span class="profile-slider-val" id="profileExerciseVal">3</span>
+                </div>
+                <input type="range" id="profileExercise" min="0" max="7" value="3"
+                  oninput="document.getElementById('profileExerciseVal').textContent=this.value">
+              </div>
+
+              <div class="profile-slider-group" style="margin-bottom:var(--space-xl)">
+                <div class="profile-slider-label">
+                  <span>Stress level (1–10)</span>
+                  <span class="profile-slider-val" id="profileStressVal">5</span>
+                </div>
+                <input type="range" id="profileStress" min="1" max="10" value="5"
+                  oninput="document.getElementById('profileStressVal').textContent=this.value">
+              </div>
+
+              <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+            </div>
+
+            <!-- Danger zone -->
+            <div class="danger-zone">
+              <div class="danger-zone-title">Danger Zone</div>
+              <p style="font-size:0.8rem;color:var(--t-secondary);margin-bottom:var(--space-md);">
+                Permanently delete your account and all associated data. This action cannot be undone.
+              </p>
+              <button class="btn btn-outline" style="border-color:rgba(149,82,82,0.4);color:var(--critical)" onclick="confirmDeleteAccount()">
+                Delete Account
               </button>
             </div>
-
-            <!-- Reference ranges -->
-            <div class="form-section" id="referenceCard" style="display:none">
-              <div class="form-section-title">Valores de Referência</div>
-              <div id="referenceContent"></div>
-            </div>
           </div>
         </div>
+      </div><!-- end page-profile -->
 
-        <!-- ===========================
-             PAGE: PROFILE
-             =========================== -->
-        <div class="page" id="page-profile">
-          <div style="margin-bottom:var(--space-xl)">
-            <h2 style="font-size:1.25rem;font-weight:700">Meu Perfil</h2>
-          </div>
-          <div class="profile-grid">
-            <div>
-              <div class="card profile-avatar-section">
-                <div class="profile-avatar-big" id="profileAvatar">?</div>
-                <div class="profile-user-name" id="profileName">--</div>
-                <div class="profile-user-email" id="profileEmail">--</div>
-                <div style="margin-top:12px">
-                  <span class="badge badge-info" id="profilePlan">Starter</span>
-                </div>
-                <div class="profile-stats-mini">
-                  <div class="profile-stat-mini">
-                    <div class="profile-stat-mini-val" id="profileBioAge">--</div>
-                    <div class="profile-stat-mini-label">Idade Bio.</div>
-                  </div>
-                  <div class="profile-stat-mini">
-                    <div class="profile-stat-mini-val" id="profileScore">--</div>
-                    <div class="profile-stat-mini-label">Score</div>
-                  </div>
-                  <div class="profile-stat-mini">
-                    <div class="profile-stat-mini-val" id="profileBmCount">--</div>
-                    <div class="profile-stat-mini-label">Exames</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    </div><!-- content-area -->
+  </main>
 
-            <div>
-              <div class="form-section">
-                <div class="form-section-title">Dados Pessoais</div>
-                <div class="form-grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Nome Completo</label>
-                    <input type="text" id="profileNameInput" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Data de Nascimento</label>
-                    <input type="date" id="profileBirthInput" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Altura (cm)</label>
-                    <input type="number" id="profileHeightInput" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Peso (kg)</label>
-                    <input type="number" id="profileWeightInput" class="form-input">
-                  </div>
-                </div>
-                <button class="btn btn-primary" onclick="saveProfile()">Salvar Alterações</button>
-              </div>
+</div><!-- app-layout -->
 
-              <div class="form-section">
-                <div class="form-section-title">Estilo de Vida</div>
-                <div class="form-group">
-                  <label class="form-label">Horas de Sono: <span id="profileSleepVal" class="text-cyan font-mono">7</span>h</label>
-                  <input type="range" id="profileSleep" min="4" max="12" value="7" step="0.5"
-                    oninput="document.getElementById('profileSleepVal').textContent=this.value">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Exercícios/Semana: <span id="profileExerciseVal" class="text-cyan font-mono">3</span>x</label>
-                  <input type="range" id="profileExercise" min="0" max="7" value="3"
-                    oninput="document.getElementById('profileExerciseVal').textContent=this.value">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Nível de Estresse: <span id="profileStressVal" class="text-cyan font-mono">5</span></label>
-                  <input type="range" id="profileStress" min="1" max="10" value="5"
-                    oninput="document.getElementById('profileStressVal').textContent=this.value">
-                </div>
-                <button class="btn btn-primary" onclick="saveProfile()">Salvar Estilo de Vida</button>
-              </div>
-
-              <div class="form-section" style="border-color:rgba(239,68,68,0.2)">
-                <div class="form-section-title" style="color:var(--color-red)">Zona de Perigo</div>
-                <p style="font-size:0.85rem;color:var(--color-text-muted);margin-bottom:var(--space-lg)">
-                  Estas ações não podem ser desfeitas. Tenha cuidado.
-                </p>
-                <div style="display:flex;gap:var(--space-md)">
-                  <button class="btn btn-outline" onclick="handleLogout()">
-                    Fazer Logout
-                  </button>
-                  <button class="btn btn-danger" onclick="confirmDeleteAccount()">
-                    Excluir Conta
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /content-area -->
-    </main>
-  </div><!-- /app-layout -->
-
-  <!-- TOAST CONTAINER -->
-  <div class="toast-container"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="../js/database.js"></script>
-  <script src="../js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="../js/database.js"></script>
+<script src="../js/dashboard.js"></script>
+<script>
+  // Patch chart colors to aurum system after dashboard.js loads
+  (function patchChartDefaults() {
+    if (typeof Chart === 'undefined') return;
+    Chart.defaults.color = '#878491';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    Chart.defaults.font.family = "'Space Grotesk', system-ui, sans-serif";
+  })();
+</script>
 </body>
 </html>

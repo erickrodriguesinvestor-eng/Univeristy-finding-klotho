@@ -3,245 +3,474 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar Conta — KlothoLab</title>
+  <title>Register — Eternal Health</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/auth.css">
+  <style>
+    body {
+      background: var(--void);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-xl);
+    }
+
+    .auth-wrap {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .auth-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--t-secondary);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color var(--dur-fast);
+      font-family: var(--f-mono);
+    }
+    .auth-back:hover { color: var(--aurum); }
+
+    .auth-panel {
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-lg);
+      padding: var(--space-xl);
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: var(--space-xl);
+      text-decoration: none;
+    }
+
+    .auth-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--aurum);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-serif);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--void);
+    }
+
+    .auth-logo-text {
+      font-family: var(--f-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--t-primary);
+    }
+
+    /* Step progress */
+    .step-progress {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: var(--space-xl);
+    }
+
+    .step-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--depth-3);
+      border: 1px solid var(--b-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--t-secondary);
+      flex-shrink: 0;
+      transition: all var(--dur-med) ease;
+    }
+
+    .step-dot.active {
+      background: var(--aurum-08);
+      border-color: var(--aurum-d);
+      color: var(--aurum);
+    }
+
+    .step-dot.done {
+      background: var(--aurum);
+      border-color: var(--aurum);
+      color: var(--void);
+    }
+
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: var(--b-dim);
+      transition: background var(--dur-med) ease;
+    }
+
+    .step-line.done { background: var(--aurum); opacity: 0.5; }
+
+    /* Form steps */
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    .step-heading {
+      font-family: var(--f-serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--t-primary);
+      margin-bottom: 4px;
+    }
+
+    .step-subhead {
+      font-size: 0.78rem;
+      color: var(--t-secondary);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Gender options */
+    .gender-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--depth-3);
+      border: 1px solid var(--b-dim);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--t-secondary);
+      transition: all var(--dur-fast) ease;
+      user-select: none;
+    }
+
+    .gender-option:hover {
+      border-color: var(--b-medium);
+      color: var(--t-primary);
+    }
+
+    .gender-option.selected {
+      border-color: var(--aurum-d);
+      background: var(--aurum-08);
+      color: var(--aurum);
+    }
+
+    .gender-option-icon {
+      font-size: 1rem;
+    }
+
+    /* Password strength */
+    .password-strength {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .strength-bars {
+      display: flex;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .strength-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--b-dim);
+      border-radius: 999px;
+      transition: background var(--dur-fast) ease;
+    }
+
+    .strength-bar.weak   { background: var(--critical); }
+    .strength-bar.medium { background: var(--caution); }
+    .strength-bar.strong { background: var(--optimal); }
+
+    .strength-label {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--t-secondary);
+      min-width: 60px;
+      text-align: right;
+    }
+
+    /* Bottom nav */
+    .step-nav {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .auth-footer-text {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--t-secondary);
+      margin-top: var(--space-lg);
+    }
+
+    .auth-terms {
+      font-size: 0.72rem;
+      color: var(--t-tertiary);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: var(--space-lg);
+    }
+
+    /* Range label */
+    .range-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: var(--t-secondary);
+    }
+
+    .range-val {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      color: var(--aurum);
+    }
+  </style>
 </head>
 <body>
-  <div class="auth-page">
-    <div class="auth-bg">
-      <div class="auth-bg-grid"></div>
-      <div class="auth-orb-1"></div>
-      <div class="auth-orb-2"></div>
-    </div>
+  <div class="auth-wrap">
+    <a href="../index.html" class="auth-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M9 3L4 7L9 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      Back to home
+    </a>
 
-    <div class="auth-container">
-      <a href="../index.html" class="auth-back">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        Voltar ao início
+    <div class="auth-panel">
+      <a href="../index.html" class="auth-logo">
+        <div class="auth-logo-mark">EH</div>
+        <span class="auth-logo-text">Eternal Health</span>
       </a>
 
-      <div class="auth-card">
-        <div class="auth-header">
-          <div class="auth-logo">
-            <svg class="auth-logo-icon" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="url(#regLogoGrad)" stroke-width="2"/>
-              <path d="M8 14 C8 10 11 7 14 7 C17 7 20 10 20 14" stroke="url(#regLogoGrad)" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="14" cy="17" r="3" fill="url(#regLogoGrad)"/>
-              <defs>
-                <linearGradient id="regLogoGrad" x1="0" y1="0" x2="28" y2="28">
-                  <stop stop-color="#00D4FF"/>
-                  <stop offset="1" stop-color="#7C3AED"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <span class="auth-logo-text">KlothoLab</span>
+      <!-- Step progress -->
+      <div class="step-progress">
+        <div class="step-dot active" id="step1Dot">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="step2Dot">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="step3Dot">3</div>
+      </div>
+
+      <div id="alertContainer"></div>
+
+      <form id="registerForm">
+
+        <!-- STEP 1: Account -->
+        <div class="form-step active" id="step1">
+          <h2 class="step-heading">Create Account</h2>
+          <p class="step-subhead">Set up your access credentials</p>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="4.5" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M2 13C2 10.24 4.24 8 7 8C9.76 8 12 10.24 12 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+            </div>
           </div>
-          <h1 class="auth-title">Iniciar sua jornada</h1>
-          <p class="auth-subtitle">Crie sua conta e descubra sua idade biológica</p>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 3.5L7 8L12 3.5M2 3.5H12V11H2V3.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="2.5" y="6.5" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4.5 6.5V4.5C4.5 3.12 5.62 2 7 2C8.38 2 9.5 3.12 9.5 4.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              <input type="password" id="password" class="form-input" placeholder="Min. 8 characters"
+                oninput="checkPasswordStrength(this.value)">
+              <button type="button" class="input-toggle" onclick="togglePassword('password')">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7C1 7 3 3 7 3C11 3 13 7 13 7C13 7 11 11 7 11C3 11 1 7 1 7Z" stroke="currentColor" stroke-width="1.2"/>
+                  <circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/>
+                </svg>
+              </button>
+            </div>
+            <div class="password-strength mt-sm">
+              <div class="strength-bars">
+                <div class="strength-bar" id="sbar1"></div>
+                <div class="strength-bar" id="sbar2"></div>
+                <div class="strength-bar" id="sbar3"></div>
+                <div class="strength-bar" id="sbar4"></div>
+              </div>
+              <span class="strength-label" id="strengthLabel">Enter password</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="2.5" y="6.5" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4.5 6.5V4.5C4.5 3.12 5.62 2 7 2C8.38 2 9.5 3.12 9.5 4.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              <input type="password" id="passwordConfirm" class="form-input" placeholder="Repeat password">
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-full btn-large" onclick="nextStep(1)">
+            Continue
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 7H11M7 3L11 7L7 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
 
-        <!-- Step Progress -->
-        <div class="step-progress">
-          <div class="step-dot active" id="step1Dot">1</div>
-          <div class="step-line" id="line1"></div>
-          <div class="step-dot" id="step2Dot">2</div>
-          <div class="step-line" id="line2"></div>
-          <div class="step-dot" id="step3Dot">3</div>
-        </div>
+        <!-- STEP 2: Biology -->
+        <div class="form-step" id="step2">
+          <h2 class="step-heading">Your Biology</h2>
+          <p class="step-subhead">Required to calculate your biological age</p>
 
-        <div id="alertContainer"></div>
+          <div class="form-group">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" id="birthDate" class="form-input" required max="2006-01-01" min="1930-01-01">
+          </div>
 
-        <form id="registerForm">
-          <!-- STEP 1: Account -->
-          <div class="form-step active" id="step1">
-            <div style="margin-bottom:var(--space-xl)">
-              <h3 style="font-size:1rem;margin-bottom:4px">Dados de Acesso</h3>
-              <p style="font-size:0.82rem;color:var(--color-text-muted)">Crie suas credenciais</p>
+          <div class="form-group">
+            <label class="form-label">Biological Sex</label>
+            <div class="gender-options">
+              <div class="gender-option" onclick="selectGender('male', this)">
+                <span class="gender-option-icon">♂</span>
+                Male
+              </div>
+              <div class="gender-option" onclick="selectGender('female', this)">
+                <span class="gender-option-icon">♀</span>
+                Female
+              </div>
             </div>
+            <input type="hidden" id="gender" value="">
+          </div>
 
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md)">
             <div class="form-group">
-              <label class="form-label">Nome Completo</label>
-              <div class="input-wrapper">
-                <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/>
-                  <path d="M2 14C2 11.24 4.69 9 8 9C11.31 9 14 11.24 14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
-                <input type="text" id="name" class="form-input" placeholder="Dr. João Silva" required>
-              </div>
+              <label class="form-label">Height (cm)</label>
+              <input type="number" id="height" class="form-input" placeholder="175" min="130" max="220">
             </div>
-
             <div class="form-group">
-              <label class="form-label">Email</label>
-              <div class="input-wrapper">
-                <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M2 4L8 9L14 4M2 4H14V13H2V4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
-              </div>
+              <label class="form-label">Weight (kg)</label>
+              <input type="number" id="weight" class="form-input" placeholder="75" min="30" max="300">
             </div>
+          </div>
 
-            <div class="form-group">
-              <label class="form-label">Senha</label>
-              <div class="input-wrapper">
-                <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-                  <path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
-                <input type="password" id="password" class="form-input" placeholder="Mínimo 8 caracteres" id="password" oninput="checkPasswordStrength(this.value)">
-                <button type="button" class="input-toggle" onclick="togglePassword('password')">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.3"/>
-                    <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/>
-                  </svg>
-                </button>
-              </div>
-              <div class="password-strength mt-sm">
-                <div class="strength-bars">
-                  <div class="strength-bar" id="sbar1"></div>
-                  <div class="strength-bar" id="sbar2"></div>
-                  <div class="strength-bar" id="sbar3"></div>
-                  <div class="strength-bar" id="sbar4"></div>
-                </div>
-                <span class="strength-label" id="strengthLabel">Digite uma senha</span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Confirmar Senha</label>
-              <div class="input-wrapper">
-                <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-                  <path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
-                <input type="password" id="passwordConfirm" class="form-input" placeholder="Repita a senha">
-              </div>
-            </div>
-
-            <button type="button" class="btn btn-primary btn-full" onclick="nextStep(1)">
-              Continuar
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <div class="step-nav">
+            <button type="button" class="btn btn-outline" onclick="prevStep(2)" style="flex-shrink:0;padding:13px 16px">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M11 7H3M7 11L3 7L7 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button type="button" class="btn btn-primary btn-full btn-large" onclick="nextStep(2)">
+              Continue
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7H11M7 3L11 7L7 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
+        </div>
 
-          <!-- STEP 2: Personal Data -->
-          <div class="form-step" id="step2">
-            <div style="margin-bottom:var(--space-xl)">
-              <h3 style="font-size:1rem;margin-bottom:4px">Dados Pessoais</h3>
-              <p style="font-size:0.82rem;color:var(--color-text-muted)">Para calcular sua idade biológica</p>
-            </div>
+        <!-- STEP 3: Lifestyle -->
+        <div class="form-step" id="step3">
+          <h2 class="step-heading">Lifestyle</h2>
+          <p class="step-subhead">To personalize your protocol</p>
 
-            <div class="form-group">
-              <label class="form-label">Data de Nascimento</label>
-              <input type="date" id="birthDate" class="form-input" required max="2006-01-01" min="1930-01-01">
+          <div class="form-group">
+            <div class="range-label">
+              <span>Sleep hours/night</span>
+              <span class="range-val" id="sleepVal">7</span>
             </div>
-
-            <div class="form-group">
-              <label class="form-label">Sexo Biológico</label>
-              <div class="gender-options">
-                <div class="gender-option" onclick="selectGender('male', this)">
-                  <span class="gender-option-icon">♂</span>
-                  Masculino
-                </div>
-                <div class="gender-option" onclick="selectGender('female', this)">
-                  <span class="gender-option-icon">♀</span>
-                  Feminino
-                </div>
-              </div>
-              <input type="hidden" id="gender" value="">
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-              <div class="form-group">
-                <label class="form-label">Altura (cm)</label>
-                <input type="number" id="height" class="form-input" placeholder="175" min="130" max="220">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Peso (kg)</label>
-                <input type="number" id="weight" class="form-input" placeholder="75" min="30" max="300">
-              </div>
-            </div>
-
-            <div style="display:flex;gap:12px">
-              <button type="button" class="btn btn-outline" onclick="prevStep(2)" style="flex:0">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M13 8H3M7 12L3 8L7 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </button>
-              <button type="button" class="btn btn-primary btn-full" onclick="nextStep(2)">
-                Continuar
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </button>
-            </div>
+            <input type="range" id="sleepHours" min="4" max="12" value="7" step="0.5"
+              oninput="document.getElementById('sleepVal').textContent=this.value">
           </div>
 
-          <!-- STEP 3: Lifestyle -->
-          <div class="form-step" id="step3">
-            <div style="margin-bottom:var(--space-xl)">
-              <h3 style="font-size:1rem;margin-bottom:4px">Estilo de Vida</h3>
-              <p style="font-size:0.82rem;color:var(--color-text-muted)">Para personalizar seu protocolo</p>
+          <div class="form-group">
+            <div class="range-label">
+              <span>Exercise days/week</span>
+              <span class="range-val" id="exerciseVal">3</span>
             </div>
-
-            <div class="form-group">
-              <label class="form-label">Horas de sono por noite: <span id="sleepVal" class="text-cyan font-mono">7</span>h</label>
-              <input type="range" id="sleepHours" min="4" max="12" value="7" step="0.5" oninput="document.getElementById('sleepVal').textContent=this.value">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Exercícios por semana: <span id="exerciseVal" class="text-cyan font-mono">3</span>x</label>
-              <input type="range" id="exerciseDays" min="0" max="7" value="3" oninput="document.getElementById('exerciseVal').textContent=this.value">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Nível de estresse (1-10): <span id="stressVal" class="text-cyan font-mono">5</span></label>
-              <input type="range" id="stressLevel" min="1" max="10" value="5" oninput="document.getElementById('stressVal').textContent=this.value">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Tipo de Dieta</label>
-              <select id="diet" class="form-select">
-                <option value="balanced">Balanceada</option>
-                <option value="mediterranean">Mediterrânea</option>
-                <option value="paleo">Paleo / Cetogênica</option>
-                <option value="vegetarian">Vegetariana</option>
-                <option value="vegan">Vegana</option>
-                <option value="carnivore">Carnívora</option>
-                <option value="other">Outra</option>
-              </select>
-            </div>
-
-            <div style="display:flex;gap:12px">
-              <button type="button" class="btn btn-outline" onclick="prevStep(3)" style="flex:0">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M13 8H3M7 12L3 8L7 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </button>
-              <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-                <span id="btnText">🧬 Criar Conta & Iniciar Análise</span>
-                <div id="btnSpinner" class="spinner hidden"></div>
-              </button>
-            </div>
+            <input type="range" id="exerciseDays" min="0" max="7" value="3"
+              oninput="document.getElementById('exerciseVal').textContent=this.value">
           </div>
-        </form>
 
-        <p class="auth-terms">
-          Ao criar sua conta, você concorda com os nossos
-          <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
-          Seus dados de saúde são protegidos por criptografia.
-        </p>
+          <div class="form-group">
+            <div class="range-label">
+              <span>Stress level (1–10)</span>
+              <span class="range-val" id="stressVal">5</span>
+            </div>
+            <input type="range" id="stressLevel" min="1" max="10" value="5"
+              oninput="document.getElementById('stressVal').textContent=this.value">
+          </div>
 
-        <p class="auth-footer-text">
-          Já tem uma conta? <a href="login.html">Entrar</a>
-        </p>
-      </div>
+          <div class="form-group">
+            <label class="form-label">Diet Type</label>
+            <select id="diet" class="form-select">
+              <option value="balanced">Balanced</option>
+              <option value="mediterranean">Mediterranean</option>
+              <option value="paleo">Paleo / Keto</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="carnivore">Carnivore</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-outline" onclick="prevStep(3)" style="flex-shrink:0;padding:13px 16px">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M11 7H3M7 11L3 7L7 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button type="submit" class="btn btn-primary btn-full btn-large" id="submitBtn">
+              <span id="btnText">Initialize System →</span>
+              <div id="btnSpinner" class="spinner hidden"></div>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <p class="auth-terms">
+        By creating your account you agree to our
+        <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+        Your health data is encrypted and never shared.
+      </p>
+
+      <p class="auth-footer-text">
+        Already have an account? <a href="login.html">Sign in</a>
+      </p>
     </div>
   </div>
 
@@ -269,51 +498,48 @@
     }
 
     function checkPasswordStrength(pass) {
-      const bars = [1,2,3,4].map(i => document.getElementById('sbar'+i));
+      const bars  = [1,2,3,4].map(i => document.getElementById('sbar'+i));
       const label = document.getElementById('strengthLabel');
 
       let score = 0;
-      if (pass.length >= 8) score++;
+      if (pass.length >= 8)  score++;
       if (pass.length >= 12) score++;
       if (/[A-Z]/.test(pass) && /[a-z]/.test(pass)) score++;
       if (/[0-9]/.test(pass)) score++;
       if (/[^A-Za-z0-9]/.test(pass)) score++;
-
       score = Math.min(score, 4);
 
       const levels = ['', 'weak', 'weak', 'medium', 'strong'];
-      const labels = ['', 'Fraca', 'Fraca', 'Média', 'Forte'];
-      const colors = { weak: 'var(--color-red)', medium: 'var(--color-orange)', strong: 'var(--color-green)' };
+      const labels = ['', 'Weak', 'Weak', 'Medium', 'Strong'];
+      const colors = { weak: 'var(--critical)', medium: 'var(--caution)', strong: 'var(--optimal)' };
 
       bars.forEach((bar, i) => {
         bar.className = 'strength-bar';
         if (i < score && levels[score]) bar.classList.add(levels[score]);
       });
 
-      label.textContent = score > 0 ? `Senha ${labels[score]}` : 'Digite uma senha';
-      label.style.color = colors[levels[score]] || 'var(--color-text-muted)';
+      label.textContent = score > 0 ? labels[score] : 'Enter password';
+      label.style.color = colors[levels[score]] || 'var(--t-secondary)';
     }
 
     function nextStep(from) {
-      const alertContainer = document.getElementById('alertContainer');
-      alertContainer.innerHTML = '';
+      document.getElementById('alertContainer').innerHTML = '';
 
       if (from === 1) {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const pass = document.getElementById('password').value;
+        const name    = document.getElementById('name').value.trim();
+        const email   = document.getElementById('email').value.trim();
+        const pass    = document.getElementById('password').value;
         const confirm = document.getElementById('passwordConfirm').value;
 
-        if (!name) return alert('Por favor, insira seu nome.');
-        if (!email || !email.includes('@')) return showError('Email inválido.');
-        if (pass.length < 8) return showError('A senha deve ter pelo menos 8 caracteres.');
-        if (pass !== confirm) return showError('As senhas não coincidem.');
+        if (!name) return showError('Please enter your name.');
+        if (!email || !email.includes('@')) return showError('Invalid email address.');
+        if (pass.length < 8) return showError('Password must be at least 8 characters.');
+        if (pass !== confirm) return showError('Passwords do not match.');
       }
 
       if (from === 2) {
-        const birthDate = document.getElementById('birthDate').value;
-        if (!birthDate) return showError('Por favor, selecione sua data de nascimento.');
-        if (!selectedGender) return showError('Por favor, selecione seu sexo biológico.');
+        if (!document.getElementById('birthDate').value) return showError('Please select your date of birth.');
+        if (!selectedGender) return showError('Please select your biological sex.');
       }
 
       document.getElementById('step' + from).classList.remove('active');
@@ -333,7 +559,7 @@
       for (let i = 1; i <= 3; i++) {
         const dot = document.getElementById('step' + i + 'Dot');
         dot.className = 'step-dot';
-        if (i < active) dot.classList.add('done');
+        if (i < active)      dot.classList.add('done');
         else if (i === active) dot.classList.add('active');
       }
       for (let i = 1; i <= 2; i++) {
@@ -350,31 +576,29 @@
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = document.getElementById('submitBtn');
+      const btn     = document.getElementById('submitBtn');
       const btnText = document.getElementById('btnText');
       const spinner = document.getElementById('btnSpinner');
 
       btn.disabled = true;
-      btnText.textContent = 'Criando conta...';
+      btnText.textContent = 'Initializing...';
       spinner.classList.remove('hidden');
 
       try {
         await KlothoAuth.register({
-          name: document.getElementById('name').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          password: document.getElementById('password').value,
+          name:      document.getElementById('name').value.trim(),
+          email:     document.getElementById('email').value.trim(),
+          password:  document.getElementById('password').value,
           birthDate: document.getElementById('birthDate').value,
-          gender: selectedGender,
-          height: document.getElementById('height').value || null,
-          weight: document.getElementById('weight').value || null,
+          gender:    selectedGender,
+          height:    document.getElementById('height').value || null,
+          weight:    document.getElementById('weight').value || null,
         });
-
-        // Update lifestyle data
         window.location.href = 'dashboard.html';
       } catch (err) {
         showError(err.message);
         btn.disabled = false;
-        btnText.innerHTML = '🧬 Criar Conta & Iniciar Análise';
+        btnText.textContent = 'Initialize System →';
         spinner.classList.add('hidden');
       }
     });
