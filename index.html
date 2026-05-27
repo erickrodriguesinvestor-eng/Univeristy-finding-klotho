@@ -3,332 +3,409 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KlothoLab — Plataforma de Longevidade & Medicina de Precisão</title>
-  <meta name="description" content="KlothoLab — Plataforma avançada de longevidade com análise epigenética, biomarcadores e medicina de precisão personalizada.">
+  <title>Eternal Health — Biological Operating System</title>
+  <meta name="description" content="Eternal Health — The most precise longevity platform ever built for the human body. Epigenetic analysis, biomarker intelligence, AI protocols.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="mainNav">
-    <div class="nav-container">
-      <a href="index.html" class="logo">
-        <div class="logo-icon">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="13" stroke="url(#logoGrad)" stroke-width="2"/>
-            <path d="M8 14 C8 10 11 7 14 7 C17 7 20 10 20 14" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="14" cy="17" r="3" fill="url(#logoGrad)"/>
-            <defs>
-              <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
-                <stop stop-color="#00D4FF"/>
-                <stop offset="1" stop-color="#7C3AED"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <span class="logo-text">KlothoLab</span>
+  <!-- COMMAND BAR -->
+  <nav class="command-bar" id="commandBar">
+    <div class="command-bar-inner">
+      <a href="index.html" class="cb-logo">
+        <div class="cb-logo-mark">EH</div>
+        <span class="cb-logo-wordmark">Eternal Health</span>
       </a>
-      <div class="nav-links">
-        <a href="#platform">Plataforma</a>
-        <a href="#science">Ciência</a>
-        <a href="#biomarkers">Biomarcadores</a>
-        <a href="#pricing">Planos</a>
+
+      <div class="cb-links">
+        <a href="#system">System</a>
+        <a href="#science">Science</a>
+        <a href="#protocols">Protocols</a>
+        <a href="#plans">Plans</a>
       </div>
-      <div class="nav-actions">
-        <a href="pages/login.html" class="btn btn-ghost">Entrar</a>
-        <a href="pages/register.html" class="btn btn-primary">Começar Agora</a>
+
+      <div class="cb-actions">
+        <a href="pages/login.html" class="cb-signin">Sign In</a>
+        <a href="pages/register.html" class="cb-begin">Begin →</a>
       </div>
-      <button class="nav-toggle" id="navToggle">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-orb orb-1"></div>
-      <div class="hero-orb orb-2"></div>
-      <div class="hero-orb orb-3"></div>
-    </div>
-    <div class="container">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Análise Epigenética Avançada · Powered by AI
-      </div>
-      <h1 class="hero-title">
-        Decodifique sua<br>
-        <span class="gradient-text">Idade Biológica</span><br>
-        em tempo real
-      </h1>
-      <p class="hero-subtitle">
-        Plataforma de medicina de precisão que combina análise epigenética,
-        biomarcadores avançados e inteligência artificial para personalizar
-        seu protocolo de longevidade.
-      </p>
-      <div class="hero-actions">
-        <a href="pages/register.html" class="btn btn-primary btn-large">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 2L18 10L10 18M2 10H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Iniciar Análise Gratuita
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <div class="hero-inner">
+      <!-- LEFT: editorial -->
+      <div class="hero-left">
+        <div class="hero-eyebrow">Biological Operating System &middot; v2.0</div>
+
+        <h1 class="hero-title">
+          <span class="hero-title-eternal">ETERNAL</span>
+          <span class="hero-title-health">Health</span>
+        </h1>
+
+        <div class="hero-rule" id="heroRule"></div>
+
+        <p class="hero-tagline">
+          The most precise longevity platform ever built for the human body.
+        </p>
+
+        <a href="pages/register.html" class="hero-cta">
+          Begin Analysis
+          <span class="hero-cta-arrow">→</span>
         </a>
-        <a href="#platform" class="btn btn-outline btn-large">Ver Demo</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-value" data-count="12400">0</span>
-          <span class="stat-label">Usuários Ativos</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value" data-count="847">0</span>
-          <span class="stat-label">Biomarcadores Rastreados</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value" data-count="98">0</span><span class="stat-suffix">%</span>
-          <span class="stat-label">Precisão Diagnóstica</span>
-        </div>
-      </div>
-    </div>
-    <!-- Floating dashboard preview -->
-    <div class="hero-preview">
-      <div class="preview-card glass">
-        <div class="preview-header">
-          <span class="preview-dot green"></span>
-          <span>Idade Biológica · Tempo Real</span>
-        </div>
-        <div class="preview-age">
-          <span class="age-number">31.4</span>
-          <span class="age-unit">anos</span>
-          <span class="age-delta positive">▼ 6.6 anos</span>
-        </div>
-        <div class="preview-bar">
-          <div class="preview-bar-fill" style="width:72%"></div>
-        </div>
-        <div class="preview-metrics">
-          <div class="metric-chip"><span class="dot cyan"></span> Epigenética</div>
-          <div class="metric-chip"><span class="dot purple"></span> Telômeros</div>
-          <div class="metric-chip"><span class="dot green"></span> Inflamação</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PLATFORM SECTION -->
-  <section class="section" id="platform">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Plataforma</div>
-        <h2>Tudo que você precisa para<br><span class="gradient-text">otimizar sua longevidade</span></h2>
-        <p>Da coleta de dados ao protocolo personalizado — tudo em um só lugar</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card glass">
-          <div class="feature-icon icon-cyan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M9 3H5C3.9 3 3 3.9 3 5V9M9 21H5C3.9 21 3 20.1 3 19V15M21 9V5C21 3.9 20.1 3 19 3H15M21 15V19C21 20.1 20.1 21 19 21H15M12 8V16M8 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+      <!-- RIGHT: biological age instrument panel -->
+      <div class="hero-instrument">
+        <div class="instrument-header">
+          <span class="instrument-label">BIO-AGE READOUT · SYSTEM-01</span>
+          <div class="instrument-status">
+            <div class="instrument-status-dot"></div>
+            CALIBRATED
           </div>
-          <h3>Análise Epigenética</h3>
-          <p>Relógio de metilação do DNA com algoritmos Horvath, GrimAge e PhenoAge para calcular sua idade biológica com precisão clínica.</p>
         </div>
-        <div class="feature-card glass">
-          <div class="feature-icon icon-purple">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M12 2V6M12 18V22M2 12H6M18 12H22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M19.07 4.93L16.24 7.76M7.76 16.24L4.93 19.07" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Dashboard de Biomarcadores</h3>
-          <p>Rastreamento em tempo real de +200 biomarcadores: glicose, inflamação, hormônios, marcadores de senescência celular.</p>
-        </div>
-        <div class="feature-card glass">
-          <div class="feature-icon icon-green">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 3V21L7 17L11 20L15 16L19 18L21 15V3H3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M7 13L11 9L14 12L18 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3>Protocolo Personalizado</h3>
-          <p>IA analisa seu perfil genético, estilo de vida e biomarcadores para criar um protocolo de suplementação e intervenções específico.</p>
-        </div>
-        <div class="feature-card glass">
-          <div class="feature-icon icon-orange">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 13.47 8 14.74V17C8 17.55 8.45 18 9 18H15C15.55 18 16 17.55 16 17V14.74C17.81 13.47 19 11.38 19 9C19 5.13 15.87 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M9 21H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Score de Longevidade</h3>
-          <p>Algoritmo proprietário que combina 9 hallmarks of aging para gerar seu KlothoScore — índice preditivo de longevidade saudável.</p>
-        </div>
-        <div class="feature-card glass">
-          <div class="feature-icon icon-cyan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22Z" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3>Rastreamento Longitudinal</h3>
-          <p>Histórico completo de todos os seus exames e biomarcadores. Veja a evolução temporal e o impacto real das intervenções.</p>
-        </div>
-        <div class="feature-card glass">
-          <div class="feature-icon icon-purple">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M17 21V19C17 17.9 16.1 17 15 17H5C3.9 17 3 17.9 3 19V21M9 11C11.21 11 13 9.21 13 7C13 4.79 11.21 3 9 3C6.79 3 5 4.79 5 7C5 9.21 6.79 11 9 11ZM23 21V19C23 17.9 22.1 17 21 17H18M18 3C19.66 3.34 21 4.77 21 7C21 9.23 19.66 10.66 18 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3>Comunidade Científica</h3>
-          <p>Acesso a pesquisadores, médicos especialistas em longevidade e protocolos baseados nas mais recentes publicações científicas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- SCIENCE SECTION -->
-  <section class="section section-dark" id="science">
-    <div class="container">
-      <div class="science-grid">
-        <div class="science-content">
-          <div class="section-badge">Ciência</div>
-          <h2>Baseado nos 9<br><span class="gradient-text">Hallmarks of Aging</span></h2>
-          <p>Nossa plataforma mapeia todos os marcadores descritos por López-Otín et al. para uma avaliação completa do envelhecimento celular.</p>
-          <div class="hallmarks-list">
-            <div class="hallmark-item"><span class="hallmark-num">01</span> Instabilidade Genômica</div>
-            <div class="hallmark-item"><span class="hallmark-num">02</span> Desgaste de Telômeros</div>
-            <div class="hallmark-item"><span class="hallmark-num">03</span> Alterações Epigenéticas</div>
-            <div class="hallmark-item"><span class="hallmark-num">04</span> Perda de Proteostase</div>
-            <div class="hallmark-item"><span class="hallmark-num">05</span> Desregulação Nutricional</div>
-            <div class="hallmark-item"><span class="hallmark-num">06</span> Disfunção Mitocondrial</div>
-            <div class="hallmark-item"><span class="hallmark-num">07</span> Senescência Celular</div>
-            <div class="hallmark-item"><span class="hallmark-num">08</span> Exaustão de Células-Tronco</div>
-            <div class="hallmark-item"><span class="hallmark-num">09</span> Comunicação Intercelular</div>
+        <div class="instrument-body">
+          <!-- Main bio age display -->
+          <div class="bio-age-focal">
+            <div class="baf-main">
+              <div class="baf-label">Bio Age</div>
+              <div class="baf-value">31.4</div>
+            </div>
+            <div class="baf-unit">yr</div>
+            <div class="baf-vs">vs</div>
+            <div class="baf-chrono">
+              <div class="baf-chrono-label">Chrono</div>
+              <div class="baf-chrono-val">38</div>
+            </div>
+            <div class="baf-delta">▼ −6.6yr</div>
           </div>
-          <a href="pages/register.html" class="btn btn-primary">Analisar Meus Marcadores</a>
-        </div>
-        <div class="science-visual">
-          <div class="radar-container">
-            <canvas id="scienceRadar" width="400" height="400"></canvas>
+
+          <!-- Epigenetic clock sub-readings -->
+          <div class="clock-readings">
+            <div class="clock-row">
+              <span class="clock-name">Horvath</span>
+              <div class="clock-bar-wrap">
+                <div class="clock-bar-fill" data-width="78" style="width:0%"></div>
+              </div>
+              <span class="clock-val">30.8</span>
+            </div>
+            <div class="clock-row">
+              <span class="clock-name">GrimAge</span>
+              <div class="clock-bar-wrap">
+                <div class="clock-bar-fill" data-width="82" style="width:0%"></div>
+              </div>
+              <span class="clock-val">32.1</span>
+            </div>
+            <div class="clock-row">
+              <span class="clock-name">PhenoAge</span>
+              <div class="clock-bar-wrap">
+                <div class="clock-bar-fill" data-width="74" style="width:0%"></div>
+              </div>
+              <span class="clock-val">31.2</span>
+            </div>
+            <div class="clock-row">
+              <span class="clock-name">DunedinPACE</span>
+              <div class="clock-bar-wrap">
+                <div class="clock-bar-fill" data-width="70" style="width:0%"></div>
+              </div>
+              <span class="clock-val">0.82</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BIOMARKERS -->
-  <section class="section" id="biomarkers">
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="manifesto-inner">
+      <p class="manifesto-text">
+        We built the most advanced longevity system ever conceived.
+        Not for the sick. For those who <em>refuse to accept</em>
+        the inevitable decline.
+      </p>
+    </div>
+  </section>
+
+  <!-- VITAL SIGNS -->
+  <section class="vital-signs">
     <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Biomarcadores</div>
-        <h2>Rastreamento de <span class="gradient-text">+200 Biomarcadores</span></h2>
-        <p>Monitoramento clínico-grade de todos os marcadores que importam para longevidade</p>
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Vital Readouts</span>
       </div>
-      <div class="biomarkers-tabs">
-        <button class="tab-btn active" data-tab="metabolic">Metabólico</button>
-        <button class="tab-btn" data-tab="hormonal">Hormonal</button>
-        <button class="tab-btn" data-tab="inflammatory">Inflamação</button>
-        <button class="tab-btn" data-tab="genetic">Genético</button>
-      </div>
-      <div class="biomarkers-grid" id="biomarkersGrid">
-        <!-- Rendered by JS -->
+      <h2 class="section-heading">Key Instrument Signals</h2>
+
+      <div class="vitals-grid">
+        <div class="vital-card">
+          <div class="vital-id">SIG-001 · BIO-AGE</div>
+          <div class="vital-name">Bio Age Delta</div>
+          <div class="vital-value">−6.2</div>
+          <div class="vital-unit">yr younger</div>
+          <div class="vital-status">
+            <div class="vital-status-dot"></div>
+            Optimal
+          </div>
+        </div>
+
+        <div class="vital-card">
+          <div class="vital-id">SIG-002 · SCORE</div>
+          <div class="vital-name">Klotho Score</div>
+          <div class="vital-value">82.4</div>
+          <div class="vital-unit">/ 100</div>
+          <div class="vital-status">
+            <div class="vital-status-dot"></div>
+            Optimal
+          </div>
+        </div>
+
+        <div class="vital-card">
+          <div class="vital-id">SIG-003 · INFLM</div>
+          <div class="vital-name">PCR-us</div>
+          <div class="vital-value">0.8</div>
+          <div class="vital-unit">mg/L</div>
+          <div class="vital-status">
+            <div class="vital-status-dot"></div>
+            Optimal
+          </div>
+        </div>
+
+        <div class="vital-card">
+          <div class="vital-id">SIG-004 · GENE</div>
+          <div class="vital-name">Telomere</div>
+          <div class="vital-value">7.2</div>
+          <div class="vital-unit">kb</div>
+          <div class="vital-status">
+            <div class="vital-status-dot"></div>
+            Optimal
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section class="section section-dark" id="pricing">
+  <!-- THE NINE — Hallmarks of Aging -->
+  <section class="the-nine" id="science">
     <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Planos</div>
-        <h2>Invista na sua <span class="gradient-text">Longevidade</span></h2>
-        <p>Planos flexíveis para cada estágio da sua jornada de saúde</p>
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">López-Otín et al. · Cell 2013</span>
       </div>
-      <div class="pricing-grid">
-        <div class="pricing-card glass">
-          <div class="pricing-tier">Starter</div>
-          <div class="pricing-price">
-            <span class="price-currency">R$</span>
-            <span class="price-value">0</span>
-            <span class="price-period">/mês</span>
+      <h2 class="section-heading">The Nine Hallmarks</h2>
+
+      <div class="nine-grid">
+        <div class="nine-cell">
+          <div class="nine-num">01</div>
+          <div class="nine-name">Genomic Instability</div>
+          <div class="nine-desc">Accumulation of DNA damage and somatic mutations across time</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">02</div>
+          <div class="nine-name">Telomere Attrition</div>
+          <div class="nine-desc">Progressive shortening of chromosomal end-caps with each division</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">03</div>
+          <div class="nine-name">Epigenetic Alterations</div>
+          <div class="nine-desc">Drift in DNA methylation patterns and chromatin architecture</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">04</div>
+          <div class="nine-name">Loss of Proteostasis</div>
+          <div class="nine-desc">Failure of protein quality control systems and chaperone networks</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">05</div>
+          <div class="nine-name">Nutrient Sensing Deregulation</div>
+          <div class="nine-desc">Dysregulation of mTOR, AMPK and insulin/IGF-1 signaling axes</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">06</div>
+          <div class="nine-name">Mitochondrial Dysfunction</div>
+          <div class="nine-desc">Decline in biogenesis, ETC efficiency and mitophagy fidelity</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">07</div>
+          <div class="nine-name">Cellular Senescence</div>
+          <div class="nine-desc">SASP-secreting cells arrested in permanent growth inhibition</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">08</div>
+          <div class="nine-name">Stem Cell Exhaustion</div>
+          <div class="nine-desc">Diminished regenerative capacity across all major tissue types</div>
+          <div class="nine-dot"></div>
+        </div>
+        <div class="nine-cell">
+          <div class="nine-num">09</div>
+          <div class="nine-name">Altered Intercellular Communication</div>
+          <div class="nine-desc">Inflammaging and disrupted paracrine/endocrine signaling networks</div>
+          <div class="nine-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE SYSTEM -->
+  <section class="the-system" id="system">
+    <div class="container">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Platform Architecture</span>
+      </div>
+      <h2 class="section-heading">The System</h2>
+
+      <div class="system-grid">
+        <div class="system-card">
+          <div class="system-num">MODULE-01 · EPIGENETICS</div>
+          <div class="system-name">Epigenetic Analysis</div>
+          <div class="system-rule"></div>
+          <p class="system-desc">
+            Multi-clock DNA methylation analysis using Horvath, GrimAge, PhenoAge and DunedinPACE algorithms. Sub-year precision biological age readout, calibrated against population cohorts of 15,000+.
+          </p>
+        </div>
+
+        <div class="system-card">
+          <div class="system-num">MODULE-02 · BIOMARKERS</div>
+          <div class="system-name">Biomarker Intelligence</div>
+          <div class="system-rule"></div>
+          <p class="system-desc">
+            Real-time tracking of 200+ biomarkers across metabolic, inflammatory, hormonal, genetic and cardiovascular panels. Every result interpreted against your biological age trajectory, not population averages.
+          </p>
+        </div>
+
+        <div class="system-card">
+          <div class="system-num">MODULE-03 · PROTOCOLS</div>
+          <div class="system-name">AI Protocol Engine</div>
+          <div class="system-rule"></div>
+          <p class="system-desc">
+            Personalized intervention stacks generated from your unique biomarker signature. Supplementation, lifestyle, pharmaceutical and metabolic interventions — all calibrated to your Hallmark scores.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIOMARKERS TAB SECTION -->
+  <section class="bm-tabs-section" id="protocols">
+    <div class="container">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Biomarker Coverage</span>
+      </div>
+      <h2 class="section-heading">200+ Biomarkers Tracked</h2>
+
+      <div class="bm-tabs">
+        <button class="bm-tab active" data-panel="metabolic">Metabolic</button>
+        <button class="bm-tab" data-panel="hormonal">Hormonal</button>
+        <button class="bm-tab" data-panel="inflammatory">Inflammation</button>
+        <button class="bm-tab" data-panel="genetic">Genetic</button>
+      </div>
+
+      <div class="bm-tab-grid" id="bmTabGrid">
+        <!-- Rendered by landing.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SCIENCE / RADAR -->
+  <section class="science-section">
+    <div class="science-inner">
+      <div>
+        <div class="section-eyebrow">
+          <div class="section-eyebrow-line"></div>
+          <span class="section-eyebrow-text">Multi-dimensional Analysis</span>
+        </div>
+        <h2 class="section-heading">Your Biological Profile</h2>
+        <p style="font-size:0.88rem;color:var(--t-secondary);line-height:1.75;margin-bottom:var(--space-xl);">
+          Every biomarker is mapped onto a multi-dimensional biological profile. The radar chart reveals your strengths and the precise areas where targeted intervention will produce the greatest longevity return.
+        </p>
+        <a href="pages/register.html" class="btn btn-outline">Analyze My Markers</a>
+      </div>
+      <div class="science-radar-wrap">
+        <canvas id="scienceRadar" width="360" height="360"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section class="plans" id="plans">
+    <div class="container">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Access Tiers</span>
+      </div>
+      <h2 class="section-heading">Invest in Permanence</h2>
+
+      <div class="plans-grid">
+        <!-- STARTER -->
+        <div class="plan-card">
+          <div class="plan-tier">Starter</div>
+          <div class="plan-price">
+            <span class="plan-currency">R$</span>
+            <span class="plan-amount">0</span>
+            <span class="plan-period">/mo</span>
           </div>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Perfil de longevidade básico</li>
-            <li><span class="check">✓</span> 20 biomarcadores essenciais</li>
-            <li><span class="check">✓</span> KlothoScore mensal</li>
-            <li><span class="check">✓</span> Dashboard básico</li>
-            <li class="inactive"><span class="x">×</span> Análise epigenética</li>
-            <li class="inactive"><span class="x">×</span> Protocolo personalizado</li>
+          <ul class="plan-features">
+            <li class="yes"><span class="pf-check">✓</span> Basic longevity profile</li>
+            <li class="yes"><span class="pf-check">✓</span> 20 essential biomarkers</li>
+            <li class="yes"><span class="pf-check">✓</span> Monthly KlothoScore</li>
+            <li class="yes"><span class="pf-check">✓</span> Basic dashboard</li>
+            <li><span class="pf-check no">×</span> Epigenetic analysis</li>
+            <li><span class="pf-check no">×</span> AI protocol</li>
           </ul>
-          <a href="pages/register.html" class="btn btn-outline btn-full">Começar Grátis</a>
+          <a href="pages/register.html" class="btn btn-outline btn-full">Begin Free</a>
         </div>
-        <div class="pricing-card glass featured">
-          <div class="pricing-badge">Mais Popular</div>
-          <div class="pricing-tier">Pro</div>
-          <div class="pricing-price">
-            <span class="price-currency">R$</span>
-            <span class="price-value">297</span>
-            <span class="price-period">/mês</span>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Tudo do Starter</li>
-            <li><span class="check">✓</span> +100 biomarcadores avançados</li>
-            <li><span class="check">✓</span> Análise epigenética completa</li>
-            <li><span class="check">✓</span> KlothoScore semanal</li>
-            <li><span class="check">✓</span> Protocolo IA personalizado</li>
-            <li><span class="check">✓</span> Suporte de médico especialista</li>
-          </ul>
-          <a href="pages/register.html" class="btn btn-primary btn-full">Começar Pro</a>
-        </div>
-        <div class="pricing-card glass">
-          <div class="pricing-tier">Clinical</div>
-          <div class="pricing-price">
-            <span class="price-currency">R$</span>
-            <span class="price-value">897</span>
-            <span class="price-period">/mês</span>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Tudo do Pro</li>
-            <li><span class="check">✓</span> +200 biomarcadores</li>
-            <li><span class="check">✓</span> Sequenciamento genético</li>
-            <li><span class="check">✓</span> KlothoScore diário</li>
-            <li><span class="check">✓</span> Consultas semanais</li>
-            <li><span class="check">✓</span> Coleta domiciliar</li>
-          </ul>
-          <a href="pages/register.html" class="btn btn-outline btn-full">Falar com Especialista</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta-card glass">
-        <div class="cta-content">
-          <h2>Comece sua jornada de<br><span class="gradient-text">longevidade hoje</span></h2>
-          <p>Junte-se a +12.000 usuários que já estão otimizando sua saúde com ciência de ponta.</p>
-          <a href="pages/register.html" class="btn btn-primary btn-large">
-            Criar Conta Gratuita
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M4 10H16M10 4L16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </a>
+        <!-- PRO (featured) -->
+        <div class="plan-card featured">
+          <div class="plan-tier">Pro</div>
+          <div class="plan-price">
+            <span class="plan-currency">R$</span>
+            <span class="plan-amount">297</span>
+            <span class="plan-period">/mo</span>
+          </div>
+          <ul class="plan-features">
+            <li class="yes"><span class="pf-check">✓</span> Everything in Starter</li>
+            <li class="yes"><span class="pf-check">✓</span> 100+ advanced biomarkers</li>
+            <li class="yes"><span class="pf-check">✓</span> Full epigenetic analysis</li>
+            <li class="yes"><span class="pf-check">✓</span> Weekly KlothoScore</li>
+            <li class="yes"><span class="pf-check">✓</span> Personalized AI protocol</li>
+            <li class="yes"><span class="pf-check">✓</span> Specialist support</li>
+          </ul>
+          <a href="pages/register.html" class="btn btn-primary btn-full">Begin Pro</a>
         </div>
-        <div class="cta-stats">
-          <div class="cta-stat">
-            <div class="cta-stat-value">6.2</div>
-            <div class="cta-stat-label">Anos médios revertidos</div>
+
+        <!-- CLINICAL -->
+        <div class="plan-card">
+          <div class="plan-tier">Clinical</div>
+          <div class="plan-price">
+            <span class="plan-currency">R$</span>
+            <span class="plan-amount">897</span>
+            <span class="plan-period">/mo</span>
           </div>
-          <div class="cta-stat">
-            <div class="cta-stat-value">94%</div>
-            <div class="cta-stat-label">Satisfação dos usuários</div>
-          </div>
+          <ul class="plan-features">
+            <li class="yes"><span class="pf-check">✓</span> Everything in Pro</li>
+            <li class="yes"><span class="pf-check">✓</span> 200+ biomarkers</li>
+            <li class="yes"><span class="pf-check">✓</span> Genetic sequencing</li>
+            <li class="yes"><span class="pf-check">✓</span> Daily KlothoScore</li>
+            <li class="yes"><span class="pf-check">✓</span> Weekly consultations</li>
+            <li class="yes"><span class="pf-check">✓</span> Home sample collection</li>
+          </ul>
+          <a href="pages/register.html" class="btn btn-outline btn-full">Contact Specialist</a>
         </div>
       </div>
     </div>
@@ -336,58 +413,21 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="logo">
-            <div class="logo-icon small">
-              <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="13" stroke="url(#logoGrad2)" stroke-width="2"/>
-                <path d="M8 14 C8 10 11 7 14 7 C17 7 20 10 20 14" stroke="url(#logoGrad2)" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="14" cy="17" r="3" fill="url(#logoGrad2)"/>
-                <defs>
-                  <linearGradient id="logoGrad2" x1="0" y1="0" x2="28" y2="28">
-                    <stop stop-color="#00D4FF"/>
-                    <stop offset="1" stop-color="#7C3AED"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <span class="logo-text">KlothoLab</span>
-          </a>
-          <p>Plataforma de medicina de precisão e longevidade baseada em evidências científicas.</p>
-        </div>
-        <div class="footer-links">
-          <h4>Plataforma</h4>
-          <a href="pages/register.html">Criar Conta</a>
-          <a href="pages/login.html">Entrar</a>
-          <a href="#biomarkers">Biomarcadores</a>
-          <a href="#pricing">Planos</a>
-        </div>
-        <div class="footer-links">
-          <h4>Ciência</h4>
-          <a href="#science">Metodologia</a>
-          <a href="#">Publicações</a>
-          <a href="#">Protocolos</a>
-          <a href="#">Blog Científico</a>
-        </div>
-        <div class="footer-links">
-          <h4>Empresa</h4>
-          <a href="#">Sobre Nós</a>
-          <a href="#">Equipe Médica</a>
-          <a href="#">Privacidade</a>
-          <a href="#">Contato</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 KlothoLab. Todos os direitos reservados. | CNPJ: 00.000.000/0001-00</p>
-        <p class="footer-disclaimer">Esta plataforma é para fins informativos e de monitoramento. Não substitui consulta médica.</p>
-      </div>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <div class="footer-logo-mark">EH</div>
+        <span class="footer-logo-text">Eternal Health</span>
+      </a>
+
+      <p class="footer-copy">© 2026 Eternal Health. All rights reserved.</p>
+
+      <p class="footer-disclaimer">
+        This platform is for informational purposes and does not replace medical consultation.
+      </p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/landing.js"></script>
 </body>
 </html>

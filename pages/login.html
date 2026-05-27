@@ -3,206 +3,300 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrar — KlothoLab</title>
+  <title>Sign In — Eternal Health</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/auth.css">
+  <style>
+    /* AUTH PAGE */
+    body {
+      background: var(--void);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-xl);
+    }
+
+    .auth-wrap {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .auth-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--t-secondary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color var(--dur-fast);
+      font-family: var(--f-mono);
+    }
+    .auth-back:hover { color: var(--aurum); }
+
+    .auth-panel {
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-lg);
+      padding: var(--space-xl);
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: var(--space-xl);
+      text-decoration: none;
+    }
+
+    .auth-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--aurum);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-serif);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--void);
+      flex-shrink: 0;
+    }
+
+    .auth-logo-text {
+      font-family: var(--f-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--t-primary);
+    }
+
+    .auth-title {
+      font-family: var(--f-serif);
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--t-primary);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .auth-subtitle {
+      font-size: 0.82rem;
+      color: var(--t-secondary);
+      margin-bottom: var(--space-xl);
+    }
+
+    .auth-divider {
+      position: relative;
+      text-align: center;
+      margin: var(--space-lg) 0;
+    }
+    .auth-divider::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 1px;
+      background: var(--b-subtle);
+    }
+    .auth-divider span {
+      position: relative;
+      background: var(--depth-2);
+      padding: 0 var(--space-md);
+      font-size: 0.72rem;
+      color: var(--t-tertiary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--f-mono);
+    }
+
+    .auth-footer-text {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--t-secondary);
+      margin-top: var(--space-lg);
+    }
+
+    .demo-hint {
+      background: var(--aurum-04);
+      border: 1px solid rgba(201,169,106,0.15);
+      border-radius: var(--r-md);
+      padding: 12px 16px;
+      text-align: center;
+    }
+
+    .demo-hint p {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--t-secondary);
+    }
+
+    .demo-hint strong { color: var(--aurum); }
+
+    .dual-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+    }
+  </style>
 </head>
 <body>
-  <div class="auth-page">
-    <div class="auth-bg">
-      <div class="auth-bg-grid"></div>
-      <div class="auth-orb-1"></div>
-      <div class="auth-orb-2"></div>
-    </div>
+  <div class="auth-wrap">
+    <a href="../index.html" class="auth-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M9 3L4 7L9 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      Back to home
+    </a>
 
-    <div class="auth-container">
-      <a href="../index.html" class="auth-back">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        Voltar ao início
+    <div class="auth-panel">
+      <a href="../index.html" class="auth-logo">
+        <div class="auth-logo-mark">EH</div>
+        <span class="auth-logo-text">Eternal Health</span>
       </a>
 
-      <div class="auth-card">
-        <div class="auth-header">
-          <div class="auth-logo">
-            <svg class="auth-logo-icon" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="url(#authLogoGrad)" stroke-width="2"/>
-              <path d="M8 14 C8 10 11 7 14 7 C17 7 20 10 20 14" stroke="url(#authLogoGrad)" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="14" cy="17" r="3" fill="url(#authLogoGrad)"/>
-              <defs>
-                <linearGradient id="authLogoGrad" x1="0" y1="0" x2="28" y2="28">
-                  <stop stop-color="#00D4FF"/>
-                  <stop offset="1" stop-color="#7C3AED"/>
-                </linearGradient>
-              </defs>
+      <h1 class="auth-title">Enter System</h1>
+      <p class="auth-subtitle">Access your longevity dashboard</p>
+
+      <div id="alertContainer"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 3.5L7 8L12 3.5M2 3.5H12V11H2V3.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="auth-logo-text">KlothoLab</span>
+            <input type="email" id="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
           </div>
-          <h1 class="auth-title">Bem-vindo de volta</h1>
-          <p class="auth-subtitle">Entre para acessar seu painel de longevidade</p>
         </div>
 
-        <div id="alertContainer"></div>
-
-        <form id="loginForm">
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 4L8 9L14 4M2 4H14V13H2V4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input
-                type="email"
-                id="email"
-                class="form-input"
-                placeholder="seu@email.com"
-                required
-                autocomplete="email"
-              >
-            </div>
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <label class="form-label" style="margin:0">Password</label>
+            <a href="#" style="font-size:0.72rem;color:var(--aurum);font-family:var(--f-mono);letter-spacing:0.04em">Forgot?</a>
           </div>
-
-          <div class="form-group">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-              <label class="form-label" style="margin:0">Senha</label>
-              <a href="#" style="font-size:0.8rem;color:var(--color-cyan)">Esqueceu a senha?</a>
-            </div>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect x="2.5" y="6.5" width="9" height="6.5" rx="1.2" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M4.5 6.5V4.5C4.5 3.12 5.62 2 7 2C8.38 2 9.5 3.12 9.5 4.5V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="input-toggle" id="togglePassword">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7C1 7 3 3 7 3C11 3 13 7 13 7C13 7 11 11 7 11C3 11 1 7 1 7Z" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/>
               </svg>
-              <input
-                type="password"
-                id="password"
-                class="form-input"
-                placeholder="••••••••"
-                required
-                autocomplete="current-password"
-              >
-              <button type="button" class="input-toggle" id="togglePassword">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="currentColor" stroke-width="1.3"/>
-                  <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/>
-                </svg>
-              </button>
-            </div>
+            </button>
           </div>
-
-          <button type="submit" class="btn btn-primary btn-full btn-large" id="submitBtn">
-            <span id="btnText">Entrar</span>
-            <div id="btnSpinner" class="spinner hidden"></div>
-          </button>
-        </form>
-
-        <div class="auth-divider">ou continue com</div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <button class="btn btn-outline" onclick="demoLogin()">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 1.5C4.41 1.5 1.5 4.41 1.5 8C1.5 11.59 4.41 14.5 8 14.5C11.59 14.5 14.5 11.59 14.5 8C14.5 4.41 11.59 1.5 8 1.5ZM8 5C8.83 5 9.5 5.67 9.5 6.5C9.5 7.33 8.83 8 8 8C7.17 8 6.5 7.33 6.5 6.5C6.5 5.67 7.17 5 8 5ZM8 12.5C6.5 12.5 5.17 11.77 4.33 10.65C4.35 9.49 6.67 8.85 8 8.85C9.32 8.85 11.65 9.49 11.67 10.65C10.83 11.77 9.5 12.5 8 12.5Z" fill="currentColor"/>
-            </svg>
-            Demo
-          </button>
-          <button class="btn btn-outline" onclick="window.location.href='register.html'">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            Criar Conta
-          </button>
         </div>
 
-        <p class="auth-footer-text">
-          Não tem uma conta? <a href="register.html">Criar conta gratuita</a>
-        </p>
+        <button type="submit" class="btn btn-primary btn-full btn-large" id="submitBtn">
+          <span id="btnText">Enter System</span>
+          <div id="btnSpinner" class="spinner hidden"></div>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <div class="dual-btns">
+        <button class="btn btn-outline" onclick="demoLogin()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M2 13C2 10.24 4.24 8 7 8C9.76 8 12 10.24 12 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          Demo Access
+        </button>
+        <button class="btn btn-outline" onclick="window.location.href='register.html'">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Register
+        </button>
       </div>
 
-      <!-- DEMO CREDENTIALS HINT -->
-      <div style="text-align:center;margin-top:16px;padding:12px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:12px">
-        <p style="font-size:0.75rem;color:var(--color-text-muted)">
-          🧬 <strong style="color:var(--color-cyan)">Demo:</strong>
-          Clique em "Demo" para acesso imediato ao painel
-        </p>
-      </div>
+      <p class="auth-footer-text">
+        No account? <a href="register.html">Create one free</a>
+      </p>
+    </div>
+
+    <div class="demo-hint">
+      <p>
+        <strong>Demo:</strong> Click "Demo Access" for instant dashboard entry — no registration required
+      </p>
     </div>
   </div>
 
   <script src="../js/database.js"></script>
   <script>
-    // Initialize DB
     KlothoDB.init().then(() => {
-      // Check if already logged in
       KlothoAuth.getCurrentUser().then(user => {
         if (user) window.location.href = 'dashboard.html';
       });
     });
 
-    // TOGGLE PASSWORD
     document.getElementById('togglePassword').addEventListener('click', function() {
       const input = document.getElementById('password');
       input.type = input.type === 'password' ? 'text' : 'password';
     });
 
-    // LOGIN FORM
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('btnText');
-      const spinner = document.getElementById('btnSpinner');
-      const alertContainer = document.getElementById('alertContainer');
+      const btn      = document.getElementById('submitBtn');
+      const btnText  = document.getElementById('btnText');
+      const spinner  = document.getElementById('btnSpinner');
+      const alertEl  = document.getElementById('alertContainer');
 
-      alertContainer.innerHTML = '';
+      alertEl.innerHTML = '';
       btn.disabled = true;
-      btnText.textContent = 'Entrando...';
+      btnText.textContent = 'Authenticating...';
       spinner.classList.remove('hidden');
 
       try {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        await KlothoAuth.login(email, password);
+        await KlothoAuth.login(
+          document.getElementById('email').value,
+          document.getElementById('password').value
+        );
         window.location.href = 'dashboard.html';
       } catch (err) {
-        alertContainer.innerHTML = `
-          <div class="alert alert-error">${err.message}</div>
-        `;
+        alertEl.innerHTML = `<div class="alert alert-error">${err.message}</div>`;
         btn.disabled = false;
-        btnText.textContent = 'Entrar';
+        btnText.textContent = 'Enter System';
         spinner.classList.add('hidden');
       }
     });
 
-    // DEMO LOGIN
     async function demoLogin() {
-      const email = 'demo@klotholab.com';
+      const email    = 'demo@eternal.health';
       const password = 'demo12345';
-
       try {
-        // Try to login, if fails create demo user
         await KlothoAuth.login(email, password);
         window.location.href = 'dashboard.html';
       } catch (e) {
-        // Create demo user
         try {
           await KlothoAuth.register({
-            email,
-            password,
-            name: 'Dr. Demo User',
+            email, password,
+            name: 'Demo User',
             birthDate: '1988-03-15',
             gender: 'male'
           });
           window.location.href = 'dashboard.html';
         } catch (e2) {
-          // Already exists, try again
           try {
             await KlothoAuth.login(email, password);
             window.location.href = 'dashboard.html';
-          } catch(e3) {
+          } catch (e3) {
             document.getElementById('alertContainer').innerHTML =
-              `<div class="alert alert-error">Erro ao criar conta demo. Tente cadastrar-se manualmente.</div>`;
+              `<div class="alert alert-error">Demo error. Please register manually.</div>`;
           }
         }
       }
