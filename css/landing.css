@@ -1274,3 +1274,205 @@
   font-size: 0.75rem;
   color: var(--t-tertiary);
 }
+
+
+/* =========================================
+   THE TWELVE HALLMARKS
+   ========================================= */
+.the-twelve {
+  padding: 120px var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.the-twelve .section-label {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--aurum);
+  margin-bottom: var(--space-lg);
+}
+
+.twelve-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--t-secondary);
+  text-decoration: none;
+  background: var(--b-ghost);
+  border: 1px solid var(--b-subtle);
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-top: var(--space-sm);
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+
+.twelve-source-link:hover {
+  color: var(--aurum);
+  border-color: rgba(201,169,106,.3);
+}
+
+.twelve-source-link svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.hallmark-category {
+  margin-bottom: 48px;
+}
+
+.hallmark-cat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--b-subtle);
+}
+
+.hcat-roman {
+  font-family: var(--f-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.hcat-name {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hcat-desc {
+  font-size: 0.78rem;
+  color: var(--t-tertiary);
+  margin-left: auto;
+  text-align: right;
+  max-width: 380px;
+  line-height: 1.55;
+}
+
+/* Category color themes */
+.primary-cat   .hcat-roman { color: #C9A96A; }
+.primary-cat   .hcat-name  { color: rgba(201,169,106,.7); }
+.antagonistic-cat .hcat-roman { color: #7BA37D; }
+.antagonistic-cat .hcat-name  { color: rgba(123,163,125,.7); }
+.integrative-cat  .hcat-roman { color: #7F9EC9; }
+.integrative-cat  .hcat-name  { color: rgba(127,158,201,.7); }
+
+.twelve-cells {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.twelve-cells.row-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.twelve-cells.row-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.twelve-cell {
+  display: block;
+  padding: 18px 16px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--b-ghost);
+  background: var(--depth-2);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--dur-fast) ease,
+              background var(--dur-fast) ease,
+              transform var(--dur-med) cubic-bezier(0.23,1,0.32,1);
+}
+
+.twelve-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease;
+  border-radius: inherit;
+}
+
+.primary-cell::before    { background: radial-gradient(ellipse at top left, rgba(201,169,106,.07) 0%, transparent 65%); }
+.antagonistic-cell::before { background: radial-gradient(ellipse at top left, rgba(123,163,125,.07) 0%, transparent 65%); }
+.integrative-cell::before  { background: radial-gradient(ellipse at top left, rgba(127,158,201,.07) 0%, transparent 65%); }
+
+.twelve-cell:hover {
+  transform: translateY(-3px);
+}
+
+.primary-cell:hover    { border-color: rgba(201,169,106,.3); background: var(--depth-3); }
+.antagonistic-cell:hover { border-color: rgba(123,163,125,.3); background: var(--depth-3); }
+.integrative-cell:hover  { border-color: rgba(127,158,201,.3); background: var(--depth-3); }
+
+.twelve-cell:hover::before { opacity: 1; }
+
+.twelve-num {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 10px;
+}
+
+.primary-cell    .twelve-num { color: rgba(201,169,106,.6); }
+.antagonistic-cell .twelve-num { color: rgba(123,163,125,.6); }
+.integrative-cell  .twelve-num { color: rgba(127,158,201,.6); }
+
+.twelve-name {
+  font-family: var(--f-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--t-primary);
+  line-height: 1.35;
+  margin-bottom: 7px;
+}
+
+.twelve-desc {
+  font-size: 0.68rem;
+  color: var(--t-tertiary);
+  line-height: 1.55;
+}
+
+.twelve-arrow {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.7rem;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+
+.primary-cell    .twelve-arrow { color: var(--aurum); }
+.antagonistic-cell .twelve-arrow { color: var(--vitae); }
+.integrative-cell  .twelve-arrow { color: #7F9EC9; }
+
+.twelve-cell:hover .twelve-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media (max-width: 1024px) {
+  .twelve-cells         { grid-template-columns: repeat(3, 1fr); }
+  .twelve-cells.row-3   { grid-template-columns: repeat(3, 1fr); }
+  .twelve-cells.row-4   { grid-template-columns: repeat(2, 1fr); }
+  .hcat-desc            { display: none; }
+}
+
+@media (max-width: 640px) {
+  .twelve-cells,
+  .twelve-cells.row-3,
+  .twelve-cells.row-4 { grid-template-columns: repeat(2, 1fr); }
+  .hallmark-cat-header { flex-wrap: wrap; gap: 8px; }
+  .hcat-desc           { display: none; }
+}

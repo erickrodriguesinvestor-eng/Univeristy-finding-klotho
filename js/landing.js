@@ -281,7 +281,7 @@ function renderBMPanel(panelKey) {
    ========================================= */
 (function initFadeIn() {
   const sections = document.querySelectorAll(
-    '.manifesto, .vital-signs, .the-nine, .the-system, .ml-section, .bm-tabs-section, .publications-section, .science-section, .plans'
+    '.manifesto, .vital-signs, .the-nine, .the-twelve, .the-system, .ml-section, .bm-tabs-section, .publications-section, .science-section, .plans'
   );
 
   const style = document.createElement('style');

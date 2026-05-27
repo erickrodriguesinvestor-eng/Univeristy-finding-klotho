@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hallmarks do Envelhecimento — Eternal Health</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Core styles -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    /* ===== PAGE LAYOUT ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--void);
+      color: var(--t-primary);
+      font-family: var(--f-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 52px;
+      background: rgba(1,2,3,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--b-ghost);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-xl);
+      gap: 20px;
+    }
+
+    .top-bar-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .top-bar-mark {
+      width: 22px;
+      height: 22px;
+      background: var(--aurum);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--void);
+      letter-spacing: 0.04em;
+    }
+
+    .top-bar-name {
+      font-family: var(--f-serif);
+      font-size: 0.9rem;
+      color: var(--t-primary);
+      letter-spacing: 0.08em;
+    }
+
+    .top-bar-sep {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--t-tertiary);
+      margin: 0 4px;
+    }
+
+    .top-bar-crumb {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--t-secondary);
+      letter-spacing: 0.12em;
+    }
+
+    .top-bar-back {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--t-secondary);
+      text-decoration: none;
+      transition: color var(--dur-fast) ease;
+    }
+
+    .top-bar-back:hover { color: var(--aurum); }
+
+    /* ===== MAIN WRAPPER ===== */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 88px var(--space-xl) 80px;
+    }
+
+    /* ===== HALLMARK HERO ===== */
+    .hm-hero {
+      margin-bottom: 56px;
+    }
+
+    .hm-category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 3px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hm-category-tag.primary-tag {
+      color: var(--aurum);
+      background: var(--aurum-08);
+      border: 1px solid rgba(201,169,106,.25);
+    }
+
+    .hm-category-tag.antagonistic-tag {
+      color: var(--vitae);
+      background: var(--vitae-12);
+      border: 1px solid rgba(123,163,125,.25);
+    }
+
+    .hm-category-tag.integrative-tag {
+      color: #7F9EC9;
+      background: rgba(127,158,201,.08);
+      border: 1px solid rgba(127,158,201,.25);
+    }
+
+    .hm-number {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--t-tertiary);
+      margin-bottom: 10px;
+    }
+
+    .hm-title {
+      font-family: var(--f-serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--t-primary);
+      line-height: 1.15;
+      margin-bottom: var(--space-xl);
+    }
+
+    .hm-lead {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--t-secondary);
+      line-height: 1.75;
+      max-width: 720px;
+      border-left: 2px solid var(--b-medium);
+      padding-left: 20px;
+    }
+
+    /* ===== DIVIDER ===== */
+    .section-divider {
+      height: 1px;
+      background: var(--b-subtle);
+      margin: 48px 0;
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .content-section-label {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--t-tertiary);
+      margin-bottom: var(--space-md);
+    }
+
+    .content-section-title {
+      font-family: var(--f-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--t-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ===== MECHANISM BLOCKS ===== */
+    .mechanism-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .mechanism-block {
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md);
+      padding: 20px;
+    }
+
+    .mechanism-block-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .mechanism-block-title {
+      font-family: var(--f-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--t-primary);
+      margin-bottom: 8px;
+    }
+
+    .mechanism-block-text {
+      font-size: 0.76rem;
+      color: var(--t-secondary);
+      line-height: 1.65;
+    }
+
+    /* ===== EVIDENCE TABLE ===== */
+    .evidence-section {
+      margin-bottom: 56px;
+    }
+
+    .evidence-level-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .evidence-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+
+    .badge-a {
+      background: rgba(94,153,104,.15);
+      border: 1.5px solid rgba(94,153,104,.45);
+      color: #5E9968;
+    }
+
+    .badge-b {
+      background: rgba(176,125,68,.12);
+      border: 1.5px solid rgba(176,125,68,.4);
+      color: #B07D44;
+    }
+
+    .evidence-level-desc {
+      font-size: 0.75rem;
+      color: var(--t-secondary);
+      line-height: 1.5;
+    }
+
+    .evidence-level-desc strong {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--t-primary);
+      margin-bottom: 2px;
+    }
+
+    .intervention-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .intervention-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 14px;
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md);
+      padding: 16px 18px;
+      transition: border-color var(--dur-fast) ease;
+    }
+
+    .intervention-item:hover { border-color: var(--b-dim); }
+
+    .intervention-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .intervention-content {}
+
+    .intervention-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--t-primary);
+      margin-bottom: 4px;
+    }
+
+    .intervention-detail {
+      font-size: 0.74rem;
+      color: var(--t-secondary);
+      line-height: 1.6;
+    }
+
+    .intervention-meta {
+      text-align: right;
+    }
+
+    .intervention-type {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--t-tertiary);
+      background: var(--b-ghost);
+      border: 1px solid var(--b-subtle);
+      border-radius: 2px;
+      padding: 3px 7px;
+      white-space: nowrap;
+    }
+
+    /* ===== NAV PILLS (prev/next) ===== */
+    .hm-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--b-subtle);
+    }
+
+    .hm-nav-pill {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-decoration: none;
+      padding: 16px 20px;
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md);
+      min-width: 200px;
+      flex: 1;
+      max-width: 280px;
+      transition: border-color var(--dur-fast) ease, transform var(--dur-med) ease;
+    }
+
+    .hm-nav-pill:hover {
+      border-color: rgba(201,169,106,.3);
+      transform: translateY(-2px);
+    }
+
+    .hm-nav-pill.next { text-align: right; margin-left: auto; }
+
+    .hm-nav-direction {
+      font-family: var(--f-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--t-tertiary);
+    }
+
+    .hm-nav-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--t-primary);
+    }
+
+    /* ===== BACK-TO-ALL LINK ===== */
+    .back-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--t-secondary);
+      text-decoration: none;
+      margin-bottom: 36px;
+      transition: color var(--dur-fast) ease;
+    }
+
+    .back-all:hover { color: var(--aurum); }
+
+    /* ===== LOADING STATE ===== */
+    #loading-state {
+      text-align: center;
+      padding: 100px 0;
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--t-tertiary);
+    }
+
+    #hallmark-content { display: none; }
+
+    /* ===== MEDIA QUERIES ===== */
+    @media (max-width: 640px) {
+      .mechanism-grid { grid-template-columns: 1fr; }
+      .hm-nav { flex-direction: column; }
+      .hm-nav-pill { max-width: 100%; }
+      .intervention-item { grid-template-columns: auto 1fr; }
+      .intervention-meta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="top-bar">
+  <a href="../index.html" class="top-bar-logo">
+    <div class="top-bar-mark">EH</div>
+    <span class="top-bar-name">Eternal Health</span>
+  </a>
+  <span class="top-bar-sep">/</span>
+  <span class="top-bar-crumb" id="topBarCrumb">HALLMARKS</span>
+
+  <a href="../index.html#ciencia" class="top-bar-back">
+    ← Voltar aos 12 Hallmarks
+  </a>
+</nav>
+
+<!-- PAGE CONTENT -->
+<main class="page-wrap">
+  <div id="loading-state">CARREGANDO…</div>
+  <div id="hallmark-content">
+    <!-- Populated by JS -->
+  </div>
+</main>
+
+<script>
+/* ====================================================
+   HALLMARKS DATA — López-Otín et al. 2023, Cell
+   ==================================================== */
+const HALLMARKS = {
+  1: {
+    category: 'primary',
+    categoryLabel: 'Hallmark Primário',
+    categoryRoman: 'I',
+    title: 'Instabilidade Genômica',
+    lead: 'O DNA é constantemente danificado por fatores endógenos (espécies reativas de oxigênio, erros de replicação) e exógenos (radiação UV, toxinas). A acumulação de danos ao longo da vida compromete a integridade do genoma, levando a mutações, encurtamento telomérico acelerado e disfunção celular progressiva.',
+    mechanisms: [
+      {
+        icon: '🧬',
+        title: 'Danos Oxidativos ao DNA',
+        text: 'ROS mitocondriais e citoplasmáticos provocam lesões como 8-oxoguanina, quebras de fita simples e dupla, exigindo vias de reparo BER e DSB continuamente ativas.'
+      },
+      {
+        icon: '⚠️',
+        title: 'Colapso dos Mecanismos de Reparo',
+        text: 'Com o envelhecimento, enzimas como PARP-1, OGG1 e proteínas do complexo MRN declinam em atividade, permitindo que lesões se acumulem e gerem mutações somáticas.'
+      },
+      {
+        icon: '🔬',
+        title: 'DNA Nuclear vs. Mitocondrial',
+        text: 'O mtDNA carece de histonas e tem reparo menos eficiente; mutações mitocondriais amplificam a disfunção energética e disparam ciclos viciosos de produção de ROS.'
+      },
+      {
+        icon: '📡',
+        title: 'Sinalização de Dano (DDR)',
+        text: 'ATM, ATR e CHK1/2 ativam p53 e bloqueios do ciclo celular. Ativação crônica da DDR leva à senescência, apoptose ou instabilidade cromossômica se mal resolvida.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '💊',
+        name: 'NAD+ Precursores (NMN / NR)',
+        detail: 'Restauram NAD+ celular, essencial para PARP-1 (reparo de quebras de fita) e sirtuínas SIRT1/6. Múltiplos RCTs em humanos demonstram segurança e aumento de NAD+ sérico.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🏃',
+        name: 'Exercício Aeróbico de Alta Intensidade',
+        detail: 'Meta-análises mostram que exercício ativa AMPK, aumenta expressão de OGG1 e NEIL1, e reduz marcadores de dano ao DNA (γH2AX) em leucócitos.',
+        type: 'Estilo de Vida'
+      },
+      {
+        icon: '🌿',
+        name: 'Restrição Calórica / Jejum Intermitente',
+        detail: 'Reduz geração de ROS mitocondrial, ativa sirtuínas e melhora homeostase redox. Múltiplos ensaios clínicos demonstram redução de biomarcadores de dano ao DNA.',
+        type: 'Nutricional'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🧪',
+        name: 'Urolitina A',
+        detail: 'Metabólito de polifenóis induz mitofagia seletiva, reduzindo carga de mtDNA mutante. Estudos de fase I confirmam segurança e ativação de vias de limpeza mitocondrial.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🔬',
+        name: 'Ativadores de SIRT6',
+        detail: 'SIRT6 é a sirtuína chave para reparo de DSB via NHEJ e HR. Ativadores como MDL-800 e extratos de cyanidin estão em estudos pré-clínicos e piloto com resultados promissores.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🛡️',
+        name: 'Astaxantina',
+        detail: 'Antioxidante carotenoide potente que neutraliza 1O2 e peroxidação lipídica. Estudos observacionais e piloto mostram redução de 8-OHdG urinário e marcadores de estresse oxidativo.',
+        type: 'Suplementação'
+      }
+    ]
+  },
+
+  2: {
+    category: 'primary',
+    categoryLabel: 'Hallmark Primário',
+    categoryRoman: 'I',
+    title: 'Atrito Telomérico',
+    lead: 'Os telômeros são sequências repetitivas de DNA (TTAGGG) que protegem as extremidades dos cromossomos. A cada divisão celular, perdem 50–200 pb por ausência de telomerase somática. Quando criticamente curtos, disparam senescência replicativa ou apoptose, funcionando como relógio molecular do envelhecimento.',
+    mechanisms: [
+      {
+        icon: '⏱️',
+        title: 'Encurtamento Progressivo',
+        text: 'O "problema da extremidade" impede que a DNA polimerase replique o terminal do cromossomo. Após 50–70 divisões (limite de Hayflick), os telômeros atingem comprimento crítico e a célula para de se dividir.'
+      },
+      {
+        icon: '🔴',
+        title: 'Resposta a Dano Telomérico (TIF)',
+        text: 'Telômeros disfuncionais recrutam a maquinaria de DDR (γH2AX, 53BP1), ativando p53/p21 e ATM/ATR, induzindo senescência permanente ou apoptose sem entrada em divisão descontrolada.'
+      },
+      {
+        icon: '🧫',
+        title: 'Telomerase e Células-Tronco',
+        text: 'A telomerase (hTERT + hTR) mantém comprimento telomérico em células germinativas e stem cells. Sua repressão em células somáticas é protetora contra tumor, mas acelera envelhecimento tecidual.'
+      },
+      {
+        icon: '📊',
+        title: 'Comprimento Telomérico como Biomarcador',
+        text: 'Medido por qPCR, Southern blot ou FISH, o TL médio (kb) correlaciona-se inversamente com risco cardiovascular, demência e mortalidade por todas as causas em estudos epidemiológicos prospectivos.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🏃',
+        name: 'Exercício Físico Regular',
+        detail: 'Meta-análises de >20 estudos mostram associação entre atividade física aeróbica e maior comprimento telomérico em leucócitos, mediado por redução de estresse oxidativo e inflamação.',
+        type: 'Estilo de Vida'
+      },
+      {
+        icon: '🌿',
+        name: 'Dieta Anti-Inflamatória (Mediterrânea)',
+        detail: 'Estudos prospectivos (NHS, PREDIMED) associam alta adesão à dieta mediterrânea a maior TL e menor atrito telomérico ao longo do tempo.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '😴',
+        name: 'Qualidade do Sono',
+        detail: 'Privação crônica de sono e insônia associam-se a menor TL em múltiplos estudos observacionais. RCTs de intervenção em sono mostram atenuação do atrito telomérico.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🌱',
+        name: 'TA-65 (Cicloastragenol)',
+        detail: 'Ativador de telomerase derivado de Astragalus membranaceus. Estudo PATTON e ensaios abertos mostram tendência de aumento de TL em células imunes, mas dados ainda limitados.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '💊',
+        name: 'Vitamina D3 + K2',
+        detail: 'Associação entre níveis séricos de vitamina D e maior TL em estudos observacionais. Mecanismo envolve redução de inflamação e proteção contra ROS.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🧘',
+        name: 'Meditação / Redução de Estresse',
+        detail: 'Estudos de Blackburn et al. associam práticas de mindfulness a maior atividade de telomerase e preservação de TL, potencialmente via redução de cortisol e inflamação crônica.',
+        type: 'Comportamental'
+      }
+    ]
+  },
+
+  3: {
+    category: 'primary',
+    categoryLabel: 'Hallmark Primário',
+    categoryRoman: 'I',
+    title: 'Alterações Epigenéticas',
+    lead: 'O epigenoma — metilação do DNA, modificações de histonas e remodelamento da cromatina — sofre alterações globais e locus-específicas com o envelhecimento. Esses padrões afetam a expressão gênica, a estrutura da cromatina e o estado de diferenciação celular, constituindo a base dos "relógios epigenéticos" mais precisos disponíveis.',
+    mechanisms: [
+      {
+        icon: '🔵',
+        title: 'Deriva do Metiloma com o Envelhecimento',
+        text: 'Ocorre hipometilação global (instabilidade cromossômica) e hipermetilação focal em promotores de genes supressores de tumor e genes ligados ao desenvolvimento, silenciando funções críticas.'
+      },
+      {
+        icon: '🔑',
+        title: 'Relógios Epigenéticos',
+        text: 'Algoritmos como Horvath Clock, GrimAge e DunedinPACE usam padrões de metilação em CpGs específicos para estimar Biological Age e Pace of Aging com alta precisão preditiva de mortalidade e doenças.'
+      },
+      {
+        icon: '🔧',
+        title: 'Modificações de Histonas',
+        text: 'Perda de H3K27me3 e H3K9me3 (marcas repressoras) resulta em reativação de retrotransposons e inflamação crônica. Decaimento de H3K4me3 compromete expressão de genes de manutenção celular.'
+      },
+      {
+        icon: '🔄',
+        title: 'Reversibilidade e Reprogramação',
+        text: 'Fatores de Yamanaka (OSKM) e reprogramação parcial transiente rejuvenescem o epigenoma sem perda de identidade celular, demonstrando reversibilidade potencial do envelhecimento epigenético.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🌿',
+        name: 'Restrição Calórica',
+        detail: 'Múltiplos RCTs (CALERIE trial) e estudos em modelo animal demonstram reversão parcial de marcadores de idade epigenética com restrição calórica de 20–30%.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '💊',
+        name: 'Metformina',
+        detail: 'Ativa AMPK e reduz o Pace of Aging epigenético em estudos observacionais prospectivos. TAME trial (RCT em andamento) avalia efeitos em longevidade.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🏃',
+        name: 'Exercício de Alta Intensidade (HIIT)',
+        detail: 'Estudos controlados mostram redução da idade epigenética (DunedinPACE e Horvath) após protocolos de exercício de alta intensidade, independente de peso corporal.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🧬',
+        name: 'Reprogramação Parcial (OSKM)',
+        detail: 'Expressão temporária de fatores de Yamanaka em modelos animais reverte marcadores de envelhecimento epigenético. Empresas como Altos Labs e Turn Biotechnologies avançam em estudos pré-clínicos.',
+        type: 'Experimental'
+      },
+      {
+        icon: '🌱',
+        name: 'Sulforafano',
+        detail: 'Induz Nrf2 e modula metilação de histonas via inibição de HDACs. Estudos piloto mostram alterações favoráveis em marcadores epigenéticos de envelhecimento.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '💉',
+        name: 'Hormônio do Crescimento + DHEA + Metformina',
+        detail: 'Estudo TRIIM (Fahy et al., 2019) mostrou reversão de ~2,5 anos da idade epigenética Horvath em homens com esse regime combinado. Aguarda-se replicação.',
+        type: 'Farmacológico'
+      }
+    ]
+  },
+
+  4: {
+    category: 'primary',
+    categoryLabel: 'Hallmark Primário',
+    categoryRoman: 'I',
+    title: 'Perda de Proteostase',
+    lead: 'A proteostase é a manutenção do proteoma funcional por síntese, dobramento, tráfego e degradação controlados de proteínas. Com o envelhecimento, chaperonas, o proteassoma 26S e a autofagia perdem eficiência, levando ao acúmulo de proteínas mal dobradas e agregados que causam toxicidade celular.',
+    mechanisms: [
+      {
+        icon: '♻️',
+        title: 'Declínio da Autofagia',
+        text: 'Macroautofagia, mitofagia e autofagia mediada por chaperonas (CMA) declinam com a idade. Beclin-1, Atg5 e LAMP-2A diminuem, resultando em acúmulo de organelas e proteínas danificadas.'
+      },
+      {
+        icon: '🧹',
+        title: 'Disfunção do Proteassoma',
+        text: 'Atividade dos proteassomas 20S e 26S reduz ~50% em células idosas. Proteínas ubiquitinadas se acumulam, gerando agregados que comprometem função celular e disparam inflamação via NF-κB.'
+      },
+      {
+        icon: '🔥',
+        title: 'Proteínas Agregadas e Doenças',
+        text: 'Agregados de αS (Parkinson), Tau/Aβ (Alzheimer), huntingtina (Huntington) e TDP-43 (ELA) são consequências diretas do colapso da proteostase relacionado ao envelhecimento.'
+      },
+      {
+        icon: '🌡️',
+        title: 'Resposta ao Unfolded Protein (UPR)',
+        text: 'O estresse do retículo endoplasmático ativa UPR via IRE1α, PERK e ATF6. Ativação crônica da UPR gera resistência à insulina, inflamação e morte celular.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '⏰',
+        name: 'Jejum Intermitente / Restrição de Tempo Alimentar',
+        detail: 'Meta-análises confirmam que períodos de jejum ativam autofagia via inibição de mTOR e ativação de AMPK, melhorando clearance de proteínas danificadas e reduzindo marcadores de agregação.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🌿',
+        name: 'Rapamicinа / Inibidores de mTOR',
+        detail: 'mTOR inibe autofagia. Rapamicina e análogos (rapalogs) são os agentes de longevidade mais replicados em modelos animais; estudos piloto em humanos mostram segurança aceitável.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🏃',
+        name: 'Exercício de Força e Resistência',
+        detail: 'Ativa autofagia muscular via AMPK e FoxO3. Estudos controlados mostram aumento de marcadores de autofagia (LC3-II/I ratio, p62) e redução de proteínas ubiquitinadas em tecido muscular.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💊',
+        name: 'Espermidina',
+        detail: 'Poliamina natural que induz autofagia via inibição de EP300. Estudos observacionais associam alta ingestão dietética de espermidina a menor mortalidade. Ensaios piloto em idosos com disfunção cognitiva em andamento.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🌿',
+        name: 'Resveratrol',
+        detail: 'Ativa SIRT1 e induz autofagia. Estudos em modelos de Alzheimer mostram redução de Aβ. Biodisponibilidade oral limitada; formulações microencapsuladas em estudos de fase II.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🔬',
+        name: 'Ativadores de HSP70/HSP90',
+        detail: 'Moléculas como Arimoclomol (co-indutor de HSPs) mostraram resultados promissores em doenças de agregação proteica (NPC, ELA). Estudos para extensão a envelhecimento geral em fase piloto.',
+        type: 'Farmacológico'
+      }
+    ]
+  },
+
+  5: {
+    category: 'primary',
+    categoryLabel: 'Hallmark Primário',
+    categoryRoman: 'I',
+    title: 'Ativação Macroautofágica Desregulada',
+    lead: 'Adicionado na versão 2023 da classificação, este hallmark reconhece que tanto a hipo- quanto a hiperativação da macroautofagia são prejudiciais. O envelhecimento perturba o equilíbrio fino entre degradação e síntese, comprometendo a reciclagem seletiva de organelas danificadas e o controle de qualidade intracelular.',
+    mechanisms: [
+      {
+        icon: '⚖️',
+        title: 'Desequilíbrio Autofágico',
+        text: 'Jovens mantêm fluxo autofágico balanceado. No envelhecimento, a autofagia basal diminui enquanto eventos estressores a disparam de forma desregulada, gerando degradação excessiva de proteínas funcionais.'
+      },
+      {
+        icon: '🔋',
+        title: 'Mitofagia Seletiva',
+        text: 'A mitofagia PINK1/Parkin elimina mitocôndrias danificadas. Seu declínio com a idade resulta em acúmulo de mitocôndrias disfuncionais, queda de ATP e geração excessiva de ROS.'
+      },
+      {
+        icon: '🧩',
+        title: 'Lisossomas e pH',
+        text: 'A função lisossomal depende de pH ácido (4.5–5.0). Com o envelhecimento, V-ATPases declinam, elevando pH lisossomal, reduzindo eficiência de enzimas hidrolíticas e causando acúmulo de detritos celulares (lipofuscina).'
+      },
+      {
+        icon: '🔗',
+        title: 'Crosstalk com mTORC1',
+        text: 'mTORC1 é o principal supressor da autofagia. Sua hiperativação crônica em envelhecimento é responsável por parte do declínio autofágico observado em tecidos proliferativos e pós-mitóticos.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '⏰',
+        name: 'Protocolos de Jejum Prolongado (48–72h)',
+        detail: 'Estudos clínicos controlados confirmam autofagia intensa após >24h de jejum, com marcadores como LC3-II e p62 plasmático validados. Benefícios em clearance de proteínas agregadas documentados.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '💊',
+        name: 'Rapamicina (baixa dose intermitente)',
+        detail: 'RCTs e estudos piloto em humanos mostram que dosagem semanal de rapamicina (1–6mg/semana) induz autofagia sem imunossupressão clinicamente significativa.',
+        type: 'Farmacológico'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🌿',
+        name: 'Espermidina Dietética',
+        detail: 'Presente em trigo germado, soja fermentada e queijos envelhecidos. Estudos de coorte associam alta ingestão a maior autofagia em PBMCs. Ensaios clínicos fase I/II em cognição.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🔬',
+        name: 'Trehalase Inibidores',
+        detail: 'A trealose induz autofagia independente de mTOR, via TFEB. Modelos animais mostram redução de agregados de Tau e αS. Estudos piloto em humanos em andamento.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '💊',
+        name: 'NAD+ Precursores para Mitofagia',
+        detail: 'NAD+ ativa SIRT1 e SIRT3, que regulam PINK1/Parkin. Estudos piloto com NMN/NR mostram melhora de marcadores de função mitocondrial e mitofagia em idosos.',
+        type: 'Suplementação'
+      }
+    ]
+  },
+
+  6: {
+    category: 'antagonistic',
+    categoryLabel: 'Hallmark Antagônico',
+    categoryRoman: 'II',
+    title: 'Desregulação da Detecção de Nutrientes',
+    lead: 'Os sensores nutricionais — AMPK, IGF-1/mTOR, sirtuínas e GH/IGF-1 — desacoplam-se com o envelhecimento, gerando resistência à insulina, perda de sensibilidade metabólica e alterações na sinalização de nutrientes que aceleram o envelhecimento celular e aumentam o risco de doenças metabólicas, cardiovasculares e neurodegenerativas.',
+    mechanisms: [
+      {
+        icon: '🍬',
+        title: 'Resistência à Insulina / Sinalização IIS',
+        text: 'A via IIS (insulin/IGF-1 signaling) é o principal regulador da longevidade em organismos model. Sua hiperativação crônica (dieta ocidental, sedentarismo) acelera mTOR e suprime autofagia e FOXO.'
+      },
+      {
+        icon: '⚡',
+        title: 'AMPK como Sensor de Energia',
+        text: 'AMPK detecta razão AMP/ATP e, quando ativado, inibe mTOR, ativa autofagia e biogênese mitocondrial. Sua atividade declina com obesidade e envelhecimento, perdendo papel protetor.'
+      },
+      {
+        icon: '🔇',
+        title: 'Sirtuínas e NAD+ Dependência',
+        text: 'SIRT1, SIRT3 e SIRT6 são desacetilases dependentes de NAD+ que regulam metabolismo, reparo de DNA e longevidade. O declínio de NAD+ com a idade silencia progressivamente as sirtuínas.'
+      },
+      {
+        icon: '📉',
+        title: 'Eixo GH/IGF-1 e Envelhecimento',
+        text: 'O declínio de GH e IGF-1 com a idade (somatopausa) associa-se a sarcopenia, adiposidade visceral e resistência à insulina. Paradoxalmente, organismos com menor sinalização IIS têm maior longevidade.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '💊',
+        name: 'Metformina',
+        detail: 'Ativa AMPK, inibe mTOR e melhora sensibilidade à insulina. Estudos observacionais em diabéticos mostram redução de mortalidade por todas as causas. TAME trial avalia metformina como agente de longevidade.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '⏰',
+        name: 'Restrição de Tempo Alimentar (TRF 8–10h)',
+        detail: 'RCTs controlados demonstram melhora de sensibilidade à insulina, redução de HbA1c, perda de gordura visceral e melhora de biomarcadores metabólicos com TRF independente de restrição calórica.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🏋️',
+        name: 'Exercício de Resistência (Musculação)',
+        detail: 'Melhora sensibilidade à insulina via GLUT-4, ativa AMPK muscular e aumenta NAD+ via PGC-1α/NAMPT. Meta-análises confirmam benefícios robustos em todos os desfechos metabólicos.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💊',
+        name: 'NMN / NR (Precursores de NAD+)',
+        detail: 'Restauram NAD+, ativando sirtuínas SIRT1/3/6. Ensaios piloto em humanos (Keio University, Washington University) mostram melhora de sensibilidade à insulina em idosos e mulheres pós-menopausa.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🌿',
+        name: 'Berberina',
+        detail: 'Ativa AMPK de forma similar à metformina. Estudos clínicos em diabéticos mostram eficácia comparável em HbA1c. Aguardam-se dados de segurança a longo prazo e RCTs específicos para envelhecimento.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '💉',
+        name: 'Agonistas de GLP-1 (Semaglutida, Tirzepatida)',
+        detail: 'Reduzem glicemia, inflamação, gordura visceral e risco cardiovascular. Estudos SURMOUNT e STEP mostram benefícios além do controle glicêmico. Potencial na longevidade sob investigação.',
+        type: 'Farmacológico'
+      }
+    ]
+  },
+
+  7: {
+    category: 'antagonistic',
+    categoryLabel: 'Hallmark Antagônico',
+    categoryRoman: 'II',
+    title: 'Disfunção Mitocondrial',
+    lead: 'As mitocôndrias são o centro energético celular e reguladores-chave do metabolismo, apoptose e sinalização celular. Com o envelhecimento, acumulam mutações no mtDNA, perdem eficiência na cadeia respiratória, geram mais ROS e falham na biogênese e fusão/fissão, comprometendo progressivamente a produção de ATP em todos os tecidos.',
+    mechanisms: [
+      {
+        icon: '⚡',
+        title: 'Declínio da Fosforilação Oxidativa',
+        text: 'Complexos I–V da cadeia respiratória perdem atividade enzimática progressivamente. A queda de ATP muscular e neuronal manifesta-se como fadiga, sarcopenia e declínio cognitivo.'
+      },
+      {
+        icon: '💥',
+        title: 'Produção Excessiva de ROS',
+        text: 'Mitocôndrias disfuncionais "vazam" elétrons na cadeia respiratória, gerando O2•⁻ e H2O2. Em baixa dose, ROS são sinalizadores; cronicamente elevados, danificam DNA, proteínas e lipídeos.'
+      },
+      {
+        icon: '🔄',
+        title: 'Desequilíbrio Fusão/Fissão',
+        text: 'Mitocôndrias saudáveis se fundem (MFN1/2, OPA1) e se dividem (DRP1, FIS1) dinamicamente. No envelhecimento, fissão excessiva e fusão deficiente levam a fragmentação e menor eficiência bioenergética.'
+      },
+      {
+        icon: '🔋',
+        title: 'Mitofagia Deficiente',
+        text: 'A via PINK1/Parkin elimina mitocôndrias danificadas. Seu declínio permite acúmulo de "zombie mitochondria" que amplificam ROS e disparam NLRP3 inflammasome e SASP.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🏃',
+        name: 'Exercício Aeróbico de Alta Intensidade (HIIT)',
+        detail: 'O estimulante mais potente de biogênese mitocondrial via PGC-1α. RCTs com HIIT mostram aumento de densidade e volume mitocondrial, atividade de complexos respiratórios e VO2Máx em todas as idades.',
+        type: 'Estilo de Vida'
+      },
+      {
+        icon: '💊',
+        name: 'NAD+ Precursores (NMN/NR)',
+        detail: 'NAD+ é cofator essencial de complexos I e III. Estudos clínicos controlados mostram melhora de função mitocondrial muscular, tolerância ao exercício e redução de marcadores de disfunção em idosos.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🌿',
+        name: 'CoQ10 (Ubiquinol)',
+        detail: 'Carreador de elétrons entre complexos I–III e antioxidante lipídico. Meta-análises confirmam benefícios em insuficiência cardíaca, miopatias mitocondriais e biomarcadores de função mitocondrial.',
+        type: 'Suplementação'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🔬',
+        name: 'MitoQ',
+        detail: 'CoQ10 conjugado a TPP+ (direcionado a mitocôndrias). Acumula 1000× mais que CoQ10 livre em matriz mitocondrial. Estudos piloto em doença hepática e vascular mostram redução de estresse oxidativo.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🌱',
+        name: 'Urolitina A',
+        detail: 'Produzida por microbiota a partir de elagitaninos (romã, nozes). Ativa mitofagia via PINK1/Parkin independente de mTOR. Estudo de fase I (Amazentis) mostrou aumento de mitofagia em PBMCs humanos.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '💊',
+        name: 'SS-31 (Elamipretide)',
+        detail: 'Peptídeo de direcionamento mitocondrial que estabiliza cardiolipina nas cristas mitocondriais. Estudos em insuficiência cardíaca e miopatias mitocondriais com resultados promissores em fase II.',
+        type: 'Farmacológico'
+      }
+    ]
+  },
+
+  8: {
+    category: 'antagonistic',
+    categoryLabel: 'Hallmark Antagônico',
+    categoryRoman: 'II',
+    title: 'Senescência Celular',
+    lead: 'Células senescentes (SnCs) param de se dividir permanentemente mas resistem à apoptose, acumulando-se nos tecidos com o envelhecimento. Seu secretoma inflamatório (SASP) — citocinas, proteases e ROS — promove inflamação crônica, suprime células-tronco vizinhas e converte o microambiente tecidual para estados pró-envelhecimento.',
+    mechanisms: [
+      {
+        icon: '🛑',
+        title: 'Senescência Replicativa vs. OIS',
+        text: 'A senescência pode ser desencadeada por telômeros críticos (replicativa), oncogenes (OIS), estresse oxidativo ou danos ao DNA. Cada via converge em p53/p21 e/ou p16/Rb para bloqueio permanente do ciclo.'
+      },
+      {
+        icon: '🔥',
+        title: 'SASP — Secretoma Inflamatório',
+        text: 'SnCs secretam IL-6, IL-8, MCP-1, MMPs, GROα e VEGF. O SASP promove inflamação sistêmica, recruta imunidade inata disfuncional e cria microambiente pró-tumoral paradoxalmente.'
+      },
+      {
+        icon: '📈',
+        title: 'Acumulação Progressiva',
+        text: 'O número de SnCs aumenta exponencialmente dos 50 anos em diante. Contribuem para disfunção de praticamente todos os órgãos: fígado, rins, pulmão, cérebro, tecido adiposo e sistema vascular.'
+      },
+      {
+        icon: '🔗',
+        title: 'BCL-2 e Resistência à Apoptose',
+        text: 'SnCs upregulam BCL-2, BCL-XL e BCL-W (anti-apoptóticos), tornando-se resistentes a sinais de morte. Esta é a base dos senolíticos (Navitoclax, Dasatinib) que inibem essas proteínas para eliminar SnCs.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '💊',
+        name: 'Dasatinib + Quercetina (D+Q)',
+        detail: 'Combinação senolítica mais estudada em humanos. Múltiplos ensaios de fase I/II (Mayo Clinic) demonstraram redução de p16, p21 e SASP em tecido adiposo e sangue periférico com ciclos intermitentes.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🌿',
+        name: 'Fisetina',
+        detail: 'Flavonoide com atividade senolítica demonstrada em modelos animais (reduz carga de SnCs em 25–50%). Estudo AFFIRM-LITE (RCT, Mayo Clinic) em idosos com MCI confirmou redução de biomarcadores senescência.',
+        type: 'Suplementação'
+      },
+      {
+        icon: '🔬',
+        name: 'Exercício Físico (Senomorfólise)',
+        detail: 'Metanálises mostram que exercício aeróbico reduz p16, p21 e IL-6 sérico (SASP), e aumenta clearance imune de SnCs via células NK e CD8+. Efeito dose-dependente bem documentado.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💉',
+        name: 'Navitoclax (ABT-263)',
+        detail: 'Inibidor de BCL-2/BCL-XL com forte atividade senolítica em modelos animais. Em humanos, uso limitado por trombocitopenia. Formulações com menor toxicidade sistêmica em estudos pré-clínicos.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🌱',
+        name: 'Nanopartículas com ABT-263',
+        detail: 'Entrega seletiva de Navitoclax em SnCs via nanopartículas com gal-modificação (galacto-oligossacarídeos reconhecem β-galactosidase senescente). Demonstrou seletividade sem trombocitopenia em modelos murinos.',
+        type: 'Experimental'
+      },
+      {
+        icon: '🧬',
+        name: 'CAR-T Anti-Senescência',
+        detail: 'Células CAR-T direcionadas a uPAR (marcador de SnCs) eliminaram seletivamente células senescentes em modelos de fibrose, tumor e envelhecimento. Resultados Transimmune/MIT publicados em Nature 2023.',
+        type: 'Experimental'
+      }
+    ]
+  },
+
+  9: {
+    category: 'integrative',
+    categoryLabel: 'Hallmark Integrativo',
+    categoryRoman: 'III',
+    title: 'Exaustão de Células-Tronco',
+    lead: 'As células-tronco adultas mantêm a homeostase tecidual ao longo da vida. Com o envelhecimento, sua capacidade de autorrenovação e diferenciação declina devido a danos acumulados ao DNA, epigenoma alterado e microambiente (nicho) disfuncional, comprometendo a regeneração de todos os tecidos.',
+    mechanisms: [
+      {
+        icon: '🌱',
+        title: 'Exaustão do Pool de Células-Tronco',
+        text: 'Divisões replicativas ao longo da vida encurtam telômeros nas células-tronco. Danos ao DNA e ativação de p53/p21 induzem senescência ou apoptose, reduzindo o pool de stem cells funcionais nos nichos teciduais.'
+      },
+      {
+        icon: '🔀',
+        title: 'Polarização de Diferenciação',
+        text: 'MSCs de doadores idosos preferem diferenciar em adipócitos em vez de osteócitos e miócitos, contribuindo para osteoporose, sarcopenia e infiltração gordurosa muscular. Mudança epigenética e FoxO deficiente explicam essa polarização.'
+      },
+      {
+        icon: '🏘️',
+        title: 'Disfunção do Nicho',
+        text: 'O microambiente (nicho) que suporta stem cells também envelhece. TGF-β, RANTES e VEGF alterados, junto ao SASP de células vizinhas, inibem a capacidade regenerativa das células-tronco residuais.'
+      },
+      {
+        icon: '🔋',
+        title: 'Metabolismo Mitocondrial das Stem Cells',
+        text: 'Stem cells quiescentes dependem de glicólise anaerobia. Com o envelhecimento, pressão para metabolismo oxidativo mitocondrial ("forced oxidative metabolism") compromete a manutenção do estado quiescente protetor.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🏃',
+        name: 'Exercício Físico como Modulador do Nicho',
+        detail: 'Exercício aeróbico e de resistência ativa células-tronco musculares (satellite cells), neurais (via BDNF e IGF-1) e hematopoiéticas. Metanálises confirmam manutenção de capacidade regenerativa com exercício regular.',
+        type: 'Estilo de Vida'
+      },
+      {
+        icon: '🌿',
+        name: 'Restrição Calórica',
+        detail: 'Preserva o pool de células-tronco intestinais e musculares em modelos animais via mTOR e AMPK. Estudos CALERIE mostram preservação de biomarcadores de stem cell em humanos com RC de 25%.',
+        type: 'Nutricional'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💉',
+        name: 'Plasma Jovem / GDF11',
+        detail: 'Fator de crescimento GDF11 no plasma jovem reverte declínio de células-tronco cardíacas, esqueléticas e neurais em parabiose murinos. Ensaios clínicos com plasma jovem (Alkahest) em Alzheimer e Parkinson em andamento.',
+        type: 'Experimental'
+      },
+      {
+        icon: '💊',
+        name: 'Oxitocina e AMPc',
+        detail: 'Oxitocina declina com a idade e é necessária para ativação de satellite cells. Injeção subcutânea em ratos idosos restaurou regeneração muscular. Estudos em humanos em fase inicial.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🧬',
+        name: 'Células-Tronco Mesenquimais (MSC) Ex Vivo',
+        detail: 'Infusão de MSCs autólogas expandidas ex vivo mostra benefícios em modelos de envelhecimento e ensaios fase I/II para fraqueza geriátrica. Resultados do estudo CELLTOP e triais de longevidade em andamento.',
+        type: 'Bioterapia'
+      }
+    ]
+  },
+
+  10: {
+    category: 'integrative',
+    categoryLabel: 'Hallmark Integrativo',
+    categoryRoman: 'III',
+    title: 'Comunicação Intercelular Alterada',
+    lead: 'As células comunicam-se via sinais endócrinos, parácrinos e auto-sinais que coordenam respostas teciduais e sistêmicas. Com o envelhecimento, esses sinais deterioram-se: fatores protetores declinem, citocinas inflamatórias predominam e vesículas extracelulares carregam conteúdo disfuncional, desregulando a coordenação sistêmica entre órgãos.',
+    mechanisms: [
+      {
+        icon: '📡',
+        title: 'Sinalização Endócrina Deteriorada',
+        text: 'Hormônios protetores — IGF-1, GH, DHEA, testosterona, estradiol, T3 — declinam progressivamente (somatopausa, andropausa, menopausa). Fatores pro-inflamatórios como IL-6 e TNF-α passam a dominar o ambiente sistêmico.'
+      },
+      {
+        icon: '📦',
+        title: 'Vesículas Extracelulares (EVs)',
+        text: 'Exossomos e microvesículas transportam miRNA, proteínas e lipídeos entre células. No envelhecimento, EVs carregam componentes do SASP, ativam NF-κB em células receptoras e propagam o envelhecimento em "ondas".'
+      },
+      {
+        icon: '🧠',
+        title: 'Desconexão Neuroimune',
+        text: 'O eixo hipotálamo-hipófise-adrenal e o sistema nervoso autônomo coordenam respostas imunes. Com o envelhecimento, essa coordenação falha: resposta ao estresse crônica, menor variabilidade da frequência cardíaca e neuroimunidade comprometida.'
+      },
+      {
+        icon: '🔗',
+        title: 'Fatores de Plasma Jovem vs. Velho',
+        text: 'Estudos de heterocronia identificaram fatores no plasma jovem (GDF11, oxitocina, β2-microglobulina em baixa) e velho (TGF-β1, β2M, RANTES em alta) que regulam bidiretoriamente o envelhecimento sistêmico.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '💊',
+        name: 'Terapia de Reposição Hormonal Otimizada',
+        detail: 'TRH para mulheres na pós-menopausa (estrogênio ± progesterona biomimética) e TRT para homens com hipogonadismo mostram benefícios cardiovasculares, ósseos e cognitivos em RCTs e estudos de coorte quando iniciados na janela crítica.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🏃',
+        name: 'Exercício como Endocrinologia',
+        detail: 'Exercício secreta miocinas (irisina, BDNF, IL-15, FGF21), hepatocinas, osteocinas e adipocinas que coordenam comunicação inter-órgão. Metanálises confirmam impacto sistêmico profundo na sinalização intercelular.',
+        type: 'Estilo de Vida'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '🔬',
+        name: 'Diluição do Plasma Envelhecido (Conboy)',
+        detail: 'Diluição do plasma (substituição por albumina + solução salina) remove fatores inibitórios e rejuvenesce músculo, fígado e cérebro em modelos murinos. Estudo piloto em humanos idosos em andamento na UC Berkeley.',
+        type: 'Experimental'
+      },
+      {
+        icon: '💊',
+        name: 'Anti-TGF-β1 (Losartana / Anti-β2M)',
+        detail: 'TGF-β1 e β2-microglobulina são fatores pró-envelhecimento no plasma de idosos. Losartana inibe TGF-β1 na vasculatura e é estudada como agente anti-envelhecimento. Anticorpos anti-β2M em pré-clínico.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🧬',
+        name: 'Exossomos de Células-Tronco Jovens',
+        detail: 'EVs derivadas de MSCs jovens reprogramam células receptoras, reduzem inflamação e melhoram regeneração. Estudos de fase I para DPOC e envelhecimento cutâneo com perfil de segurança favorável.',
+        type: 'Bioterapia'
+      }
+    ]
+  },
+
+  11: {
+    category: 'integrative',
+    categoryLabel: 'Hallmark Integrativo',
+    categoryRoman: 'III',
+    title: 'Inflamação Crônica (Inflamaging)',
+    lead: 'A inflamação crônica de baixo grau — "Inflamaging" — é um estado sistêmico de ativação imune persistente sem causa infecciosa aguda. Impulsionado por SASP de células senescentes, fragmentos de mtDNA, NF-κB e NLRP3, é um denominador comum de praticamente todas as doenças relacionadas ao envelhecimento.',
+    mechanisms: [
+      {
+        icon: '🔥',
+        title: 'NF-κB como Master Regulator',
+        text: 'NF-κB é ativado por ROS, SASP, dano ao DNA e lipopolissacarídeos de microbiota. Sua ativação crônica produz IL-6, TNF-α, IL-1β e CXCL8, retroalimentando inflamação e acelerando senescência.'
+      },
+      {
+        icon: '🧬',
+        title: 'NLRP3 Inflammasome',
+        text: 'Ativado por cristais de colesterol, ácido úrico, mtDNA e agregados proteicos, o NLRP3 produz IL-1β e IL-18 maduras, impulsionando inflamação sistêmica e tecidual no envelhecimento.'
+      },
+      {
+        icon: '🦠',
+        title: 'Microbioma e Permeabilidade Intestinal',
+        text: 'Disbiose intestinal relacionada ao envelhecimento (menor diversidade, Akkermansia reduzida) aumenta permeabilidade intestinal, promovendo translocação de LPS e ativação crônica de TLR4 sistêmica.'
+      },
+      {
+        icon: '📡',
+        title: 'cGAS-STING e DNA Extracelular',
+        text: 'DNA citosólico (de mitocôndrias disfuncionais ou retrotransposons ativados) ativa cGAS-STING, produzindo interferon tipo I e citocinas inflamatórias que contribuem para o inflamaging.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🌿',
+        name: 'Dieta Anti-Inflamatória (Mediterrânea + Ômega-3)',
+        detail: 'Meta-análises de múltiplos RCTs mostram redução de PCR-us, IL-6 e TNF-α com alta adesão à dieta mediterrânea e suplementação de EPA/DHA 2–4g/dia.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🏃',
+        name: 'Exercício Físico Regular',
+        detail: 'Metanálises confirmam redução de IL-6, TNF-α e PCR com exercício regular. Mecanismos incluem IL-10 miocina, redução de gordura visceral (fonte principal de citocinas inflamatórias).',
+        type: 'Estilo de Vida'
+      },
+      {
+        icon: '💊',
+        name: 'Senolíticos (D+Q) — Via SASP',
+        detail: 'Eliminação de células senescentes reduz diretamente a fonte principal do SASP, reduzindo inflamação sistêmica. Estudos D+Q mostram quedas significativas em IL-6, MCP-1 e MMP-9.',
+        type: 'Farmacológico'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💊',
+        name: 'Inibidores de NLRP3 (MCC950)',
+        detail: 'MCC950 inibe NLRP3 com alta seletividade. Estudos pré-clínicos mostram proteção em modelos de aterosclerose, Alzheimer e autoimunidade. Estudos de fase I/II iniciados recentemente.',
+        type: 'Farmacológico'
+      },
+      {
+        icon: '🧫',
+        name: 'Probióticos (Akkermansia muciniphila)',
+        detail: 'Reduz permeabilidade intestinal, LPS e inflamação sistêmica. Estudo AHEAD mostrou segurança e melhora de marcadores metabólicos e inflamatórios em humanos com sobrepeso.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🌿',
+        name: 'Curcumina (Alta Biodisponibilidade)',
+        detail: 'Inibe NF-κB e NLRP3. Estudos com formulações Longvida/Meriva mostram redução de PCR e IL-6 em populações de risco. Eficácia limitada por baixa biodisponibilidade oral da forma padrão.',
+        type: 'Suplementação'
+      }
+    ]
+  },
+
+  12: {
+    category: 'integrative',
+    categoryLabel: 'Hallmark Integrativo',
+    categoryRoman: 'III',
+    title: 'Disbiose do Microbioma',
+    lead: 'Novo hallmark em 2023, reconhece o microbioma intestinal como regulador sistêmico do envelhecimento. Com a idade, ocorre redução de diversidade, perda de espécies protetoras (Akkermansia, Bifidobacterium), aumento de patobiontes e comprometimento da barreira intestinal — tudo contribuindo para inflamaging, disfunção imune e declínio cognitivo.',
+    mechanisms: [
+      {
+        icon: '🦠',
+        title: 'Perda de Diversidade Microbiana',
+        text: 'Idosos têm 30–40% menos diversidade que adultos jovens. Filos protetores como Bacteroidetes e Firmicutes com perfil saudável declinam, enquanto Proteobacteria (pro-inflamatória) aumenta.'
+      },
+      {
+        icon: '🧱',
+        title: 'Barreira Intestinal e Leaky Gut',
+        text: 'Junções tight (ZO-1, claudina, ocludina) enfraquecem com o envelhecimento. Isso permite translocação de LPS, fragmentos bacterianos e metabólitos tóxicos para corrente sanguínea, ativando inflamação sistêmica.'
+      },
+      {
+        icon: '⚗️',
+        title: 'Metabólitos Microbianos Protetores',
+        text: 'Ácidos graxos de cadeia curta (SCFA: butirato, propionato, acetato) produzidos por fermentação de fibras declinam com disbiose. SCFAs alimentam colonócitos, regulam imunidade e têm efeitos neuroprotetores via eixo intestino-cérebro.'
+      },
+      {
+        icon: '🧠',
+        title: 'Eixo Intestino-Cérebro no Envelhecimento',
+        text: 'A comunicação bidirecional via nervo vago, metabólitos e sistema imune conecta disbiose a neuroinflamação, depressão e declínio cognitivo. Transplante de microbiota jovem reverte declínio cognitivo em modelos murinos.'
+      }
+    ],
+    interventionsA: [
+      {
+        icon: '🌾',
+        name: 'Fibras Prebióticas Diversificadas',
+        detail: 'Meta-análises confirmam que alta ingestão de fibras fermentáveis (inulina, FOS, GOS, pectina) aumenta diversidade microbiana, produção de SCFAs e reduz inflamação em idosos.',
+        type: 'Nutricional'
+      },
+      {
+        icon: '🌿',
+        name: 'Dieta Baseada em Plantas com Alta Diversidade',
+        detail: 'Estudos longitudinais (PREDICT, UK Biobank) mostram que diversidade alimentar ≥30 plantas/semana associa-se a maior diversidade microbiana, menores marcadores inflamatórios e melhor saúde metabólica.',
+        type: 'Nutricional'
+      }
+    ],
+    interventionsB: [
+      {
+        icon: '💊',
+        name: 'Akkermansia muciniphila (Pasteurizada)',
+        detail: 'Forma pasteurizada (mais estável) reduz permeabilidade intestinal, inflamação e melhora sensibilidade insulínica em estudos piloto. Mecanismo: Amuc_1100 proteína de membrana ativa TLR2.',
+        type: 'Probiótico'
+      },
+      {
+        icon: '🔬',
+        name: 'Transplante de Microbiota Fecal (FMT)',
+        detail: 'FMT de jovens para idosos reverteu marcadores de envelhecimento imunológico em modelos murinos. Estudos piloto em humanos idosos mostram melhora de diversidade e biomarcadores cognitivos.',
+        type: 'Experimental'
+      },
+      {
+        icon: '🌿',
+        name: 'Polifenóis (Resveratrol, Elagitaninos)',
+        detail: 'Polifenóis são prebioticamente transformados por microbiota em metabólitos ativos (urolitina A, piceatanol). Modelos de idosos com suplementação mostram melhora de composição microbiana e redução de inflamação.',
+        type: 'Nutricional'
+      }
+    ]
+  }
+};
+
+/* Navigation order */
+const HM_ORDER = [1,2,3,4,5,6,7,8,9,10,11,12];
+
+const HM_NAMES = {
+  1: 'Instabilidade Genômica',
+  2: 'Atrito Telomérico',
+  3: 'Alterações Epigenéticas',
+  4: 'Perda de Proteostase',
+  5: 'Macroautofagia Comprometida',
+  6: 'Desregulação da Detecção de Nutrientes',
+  7: 'Disfunção Mitocondrial',
+  8: 'Senescência Celular',
+  9: 'Exaustão de Células-Tronco',
+  10: 'Comunicação Intercelular Alterada',
+  11: 'Inflamação Crônica (Inflamaging)',
+  12: 'Disbiose do Microbioma'
+};
+
+/* ====================================================
+   RENDER
+   ==================================================== */
+function getParam(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function formatNum(n) {
+  return String(n).padStart(2, '0');
+}
+
+function renderHallmark(id) {
+  const hm = HALLMARKS[id];
+  if (!hm) {
+    document.getElementById('loading-state').textContent = 'Hallmark não encontrado.';
+    return;
+  }
+
+  // Update page title & crumb
+  document.title = hm.title + ' — Eternal Health';
+  document.getElementById('topBarCrumb').textContent = 'HALLMARK ' + formatNum(id);
+
+  // Prev / Next
+  const idx = HM_ORDER.indexOf(id);
+  const prevId = idx > 0 ? HM_ORDER[idx - 1] : null;
+  const nextId = idx < HM_ORDER.length - 1 ? HM_ORDER[idx + 1] : null;
+
+  const tagClass = hm.category + '-tag';
+
+  const mechanismBlocks = hm.mechanisms.map(m => `
+    <div class="mechanism-block">
+      <div class="mechanism-block-icon">${m.icon}</div>
+      <div class="mechanism-block-title">${m.title}</div>
+      <div class="mechanism-block-text">${m.text}</div>
+    </div>
+  `).join('');
+
+  const renderInterventions = (list) => list.map(iv => `
+    <li class="intervention-item">
+      <div class="intervention-icon">${iv.icon}</div>
+      <div class="intervention-content">
+        <div class="intervention-name">${iv.name}</div>
+        <div class="intervention-detail">${iv.detail}</div>
+      </div>
+      <div class="intervention-meta">
+        <span class="intervention-type">${iv.type}</span>
+      </div>
+    </li>
+  `).join('');
+
+  const navHtml = `
+    <div class="hm-nav">
+      ${prevId ? `
+        <a href="hallmark.html?h=${prevId}" class="hm-nav-pill prev">
+          <span class="hm-nav-direction">← Anterior</span>
+          <span class="hm-nav-name">${HM_NAMES[prevId]}</span>
+        </a>
+      ` : '<div></div>'}
+      ${nextId ? `
+        <a href="hallmark.html?h=${nextId}" class="hm-nav-pill next">
+          <span class="hm-nav-direction">Próximo →</span>
+          <span class="hm-nav-name">${HM_NAMES[nextId]}</span>
+        </a>
+      ` : '<div></div>'}
+    </div>
+  `;
+
+  const html = `
+    <a href="../index.html#ciencia" class="back-all">← Todos os 12 Hallmarks</a>
+
+    <div class="hm-hero">
+      <div class="hm-category-tag ${tagClass}">
+        Categoria ${hm.categoryRoman} &nbsp;·&nbsp; ${hm.categoryLabel}
+      </div>
+      <div class="hm-number">HALLMARK ${formatNum(id)} DE 12</div>
+      <h1 class="hm-title">${hm.title}</h1>
+      <p class="hm-lead">${hm.lead}</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="content-section-label">Mecanismos Biológicos</div>
+    <h2 class="content-section-title">Como este hallmark impulsiona o envelhecimento</h2>
+    <div class="mechanism-grid">${mechanismBlocks}</div>
+
+    <div class="section-divider"></div>
+
+    <div class="content-section-label">Estratégias de Intervenção</div>
+    <h2 class="content-section-title">Abordagens baseadas em evidências</h2>
+
+    <div class="evidence-section">
+      <div class="evidence-level-header">
+        <div class="evidence-badge badge-a">A</div>
+        <div class="evidence-level-desc">
+          <strong>Nível A — Evidência Forte</strong>
+          Múltiplos ensaios clínicos randomizados controlados (RCTs) e/ou revisões sistemáticas com meta-análise em humanos.
+        </div>
+      </div>
+      <ul class="intervention-list">${renderInterventions(hm.interventionsA)}</ul>
+    </div>
+
+    <div class="evidence-section">
+      <div class="evidence-level-header">
+        <div class="evidence-badge badge-b">B</div>
+        <div class="evidence-level-desc">
+          <strong>Nível B — Evidência Promissora</strong>
+          Estudos observacionais, ensaios piloto fase I/II, estudos pré-clínicos com tradução humana em andamento, ou dados mecanísticos robustos.
+        </div>
+      </div>
+      <ul class="intervention-list">${renderInterventions(hm.interventionsB)}</ul>
+    </div>
+
+    ${navHtml}
+
+    <p style="margin-top:32px;font-family:var(--f-mono);font-size:0.6rem;color:var(--t-tertiary);line-height:1.8">
+      Referência primária: López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G. &ldquo;Hallmarks of aging: An expanding universe.&rdquo;
+      <em>Cell.</em> 2023;186(2):243–278.
+      <a href="https://doi.org/10.1016/j.cell.2022.11.001" target="_blank" rel="noopener"
+         style="color:var(--aurum);text-decoration:none;">doi:10.1016/j.cell.2022.11.001</a>
+    </p>
+  `;
+
+  const content = document.getElementById('hallmark-content');
+  content.innerHTML = html;
+  content.style.display = 'block';
+  document.getElementById('loading-state').style.display = 'none';
+}
+
+/* ====================================================
+   INIT
+   ==================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const hParam = parseInt(getParam('h'), 10);
+  if (hParam >= 1 && hParam <= 12) {
+    renderHallmark(hParam);
+  } else {
+    renderHallmark(1); // default to hallmark 1
+  }
+});
+</script>
+</body>
+</html>
