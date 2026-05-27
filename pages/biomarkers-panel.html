@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Laboratorial de Longevidade — Eternal Health</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--void);
+      color: var(--t-primary);
+      font-family: var(--f-sans);
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 52px;
+      background: rgba(1,2,3,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--b-ghost);
+      display: flex; align-items: center;
+      padding: 0 var(--space-xl); gap: 14px;
+    }
+    .tb-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .tb-mark {
+      width: 22px; height: 22px; background: var(--aurum); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-mono); font-size: 0.55rem; font-weight: 700;
+      color: var(--void); letter-spacing: 0.04em;
+    }
+    .tb-name { font-family: var(--f-serif); font-size: 0.9rem; color: var(--t-primary); letter-spacing: 0.08em; }
+    .tb-sep  { font-family: var(--f-mono); font-size: 0.58rem; color: var(--t-tertiary); }
+    .tb-page { font-family: var(--f-mono); font-size: 0.6rem; color: var(--t-secondary); letter-spacing: 0.1em; }
+    .tb-back {
+      margin-left: auto;
+      font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      color: var(--t-secondary); text-decoration: none;
+      transition: color var(--dur-fast) ease;
+    }
+    .tb-back:hover { color: var(--aurum); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 72px var(--space-xl) 96px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 48px 0 52px;
+      border-bottom: 1px solid var(--b-subtle);
+      margin-bottom: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-2xl);
+      align-items: end;
+    }
+    .hero-eyebrow {
+      font-family: var(--f-mono); font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--aurum); margin-bottom: var(--space-md);
+    }
+    .hero-title {
+      font-family: var(--f-serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; font-style: italic;
+      color: var(--t-primary); line-height: 1.12;
+      margin-bottom: var(--space-lg);
+    }
+    .hero-sub {
+      font-size: 0.88rem; color: var(--t-secondary);
+      line-height: 1.8; max-width: 580px;
+    }
+    .hero-count {
+      text-align: right; flex-shrink: 0;
+    }
+    .hero-count-num {
+      font-family: var(--f-serif); font-size: 5rem;
+      font-weight: 300; color: var(--aurum); line-height: 1;
+    }
+    .hero-count-label {
+      font-family: var(--f-mono); font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--t-tertiary); margin-top: 6px;
+    }
+
+    /* ── TOP 5 ROI BANNER ── */
+    .roi-banner {
+      background: linear-gradient(135deg, rgba(201,169,106,.07) 0%, rgba(201,169,106,.03) 100%);
+      border: 1px solid rgba(201,169,106,.2);
+      border-radius: var(--r-lg);
+      padding: 28px 32px;
+      margin-bottom: 56px;
+    }
+    .roi-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 22px;
+    }
+    .roi-tag {
+      font-family: var(--f-mono); font-size: 0.6rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--aurum);
+      background: var(--aurum-08);
+      border: 1px solid rgba(201,169,106,.25);
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .roi-title {
+      font-family: var(--f-serif); font-size: 1.15rem;
+      font-style: italic; color: var(--t-primary);
+    }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .roi-card {
+      background: rgba(1,2,3,0.5);
+      border: 1px solid rgba(201,169,106,.15);
+      border-radius: var(--r-md);
+      padding: 16px 14px;
+    }
+    .roi-rank {
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.12em; color: var(--aurum);
+      margin-bottom: 8px;
+    }
+    .roi-name {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--t-primary); line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .roi-why {
+      font-size: 0.68rem; color: var(--t-tertiary); line-height: 1.55;
+    }
+
+    /* ── CATEGORY NAV ── */
+    .cat-nav {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 40px;
+      position: sticky; top: 52px; z-index: 50;
+      background: rgba(1,2,3,0.92);
+      backdrop-filter: blur(12px);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--b-ghost);
+    }
+    .cat-btn {
+      font-family: var(--f-mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 3px;
+      border: 1px solid var(--b-subtle);
+      background: transparent; color: var(--t-secondary);
+      cursor: pointer; text-decoration: none;
+      transition: all var(--dur-fast) ease;
+      display: inline-block;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      border-color: rgba(201,169,106,.35);
+      color: var(--aurum);
+      background: var(--aurum-08);
+    }
+
+    /* ── SECTION ── */
+    .bm-section { margin-bottom: 64px; scroll-margin-top: 110px; }
+    .bm-section-header {
+      display: flex; align-items: baseline;
+      gap: 16px; margin-bottom: 6px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--b-subtle);
+    }
+    .bm-section-num {
+      font-family: var(--f-serif); font-size: 1.4rem;
+      font-style: italic; color: var(--aurum); flex-shrink: 0;
+    }
+    .bm-section-title {
+      font-family: var(--f-sans); font-size: 0.88rem;
+      font-weight: 500; color: var(--t-primary);
+    }
+    .bm-section-desc {
+      font-size: 0.76rem; color: var(--t-tertiary);
+      line-height: 1.6; margin-left: auto;
+      max-width: 380px; text-align: right;
+    }
+
+    /* ── BIOMARKER TABLE ── */
+    .bm-table { width: 100%; border-collapse: collapse; }
+
+    .bm-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px 200px;
+      gap: 0;
+      border-bottom: 1px solid var(--b-ghost);
+      transition: background var(--dur-fast) ease;
+    }
+    .bm-row:last-child { border-bottom: none; }
+    .bm-row:hover { background: var(--b-ghost); }
+
+    .bm-head {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px 200px;
+      gap: 0;
+      border-bottom: 1px solid var(--b-subtle);
+      margin-bottom: 2px;
+    }
+    .bm-head-cell {
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--t-tertiary);
+      padding: 10px 14px;
+    }
+
+    .bm-cell {
+      padding: 16px 14px;
+      font-size: 0.78rem;
+      color: var(--t-secondary);
+      line-height: 1.6;
+      vertical-align: top;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .bm-cell-name {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--t-primary); line-height: 1.35;
+      margin-bottom: 3px;
+    }
+    .bm-cell-unit {
+      font-family: var(--f-mono); font-size: 0.6rem;
+      color: var(--t-tertiary);
+    }
+    .bm-cell-why {
+      font-size: 0.74rem; color: var(--t-secondary); line-height: 1.6;
+    }
+    .bm-cell-target {
+      font-family: var(--f-mono); font-size: 0.72rem;
+      color: var(--t-primary);
+    }
+    .bm-cell-bj {
+      font-family: var(--f-mono); font-size: 0.7rem;
+      color: var(--vitae);
+    }
+    .bm-cell-bj-note {
+      font-size: 0.62rem; color: var(--t-tertiary); margin-top: 2px;
+    }
+
+    /* highlight: star biomarker */
+    .bm-row.roi-star .bm-cell-name::after {
+      content: ' ◈';
+      color: var(--aurum); font-size: 0.65rem;
+    }
+    .bm-row.roi-star {
+      background: rgba(201,169,106,.025);
+    }
+
+    /* ── MODEL SIGNAL INDICATOR ── */
+    .model-signal {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      padding: 3px 7px; border-radius: 2px;
+      margin-top: 5px;
+      width: fit-content;
+    }
+    .signal-critical { background: rgba(149,82,82,.12); border: 1px solid rgba(149,82,82,.3); color: #955252; }
+    .signal-high     { background: rgba(201,169,106,.1); border: 1px solid rgba(201,169,106,.25); color: var(--aurum); }
+    .signal-medium   { background: rgba(123,163,125,.1); border: 1px solid rgba(123,163,125,.25); color: var(--vitae); }
+    .signal-low      { background: rgba(255,255,255,.04); border: 1px solid var(--b-subtle); color: var(--t-tertiary); }
+
+    /* ── ADVANCED SECTION (cards) ── */
+    .advanced-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .adv-card {
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md);
+      padding: 22px;
+      position: relative; overflow: hidden;
+    }
+    .adv-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--aurum), transparent);
+    }
+    .adv-card-icon { font-size: 1.4rem; margin-bottom: 12px; }
+    .adv-card-title {
+      font-family: var(--f-sans); font-size: 0.85rem; font-weight: 500;
+      color: var(--t-primary); margin-bottom: 6px;
+    }
+    .adv-card-tag {
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--aurum); margin-bottom: 10px;
+    }
+    .adv-card-text {
+      font-size: 0.75rem; color: var(--t-secondary); line-height: 1.7;
+    }
+    .adv-card-freq {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: var(--f-mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; padding: 4px 9px;
+      background: var(--b-ghost); border: 1px solid var(--b-subtle);
+      border-radius: 2px; color: var(--t-tertiary);
+    }
+
+    /* ── PROTOCOL SUMMARY ── */
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .proto-card {
+      background: var(--depth-2);
+      border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md);
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .proto-freq {
+      font-family: var(--f-mono); font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--aurum); margin-bottom: 8px;
+    }
+    .proto-count {
+      font-family: var(--f-serif); font-size: 2.4rem;
+      font-weight: 300; color: var(--t-primary);
+      line-height: 1;
+    }
+    .proto-label {
+      font-size: 0.72rem; color: var(--t-secondary);
+      margin-top: 6px; line-height: 1.5;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-sep { height: 1px; background: var(--b-subtle); margin: 56px 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .bm-row, .bm-head { grid-template-columns: 160px 1fr; }
+      .bm-head-cell:nth-child(3),
+      .bm-head-cell:nth-child(4),
+      .bm-row .bm-cell:nth-child(3),
+      .bm-row .bm-cell:nth-child(4) { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-count { display: none; }
+      .roi-grid { grid-template-columns: repeat(2, 1fr); }
+      .protocol-grid { grid-template-columns: repeat(2, 1fr); }
+      .advanced-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .roi-grid { grid-template-columns: 1fr; }
+      .bm-section-desc { display: none; }
+      .bm-section-header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="top-bar">
+  <a href="../index.html" class="tb-logo">
+    <div class="tb-mark">EH</div>
+    <span class="tb-name">Eternal Health</span>
+  </a>
+  <span class="tb-sep">/</span>
+  <span class="tb-page">PAINEL LABORATORIAL</span>
+  <a href="../index.html#biomarcadores" class="tb-back">← Voltar</a>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Protocolo Blueprint · Medicina de Precisão</div>
+      <h1 class="hero-title">Painel Laboratorial<br>de Longevidade</h1>
+      <p class="hero-sub">
+        Cada exame atua como um "sensor" que atualiza o estado latente X<sub>t</sub> do modelo bayesiano. Bryan Johnson (Project Blueprint) realiza testes mensais e trimestrais com mais de 100 biomarcadores — os alvos de otimização são muito mais agressivos que os intervalos laboratoriais tradicionais.
+      </p>
+    </div>
+    <div class="hero-count">
+      <div class="hero-count-num">38</div>
+      <div class="hero-count-label">biomarcadores<br>mapeados</div>
+    </div>
+  </div>
+
+  <!-- TOP 5 ROI -->
+  <div class="roi-banner">
+    <div class="roi-header">
+      <span class="roi-tag">◈ TOP 5 ROI Computacional</span>
+      <span class="roi-title">Os 5 marcadores com maior volume de informação preditiva sobre mortalidade</span>
+    </div>
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="roi-rank">ROI #1</div>
+        <div class="roi-name">ApoB</div>
+        <div class="roi-why">Melhor preditor isolado de risco cardiovascular. Conta o total de partículas aterogênicas — informa o vetor β cardiovascular do modelo Cox com mais precisão que LDL-C isolado.</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-rank">ROI #2</div>
+        <div class="roi-name">Insulina em Jejum</div>
+        <div class="roi-why">Detecta disfunção metabólica anos antes da glicose alterar. Alimenta a dimensão de "desregulação nutricional" do estado latente — o mais subestimado e o mais informativo por custo.</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-rank">ROI #3</div>
+        <div class="roi-name">hs-CRP</div>
+        <div class="roi-why">Marcador sistêmico de inflamaging. Atualiza simultaneamente o peso das dimensões cardiovascular, cognitiva e metabólica no estado latente X<sub>t</sub>.</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-rank">ROI #4</div>
+        <div class="roi-name">HbA1c</div>
+        <div class="roi-why">Média de 3 meses de glicação proteica. Capta a integral temporal da glicose — muito mais informativa que medidas pontuais para calibrar a trajetória longitudinal do modelo.</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-rank">ROI #5</div>
+        <div class="roi-name">GGT</div>
+        <div class="roi-why">Sinal de alerta precoce de fígado gorduroso e estresse oxidativo sistêmico. Sobe antes do ALT/AST — sensível ao estado de proteostase e à carga de toxicidade do pipeline de suplementação.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY NAV -->
+  <nav class="cat-nav">
+    <a href="#cardio"    class="cat-btn">01 · Cardiovascular</a>
+    <a href="#metabolic" class="cat-btn">02 · Metabólico</a>
+    <a href="#hormonal"  class="cat-btn">03 · Hormonal</a>
+    <a href="#organic"   class="cat-btn">04 · Função Orgânica</a>
+    <a href="#nutrients" class="cat-btn">05 · Nutrientes</a>
+    <a href="#advanced"  class="cat-btn">06 · Epigenético</a>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1: CARDIOVASCULAR
+       ============================================================ -->
+  <div class="bm-section" id="cardio">
+    <div class="bm-section-header">
+      <span class="bm-section-num">I</span>
+      <span class="bm-section-title">Painel Cardiovascular e Lipídico</span>
+      <span class="bm-section-desc">O vetor preditivo mais crítico para mortalidade por todas as causas. Foco em partículas aterogênicas, não no colesterol total.</span>
+    </div>
+
+    <div class="bm-head">
+      <div class="bm-head-cell">Biomarcador</div>
+      <div class="bm-head-cell">Relevância para o Modelo Preditivo</div>
+      <div class="bm-head-cell">Alvo Blueprint</div>
+      <div class="bm-head-cell">Bryan Johnson (real)</div>
+    </div>
+
+    <div class="bm-row roi-star">
+      <div class="bm-cell">
+        <div class="bm-cell-name">ApoB</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-critical">◈ ROI #1 — SINAL CRÍTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Melhor preditor isolado de risco cardiovascular. Cada partícula LDL, VLDL e IDL contém exatamente uma molécula de ApoB — o total revela a carga aterogênica real independente do tamanho da partícula.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 60 mg/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~52 mg/dL</div>
+        <div class="bm-cell-bj-note">dieta vegetal + estatinas</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Lp(a)</div>
+        <div class="bm-cell-unit">mg/dL ou nmol/L</div>
+        <div class="model-signal signal-high">PRIOR FIXO — GENÉTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Fator de risco genético: não é modificado por estilo de vida. Define o baseline fixo (prior estrutural) do risco cardiovascular do modelo — o "ruído de fundo" irredutível. Alto Lp(a) penaliza permanentemente o peso da função de sobrevivência S(t).</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Menor possível</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">—</div>
+        <div class="bm-cell-bj-note">geneticamente determinado</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">LDL-C</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-high">SINAL ALTO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Colesterol "ruim" clássico. Menos preciso que ApoB (ignora tamanho de partícula), mas ainda informa o modelo. Complementa ApoB para calcular a proporção de partículas densas e pequenas — mais aterogênicas.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 54 mg/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~35 mg/dL</div>
+        <div class="bm-cell-bj-note">agressivamente otimizado</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Triglicerídeos</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Marcador de saúde metabólica, dieta e resistência à insulina. Alimenta cruzamento com insulina em jejum: TG/HDL &gt; 2 é proxy de resistência insulínica antes que a glicose altere. Atualiza a dimensão metabólica do estado latente.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 60 mg/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~45 mg/dL</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Homocisteína</div>
+        <div class="bm-cell-unit">µmol/L</div>
+        <div class="model-signal signal-high">SINAL ALTO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Proxy do status de metilação (ciclo da metionina). Alta homocisteína = deficiência de B12/folato + risco de dano endotelial e neurodegeneração. Alimenta simultaneamente as dimensões cardiovascular, cognitiva e epigenética do modelo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 10 µmol/L</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">&lt; 8 µmol/L</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 2: METABÓLICO
+       ============================================================ -->
+  <div class="bm-section" id="metabolic">
+    <div class="bm-section-header">
+      <span class="bm-section-num">II</span>
+      <span class="bm-section-title">Saúde Metabólica e Inflamação</span>
+      <span class="bm-section-desc">Define a taxa de envelhecimento celular e resistência à insulina — os aceleradores do declínio sistêmico.</span>
+    </div>
+
+    <div class="bm-head">
+      <div class="bm-head-cell">Biomarcador</div>
+      <div class="bm-head-cell">Relevância para o Modelo Preditivo</div>
+      <div class="bm-head-cell">Alvo Blueprint</div>
+      <div class="bm-head-cell">Bryan Johnson (real)</div>
+    </div>
+
+    <div class="bm-row roi-star">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Insulina em Jejum</div>
+        <div class="bm-cell-unit">µIU/mL</div>
+        <div class="model-signal signal-critical">◈ ROI #2 — SINAL CRÍTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Detecta disfunção metabólica anos antes da glicose alterar. Hiperinsulinemia silenciosa ativa mTOR, suprime autofagia e acelera senescência. O mais subestimado pela medicina convencional e o mais informativo por custo para o modelo preditivo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 5 µIU/mL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~2.8 µIU/mL</div>
+        <div class="bm-cell-bj-note">dieta vegetal + TRF</div>
+      </div>
+    </div>
+
+    <div class="bm-row roi-star">
+      <div class="bm-cell">
+        <div class="bm-cell-name">HbA1c</div>
+        <div class="bm-cell-unit">%</div>
+        <div class="model-signal signal-critical">◈ ROI #4 — SINAL CRÍTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Média temporal da glicemia em 3 meses. Captura a integral da glicação proteica — dano cumulativo ao DNA, proteínas e vasos. Muito mais informativa que a glicose pontual para alimentar a trajetória longitudinal do modelo bayesiano.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 5.2%</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~5.0%</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Glicose em Jejum</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Medida pontual. Menos informativa que HbA1c isoladamente, mas essencial combinada com insulina para calcular o HOMA-IR (índice de resistência insulínica) — variável de estado-chave no modelo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">85 – 90 mg/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~87 mg/dL</div>
+      </div>
+    </div>
+
+    <div class="bm-row roi-star">
+      <div class="bm-cell">
+        <div class="bm-cell-name">hs-CRP (PCR-us)</div>
+        <div class="bm-cell-unit">mg/L</div>
+        <div class="model-signal signal-critical">◈ ROI #3 — SINAL CRÍTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Marcador sistêmico de inflamaging crônico. Um único ponto de hs-CRP atualiza simultaneamente as dimensões cardiovascular, cognitiva e metabólica do vetor de estado latente X<sub>t</sub> — o marcador com maior projeção transversal no espaço de estado.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 0.5 mg/L</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~0.18 mg/L</div>
+        <div class="bm-cell-bj-note">dieta anti-inflamatória</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Ácido Úrico</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Liga risco cardiovascular à função renal e ao status do microbioma. Hiperuricemia ativa o NLRP3 inflammasome, amplificando inflamaging. Serve como proxy de eficiência da filtração renal no modelo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">4.0 – 5.0 mg/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~4.2 mg/dL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 3: HORMONAL
+       ============================================================ -->
+  <div class="bm-section" id="hormonal">
+    <div class="bm-section-header">
+      <span class="bm-section-num">III</span>
+      <span class="bm-section-title">Painel Hormonal Completo</span>
+      <span class="bm-section-desc">Hormônios regulam a expressão gênica e síntese proteica. Johnson mira níveis equivalentes aos de um jovem de 18 anos.</span>
+    </div>
+
+    <div class="bm-head">
+      <div class="bm-head-cell">Biomarcador</div>
+      <div class="bm-head-cell">Relevância para o Modelo Preditivo</div>
+      <div class="bm-head-cell">Alvo Blueprint</div>
+      <div class="bm-head-cell">Bryan Johnson (real)</div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Testosterona Total</div>
+        <div class="bm-cell-unit">ng/dL</div>
+        <div class="model-signal signal-high">SINAL ALTO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Preservação de massa magra, densidade óssea, cognição e libido. Informa a dimensão de "comunicação intercelular" do estado latente — testosterona baixa acelera sarcopenia e resistência insulínica.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&gt; 600 ng/dL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~748 ng/dL</div>
+        <div class="bm-cell-bj-note">sem TRT — natural</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Testosterona Livre</div>
+        <div class="bm-cell-unit">pg/mL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">A fração biologicamente ativa. Testosterona total alta com SHBG muito alto pode significar T livre baixa — medida complementar essencial para o estado andrológico real do modelo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Nível juvenil</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Monitorado mensalmente</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">DHEA-S</div>
+        <div class="bm-cell-unit">µg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Marcador de saúde adrenal e envelhecimento endócrino. Declina ~2% ao ano após os 25 anos. Precursor de testosterona e estradiol — informa a dimensão hormonal do modelo e o estado da comunicação intercelular.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">~350 µg/dL</div>
+        <div style="font-size:0.68rem;color:var(--t-tertiary);margin-top:3px">nível de jovem adulto</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Monitorado</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">IGF-1</div>
+        <div class="bm-cell-unit">ng/mL</div>
+        <div class="model-signal signal-high">SINAL ALTO · BIDIRECIONAL</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Eixo GH/IGF-1 paradoxal: alto acelera envelhecimento (ativa mTOR), baixo prejudica reparo muscular e neural. O modelo bayesiano precisa encontrar o ponto ótimo individual — zona de maximização de longevidade vs. performance.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">~100 – 120 ng/mL</div>
+        <div style="font-size:0.68rem;color:var(--t-tertiary);margin-top:3px">meio-termo otimizado</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~106 ng/mL</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">TSH · T3 Livre · T4 Livre</div>
+        <div class="bm-cell-unit">µIU/mL · pg/mL · ng/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Regulação do metabolismo basal e eficiência mitocondrial. Hipotireoidismo subclínico (TSH &gt; 2.5) reduz densidade mitocondrial e VO2máx. O modelo cruza com os dados de função mitocondrial para detectar causa vs. consequência.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">TSH 1.0 – 2.0 µIU/mL</div>
+        <div style="font-size:0.68rem;color:var(--t-tertiary);margin-top:3px">T3 livre no terço superior</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">TSH ~1.5 µIU/mL</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Estradiol · SHBG · Cortisol · FSH · LH · Prolactina</div>
+        <div class="bm-cell-unit">Multiple</div>
+        <div class="model-signal signal-low">PAINEL COMPLEMENTAR</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Painel de balanceamento hormonal. SHBG regula a biodisponibilidade de T e E2. Cortisol alto crônico atua como acelerador de envelhecimento via atrofia hipocampal e imunossupressão. O modelo usa como variáveis de controle e detecção de confundidores.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Balanceados</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Monitorados trimestralmente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 4: FUNÇÃO ORGÂNICA
+       ============================================================ -->
+  <div class="bm-section" id="organic">
+    <div class="bm-section-header">
+      <span class="bm-section-num">IV</span>
+      <span class="bm-section-title">Função Orgânica — Fígado e Rins</span>
+      <span class="bm-section-desc">Os filtros do sistema. Qualquer sobrecarga metabólica ou toxicidade de suplementação será detectada aqui primeiro.</span>
+    </div>
+
+    <div class="bm-head">
+      <div class="bm-head-cell">Biomarcador</div>
+      <div class="bm-head-cell">Relevância para o Modelo Preditivo</div>
+      <div class="bm-head-cell">Alvo Blueprint</div>
+      <div class="bm-head-cell">Bryan Johnson (real)</div>
+    </div>
+
+    <div class="bm-row roi-star">
+      <div class="bm-cell">
+        <div class="bm-cell-name">GGT</div>
+        <div class="bm-cell-unit">U/L</div>
+        <div class="model-signal signal-critical">◈ ROI #5 — SINAL CRÍTICO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Enzima hepática mais sensível para estresse oxidativo sistêmico e fígado gorduroso precoce. Sobe antes do ALT/AST, tornando-o o "canário na mina de carvão" do estado hepático — detecta toxicidade de peptídeos ou excesso de suplementos antes de dano estrutural.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&lt; 15 U/L</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~7.5 U/L</div>
+        <div class="bm-cell-bj-note">dieta sem álcool + vegetal</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">ALT e AST</div>
+        <div class="bm-cell-unit">U/L</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Marcadores clássicos de dano celular hepático. Menos sensíveis que GGT, mas confirmam lesão estrutural. O modelo usa ALT/AST como variável de validação — se GGT sobe mas ALT/AST não, o sinal é oxidativo, não hepatocitário.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Margem inferior do normal</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">ALT ~12 U/L</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">eGFR</div>
+        <div class="bm-cell-unit">mL/min/1,73m²</div>
+        <div class="model-signal signal-high">SINAL ALTO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Taxa de filtração glomerular estimada — o principal índice de saúde renal. Declínio de eGFR acima de 1 mL/min/ano é sinal de envelhecimento renal acelerado. Informa a dimensão de "comunicação intercelular" via acúmulo de uremia e toxinas urêmicas.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">&gt; 90 mL/min</div>
+        <div style="font-size:0.68rem;color:var(--t-tertiary);margin-top:3px">ideal &gt; 100 se possível</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">&gt; 100 mL/min</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Creatinina e Ureia (BUN)</div>
+        <div class="bm-cell-unit">mg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Eficiência de filtração renal e catabolismo proteico. BUN/creatinina ratio elevado pode indicar hipovolemia ou catabolismo excessivo — relevante para monitorar alta ingestão proteica e peptídeos. Serve de controle para evitar falsos positivos no eGFR.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Dentro da normalidade</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Monitorados</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 5: NUTRIENTES
+       ============================================================ -->
+  <div class="bm-section" id="nutrients">
+    <div class="bm-section-header">
+      <span class="bm-section-num">V</span>
+      <span class="bm-section-title">Nutrientes, Minerais e Hemograma</span>
+      <span class="bm-section-desc">Estoque básico de matéria-prima celular, oxigenação e imunidade. Deficiências são silenciosas mas rastreáveis.</span>
+    </div>
+
+    <div class="bm-head">
+      <div class="bm-head-cell">Biomarcador</div>
+      <div class="bm-head-cell">Relevância para o Modelo Preditivo</div>
+      <div class="bm-head-cell">Alvo Blueprint</div>
+      <div class="bm-head-cell">Bryan Johnson (real)</div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Ferritina</div>
+        <div class="bm-cell-unit">µg/L</div>
+        <div class="model-signal signal-high">SINAL ALTO — CONTRAINTUITIVO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Estoque de ferro. Johnson mantém deliberadamente baixo: ferro livre em excesso é catalisador de Fenton, gerando radicais OH• que danificam DNA mitocondrial. Ferritina alta &gt; 100 correlaciona-se com mortalidade — o modelo usa como proxy de estresse oxidativo sistêmico.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">30 – 60 µg/L</div>
+        <div style="font-size:0.68rem;color:var(--t-tertiary);margin-top:3px">muito abaixo do "normal" lab</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~20 µg/L</div>
+        <div class="bm-cell-bj-note">doações de sangue periódicas</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Vitamina D (25-OH)</div>
+        <div class="bm-cell-unit">ng/mL</div>
+        <div class="model-signal signal-high">SINAL ALTO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Modula &gt;1.000 genes via receptor VDR, incluindo genes de reparo de DNA, imunidade e proteção telomêrica. Deficiência (&lt;30 ng/mL) acelera o relógio epigenético. Informa a dimensão "instabilidade genômica" e "comunicação intercelular" do estado latente.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">40 – 60 ng/mL</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">~60 ng/mL</div>
+        <div class="bm-cell-bj-note">suplementação + exposição</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">B12 · Folato · Ferro Sérico</div>
+        <div class="bm-cell-unit">pg/mL · ng/mL · µg/dL</div>
+        <div class="model-signal signal-medium">SINAL MÉDIO</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Essenciais para metilação do DNA (ciclo folato-metionina) e divisão celular. Deficiência de B12/folato aumenta homocisteína, hipometila o genoma e ativa instabilidade cromossômica — alimenta a dimensão "instabilidade genômica" e "alterações epigenéticas" do modelo.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Margem superior do normal</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Níveis ótimos mantidos</div>
+      </div>
+    </div>
+
+    <div class="bm-row">
+      <div class="bm-cell">
+        <div class="bm-cell-name">Hemograma Completo (CBC)</div>
+        <div class="bm-cell-unit">Multiple</div>
+        <div class="model-signal signal-medium">PAINEL BASE</div>
+      </div>
+      <div class="bm-cell bm-cell-why">Leucócitos, hemácias, plaquetas, MCV, RDW. O modelo extrai: neutrófilos/linfócitos ratio (NLR) como marcador de inflamação aguda vs. crônica; RDW como proxy de estresse oxidativo; plaquetas como sinal de função endotelial.</div>
+      <div class="bm-cell">
+        <div class="bm-cell-target">Sem inflamação ou anemia</div>
+      </div>
+      <div class="bm-cell">
+        <div class="bm-cell-bj">Monitorado mensalmente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 6: EPIGENÉTICO / AVANÇADO
+       ============================================================ -->
+  <div class="bm-section" id="advanced">
+    <div class="bm-section-header">
+      <span class="bm-section-num">VI</span>
+      <span class="bm-section-title">Marcadores Avançados e Epigenéticos</span>
+      <span class="bm-section-desc">Feitos 1–2 vezes ao ano. Calibram o modelo longitudinal com sinais de alta precisão sobre o relógio biológico real.</span>
+    </div>
+
+    <div class="advanced-grid">
+      <div class="adv-card">
+        <div class="adv-card-icon">🧬</div>
+        <div class="adv-card-tag">Sinal de Maior Precisão</div>
+        <div class="adv-card-title">Relógio de Metilação de DNA (TruAge / GrimAge)</div>
+        <div class="adv-card-text">
+          O teste definitivo de longevidade. Mede o padrão de metilação em centenas de CpGs para calcular a <em>Idade Biológica</em> versus cronológica e o <em>DunedinPACE</em> — a velocidade de envelhecimento em tempo real (pace &gt; 1.0 = envelhecendo mais rápido que o relógio). Este é o sinal que calibra os parâmetros estruturais do modelo bayesiano a longo prazo.
+        </div>
+        <div class="adv-card-freq">1× ao ano · ~$300–500</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-card-icon">🔬</div>
+        <div class="adv-card-tag">Marcador Emergente</div>
+        <div class="adv-card-title">pTAU217 (Plasma)</div>
+        <div class="adv-card-text">
+          Biomarcador sanguíneo emergente para detecção precoce de acúmulo de placas amiloides e patologia tau — sinais de Alzheimer décadas antes dos sintomas clínicos. O modelo usa pTAU217 para atualizar a probabilidade de transição para declínio cognitivo na função de sobrevivência S(t), potencialmente com 15–20 anos de antecedência.
+        </div>
+        <div class="adv-card-freq">1× ao ano (disponível em centros de pesquisa)</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-card-icon">📡</div>
+        <div class="adv-card-tag">Relógio Molecular</div>
+        <div class="adv-card-title">Comprimento dos Telômeros</div>
+        <div class="adv-card-text">
+          Avalia a capacidade restante de divisão celular e a acumulação de danos ao DNA. Embora a metilação seja hoje considerada mais precisa e com maior sinal-ruído, o comprimento telomérico ainda informa o modelo sobre a senescência replicativa e o envelhecimento hematopoiético. Medido por qPCR ou FISH.
+        </div>
+        <div class="adv-card-freq">1–2× ao ano · complementa GrimAge</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-card-icon">🏥</div>
+        <div class="adv-card-tag">Detecção de Cisnes Negros</div>
+        <div class="adv-card-title">MRI de Corpo Inteiro (Prenuvo)</div>
+        <div class="adv-card-text">
+          Varredura de corpo inteiro para busca proativa de tumores microscópicos em estágio inicial, aneurismas e lesões silenciosas. Bryan Johnson faz anualmente. Não alimenta o modelo matemático diretamente, mas cobre o "risco não capturado pelos biomarcadores" — eventos de Black Swan biológico que bypassa o sistema de monitoramento contínuo.
+        </div>
+        <div class="adv-card-freq">1× ao ano · ~$2.500</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- PROTOCOL SUMMARY -->
+  <div class="section-tag" style="font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-tertiary);margin-bottom:8px">ESTRUTURA DO PROTOCOLO</div>
+  <h2 style="font-family:var(--f-serif);font-size:1.8rem;font-weight:400;font-style:italic;color:var(--t-primary);margin-bottom:32px">
+    Frequência de Coleta de Dados para o Modelo
+  </h2>
+
+  <div class="protocol-grid">
+    <div class="proto-card">
+      <div class="proto-freq">Mensal</div>
+      <div class="proto-count">12</div>
+      <div class="proto-label">biomarcadores de alta frequência:<br>glicose, insulina, hs-CRP, ApoB, GGT, hemograma completo, testosterona, ferritina</div>
+    </div>
+    <div class="proto-card">
+      <div class="proto-freq">Trimestral</div>
+      <div class="proto-count">18</div>
+      <div class="proto-label">painel completo: HbA1c, perfil lipídico completo, função renal e hepática, painel hormonal, vitaminas, minerais</div>
+    </div>
+    <div class="proto-card">
+      <div class="proto-freq">Anual</div>
+      <div class="proto-count">8</div>
+      <div class="proto-label">marcadores avançados: relógio epigenético (DunedinPACE), comprimento telomérico, pTAU217, MRI de corpo inteiro</div>
+    </div>
+  </div>
+
+  <!-- MODEL INTEGRATION NOTE -->
+  <div style="margin-top:48px;background:var(--depth-2);border:1px solid var(--b-subtle);border-radius:var(--r-md);padding:28px 32px;">
+    <div style="font-family:var(--f-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--aurum);margin-bottom:12px">
+      ◈ Integração com o Motor Bayesiano
+    </div>
+    <p style="font-size:0.82rem;color:var(--t-secondary);line-height:1.8;max-width:780px">
+      Cada exame realizado atualiza o vetor de estado latente X<sub>t</sub> via equação de observação Y<sub>t</sub> = g(X<sub>t</sub>) + η<sub>t</sub>. Os 5 biomarcadores de ROI crítico (ApoB, Insulina em Jejum, hs-CRP, HbA1c, GGT) têm o maior peso na função de verossimilhança p(Y<sub>t</sub> | X<sub>t</sub><sup>i</sup>) — eles movem mais partículas, estreitam mais a banda de incerteza e recalculam mais fortemente as curvas de sobrevivência S(t) para DCV, declínio cognitivo e síndrome metabólica.
+    </p>
+    <div style="margin-top:20px">
+      <a href="prediction-engine.html"
+         style="display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aurum);text-decoration:none;padding:9px 16px;border:1px solid rgba(201,169,106,.3);border-radius:3px;background:var(--aurum-08);transition:all 0.2s ease">
+        ◈ Ver Motor Preditivo em Tempo Real →
+      </a>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>
