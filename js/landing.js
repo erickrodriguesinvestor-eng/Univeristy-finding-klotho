@@ -164,46 +164,27 @@
 /* =========================================
    BIOMARKER TABS
    ========================================= */
+/* 12 Biomarcadores Essenciais de Longevidade — distribuídos em 4 categorias */
 const BM_LANDING = {
   metabolic: [
-    { name: 'Fasting Glucose', unit: 'mg/dL' },
-    { name: 'HbA1c', unit: '%' },
-    { name: 'Fasting Insulin', unit: 'μU/mL' },
-    { name: 'Triglycerides', unit: 'mg/dL' },
-    { name: 'HDL Cholesterol', unit: 'mg/dL' },
-    { name: 'LDL Cholesterol', unit: 'mg/dL' },
-    { name: 'Total Cholesterol', unit: 'mg/dL' },
-    { name: 'HOMA-IR', unit: 'index' },
+    { name: 'Glicose em Jejum', unit: 'mg/dL', note: 'Sensibilidade à insulina' },
+    { name: 'HbA1c', unit: '%', note: 'Média glicêmica 3 meses' },
+    { name: 'VO2 Máximo', unit: 'mL/kg/min', note: 'Capacidade cardiorrespiratória' },
   ],
   hormonal: [
-    { name: 'Total Testosterone', unit: 'ng/dL' },
-    { name: 'DHEA-S', unit: 'μg/dL' },
-    { name: 'IGF-1', unit: 'ng/mL' },
-    { name: 'Morning Cortisol', unit: 'μg/dL' },
-    { name: 'TSH', unit: 'mU/L' },
-    { name: 'Vitamin D3', unit: 'ng/mL' },
-    { name: 'Estradiol', unit: 'pg/mL' },
-    { name: 'Progesterone', unit: 'ng/mL' },
+    { name: 'IGF-1', unit: 'ng/mL', note: 'Hormônio do crescimento / longevidade' },
+    { name: 'Vitamina D3', unit: 'ng/mL', note: 'Regulação imune e genômica' },
+    { name: 'Testosterona Total', unit: 'ng/dL', note: 'Composição corporal e vitalidade' },
   ],
   inflammatory: [
-    { name: 'hs-CRP', unit: 'mg/L' },
-    { name: 'Interleukin-6', unit: 'pg/mL' },
-    { name: 'TNF-alpha', unit: 'pg/mL' },
-    { name: 'Homocysteine', unit: 'μmol/L' },
-    { name: 'Fibrinogen', unit: 'mg/dL' },
-    { name: 'IL-1β', unit: 'pg/mL' },
-    { name: 'Ferritin', unit: 'ng/mL' },
-    { name: 'Uric Acid', unit: 'mg/dL' },
+    { name: 'PCR Ultrassensível', unit: 'mg/L', note: 'Inflamação sistêmica crônica' },
+    { name: 'Homocisteína', unit: 'μmol/L', note: 'Risco cardiovascular e cognitivo' },
+    { name: 'IL-6', unit: 'pg/mL', note: 'Inflamaging celular' },
   ],
   genetic: [
-    { name: 'Telomere Length', unit: 'kb' },
-    { name: 'Epigenetic Bio Age', unit: 'years' },
-    { name: 'NAD+', unit: 'μM' },
-    { name: 'DunedinPACE', unit: 'pace' },
-    { name: 'GrimAge Accel.', unit: 'years' },
-    { name: '8-OHdG', unit: 'ng/mg cr.' },
-    { name: 'Methylation %', unit: '%' },
-    { name: 'mtDNA Copy Number', unit: 'copies/cell' },
+    { name: 'Comprimento Telomérico', unit: 'kb', note: 'Relógio molecular do envelhecimento' },
+    { name: 'DunedinPACE', unit: 'pace', note: 'Velocidade de envelhecimento biológico' },
+    { name: 'NAD+', unit: 'μM', note: 'Energia mitocondrial e reparação do DNA' },
   ]
 };
 
@@ -215,6 +196,7 @@ function renderBMPanel(panelKey) {
     <div class="bm-chip">
       <div class="bm-chip-name">${b.name}</div>
       <div class="bm-chip-unit">${b.unit}</div>
+      ${b.note ? `<div style="font-size:0.6rem;color:var(--t-tertiary);margin-top:4px;line-height:1.4">${b.note}</div>` : ''}
     </div>
   `).join('');
 }
@@ -249,18 +231,18 @@ function renderBMPanel(panelKey) {
     type: 'radar',
     data: {
       labels: [
-        'Genomic Stability',
-        'Telomere Length',
-        'Epigenetic Age',
-        'Proteostasis',
-        'Metabolic Health',
-        'Mitochondrial Fn.',
-        'Senescence Score',
-        'Stem Cell Reserve',
-        'Cell Communication'
+        'Estabilidade Genômica',
+        'Telômeros',
+        'Idade Epigenética',
+        'Proteostase',
+        'Saúde Metabólica',
+        'Função Mitocondrial',
+        'Senescência',
+        'Células-Tronco',
+        'Comunicação Celular'
       ],
       datasets: [{
-        label: 'Optimal Profile',
+        label: 'Perfil Ótimo',
         data: [88, 82, 79, 85, 91, 76, 83, 71, 87],
         borderColor: AURUM_COLOR + '0.7)',
         backgroundColor: AURUM_COLOR + '0.08)',
@@ -299,7 +281,7 @@ function renderBMPanel(panelKey) {
    ========================================= */
 (function initFadeIn() {
   const sections = document.querySelectorAll(
-    '.manifesto, .vital-signs, .the-nine, .the-system, .bm-tabs-section, .science-section, .plans'
+    '.manifesto, .vital-signs, .the-nine, .the-system, .ml-section, .bm-tabs-section, .publications-section, .science-section, .plans'
   );
 
   const style = document.createElement('style');
