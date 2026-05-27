@@ -1,0 +1,319 @@
+/* =========================================
+   KLOTHOLAB — AUTH PAGES CSS
+   ========================================= */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.auth-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.auth-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+
+.auth-orb-1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+  filter: blur(40px);
+}
+
+.auth-orb-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+  bottom: -100px;
+  right: -100px;
+  filter: blur(40px);
+}
+
+.auth-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+}
+
+.auth-card {
+  background: rgba(10, 15, 30, 0.85);
+  backdrop-filter: blur(30px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: var(--space-xl);
+}
+
+.auth-logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.auth-logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.auth-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.auth-footer-text {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin-top: var(--space-xl);
+}
+
+.auth-footer-text a {
+  color: var(--color-cyan);
+  font-weight: 600;
+}
+
+.auth-footer-text a:hover {
+  text-decoration: underline;
+}
+
+.auth-terms {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: var(--space-md);
+  line-height: 1.5;
+}
+
+.auth-terms a {
+  color: var(--color-cyan);
+}
+
+/* Step progress for register */
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 2px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: var(--transition-base);
+}
+
+.step-dot.active {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  background: var(--color-cyan-dim);
+}
+
+.step-dot.done {
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: white;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--color-border);
+  max-width: 50px;
+  transition: var(--transition-base);
+}
+
+.step-line.done {
+  background: linear-gradient(90deg, var(--color-green), var(--color-cyan));
+}
+
+/* Password strength indicator */
+.password-strength {
+  margin-top: var(--space-sm);
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: var(--transition-base);
+}
+
+.strength-bar.weak { background: var(--color-red); }
+.strength-bar.medium { background: var(--color-orange); }
+.strength-bar.strong { background: var(--color-green); }
+
+.strength-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Input with icon */
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.input-icon + .form-input {
+  padding-left: 40px;
+}
+
+.input-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 4px;
+}
+
+.input-toggle:hover {
+  color: var(--color-text);
+}
+
+/* Back link */
+.auth-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-bottom: var(--space-xl);
+  transition: var(--transition-fast);
+}
+
+.auth-back:hover {
+  color: var(--color-text);
+}
+
+/* Form step */
+.form-step {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.form-step.active {
+  display: block;
+}
+
+/* Gender select cards */
+.gender-options {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.gender-option {
+  flex: 1;
+  padding: var(--space-lg);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.gender-option:hover {
+  border-color: var(--color-border-hover);
+}
+
+.gender-option.selected {
+  border-color: var(--color-cyan);
+  background: var(--color-cyan-dim);
+  color: var(--color-cyan);
+}
+
+.gender-option-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 6px;
+}
