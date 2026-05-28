@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca de Longevidade — Eternal Health</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 52px; background: rgba(1,2,3,0.94);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--b-ghost);
+      display: flex; align-items: center; padding: 0 var(--space-xl); gap: 14px;
+    }
+    .tb-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .tb-mark {
+      width: 22px; height: 22px; background: var(--aurum); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-mono); font-size: 0.55rem; font-weight: 700;
+      color: var(--void); letter-spacing: 0.04em;
+    }
+    .tb-name { font-family: var(--f-serif); font-size: 0.9rem; color: var(--t-primary); letter-spacing: 0.08em; }
+    .tb-sep  { font-family: var(--f-mono); font-size: 0.58rem; color: var(--t-tertiary); }
+    .tb-page { font-family: var(--f-mono); font-size: 0.6rem; color: var(--t-secondary); letter-spacing: 0.1em; }
+    .tb-back { margin-left: auto; font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--t-secondary); text-decoration: none; transition: color var(--dur-fast) ease; }
+    .tb-back:hover { color: var(--aurum); }
+
+    /* LAYOUT */
+    .page { max-width: 1100px; margin: 0 auto; padding: 72px var(--space-xl) 96px; }
+
+    /* HERO */
+    .hero {
+      padding: 48px 0 52px; border-bottom: 1px solid var(--b-subtle); margin-bottom: 56px;
+    }
+    .hero-eyebrow {
+      font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--aurum); margin-bottom: var(--space-md);
+    }
+    .hero-title {
+      font-family: var(--f-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; font-style: italic; color: var(--t-primary); line-height: 1.12;
+      margin-bottom: var(--space-lg);
+    }
+    .hero-sub { font-size: 0.88rem; color: var(--t-secondary); line-height: 1.8; max-width: 620px; }
+
+    /* FILTER NAV */
+    .filter-nav {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px;
+      position: sticky; top: 52px; z-index: 100;
+      background: rgba(1,2,3,0.94); backdrop-filter: blur(12px);
+      padding: 12px 0; border-bottom: 1px solid var(--b-ghost);
+    }
+    .filter-btn {
+      font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 3px; border: 1px solid var(--b-subtle);
+      background: transparent; color: var(--t-secondary); cursor: pointer;
+      transition: all var(--dur-fast) ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: rgba(201,169,106,.35); color: var(--aurum); background: var(--aurum-08);
+    }
+
+    /* SECTION */
+    .lib-section { margin-bottom: 72px; scroll-margin-top: 100px; }
+    .lib-section-header {
+      display: flex; align-items: baseline; gap: 16px;
+      margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--b-subtle);
+    }
+    .lib-section-icon { font-size: 1.4rem; }
+    .lib-section-title { font-family: var(--f-serif); font-size: 1.6rem; font-weight: 400; font-style: italic; color: var(--t-primary); }
+    .lib-section-count { font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--t-tertiary); margin-left: auto; }
+
+    /* BOOK GRID */
+    .book-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+    .book-card {
+      background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md);
+      overflow: hidden; transition: border-color var(--dur-fast) ease, transform var(--dur-med) ease;
+      cursor: default;
+    }
+    .book-card:hover { border-color: rgba(201,169,106,.25); transform: translateY(-3px); }
+
+    .book-spine {
+      height: 6px;
+    }
+    .spine-aurum    { background: linear-gradient(90deg, var(--aurum), rgba(201,169,106,.4)); }
+    .spine-vitae    { background: linear-gradient(90deg, var(--vitae), rgba(123,163,125,.4)); }
+    .spine-blue     { background: linear-gradient(90deg, #7F9EC9, rgba(127,158,201,.4)); }
+    .spine-red      { background: linear-gradient(90deg, #955252, rgba(149,82,82,.4)); }
+    .spine-purple   { background: linear-gradient(90deg, #8B7BA3, rgba(139,123,163,.4)); }
+
+    .book-body { padding: 18px 16px; }
+    .book-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .book-title {
+      font-family: var(--f-serif); font-size: 1rem; font-weight: 400; font-style: italic;
+      color: var(--t-primary); line-height: 1.35; margin-bottom: 5px;
+    }
+    .book-author { font-family: var(--f-mono); font-size: 0.62rem; color: var(--t-tertiary); margin-bottom: 10px; }
+    .book-desc { font-size: 0.72rem; color: var(--t-secondary); line-height: 1.65; }
+    .book-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+    .book-tag {
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+      padding: 2px 7px; background: var(--b-ghost); border: 1px solid var(--b-subtle);
+      border-radius: 2px; color: var(--t-tertiary);
+    }
+    .book-level {
+      display: inline-block; margin-top: 10px;
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 2px;
+    }
+    .level-intro    { background: rgba(123,163,125,.1); border: 1px solid rgba(123,163,125,.25); color: var(--vitae); }
+    .level-inter    { background: rgba(201,169,106,.1); border: 1px solid rgba(201,169,106,.25); color: var(--aurum); }
+    .level-advanced { background: rgba(149,82,82,.1);  border: 1px solid rgba(149,82,82,.25);  color: #955252; }
+
+    /* PAPER GRID */
+    .paper-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; }
+
+    .paper-row {
+      display: grid; grid-template-columns: 48px 1fr auto;
+      gap: 16px; align-items: start;
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md); padding: 16px 18px;
+      transition: border-color var(--dur-fast) ease;
+    }
+    .paper-row:hover { border-color: rgba(201,169,106,.2); }
+    .paper-num {
+      font-family: var(--f-serif); font-size: 1.8rem; font-weight: 300;
+      color: var(--b-medium); line-height: 1; text-align: center; padding-top: 4px;
+    }
+    .paper-content {}
+    .paper-title {
+      font-family: var(--f-serif); font-size: 0.95rem; font-weight: 400; font-style: italic;
+      color: var(--t-primary); line-height: 1.4; margin-bottom: 4px;
+    }
+    .paper-authors { font-family: var(--f-mono); font-size: 0.62rem; color: var(--t-tertiary); margin-bottom: 6px; }
+    .paper-journal {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+      color: var(--aurum); text-decoration: none;
+      padding: 3px 8px; background: var(--aurum-08);
+      border: 1px solid rgba(201,169,106,.2); border-radius: 2px;
+      transition: all var(--dur-fast) ease;
+    }
+    .paper-journal:hover { background: rgba(201,169,106,.15); }
+    .paper-desc { font-size: 0.73rem; color: var(--t-secondary); line-height: 1.65; margin-top: 8px; }
+    .paper-impact {
+      flex-shrink: 0; text-align: right;
+    }
+    .impact-badge {
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+      padding: 4px 8px; border-radius: 2px; white-space: nowrap;
+    }
+    .impact-nature  { background: rgba(201,169,106,.1); border: 1px solid rgba(201,169,106,.25); color: var(--aurum); }
+    .impact-cell    { background: rgba(127,158,201,.1); border: 1px solid rgba(127,158,201,.25); color: #7F9EC9; }
+    .impact-nejm    { background: rgba(149,82,82,.1);   border: 1px solid rgba(149,82,82,.25);   color: #955252; }
+    .impact-aging   { background: rgba(123,163,125,.1); border: 1px solid rgba(123,163,125,.25); color: var(--vitae); }
+
+    /* PODCAST GRID */
+    .podcast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .pod-card {
+      background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md);
+      padding: 20px; transition: border-color var(--dur-fast) ease, transform var(--dur-med) ease;
+    }
+    .pod-card:hover { border-color: rgba(201,169,106,.2); transform: translateY(-2px); }
+    .pod-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .pod-name { font-family: var(--f-sans); font-size: 0.85rem; font-weight: 500; color: var(--t-primary); margin-bottom: 4px; }
+    .pod-host { font-family: var(--f-mono); font-size: 0.62rem; color: var(--t-tertiary); margin-bottom: 10px; }
+    .pod-desc { font-size: 0.73rem; color: var(--t-secondary); line-height: 1.65; }
+    .pod-episodes { margin-top: 12px; font-family: var(--f-mono); font-size: 0.6rem; color: var(--aurum); }
+
+    /* PROTOCOL GRID */
+    .protocol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .proto-card {
+      background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md);
+      padding: 22px; position: relative; overflow: hidden;
+    }
+    .proto-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .proto-card.pc-aurum::before   { background: var(--aurum); }
+    .proto-card.pc-blue::before    { background: #7F9EC9; }
+    .proto-card.pc-vitae::before   { background: var(--vitae); }
+    .proto-card.pc-red::before     { background: #955252; }
+    .proto-tag {
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 10px;
+    }
+    .proto-title { font-family: var(--f-serif); font-size: 1.15rem; font-style: italic; color: var(--t-primary); margin-bottom: 8px; }
+    .proto-author { font-family: var(--f-mono); font-size: 0.62rem; color: var(--aurum); margin-bottom: 12px; }
+    .proto-desc { font-size: 0.75rem; color: var(--t-secondary); line-height: 1.7; }
+    .proto-pillars {
+      margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .proto-pillar {
+      font-family: var(--f-mono); font-size: 0.6rem; padding: 3px 8px;
+      background: var(--b-ghost); border: 1px solid var(--b-subtle); border-radius: 2px; color: var(--t-tertiary);
+    }
+
+    /* SEPARATOR */
+    .sep { height: 1px; background: var(--b-subtle); margin: 64px 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .book-grid { grid-template-columns: repeat(3, 1fr); }
+      .podcast-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .book-grid { grid-template-columns: repeat(2, 1fr); }
+      .paper-row { grid-template-columns: 1fr; }
+      .paper-num { display: none; }
+      .paper-impact { text-align: left; }
+      .podcast-grid, .protocol-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <a href="../index.html" class="tb-logo">
+    <div class="tb-mark">EH</div>
+    <span class="tb-name">Eternal Health</span>
+  </a>
+  <span class="tb-sep">/</span>
+  <span class="tb-page">BIBLIOTECA</span>
+  <a href="../index.html" class="tb-back">← Início</a>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Leitura Fundamental · Longevidade e Medicina de Precisão</div>
+    <h1 class="hero-title">Biblioteca de Longevidade</h1>
+    <p class="hero-sub">
+      A ciência do envelhecimento avançou mais na última década do que nos 200 anos anteriores. Esta biblioteca reúne os livros, artigos e recursos que formam a base intelectual do nosso sistema — selecionados por rigor científico, relevância clínica e potencial de transformar a sua compreensão da longevidade.
+    </p>
+  </div>
+
+  <!-- FILTER -->
+  <nav class="filter-nav">
+    <button class="filter-btn active" onclick="scrollTo('books')">📚 Livros</button>
+    <button class="filter-btn" onclick="scrollTo('papers')">🧬 Artigos Científicos</button>
+    <button class="filter-btn" onclick="scrollTo('podcasts')">🎙️ Podcasts</button>
+    <button class="filter-btn" onclick="scrollTo('protocols')">⚙️ Protocolos</button>
+  </nav>
+
+  <!-- ════════════════ LIVROS ════════════════ -->
+  <div class="lib-section" id="books">
+    <div class="lib-section-header">
+      <span class="lib-section-icon">📚</span>
+      <span class="lib-section-title">Livros Fundamentais</span>
+      <span class="lib-section-count">8 obras selecionadas</span>
+    </div>
+
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-spine spine-aurum"></div>
+        <div class="book-body">
+          <span class="book-icon">🧬</span>
+          <div class="book-title">Lifespan: Why We Age — and Why We Don't Have To</div>
+          <div class="book-author">David A. Sinclair · 2019</div>
+          <div class="book-desc">O manifesto científico da longevidade moderna. Sinclair apresenta a teoria do envelhecimento como perda de informação epigenética e argumenta que o envelhecimento é uma doença tratável. Fundamento da compreensão de sirtuínas, NAD+ e reprogramação celular.</div>
+          <div class="book-tags">
+            <span class="book-tag">Epigenética</span>
+            <span class="book-tag">Sirtuínas</span>
+            <span class="book-tag">NAD+</span>
+          </div>
+          <span class="book-level level-inter">Intermediário</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-blue"></div>
+        <div class="book-body">
+          <span class="book-icon">⚕️</span>
+          <div class="book-title">Outlive: The Science and Art of Longevity</div>
+          <div class="book-author">Peter Attia · 2023</div>
+          <div class="book-desc">A obra mais completa sobre medicina de longevidade preventiva. Attia apresenta o conceito de "Medicina 3.0" — foco na healthspan, não apenas no lifespan. Capítulos profundos sobre exercício, nutrição, sono e saúde mental como pilares de longevidade. Leitura obrigatória para a prática clínica.</div>
+          <div class="book-tags">
+            <span class="book-tag">Medicina 3.0</span>
+            <span class="book-tag">Exercício</span>
+            <span class="book-tag">VO2máx</span>
+          </div>
+          <span class="book-level level-intro">Introdutório</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-vitae"></div>
+        <div class="book-body">
+          <span class="book-icon">🔬</span>
+          <div class="book-title">Ageless: The New Science of Getting Older Without Getting Old</div>
+          <div class="book-author">Andrew Steele · 2020</div>
+          <div class="book-desc">A visão mais rigorosa e científica do campo. Steele, físico computacional, analisa cada intervenção de longevidade com ceticismo calibrado — separando ciência real de hype. Excelente para compreender o estado atual da senolytics, terapia gênica e reprogramação.</div>
+          <div class="book-tags">
+            <span class="book-tag">Senolíticos</span>
+            <span class="book-tag">Terapia Gênica</span>
+            <span class="book-tag">Rigor Científico</span>
+          </div>
+          <span class="book-level level-advanced">Avançado</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-purple"></div>
+        <div class="book-body">
+          <span class="book-icon">🧫</span>
+          <div class="book-title">The Telomere Effect</div>
+          <div class="book-author">Elizabeth Blackburn & Elissa Epel · 2017</div>
+          <div class="book-desc">Escrito pela Nobel de Medicina responsável pela descoberta da telomerase, este livro traduz a ciência dos telômeros para a prática: estresse crônico, sono e exercício têm impactos mensuráveis no comprimento telomérico. Conecta biologia molecular ao comportamento cotidiano.</div>
+          <div class="book-tags">
+            <span class="book-tag">Telômeros</span>
+            <span class="book-tag">Telomerase</span>
+            <span class="book-tag">Estresse</span>
+          </div>
+          <span class="book-level level-intro">Introdutório</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-aurum"></div>
+        <div class="book-body">
+          <span class="book-icon">🍽️</span>
+          <div class="book-title">The Longevity Diet</div>
+          <div class="book-author">Valter Longo · 2018</div>
+          <div class="book-desc">Longo, diretor do Longevity Institute da USC, apresenta a dieta que mimetiza o jejum (FMD — Fasting Mimicking Diet) e os dados de populações de longevidade extrema. Fundamentado em décadas de pesquisa com restrição calórica, IGF-1 e ativação de autofagia.</div>
+          <div class="book-tags">
+            <span class="book-tag">FMD</span>
+            <span class="book-tag">Autofagia</span>
+            <span class="book-tag">IGF-1</span>
+          </div>
+          <span class="book-level level-intro">Introdutório</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-blue"></div>
+        <div class="book-body">
+          <span class="book-icon">😴</span>
+          <div class="book-title">Why We Sleep</div>
+          <div class="book-author">Matthew Walker · 2017</div>
+          <div class="book-desc">A obra definitiva sobre sono e longevidade. Walker demonstra que o sono é o ato mais eficaz de limpeza cerebral (clearance de Aβ via sistema glinfático), regulação hormonal e consolidação epigenética. Privação crônica de sono acelera o relógio biológico mais do que quase qualquer outro fator.</div>
+          <div class="book-tags">
+            <span class="book-tag">Sono</span>
+            <span class="book-tag">Glinfático</span>
+            <span class="book-tag">Neuroproteção</span>
+          </div>
+          <span class="book-level level-intro">Introdutório</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-red"></div>
+        <div class="book-body">
+          <span class="book-icon">⚗️</span>
+          <div class="book-title">Ending Aging</div>
+          <div class="book-author">Aubrey de Grey & Michael Rae · 2007</div>
+          <div class="book-desc">O manifesto fundador da abordagem de engenharia para a longevidade. De Grey apresenta o framework SENS (Strategies for Engineered Negligible Senescence) e propõe que o envelhecimento pode ser tratado como um problema de manutenção de engenharia. Visionário e controverso — ainda relevante como base conceitual.</div>
+          <div class="book-tags">
+            <span class="book-tag">SENS</span>
+            <span class="book-tag">Engenharia</span>
+            <span class="book-tag">Rejuvenescimento</span>
+          </div>
+          <span class="book-level level-advanced">Avançado</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-spine spine-vitae"></div>
+        <div class="book-body">
+          <span class="book-icon">🫁</span>
+          <div class="book-title">Breath: The New Science of a Lost Art</div>
+          <div class="book-author">James Nestor · 2020</div>
+          <div class="book-desc">Investigação rigorosa sobre como a mecânica respiratória afeta profundamente a saúde metabólica, cardiovascular e cognitiva. Introduz protocolos de respiração nasal, CO2 tolerance e a conexão entre padrão respiratório, VO2máx e regulação do sistema nervoso autônomo.</div>
+          <div class="book-tags">
+            <span class="book-tag">HRV</span>
+            <span class="book-tag">VO2máx</span>
+            <span class="book-tag">SNA</span>
+          </div>
+          <span class="book-level level-intro">Introdutório</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════════ ARTIGOS ════════════════ -->
+  <div class="lib-section" id="papers">
+    <div class="lib-section-header">
+      <span class="lib-section-icon">🧬</span>
+      <span class="lib-section-title">Artigos Científicos Fundacionais</span>
+      <span class="lib-section-count">10 papers essenciais</span>
+    </div>
+
+    <div class="paper-grid">
+
+      <div class="paper-row">
+        <div class="paper-num">01</div>
+        <div class="paper-content">
+          <div class="paper-title">Hallmarks of Aging: An Expanding Universe</div>
+          <div class="paper-authors">López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G</div>
+          <a href="https://doi.org/10.1016/j.cell.2022.11.001" target="_blank" class="paper-journal">Cell · 2023</a>
+          <div class="paper-desc">A classificação canônica dos 12 Hallmarks do Envelhecimento. Atualização do paper original de 2013 com 3 novos hallmarks: macroautofagia, inflamação crônica e disbiose. Referência primária de todo o framework teórico da plataforma. IF: 66.9</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-cell">Cell · IF 66.9</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">02</div>
+        <div class="paper-content">
+          <div class="paper-title">DNA Methylation Age of Human Tissues and Cell Types</div>
+          <div class="paper-authors">Steve Horvath</div>
+          <a href="https://doi.org/10.1186/gb-2013-14-10-r115" target="_blank" class="paper-journal">Genome Biology · 2013</a>
+          <div class="paper-desc">O artigo fundador dos relógios epigenéticos. Horvath demonstrou que a metilação de 353 CpGs específicos prediz a idade biológica com correlação r=0.96 em múltiplos tecidos. Base para todos os relógios de segunda geração (GrimAge, PhenoAge, DunedinPACE).</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-aging">Genome Biology</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">03</div>
+        <div class="paper-content">
+          <div class="paper-title">Quantification of Biological Aging in Young Adults (DunedinPACE)</div>
+          <div class="paper-authors">Belsky DW, Caspi A, Corcoran DL, et al.</div>
+          <a href="https://doi.org/10.7554/eLife.73420" target="_blank" class="paper-journal">eLife · 2022</a>
+          <div class="paper-desc">Validação do DunedinPACE — o relógio mais sensível de velocidade de envelhecimento biológico em tempo real. Mede o pace em uma única amostra de sangue. Prediz declínio físico/cognitivo e mortalidade melhor que relógios de idade biológica estática.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-aging">eLife · 2022</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">04</div>
+        <div class="paper-content">
+          <div class="paper-title">Reversal of Epigenetic Aging and Immunosenescent Trends in Humans (TRIIM)</div>
+          <div class="paper-authors">Fahy GM, Brooke RT, Watson JP, et al.</div>
+          <a href="https://doi.org/10.1111/acel.13028" target="_blank" class="paper-journal">Aging Cell · 2019</a>
+          <div class="paper-desc">Primeiro ensaio clínico a demonstrar reversão da idade epigenética em humanos. Protocolo combinado (GH + DHEA + Metformina) reverteu ~2.5 anos do relógio Horvath em 9 meses. Estudo piloto não controlado — aguarda replicação — mas é o paper mais citado em rejuvenescimento clínico.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-aging">Aging Cell</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">05</div>
+        <div class="paper-content">
+          <div class="paper-title">Clonal Hematopoiesis and Risk of Atherosclerotic Cardiovascular Disease</div>
+          <div class="paper-authors">Jaiswal S, Natarajan P, Silver AJ, et al.</div>
+          <a href="https://doi.org/10.1056/NEJMoa1701719" target="_blank" class="paper-journal">NEJM · 2017</a>
+          <div class="paper-desc">Prova que CHIP (mutações em DNMT3A, TET2, ASXL1) duplica o risco de infarto e AVC em indivíduos "saudáveis" sem malignidade hematológica. Fundamento para incluir DNMT3A/TET2 no painel epigenético de monitoramento de longevidade.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-nejm">NEJM · IF 176</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">06</div>
+        <div class="paper-content">
+          <div class="paper-title">An Epigenetic Biomarker of Aging for Lifespan and Healthspan (PhenoAge)</div>
+          <div class="paper-authors">Levine ME, Lu AT, Quach A, et al.</div>
+          <a href="https://doi.org/10.18632/aging.101414" target="_blank" class="paper-journal">Aging · 2018</a>
+          <div class="paper-desc">Desenvolvimento do relógio PhenoAge, calibrado para prever desfechos de saúde — não apenas idade cronológica. Usa 9 biomarcadores clínicos e metilação de 513 CpGs. Demonstra que a idade fenotípica é mais preditiva de mortalidade que a idade Horvath original.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-aging">Aging · 2018</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">07</div>
+        <div class="paper-content">
+          <div class="paper-title">FOXO3 Alleles and Exceptional Longevity in a Japanese American Population</div>
+          <div class="paper-authors">Willcox BJ, Donlon TA, He Q, et al.</div>
+          <a href="https://doi.org/10.1073/pnas.0801030105" target="_blank" class="paper-journal">PNAS · 2008</a>
+          <div class="paper-desc">Primeira associação significativa de variantes FOXO3 com longevidade extrema humana em múltiplas populações. Replicado em cohorts europeus, asiáticos e americanos. Fundamenta a inclusão de FOXO3 como gene-alvo crítico no painel de longevidade.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-nature">PNAS · 2008</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">08</div>
+        <div class="paper-content">
+          <div class="paper-title">α-Klotho Is a Serum Factor Related to Human Aging</div>
+          <div class="paper-authors">Kurosu H, Yamamoto M, Clark JD, et al.</div>
+          <a href="https://doi.org/10.1126/science.1112766" target="_blank" class="paper-journal">Science · 2005</a>
+          <div class="paper-desc">Demonstração pioneira de que o gene Klotho, quando superexpresso em camundongos, estende o lifespan em 30%. Quando deletado, causa síndrome de envelhecimento acelerado. Fundamenta Klotho como biomarcador sistêmico de longevidade renal e cardiovascular.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-nejm">Science · IF 63.7</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">09</div>
+        <div class="paper-content">
+          <div class="paper-title">Senolytics Improve Physical Function and Increase Lifespan in Old Age (Dasatinib + Quercetin)</div>
+          <div class="book-author">Xu M, Pirtskhalava T, Farr JN, et al.</div>
+          <a href="https://doi.org/10.1038/s41591-018-0092-9" target="_blank" class="paper-journal">Nature Medicine · 2018</a>
+          <div class="paper-desc">Primeira demonstração em mamíferos de que a remoção de células senescentes com D+Q melhora função física, capacidade de exercício e estende o lifespan mediano. Funda o campo clínico dos senolíticos. Base para ensaios da Mayo Clinic.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-nature">Nature Medicine</span>
+        </div>
+      </div>
+
+      <div class="paper-row">
+        <div class="paper-num">10</div>
+        <div class="paper-content">
+          <div class="paper-title">GDF11 Is a Circulating Factor that Reverses Age-Related Cardiac Hypertrophy</div>
+          <div class="paper-authors">Loffredo FS, Steinhauser ML, Jay SM, et al.</div>
+          <a href="https://doi.org/10.1016/j.cell.2013.04.015" target="_blank" class="paper-journal">Cell · 2013</a>
+          <div class="paper-desc">Demonstração via parabiose de que fatores no sangue jovem (GDF11) revertem hipertrofia cardíaca relacionada ao envelhecimento. Abriu o campo de "fatores de plasma jovem" e motivou estudos de plasma e diluição de sangue envelhecido (Conboy). Controverso mas influente.</div>
+        </div>
+        <div class="paper-impact">
+          <span class="impact-badge impact-cell">Cell · 2013</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════════ PODCASTS ════════════════ -->
+  <div class="lib-section" id="podcasts">
+    <div class="lib-section-header">
+      <span class="lib-section-icon">🎙️</span>
+      <span class="lib-section-title">Podcasts e Recursos em Áudio</span>
+      <span class="lib-section-count">6 canais essenciais</span>
+    </div>
+
+    <div class="podcast-grid">
+
+      <div class="pod-card">
+        <div class="pod-icon">🎯</div>
+        <div class="pod-name">The Peter Attia Drive</div>
+        <div class="pod-host">Peter Attia MD</div>
+        <div class="pod-desc">O podcast mais denso e rigoroso em medicina de longevidade. Episódios de 2–4h com os principais pesquisadores do campo. Cobre exercício, nutrição, sono, saúde mental, metabolismo e medicina preventiva com profundidade clínica excepcional.</div>
+        <div class="pod-episodes">◈ Episódios essenciais: #249 (exercício), #205 (sono), #178 (aterosclerose)</div>
+      </div>
+
+      <div class="pod-card">
+        <div class="pod-icon">🧬</div>
+        <div class="pod-name">Huberman Lab</div>
+        <div class="pod-host">Andrew Huberman PhD (Stanford)</div>
+        <div class="pod-desc">Neurociência aplicada à performance e longevidade. Protocolos baseados em evidências para sono, luz solar, exercício, suplementos e saúde mental. Linguagem acessível com densidade científica — ideal para implementar mudanças práticas rapidamente.</div>
+        <div class="pod-episodes">◈ Essenciais: saúde mitocondrial, sono e luz, protocolos de exposição ao frio</div>
+      </div>
+
+      <div class="pod-card">
+        <div class="pod-icon">⚗️</div>
+        <div class="pod-name">FoundMyFitness</div>
+        <div class="pod-host">Rhonda Patrick PhD</div>
+        <div class="pod-desc">Bioquímica e nutrição de precisão. Episódios profundos sobre micronutrientes, sauna (hormese térmica), exercício e longevidade. Patrick cobre a literatura científica com rigor e sem hype — especialmente forte em vitamina D, ômega-3 e mitocôndrias.</div>
+        <div class="pod-episodes">◈ Essenciais: sauna e mortalidade, ômega-3 e inflamação, vitamina D</div>
+      </div>
+
+      <div class="pod-card">
+        <div class="pod-icon">🔬</div>
+        <div class="pod-name">Lifespan with Dr. David Sinclair</div>
+        <div class="pod-host">David Sinclair PhD (Harvard)</div>
+        <div class="pod-desc">O autor de Lifespan discute os avanços mais recentes em reprogramação celular, NAD+, sirtuínas e as fronteiras da longevidade. Mais voltado para o horizonte do que é possível — complementar a Attia, que foca no que é aplicável hoje.</div>
+        <div class="pod-episodes">◈ Essenciais: reprogramação celular, NMN vs NR, relógios epigenéticos</div>
+      </div>
+
+      <div class="pod-card">
+        <div class="pod-icon">💊</div>
+        <div class="pod-name">Longevity by Design</div>
+        <div class="pod-host">Gil Blander PhD (InsideTracker)</div>
+        <div class="pod-desc">Podcast da InsideTracker focado em biomarcadores e personalização. Entrevistas com cientistas sobre como dados biométricos individuais diferem das recomendações populacionais — muito relevante para o desenvolvimento de sistemas preditivos individualizados.</div>
+        <div class="pod-episodes">◈ Relevante para: personalização, biomarcadores, dados longitudinais</div>
+      </div>
+
+      <div class="pod-card">
+        <div class="pod-icon">🏥</div>
+        <div class="pod-name">Rational Wellness</div>
+        <div class="pod-host">Ben Weitz DC</div>
+        <div class="pod-desc">Medicina funcional e longevidade. Entrevistas clínicas detalhadas com especialistas em aterosclerose (Lp(a), ApoB), saúde intestinal, hormônios e senescência. Linguagem mais clínica e menos acadêmica — útil para implementação em protocolos de pacientes.</div>
+        <div class="pod-episodes">◈ Essenciais: ApoB e LDL, microbioma e longevidade, CHIP</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════════ PROTOCOLOS ════════════════ -->
+  <div class="lib-section" id="protocols">
+    <div class="lib-section-header">
+      <span class="lib-section-icon">⚙️</span>
+      <span class="lib-section-title">Protocolos de Referência</span>
+      <span class="lib-section-count">4 frameworks de implementação</span>
+    </div>
+
+    <div class="protocol-grid">
+
+      <div class="proto-card pc-aurum">
+        <div class="proto-tag">Protocolo Mais Documentado</div>
+        <div class="proto-title">Project Blueprint</div>
+        <div class="proto-author">Bryan Johnson · Entrepreneur / Biohacker</div>
+        <div class="proto-desc">
+          O experimento de auto-otimização biológica mais documentado publicamente. Johnson gasta ~$2M/ano com uma equipe de 30 médicos para manter os biomarcadores de um jovem de 18 anos. Sua transparência radical — publicando todos os dados, protocolos e resultados — é um recurso único para calibrar alvos realistas e identificar intervenções com efeito comprovado em humanos.
+        </div>
+        <div class="proto-pillars">
+          <span class="proto-pillar">100+ exames/mês</span>
+          <span class="proto-pillar">Dieta vegetal ~1.977kcal</span>
+          <span class="proto-pillar">Sono 8.5h · 22h30</span>
+          <span class="proto-pillar">Exercício 1h/dia</span>
+          <span class="proto-pillar">~111 suplementos</span>
+        </div>
+      </div>
+
+      <div class="proto-card pc-blue">
+        <div class="proto-tag">Medicina Preventiva Avançada</div>
+        <div class="proto-title">Attia's Longevity Protocol</div>
+        <div class="proto-author">Peter Attia MD · Early Medical</div>
+        <div class="proto-desc">
+          Abordagem mais equilibrada e clinicamente aplicável. Attia enfatiza os "quatro cavaleiros da morte" (DCV, câncer, neurodegeneração, diabetes) e organiza intervenções por ROI. Forte ênfase em exercício (VO2máx, força, estabilidade), sono e saúde metabólica. Menos extremo que Blueprint, com maior aplicabilidade para pacientes reais.
+        </div>
+        <div class="proto-pillars">
+          <span class="proto-pillar">Zona 2 · 3–4h/semana</span>
+          <span class="proto-pillar">VO2máx training</span>
+          <span class="proto-pillar">ApoB &lt; 60 mg/dL</span>
+          <span class="proto-pillar">Glucose stability</span>
+          <span class="proto-pillar">Sono 8h prioritário</span>
+        </div>
+      </div>
+
+      <div class="proto-card pc-vitae">
+        <div class="proto-tag">Nutrição e Longevidade</div>
+        <div class="proto-title">Longo's ProLon / FMD Protocol</div>
+        <div class="proto-author">Valter Longo PhD · USC Longevity Institute</div>
+        <div class="proto-desc">
+          Dieta que mimetiza o jejum (Fasting Mimicking Diet) — 5 dias/mês com ~800kcal de composição específica que ativa autofagia, reduz IGF-1, induz renovação de células-tronco e recalibra biomarcadores metabólicos. Único protocolo nutricional com múltiplos ensaios clínicos controlados mostrando reversão de idade biológica.
+        </div>
+        <div class="proto-pillars">
+          <span class="proto-pillar">5 dias/mês</span>
+          <span class="proto-pillar">800kcal/dia</span>
+          <span class="proto-pillar">Autofagia ativada</span>
+          <span class="proto-pillar">IGF-1 ↓ 30–40%</span>
+          <span class="proto-pillar">Stem cells ↑</span>
+        </div>
+      </div>
+
+      <div class="proto-card pc-red">
+        <div class="proto-tag">Framework SENS</div>
+        <div class="proto-title">Strategies for Engineered Negligible Senescence</div>
+        <div class="proto-author">Aubrey de Grey · SENS Research Foundation</div>
+        <div class="proto-desc">
+          Abordagem de engenharia biomédica para o envelhecimento — trata as 7 categorias de "lixo biológico acumulado" (mitocôndrias mutantes, células senescentes, agregados extra/intracelulares, mutações nucleares) como problemas de manutenção resolvíveis. Framework mais futurista, mas orienta o desenvolvimento de terapias regenerativas como a reposição celular e a terapia gênica mitocondrial.
+        </div>
+        <div class="proto-pillars">
+          <span class="proto-pillar">Senolíticos</span>
+          <span class="proto-pillar">AllotLCA</span>
+          <span class="proto-pillar">MitoSENS</span>
+          <span class="proto-pillar">GlycoSENS</span>
+          <span class="proto-pillar">Terapia Gênica</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div style="margin-top: 56px; padding: 28px 32px; background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md);">
+    <div style="font-family:var(--f-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--aurum);margin-bottom:10px">◈ Nota sobre Esta Seleção</div>
+    <p style="font-size:0.8rem;color:var(--t-secondary);line-height:1.8;max-width:780px">
+      Esta biblioteca não inclui conteúdo especulativo ou protocolos sem evidência científica mínima. A ciência da longevidade avança rapidamente — novos papers são adicionados mensalmente ao nosso sistema de monitoramento (via crawler PubMed). Cada intervenção listada nos livros e artigos acima é avaliada com os mesmos critérios de evidência Nível A e Nível B utilizados nas páginas de Hallmarks.
+    </p>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+      <a href="hallmark.html?h=1" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--aurum);text-decoration:none;padding:8px 14px;border:1px solid rgba(201,169,106,.3);border-radius:3px;background:var(--aurum-08)">
+        ◈ Ver 12 Hallmarks →
+      </a>
+      <a href="prediction-engine.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t-secondary);text-decoration:none;padding:8px 14px;border:1px solid var(--b-subtle);border-radius:3px">
+        ◈ Motor Preditivo →
+      </a>
+      <a href="biomarkers-panel.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t-secondary);text-decoration:none;padding:8px 14px;border:1px solid var(--b-subtle);border-radius:3px">
+        ◈ Painel Laboratorial →
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

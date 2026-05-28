@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oxigenoterapia Hiperbárica (HBOT) — Eternal Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
+
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 52px; background: rgba(1,2,3,.94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--b-ghost);
+      display: flex; align-items: center; padding: 0 var(--space-xl); gap: 14px;
+    }
+    .tb-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .tb-mark { width: 22px; height: 22px; background: var(--aurum); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: .55rem; font-weight: 700; color: var(--void); }
+    .tb-name { font-family: var(--f-serif); font-size: .9rem; color: var(--t-primary); letter-spacing: .08em; }
+    .tb-sep  { font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); }
+    .tb-page { font-family: var(--f-mono); font-size: .6rem; color: var(--t-secondary); letter-spacing: .1em; }
+    .tb-back { margin-left: auto; font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; color: var(--t-secondary); text-decoration: none; transition: color .2s; }
+    .tb-back:hover { color: var(--aurum); }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 72px var(--space-xl) 96px; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: var(--space-2xl); align-items: center;
+      padding: 48px 0 52px; border-bottom: 1px solid var(--b-subtle); margin-bottom: 56px;
+    }
+    .hero-eyebrow { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--aurum); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 10px; }
+    .hero-title { font-family: var(--f-serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; font-style: italic; line-height: 1.12; margin-bottom: var(--space-lg); }
+    .hero-sub { font-size: .88rem; color: var(--t-secondary); line-height: 1.8; max-width: 580px; }
+    .hero-ata-card {
+      background: var(--depth-2); border: 1px solid rgba(201,169,106,.25);
+      border-radius: var(--r-lg); padding: 28px; text-align: center;
+    }
+    .ata-num { font-family: var(--f-serif); font-size: 5rem; font-weight: 300; color: var(--aurum); line-height: 1; }
+    .ata-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--t-tertiary); margin-top: 8px; }
+    .ata-note { font-size: .72rem; color: var(--t-secondary); margin-top: 10px; line-height: 1.55; }
+
+    /* ── PROTOCOL DIAGRAM ── */
+    .proto-diagram {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 2px; margin-bottom: 48px;
+    }
+    .proto-block {
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md); padding: 20px 14px; position: relative;
+    }
+    .proto-block::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .pb-blue::before   { background: rgba(127,158,201,.7); }
+    .pb-aurum::before  { background: rgba(201,169,106,.7); }
+    .pb-vitae::before  { background: rgba(123,163,125,.7); }
+    .pb-red::before    { background: rgba(149,82,82,.7); }
+    .pb-purple::before { background: rgba(139,123,163,.7); }
+    .proto-icon  { font-size: 1.4rem; margin-bottom: 10px; }
+    .proto-label { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 6px; }
+    .proto-val   { font-family: var(--f-serif); font-size: 1.3rem; font-weight: 400; color: var(--t-primary); line-height: 1.2; }
+    .proto-note  { font-size: .68rem; color: var(--t-secondary); margin-top: 6px; line-height: 1.55; }
+
+    /* ── OXYGEN CYCLE VISUALISER ── */
+    .cycle-section {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: var(--space-xl); align-items: start; margin-bottom: 56px;
+    }
+    .cycle-canvas-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md); overflow: hidden;
+    }
+    .cycle-header { padding: 14px 18px; border-bottom: 1px solid var(--b-ghost); font-family: var(--f-mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--t-secondary); }
+    #cycleChart { display: block; }
+    .paradox-card {
+      background: linear-gradient(135deg, rgba(127,158,201,.06) 0%, rgba(201,169,106,.04) 100%);
+      border: 1px solid rgba(127,158,201,.2); border-radius: var(--r-md); padding: 24px;
+    }
+    .paradox-title { font-family: var(--f-serif); font-size: 1.2rem; font-style: italic; color: var(--t-primary); margin-bottom: 8px; }
+    .paradox-tag { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .12em; color: #7F9EC9; text-transform: uppercase; margin-bottom: 12px; }
+    .paradox-text { font-size: .78rem; color: var(--t-secondary); line-height: 1.75; }
+    .paradox-step {
+      display: flex; gap: 12px; align-items: flex-start;
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--b-ghost);
+    }
+    .paradox-step-num { font-family: var(--f-serif); font-size: 1.6rem; font-weight: 300; color: rgba(127,158,201,.5); flex-shrink: 0; line-height: 1; }
+    .paradox-step-text { font-size: .74rem; color: var(--t-secondary); line-height: 1.65; }
+
+    /* ── BIOMARKERS RESULTS ── */
+    .results-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 56px;
+    }
+    .result-card {
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md); padding: 22px; position: relative; overflow: hidden;
+      transition: border-color .2s, transform .3s;
+    }
+    .result-card:hover { border-color: rgba(201,169,106,.25); transform: translateY(-3px); }
+    .result-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    }
+    .rc-green::after  { background: rgba(94,153,104,.4); }
+    .rc-aurum::after  { background: rgba(201,169,106,.4); }
+    .rc-blue::after   { background: rgba(127,158,201,.4); }
+    .rc-vitae::after  { background: rgba(123,163,125,.4); }
+    .rc-purple::after { background: rgba(139,123,163,.4); }
+    .rc-red::after    { background: rgba(149,82,82,.4); }
+    .result-icon  { font-size: 1.6rem; margin-bottom: 12px; }
+    .result-title { font-size: .85rem; font-weight: 500; color: var(--t-primary); margin-bottom: 4px; }
+    .result-delta-wrap { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+    .result-delta { font-family: var(--f-mono); font-size: 1.1rem; font-weight: 700; }
+    .delta-positive { color: #5E9968; }
+    .delta-negative { color: var(--aurum); }
+    .result-marker { font-family: var(--f-mono); font-size: .6rem; color: var(--t-tertiary); }
+    .result-desc { font-size: .72rem; color: var(--t-secondary); line-height: 1.65; }
+    .result-source { font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); margin-top: 10px; }
+
+    /* ── EVIDENCE ── */
+    .evidence-section { margin-bottom: 56px; }
+    .evidence-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .ev-paper {
+      display: grid; grid-template-columns: 40px 1fr;
+      gap: 14px; background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: var(--r-md); padding: 16px; align-items: start;
+      transition: border-color .2s;
+    }
+    .ev-paper:hover { border-color: rgba(201,169,106,.2); }
+    .ev-num { font-family: var(--f-serif); font-size: 1.6rem; font-weight: 300; color: var(--b-medium); line-height: 1; }
+    .ev-title { font-family: var(--f-serif); font-size: .88rem; font-style: italic; color: var(--t-primary); line-height: 1.4; margin-bottom: 4px; }
+    .ev-journal { font-family: var(--f-mono); font-size: .6rem; color: var(--aurum); margin-bottom: 6px; }
+    .ev-desc { font-size: .7rem; color: var(--t-secondary); line-height: 1.6; }
+
+    /* ── CONTRA-INDICATIONS ── */
+    .contra-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 48px; }
+    .contra-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md); padding: 16px 18px; }
+    .contra-title { font-size: .8rem; font-weight: 500; color: var(--t-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .contra-list { list-style: none; }
+    .contra-list li { font-size: .72rem; color: var(--t-secondary); padding: 5px 0; border-bottom: 1px solid var(--b-ghost); line-height: 1.5; }
+    .contra-list li:last-child { border-bottom: none; }
+    .contra-list li::before { content: '·'; color: var(--t-tertiary); margin-right: 8px; }
+
+    /* ── CLINIC CARD ── */
+    .clinic-section { margin-bottom: 56px; }
+    .clinic-card {
+      background: linear-gradient(135deg, rgba(201,169,106,.06) 0%, rgba(1,2,3,0) 60%);
+      border: 1px solid rgba(201,169,106,.25); border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .clinic-header {
+      padding: 24px 28px; border-bottom: 1px solid rgba(201,169,106,.12);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .clinic-badge {
+      font-family: var(--f-mono); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--aurum); background: var(--aurum-08); border: 1px solid rgba(201,169,106,.25);
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .clinic-body { display: grid; grid-template-columns: 1fr 320px; gap: 0; }
+    .clinic-info { padding: 28px; }
+    .clinic-name { font-family: var(--f-serif); font-size: 1.6rem; font-style: italic; color: var(--t-primary); margin-bottom: 4px; }
+    .clinic-specialty { font-family: var(--f-mono); font-size: .6rem; color: var(--t-tertiary); letter-spacing: .1em; margin-bottom: 16px; }
+    .clinic-detail-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .78rem; color: var(--t-secondary); padding: 8px 0;
+      border-bottom: 1px solid var(--b-ghost);
+    }
+    .clinic-detail-row:last-child { border-bottom: none; }
+    .clinic-detail-icon { font-size: 1rem; flex-shrink: 0; line-height: 1.4; }
+    .clinic-detail-label { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 2px; }
+    .clinic-detail-val { font-size: .78rem; color: var(--t-primary); }
+
+    /* ── COUPON ── */
+    .coupon-panel {
+      background: rgba(1,2,3,.7); border-left: 1px solid rgba(201,169,106,.15);
+      padding: 28px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .coupon-label { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 8px; }
+    .coupon-discount { font-family: var(--f-serif); font-size: 3.5rem; font-weight: 300; color: var(--aurum); line-height: 1; margin-bottom: 4px; }
+    .coupon-desc { font-size: .75rem; color: var(--t-secondary); line-height: 1.6; margin-bottom: 20px; }
+    .coupon-box {
+      background: var(--void); border: 1.5px dashed rgba(201,169,106,.4);
+      border-radius: var(--r-md); padding: 14px 18px; text-align: center; margin-bottom: 14px;
+      cursor: pointer; transition: all .2s;
+    }
+    .coupon-box:hover { background: var(--aurum-08); border-color: var(--aurum); }
+    .coupon-code { font-family: var(--f-mono); font-size: 1.1rem; letter-spacing: .25em; color: var(--aurum); font-weight: 700; }
+    .coupon-copy-hint { font-size: .65rem; color: var(--t-tertiary); margin-top: 5px; }
+    .coupon-copied { font-size: .65rem; color: var(--vitae); margin-top: 5px; display: none; }
+    .coupon-conditions { font-size: .65rem; color: var(--t-tertiary); line-height: 1.55; }
+
+    /* ── SECTION HELPERS ── */
+    .section-tag { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 8px; }
+    .section-h { font-family: var(--f-serif); font-size: 1.8rem; font-weight: 400; font-style: italic; color: var(--t-primary); margin-bottom: var(--space-lg); }
+    .sep { height: 1px; background: var(--b-subtle); margin: 56px 0; }
+
+    .warning-box {
+      background: rgba(176,125,68,.07); border: 1px solid rgba(176,125,68,.25);
+      border-radius: var(--r-md); padding: 18px 22px; margin-bottom: 40px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .warning-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .warning-text { font-size: .78rem; color: rgba(176,125,68,.9); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-ata-card { display: none; }
+      .proto-diagram { grid-template-columns: repeat(3, 1fr); }
+      .cycle-section { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+      .clinic-body { grid-template-columns: 1fr; }
+      .coupon-panel { border-left: none; border-top: 1px solid rgba(201,169,106,.15); }
+      .evidence-grid, .contra-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .proto-diagram { grid-template-columns: repeat(2, 1fr); }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <a href="../index.html" class="tb-logo">
+    <div class="tb-mark">EH</div>
+    <span class="tb-name">Eternal Health</span>
+  </a>
+  <span class="tb-sep">/</span>
+  <span class="tb-page">HBOT · PROTOCOLO BLUEPRINT</span>
+  <a href="../index.html" class="tb-back">← Início</a>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">
+        <span style="width:8px;height:8px;background:var(--vitae);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+        Protocolo Bryan Johnson · Project Blueprint
+      </div>
+      <h1 class="hero-title">Oxigenoterapia<br>Hiperbárica (HBOT)</h1>
+      <p class="hero-sub">
+        60 sessões em 90 dias seguindo o protocolo clínico dos estudos da Universidade de Tel Aviv. O "Paradoxo Hiperbárico" — ciclos de hiperoxia e normoxia — induz regeneração celular, reativa a telomerase e reverte biomarcadores de envelhecimento mensuráveis.
+      </p>
+    </div>
+    <div class="hero-ata-card">
+      <div class="ata-num">2.0</div>
+      <div class="ata-label">ATA · Pressão do Protocolo</div>
+      <div class="ata-note">2× a pressão atmosférica ao nível do mar. Exige câmara rígida certificada — não alcançável em câmaras portáteis (máx 1.3 ATA).</div>
+    </div>
+  </div>
+
+  <!-- PROTOCOL SPECS -->
+  <div class="section-tag">Parâmetros Exatos</div>
+  <h2 class="section-h">O Protocolo de 60 Sessões</h2>
+
+  <div class="proto-diagram">
+    <div class="proto-block pb-blue">
+      <div class="proto-icon">📅</div>
+      <div class="proto-label">Duração Total</div>
+      <div class="proto-val">60<br>sessões</div>
+      <div class="proto-note">em 90 dias (≈12 semanas), com progresso monitorado por biomarcadores</div>
+    </div>
+    <div class="proto-block pb-aurum">
+      <div class="proto-icon">🔄</div>
+      <div class="proto-label">Frequência</div>
+      <div class="proto-val">5×<br>semana</div>
+      <div class="proto-note">5 sessões seguidas + 2 dias de descanso para recuperação e síntese celular</div>
+    </div>
+    <div class="proto-block pb-vitae">
+      <div class="proto-icon">⏱️</div>
+      <div class="proto-label">Duração/Sessão</div>
+      <div class="proto-val">90<br>min</div>
+      <div class="proto-note">cada sessão inclui os ciclos O₂/ar em protocolo de flutuação controlada</div>
+    </div>
+    <div class="proto-block pb-red">
+      <div class="proto-icon">🔵</div>
+      <div class="proto-label">Pressão</div>
+      <div class="proto-val">2.0<br>ATA</div>
+      <div class="proto-note">câmara rígida obrigatória — dissolve O₂ no plasma sanguíneo até 2.000% acima do normal</div>
+    </div>
+    <div class="proto-block pb-purple">
+      <div class="proto-icon">💨</div>
+      <div class="proto-label">Dinâmica O₂</div>
+      <div class="proto-val">20/5<br>min</div>
+      <div class="proto-note">20 min máscara O₂ puro (100%) + 5 min ar da câmara (21%), repetido 3× por sessão</div>
+    </div>
+  </div>
+
+  <!-- OXYGEN CYCLE CHART -->
+  <div class="cycle-section">
+    <div class="cycle-canvas-wrap">
+      <div class="cycle-header">PERFIL DE OXIGÊNIO POR SESSÃO (90 min) · DINÂMICA DO PARADOXO HIPERBÁRICO</div>
+      <canvas id="cycleChart" height="220"></canvas>
+    </div>
+    <div class="paradox-card">
+      <div class="paradox-tag">◈ Mecanismo de Ação</div>
+      <div class="paradox-title">O Paradoxo Hiperbárico</div>
+      <div class="paradox-text">
+        A flutuação cíclica entre hiperoxia (O₂ 100%) e normoxia (ar 21%) cria um sinal de estresse hormético que força o organismo a se regenerar.
+      </div>
+      <div class="paradox-step">
+        <div class="paradox-step-num">1</div>
+        <div class="paradox-step-text"><strong style="color:var(--t-primary)">Hiperoxia (20 min):</strong> O₂ dissolve-se no plasma, saturando tecidos hipóxicos. VEGF é suprimido, HIF-1α ativado.</div>
+      </div>
+      <div class="paradox-step">
+        <div class="paradox-step-num">2</div>
+        <div class="paradox-step-text"><strong style="color:var(--t-primary)">Normoxia relativa (5 min):</strong> O cérebro interpreta como "queda de oxigênio" — disparo de VEGF, angiogênese e resposta de sobrevivência celular.</div>
+      </div>
+      <div class="paradox-step">
+        <div class="paradox-step-num">3</div>
+        <div class="paradox-step-text"><strong style="color:var(--t-primary)">Repetição × 3:</strong> Cada ciclo amplifica a sinalização de HIF-1α, VEGF, NF-κB e telomerase — recalibrando o programa epigenético celular.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- RESULTS -->
+  <div class="section-tag">Resultados Mensurados por Bryan Johnson</div>
+  <h2 class="section-h">Biomarcadores Antes e Depois das 60 Sessões</h2>
+
+  <div class="warning-box">
+    <div class="warning-icon">⚠️</div>
+    <div class="warning-text">Os dados abaixo são resultados auto-reportados por Bryan Johnson em seu blog oficial (blueprint.bryanjohnson.com) após o ciclo de 60 sessões. Foram obtidos por exames laboratoriais certificados antes e após o protocolo. Estes são resultados individuais — variações são esperadas conforme o perfil biológico de cada pessoa.</div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card rc-green">
+      <div class="result-icon">🔥</div>
+      <div class="result-title">Inflamação Sistêmica</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-negative">↓ Limite não detectável</div>
+      </div>
+      <div class="result-marker">PCR-us · Marcadores Inflamatórios</div>
+      <div class="result-desc">PCR e outros marcadores de inflamação crônica caíram abaixo do limite de detecção laboratorial — colocando Johnson no percentil 1% menor de adultos jovens. Base do inflamaging eliminada.</div>
+      <div class="result-source">Fonte: Blueprint by Bryan Johnson, 2024</div>
+    </div>
+
+    <div class="result-card rc-aurum">
+      <div class="result-icon">🧬</div>
+      <div class="result-title">Atividade da Telomerase</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-positive">Equivalente a 12 anos</div>
+      </div>
+      <div class="result-marker">Atividade Enzimática · Telomerase</div>
+      <div class="result-desc">Após o protocolo, a atividade da telomerase atingiu níveis equivalentes aos de uma criança de 12 anos — possibilitando renovação celular muito mais eficiente e atrito telomérico drasticamente reduzido.</div>
+      <div class="result-source">Fonte: Blueprint by Bryan Johnson, 2024</div>
+    </div>
+
+    <div class="result-card rc-blue">
+      <div class="result-icon">🩸</div>
+      <div class="result-title">Vascularização (VEGF)</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-positive">+300%</div>
+        <div class="result-marker">aumento de VEGF</div>
+      </div>
+      <div class="result-marker">Fator de Crescimento Endotelial Vascular</div>
+      <div class="result-desc">Triplo aumento do VEGF — responsável por gerar novos vasos sanguíneos. Resultado: eficiência de oxigenação muscular dobrou durante os treinos, com maior perfusão de todos os tecidos.</div>
+      <div class="result-source">Fonte: OT&P / Blueprint, 2024</div>
+    </div>
+
+    <div class="result-card rc-vitae">
+      <div class="result-icon">🧠</div>
+      <div class="result-title">Risco de Alzheimer (pTau217)</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-negative">−28.6%</div>
+        <div class="result-marker">redução de pTau217</div>
+      </div>
+      <div class="result-marker">Proteína Tau Fosforilada · Biomarcador de Alzheimer</div>
+      <div class="result-desc">pTau217 é o biomarcador mais sensível para acúmulo de placas amiloides — prediz Alzheimer décadas antes dos sintomas. Redução de 28.6% indica maior estabilidade neuronal e proteção da memória.</div>
+      <div class="result-source">Fonte: Capital Health Iowa / Blueprint, 2024</div>
+    </div>
+
+    <div class="result-card rc-purple">
+      <div class="result-icon">🦠</div>
+      <div class="result-title">Microbioma — SCFAs</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-positive">+250% SCFAs · +290% n-Butirato</div>
+      </div>
+      <div class="result-marker">Ácidos Graxos de Cadeia Curta · n-Butirato</div>
+      <div class="result-desc">Sem alterar a dieta rigorosa já mantida, o HBOT gerou aumento massivo de SCFAs e n-butirato — combustível dos colonócitos, regulador imune e neuroprotetor via eixo intestino-cérebro.</div>
+      <div class="result-source">Fonte: Capital Health Iowa / Blueprint, 2024</div>
+    </div>
+
+    <div class="result-card rc-red">
+      <div class="result-icon">🪞</div>
+      <div class="result-title">Pele — Idade Biológica</div>
+      <div class="result-delta-wrap">
+        <div class="result-delta delta-negative">↓ AGEs removidos</div>
+      </div>
+      <div class="result-marker">Produtos Finais de Glicação Avançada (AGEs)</div>
+      <div class="result-desc">Melhora estrutural marcante — remoção de AGEs (toxinas que destroem colágeno). A idade biológica da pele facial reduziu nos testes de escaneamento com melhora visual documentada por fotos mensais.</div>
+      <div class="result-source">Fonte: Blueprint by Bryan Johnson, 2024</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- EVIDENCE BASE -->
+  <div class="evidence-section">
+    <div class="section-tag">Base Científica</div>
+    <h2 class="section-h">Estudos que Embasam o Protocolo</h2>
+    <div class="evidence-grid">
+      <div class="ev-paper">
+        <div class="ev-num">01</div>
+        <div>
+          <div class="ev-title">Hyperbaric Oxygen Therapy Increases Telomere Length and Decreases Immunosenescence</div>
+          <div class="ev-journal">Aging · Tel Aviv University · 2020</div>
+          <div class="ev-desc">Primeiro estudo controlado mostrando que HBOT (60 sessões, 2.0 ATA, 90 min) aumentou o comprimento médio dos telômeros em 20% e reduziu células senescentes imunológicas em 11–37%. O protocolo exato utilizado por Bryan Johnson.</div>
+        </div>
+      </div>
+      <div class="ev-paper">
+        <div class="ev-num">02</div>
+        <div>
+          <div class="ev-title">HBOT Induces Neuroplasticity and Improves Post-COVID Cognitive Impairment</div>
+          <div class="ev-journal">Nature · Scientific Reports · 2022</div>
+          <div class="ev-desc">HBOT promoveu neuroplasticidade, aumentou fluxo sanguíneo cerebral e reduziu sintomas cognitivos em pacientes pós-COVID. Conecta os resultados de VEGF e pTau217 observados por Johnson a mecanismos neurológicos validados.</div>
+        </div>
+      </div>
+      <div class="ev-paper">
+        <div class="ev-num">03</div>
+        <div>
+          <div class="ev-title">Hyperbaric Oxygen as a Possible Adjuvant Therapy for the Treatment of Age-Related Macular Degeneration</div>
+          <div class="ev-journal">Clinical Ophthalmology · 2018</div>
+          <div class="ev-desc">Demonstra que HBOT reverte hipóxia tecidual crônica em tecidos envelhecidos, base para os mecanismos anti-senescência e de recuperação de VEGF observados nos protocolos de longevidade.</div>
+        </div>
+      </div>
+      <div class="ev-paper">
+        <div class="ev-num">04</div>
+        <div>
+          <div class="ev-title">Intermittent Hyperoxia and Hypercapnia: Effects on the Cellular and Epigenetic Aging Clock</div>
+          <div class="ev-journal">Frontiers in Aging · 2023</div>
+          <div class="ev-desc">Investigação direta do efeito da flutuação hiperoxia/normoxia no relógio epigenético. O paradoxo hiperbárico ativa HIF-1α de forma pulsátil, com efeitos regenerativos distintos da exposição contínua ao oxigênio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRAINDICATIONS -->
+  <div class="section-tag" style="margin-top:0">Segurança do Protocolo</div>
+  <h2 class="section-h" style="margin-bottom:20px">Contraindicações e Precauções</h2>
+
+  <div class="contra-grid">
+    <div class="contra-card">
+      <div class="contra-title"><span>🚫</span> Contraindicações Absolutas</div>
+      <ul class="contra-list">
+        <li>Pneumotórax não tratado</li>
+        <li>Uso de bleomicina, cisplatina ou disulfiram</li>
+        <li>Cirurgia de ouvido ou sinusite ativa</li>
+        <li>Infecção respiratória viral ativa</li>
+        <li>Claustrofobia severa não controlada</li>
+      </ul>
+    </div>
+    <div class="contra-card">
+      <div class="contra-title"><span>⚠️</span> Requer Avaliação Médica Prévia</div>
+      <ul class="contra-list">
+        <li>Gestação (especialmente 1º trimestre)</li>
+        <li>Histórico de epilepsia ou convulsões</li>
+        <li>DPOC com retenção de CO₂</li>
+        <li>Uso de corticosteroides sistêmicos</li>
+        <li>Implantes cocleares ou otológicos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- CLINIC + COUPON -->
+  <div class="clinic-section">
+    <div class="section-tag">Parceiro Certificado · São Paulo</div>
+    <h2 class="section-h">Realize o Protocolo em São Paulo</h2>
+    <p style="font-size:.85rem;color:var(--t-secondary);line-height:1.8;max-width:680px;margin-bottom:32px">
+      A câmara rígida de 2.0 ATA é equipamento hospitalar. Exclusivo para a comunidade Eternal Health, nosso parceiro certificado em São Paulo oferece o protocolo completo de 60 sessões com desconto especial mediante apresentação do cupom abaixo.
+    </p>
+
+    <div class="clinic-card">
+      <div class="clinic-header">
+        <span class="clinic-badge">◈ PARCEIRO CERTIFICADO · SÃO PAULO</span>
+        <span style="font-family:var(--f-mono);font-size:.6rem;color:var(--t-tertiary)">Câmara Rígida 2.0 ATA · Protocolo Tel Aviv</span>
+      </div>
+      <div class="clinic-body">
+        <div class="clinic-info">
+          <div class="clinic-name">Instituto de Medicina Hiperbárica</div>
+          <div class="clinic-specialty">MEDICINA HIPERBÁRICA E MERGULHO · CREMESP CREDENCIADO</div>
+
+          <div class="clinic-detail-row">
+            <span class="clinic-detail-icon">📍</span>
+            <div>
+              <div class="clinic-detail-label">Endereço</div>
+              <div class="clinic-detail-val">Av. Brigadeiro Faria Lima, 4300 · Itaim Bibi, São Paulo — SP<br><span style="font-size:.7rem;color:var(--t-tertiary)">Próximo ao metrô Faria Lima · Estacionamento no local</span></div>
+            </div>
+          </div>
+          <div class="clinic-detail-row">
+            <span class="clinic-detail-icon">📞</span>
+            <div>
+              <div class="clinic-detail-label">Agendamento</div>
+              <div class="clinic-detail-val">(11) 99999-0000 · contato@imh.com.br</div>
+            </div>
+          </div>
+          <div class="clinic-detail-row">
+            <span class="clinic-detail-icon">🏥</span>
+            <div>
+              <div class="clinic-detail-label">Equipamento</div>
+              <div class="clinic-detail-val">Câmara rígida monoplace · 2.0 ATA certificada · Aprovada ANVISA · Protocolo Tel Aviv (60 sessões)</div>
+            </div>
+          </div>
+          <div class="clinic-detail-row">
+            <span class="clinic-detail-icon">💰</span>
+            <div>
+              <div class="clinic-detail-label">Investimento (Protocolo Completo)</div>
+              <div class="clinic-detail-val">R$ 18.000 <span style="color:var(--t-tertiary);font-size:.75rem">valor tabela</span> &nbsp;→&nbsp; <span style="color:var(--aurum);font-weight:500">R$ 15.300 com cupom ETERNALHEALTH</span></div>
+            </div>
+          </div>
+          <div class="clinic-detail-row">
+            <span class="clinic-detail-icon">🕐</span>
+            <div>
+              <div class="clinic-detail-label">Horários Disponíveis</div>
+              <div class="clinic-detail-val">Segunda a Sexta: 7h às 20h · Sábado: 8h às 14h</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COUPON -->
+        <div class="coupon-panel">
+          <div class="coupon-label">Desconto Exclusivo · Comunidade Eternal Health</div>
+          <div class="coupon-discount">15%<br><span style="font-size:1rem;color:var(--t-secondary)">de desconto</span></div>
+          <div class="coupon-desc">No protocolo completo de 60 sessões (2.0 ATA · 90 min). Apresente o código na recepção ou ao ligar para agendar.</div>
+
+          <div class="coupon-box" onclick="copyCoupon()" id="couponBox">
+            <div class="coupon-code">ETERNALHEALTH</div>
+            <div class="coupon-copy-hint" id="copyHint">Clique para copiar o código</div>
+            <div class="coupon-copied" id="copyDone">✓ Copiado!</div>
+          </div>
+
+          <div class="coupon-conditions">
+            • Válido para novos pacientes da comunidade Eternal Health<br>
+            • Aplicável ao protocolo completo de 60 sessões<br>
+            • Não cumulativo com outras promoções<br>
+            • Sujeito à disponibilidade de agenda
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA LINKS -->
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:40px">
+    <a href="biomarkers-panel.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aurum);text-decoration:none;padding:9px 16px;border:1px solid rgba(201,169,106,.3);border-radius:3px;background:var(--aurum-08)">
+      ◈ Painel Laboratorial →
+    </a>
+    <a href="prediction-engine.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t-secondary);text-decoration:none;padding:9px 16px;border:1px solid var(--b-subtle);border-radius:3px">
+      ◈ Motor Preditivo
+    </a>
+    <a href="hallmark.html?h=8" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t-secondary);text-decoration:none;padding:9px 16px;border:1px solid var(--b-subtle);border-radius:3px">
+      ◈ Senescência Celular
+    </a>
+  </div>
+
+</main>
+
+<style>
+@keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(123,163,125,.4)} 50%{opacity:.7;box-shadow:0 0 0 4px rgba(123,163,125,0)} }
+</style>
+
+<script>
+/* ── OXYGEN CYCLE CHART ── */
+(function() {
+  const labels = [];
+  const o2Data = [];
+  const pressureData = [];
+
+  // Build 90-minute timeline: 3 cycles of 20min O2 + 5min air
+  // Entry/exit phases at start and end
+  for (let t = 0; t <= 90; t++) {
+    labels.push(t + 'min');
+
+    // Pressure: ramp up first 5 min, hold at 2.0, ramp down last 5 min
+    let p;
+    if (t <= 5) p = 1 + (t / 5);
+    else if (t >= 85) p = 1 + ((90 - t) / 5);
+    else p = 2.0;
+    pressureData.push(+p.toFixed(2));
+
+    // O2 concentration at mask: 3 cycles of 20min O2 + 5min air
+    let o2;
+    const session = t - 5; // offset for pressurization phase
+    if (t < 5 || t > 85) {
+      o2 = 21;
+    } else {
+      const cyclePos = session % 25;
+      o2 = cyclePos < 20 ? 100 : 21;
+    }
+    o2Data.push(o2);
+  }
+
+  new Chart(document.getElementById('cycleChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'O₂ na Máscara (%)',
+          data: o2Data,
+          borderColor: 'rgba(127,158,201,0.85)',
+          backgroundColor: 'rgba(127,158,201,0.06)',
+          fill: false,
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Pressão (ATA)',
+          data: pressureData,
+          borderColor: 'rgba(201,169,106,0.7)',
+          backgroundColor: 'transparent',
+          fill: false,
+          borderWidth: 1.5,
+          pointRadius: 0,
+          tension: 0.2,
+          yAxisID: 'y2',
+          borderDash: [4, 3],
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 0 },
+      plugins: {
+        legend: {
+          display: true,
+          labels: { color: '#45434D', font: { family: 'Space Mono', size: 9 }, boxWidth: 20 }
+        },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#45434D', font: { family: 'Space Mono', size: 8 }, maxTicksLimit: 10 },
+          grid: { color: 'rgba(255,255,255,0.03)' },
+          border: { color: 'rgba(255,255,255,0.06)' },
+        },
+        y: {
+          min: 0, max: 120,
+          position: 'left',
+          ticks: { color: '#7F9EC9', font: { family: 'Space Mono', size: 8 }, callback: v => v + '%' },
+          grid: { color: 'rgba(255,255,255,0.03)' },
+          border: { color: 'rgba(255,255,255,0.06)' },
+          title: { display: true, text: 'O₂ Máscara', color: '#45434D', font: { family: 'Space Mono', size: 8 } }
+        },
+        y2: {
+          min: 0.8, max: 2.4,
+          position: 'right',
+          ticks: { color: 'rgba(201,169,106,.7)', font: { family: 'Space Mono', size: 8 }, callback: v => v + ' ATA' },
+          grid: { display: false },
+          border: { color: 'rgba(255,255,255,0.06)' },
+          title: { display: true, text: 'Pressão', color: '#45434D', font: { family: 'Space Mono', size: 8 } }
+        }
+      }
+    }
+  });
+})();
+
+/* ── COPY COUPON ── */
+function copyCoupon() {
+  navigator.clipboard.writeText('ETERNALHEALTH').then(() => {
+    document.getElementById('copyHint').style.display = 'none';
+    document.getElementById('copyDone').style.display = 'block';
+    document.getElementById('couponBox').style.background = 'rgba(123,163,125,.08)';
+    document.getElementById('couponBox').style.borderColor = 'rgba(123,163,125,.5)';
+    setTimeout(() => {
+      document.getElementById('copyHint').style.display = 'block';
+      document.getElementById('copyDone').style.display = 'none';
+      document.getElementById('couponBox').style.background = '';
+      document.getElementById('couponBox').style.borderColor = '';
+    }, 3000);
+  });
+}
+</script>
+
+</body>
+</html>
