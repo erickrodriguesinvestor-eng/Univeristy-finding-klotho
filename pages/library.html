@@ -559,6 +559,13 @@
       </div>
 
     </div>
+
+  <div class="crosslink crosslink-vitae">
+    <span class="crosslink-glyph">◈</span>
+    <div class="crosslink-text"><strong>Motor Preditivo:</strong> Os artigos de López-Otín 2023, Horvath 2013 e DunedinPACE são a base científica do nosso modelo bayesiano de longevidade.</div>
+    <a href="prediction-engine.html" class="crosslink-cta">Ver Modelo →</a>
+  </div>
+
   </div>
 
   <div class="sep"></div>
@@ -701,6 +708,13 @@
       </div>
 
     </div>
+
+  <div class="crosslink crosslink-blue">
+    <span class="crosslink-glyph">O₂</span>
+    <div class="crosslink-text"><strong>Protocolo HBOT:</strong> O protocolo Bryan Johnson / Blueprint inclui 60 sessões de oxigenoterapia hiperbárica com evidência clínica de reversão de biomarcadores.</div>
+    <a href="hbot.html" class="crosslink-cta">Ver HBOT →</a>
+  </div>
+
   </div>
 
   <!-- FOOTER NOTE -->
@@ -722,7 +736,20 @@
     </div>
   </div>
 
-</main>
+  <div class="protocol-cta">
+    <div class="pcta-deco">◫</div>
+    <div class="pcta-body">
+      <div class="pcta-eyebrow">Integre ao seu Protocolo</div>
+      <div class="pcta-title">Da leitura à ação clínica personalizada</div>
+      <div class="pcta-desc">A plataforma Eternal Health traduz o conhecimento desta biblioteca em protocolos mensuráveis — com biomarcadores, análise epigenética e modelo preditivo calibrado para o seu perfil biológico.</div>
+      <div class="pcta-actions">
+        <a href="dashboard.html" class="pcta-primary">Ver Dashboard →</a>
+        <a href="register.html" class="pcta-secondary">Iniciar Minha Análise</a>
+      </div>
+    </div>
+  </div>
+
+</main></div>
 
 <script>
 function scrollTo(id) {
@@ -730,6 +757,18 @@ function scrollTo(id) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
 }
+</script>
+
+<script>
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
 </script>
 
 </body>

@@ -1131,5 +1131,18 @@
       }
     });
   </script>
+
+<script>
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
+</script>
+
 </body>
 </html>
