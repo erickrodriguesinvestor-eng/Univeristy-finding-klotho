@@ -590,7 +590,20 @@
     </a>
   </div>
 
-</main>
+  <div class="protocol-cta">
+    <div class="pcta-deco">O₂</div>
+    <div class="pcta-body">
+      <div class="pcta-eyebrow">Integre ao seu Protocolo</div>
+      <div class="pcta-title">Monitore sua resposta ao HBOT com biomarcadores longitudinais</div>
+      <div class="pcta-desc">Registre seus exames antes, durante e após as 60 sessões. O modelo bayesiano quantifica o impacto do protocolo na sua trajetória de longevidade e recalcula suas curvas de sobrevida.</div>
+      <div class="pcta-actions">
+        <a href="dashboard.html" class="pcta-primary">Registrar no Dashboard →</a>
+        <a href="register.html" class="pcta-secondary">Criar Conta Gratuita</a>
+      </div>
+    </div>
+  </div>
+
+</main></div>
 
 <style>
 @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(123,163,125,.4)} 50%{opacity:.7;box-shadow:0 0 0 4px rgba(123,163,125,0)} }
@@ -710,6 +723,18 @@ function copyCoupon() {
     }, 3000);
   });
 }
+</script>
+
+<script>
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
 </script>
 
 </body>
