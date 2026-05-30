@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -361,20 +362,32 @@
     }
   </style>
 </head>
-<body>
+<body data-page="biomarkers">
 
-<!-- TOP BAR -->
-<nav class="top-bar">
-  <a href="../index.html" class="tb-logo">
-    <div class="tb-mark">EH</div>
-    <span class="tb-name">Eternal Health</span>
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
   </a>
-  <span class="tb-sep">/</span>
-  <span class="tb-page">PAINEL LABORATORIAL</span>
-  <a href="../index.html#biomarcadores" class="tb-back">← Voltar</a>
-</nav>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1" class="psb-item" data-id="hallmarks"><span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html" class="psb-item" data-id="prediction"><span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html" class="psb-item" data-id="biomarkers"><span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html" class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html" class="psb-item" data-id="hbot"><span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html" class="psb-item" data-id="library"><span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
+  </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
 
-<main class="page">
+<div class="page-content"><main class="page">
 
   <!-- HERO -->
   <div class="hero">
@@ -424,6 +437,12 @@
         <div class="roi-why">Sinal de alerta precoce de fígado gorduroso e estresse oxidativo sistêmico. Sobe antes do ALT/AST — sensível ao estado de proteostase e à carga de toxicidade do pipeline de suplementação.</div>
       </div>
     </div>
+  </div>
+
+  <div class="crosslink crosslink-blue">
+    <span class="crosslink-glyph">◈</span>
+    <div class="crosslink-text"><strong>Motor Preditivo:</strong> ApoB, Insulina e hs-CRP têm os maiores pesos no modelo bayesiano. Veja como eles afetam sua curva de sobrevida projetada.</div>
+    <a href="prediction-engine.html" class="crosslink-cta">Ver Modelo →</a>
   </div>
 
   <!-- CATEGORY NAV -->
@@ -609,6 +628,12 @@
         <div class="bm-cell-bj">~0.18 mg/L</div>
         <div class="bm-cell-bj-note">dieta anti-inflamatória</div>
       </div>
+    </div>
+
+    <div class="crosslink">
+      <span class="crosslink-glyph">O₂</span>
+      <div class="crosslink-text"><strong>Protocolo HBOT:</strong> Bryan Johnson reduziu PCR para indetectável com 60 sessões de oxigenoterapia a 2.0 ATA. Veja os resultados completos.</div>
+      <a href="hbot.html" class="crosslink-cta">Ver HBOT →</a>
     </div>
 
     <div class="bm-row">
@@ -953,6 +978,12 @@
     </div>
   </div>
 
+  <div class="crosslink crosslink-vitae">
+    <span class="crosslink-glyph">γ</span>
+    <div class="crosslink-text"><strong>Painel Epigenético:</strong> DunedinPACE e TruAge integram com o mapa de metilação de 9 genes — Klotho, FOXO3, SIRT6 e marcadores de CHIP.</div>
+    <a href="epigenetics.html" class="crosslink-cta">Ver Epigenética →</a>
+  </div>
+
   <div class="section-sep"></div>
 
   <!-- PROTOCOL SUMMARY -->
@@ -995,7 +1026,32 @@
     </div>
   </div>
 
-</main>
+  <div class="protocol-cta">
+    <div class="pcta-deco">◉</div>
+    <div class="pcta-body">
+      <div class="pcta-eyebrow">Integre ao seu Protocolo</div>
+      <div class="pcta-title">Seus biomarcadores alimentam o modelo preditivo em tempo real</div>
+      <div class="pcta-desc">Ao inserir seus exames no dashboard, cada biomarker atualiza o vetor de estado X_t do modelo bayesiano — recalibrando sua trajetória de longevidade e as intervenções com maior ROI para o seu perfil.</div>
+      <div class="pcta-actions">
+        <a href="dashboard.html" class="pcta-primary">Inserir Meus Exames →</a>
+        <a href="register.html" class="pcta-secondary">Criar Conta Gratuita</a>
+      </div>
+    </div>
+  </div>
+
+</main></div>
+
+<script>
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
+</script>
 
 </body>
 </html>

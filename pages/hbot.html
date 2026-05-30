@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
@@ -224,19 +225,32 @@
     }
   </style>
 </head>
-<body>
+<body data-page="hbot">
 
-<nav class="top-bar">
-  <a href="../index.html" class="tb-logo">
-    <div class="tb-mark">EH</div>
-    <span class="tb-name">Eternal Health</span>
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
   </a>
-  <span class="tb-sep">/</span>
-  <span class="tb-page">HBOT · PROTOCOLO BLUEPRINT</span>
-  <a href="../index.html" class="tb-back">← Início</a>
-</nav>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1" class="psb-item" data-id="hallmarks"><span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html" class="psb-item" data-id="prediction"><span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html" class="psb-item" data-id="biomarkers"><span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html" class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html" class="psb-item" data-id="hbot"><span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html" class="psb-item" data-id="library"><span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
+  </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
 
-<main class="page">
+<div class="page-content"><main class="page">
 
   <!-- HERO -->
   <div class="hero">
@@ -402,6 +416,12 @@
     </div>
   </div>
 
+  <div class="crosslink">
+    <span class="crosslink-glyph">◉</span>
+    <div class="crosslink-text"><strong>Painel Blueprint:</strong> Monitore PCR, telomerase, VEGF e pTau217 longitudinalmente no seu painel de 38 biomarcadores — antes e depois do protocolo.</div>
+    <a href="biomarkers-panel.html" class="crosslink-cta">Ver Biomarcadores →</a>
+  </div>
+
   <div class="sep"></div>
 
   <!-- EVIDENCE BASE -->
@@ -442,6 +462,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="crosslink crosslink-vitae">
+    <span class="crosslink-glyph">γ</span>
+    <div class="crosslink-text"><strong>Epigenética:</strong> HBOT modula HIF-1α via ciclos de hiperoxia — influenciando diretamente o índice de metilação M_t e o trigger γ(m) do modelo de longevidade.</div>
+    <a href="epigenetics.html" class="crosslink-cta">Ver γ(m) →</a>
   </div>
 
   <!-- CONTRAINDICATIONS -->

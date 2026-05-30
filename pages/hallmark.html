@@ -12,6 +12,7 @@
 
   <!-- Core styles -->
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
 
   <style>
     /* ===== PAGE LAYOUT ===== */
@@ -428,29 +429,38 @@
     }
   </style>
 </head>
-<body>
+<body data-page="hallmarks">
 
-<!-- TOP BAR -->
-<nav class="top-bar">
-  <a href="../index.html" class="top-bar-logo">
-    <div class="top-bar-mark">EH</div>
-    <span class="top-bar-name">Eternal Health</span>
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
   </a>
-  <span class="top-bar-sep">/</span>
-  <span class="top-bar-crumb" id="topBarCrumb">HALLMARKS</span>
-
-  <a href="../index.html#ciencia" class="top-bar-back">
-    ← Voltar aos 12 Hallmarks
-  </a>
-</nav>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1" class="psb-item" data-id="hallmarks"><span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html" class="psb-item" data-id="prediction"><span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html" class="psb-item" data-id="biomarkers"><span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html" class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html" class="psb-item" data-id="hbot"><span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html" class="psb-item" data-id="library"><span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
+  </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
 
 <!-- PAGE CONTENT -->
-<main class="page-wrap">
+<div class="page-content"><main class="page-wrap">
   <div id="loading-state">CARREGANDO…</div>
   <div id="hallmark-content">
     <!-- Populated by JS -->
   </div>
-</main>
+</main></div>
 
 <script>
 /* ====================================================
@@ -1404,7 +1414,31 @@ function renderHallmark(id) {
       <ul class="intervention-list">${renderInterventions(hm.interventionsB)}</ul>
     </div>
 
+    <div class="crosslink">
+      <span class="crosslink-glyph">◈</span>
+      <div class="crosslink-text"><strong>Motor Preditivo:</strong> Cada hallmark tem peso calculado pelo modelo bayesiano. Veja como este afeta sua curva de sobrevida.</div>
+      <a href="prediction-engine.html" class="crosslink-cta">Ver Motor →</a>
+    </div>
+    <div class="crosslink crosslink-blue">
+      <span class="crosslink-glyph">◉</span>
+      <div class="crosslink-text"><strong>Biomarcadores:</strong> Rastreie biomarcadores específicos para monitorar este hallmark longitudinalmente.</div>
+      <a href="biomarkers-panel.html" class="crosslink-cta">Ver Painel →</a>
+    </div>
+
     ${navHtml}
+
+    <div class="protocol-cta">
+      <div class="pcta-deco">◈</div>
+      <div class="pcta-body">
+        <div class="pcta-eyebrow">Integre ao seu Protocolo</div>
+        <div class="pcta-title">Este hallmark entra no seu modelo preditivo personalizado</div>
+        <div class="pcta-desc">O sistema calcula o peso de cada hallmark no seu perfil biológico com base nos seus biomarcadores longitudinais — gerando intervenções priorizadas por ROI em longevidade.</div>
+        <div class="pcta-actions">
+          <a href="dashboard.html" class="pcta-primary">Ver Dashboard →</a>
+          <a href="register.html" class="pcta-secondary">Iniciar Análise Gratuita</a>
+        </div>
+      </div>
+    </div>
 
     <p style="margin-top:32px;font-family:var(--f-mono);font-size:0.6rem;color:var(--t-tertiary);line-height:1.8">
       Referência primária: López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G. &ldquo;Hallmarks of aging: An expanding universe.&rdquo;
@@ -1431,6 +1465,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHallmark(1); // default to hallmark 1
   }
 });
+</script>
+<script>
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
 </script>
 </body>
 </html>

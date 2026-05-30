@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
@@ -164,8 +165,11 @@
       background: var(--s-primary);
       border: 1px solid var(--b-ghost);
       border-radius: 4px;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
+    .heatmap-header-row,
+    .hm-row { min-width: 620px; }
 
     .heatmap-header-row {
       display: grid;
@@ -388,15 +392,30 @@
     }
   </style>
 </head>
-<body>
+<body data-page="epigenetics">
 
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <a href="../index.html" class="top-bar-logo">Eternal Health</a>
-    <div class="top-bar-sep"></div>
-    <span class="top-bar-title">Painel Epigenético</span>
-    <a href="../index.html" class="top-bar-back">← Início</a>
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
+  </a>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1" class="psb-item" data-id="hallmarks"><span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html" class="psb-item" data-id="prediction"><span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html" class="psb-item" data-id="biomarkers"><span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html" class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html" class="psb-item" data-id="hbot"><span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html" class="psb-item" data-id="library"><span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
   </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
 
   <div class="page-wrap">
 
