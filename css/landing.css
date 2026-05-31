@@ -96,8 +96,10 @@
   transition: right var(--dur-med) var(--ease-bio);
 }
 
-.cb-links a:hover { color: var(--t-primary); }
-.cb-links a:hover::after { right: 0; }
+.cb-links a:hover,
+.cb-links a.active { color: var(--t-primary); }
+.cb-links a:hover::after,
+.cb-links a.active::after { right: 0; }
 
 .cb-actions {
   display: flex;
@@ -138,8 +140,52 @@
   transform: translateY(-1px);
 }
 
+/* Mobile hamburger button */
+.cb-hamburger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: 1px solid var(--b-ghost);
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color var(--dur-fast);
+}
+.cb-hamburger:hover { border-color: rgba(201,169,106,.4); }
+.cb-hamburger span {
+  display: block;
+  width: 16px; height: 1.5px;
+  background: var(--t-secondary);
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.cb-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.cb-hamburger.open span:nth-child(2) { opacity: 0; }
+.cb-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
 @media (max-width: 768px) {
-  .cb-links { display: none; }
+  .cb-links {
+    display: none;
+    position: fixed;
+    top: 52px; left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(1,2,3,0.98);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--b-ghost);
+    padding: 10px 0;
+    z-index: 150;
+  }
+  .cb-links.open { display: flex; }
+  .cb-links a {
+    padding: 12px 24px;
+    font-size: 0.82rem;
+    border-bottom: none;
+  }
+  .cb-links a:hover::after { display: none; }
+  .cb-hamburger { display: flex; }
   .command-bar-inner { padding: 0 var(--space-md); }
 }
 
@@ -626,77 +672,6 @@
 }
 
 /* =========================================
-   THE NINE — Hallmarks
-   ========================================= */
-.the-nine {
-  padding: var(--space-3xl) 0;
-  background: var(--depth-1);
-  border-top: 1px solid var(--b-subtle);
-  border-bottom: 1px solid var(--b-subtle);
-}
-
-.nine-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--b-subtle);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-
-@media (max-width: 680px) { .nine-grid { grid-template-columns: 1fr; } }
-
-.nine-cell {
-  padding: var(--space-xl);
-  border-right: 1px solid var(--b-subtle);
-  border-bottom: 1px solid var(--b-subtle);
-  transition: background var(--dur-med) ease;
-  cursor: default;
-}
-
-.nine-cell:nth-child(3n)         { border-right: none; }
-.nine-cell:nth-last-child(-n+3)  { border-bottom: none; }
-.nine-cell:hover                 { background: var(--aurum-04); }
-
-@media (max-width: 680px) {
-  .nine-cell { border-right: none; }
-  .nine-cell:last-child { border-bottom: none; }
-}
-
-.nine-num {
-  font-family: var(--f-serif);
-  font-size: 1.6rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--aurum);
-  opacity: 0.35;
-  line-height: 1;
-  margin-bottom: var(--space-sm);
-}
-
-.nine-name {
-  font-family: var(--f-sans);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--t-primary);
-  margin-bottom: 5px;
-  letter-spacing: 0.02em;
-}
-
-.nine-desc {
-  font-size: 0.72rem;
-  color: var(--t-secondary);
-  line-height: 1.5;
-  margin-bottom: var(--space-md);
-}
-
-.nine-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--aurum);
-  opacity: 0.4;
-}
-
-/* =========================================
    THE SYSTEM
    ========================================= */
 .the-system {
@@ -779,7 +754,11 @@
   background: var(--depth-2);
   padding: var(--space-xl);
 }
-.plan-card.featured { background: var(--depth-3); }
+.plan-card.featured {
+  background: var(--depth-3);
+  border: 1px solid rgba(201,169,106,0.45);
+  box-shadow: 0 0 28px rgba(201,169,106,0.08), inset 0 0 0 1px rgba(201,169,106,0.1);
+}
 
 .plan-tier {
   font-family: var(--f-mono);
@@ -1494,7 +1473,7 @@
   align-items: flex-start;
   gap: 18px;
   padding: 28px 24px;
-  background: var(--s-primary);
+  background: var(--depth-2);
   border: 1px solid var(--b-ghost);
   border-radius: 4px;
   text-decoration: none;

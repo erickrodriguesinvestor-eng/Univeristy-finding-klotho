@@ -281,7 +281,7 @@ function renderBMPanel(panelKey) {
    ========================================= */
 (function initFadeIn() {
   const sections = document.querySelectorAll(
-    '.manifesto, .vital-signs, .the-nine, .the-twelve, .the-system, .ml-section, .bm-tabs-section, .publications-section, .science-section, .plans'
+    '.manifesto, .vital-signs, .the-twelve, .the-system, .ml-section, .bm-tabs-section, .publications-section, .science-section, .plans, .resources-section'
   );
 
   const style = document.createElement('style');
@@ -311,4 +311,63 @@ function renderBMPanel(panelKey) {
   }, { threshold: 0.08 });
 
   sections.forEach(el => io.observe(el));
+})();
+
+
+/* =========================================
+   MOBILE HAMBURGER NAV
+   ========================================= */
+(function initMobileNav() {
+  const btn   = document.getElementById('cbHamburger');
+  const links = document.querySelector('.cb-links');
+  if (!btn || !links) return;
+
+  btn.addEventListener('click', function () {
+    const open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+
+  // Close on link click
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      links.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !links.contains(e.target)) {
+      links.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+
+
+/* =========================================
+   ACTIVE NAV LINK ON SCROLL
+   ========================================= */
+(function initActiveNav() {
+  const navLinks = document.querySelectorAll('.cb-links a[href^="#"]');
+  if (!navLinks.length) return;
+
+  const targets = Array.from(navLinks).map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        navLinks.forEach(function (a) { a.classList.remove('active'); });
+        const link = document.querySelector('.cb-links a[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  targets.forEach(function (el) { io.observe(el); });
 })();

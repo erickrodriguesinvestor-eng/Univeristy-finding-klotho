@@ -15,21 +15,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
 
-    .top-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 52px; background: rgba(1,2,3,.94); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--b-ghost);
-      display: flex; align-items: center; padding: 0 var(--space-xl); gap: 14px;
-    }
-    .tb-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-    .tb-mark { width: 22px; height: 22px; background: var(--aurum); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: .55rem; font-weight: 700; color: var(--void); }
-    .tb-name { font-family: var(--f-serif); font-size: .9rem; color: var(--t-primary); letter-spacing: .08em; }
-    .tb-sep  { font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); }
-    .tb-page { font-family: var(--f-mono); font-size: .6rem; color: var(--t-secondary); letter-spacing: .1em; }
-    .tb-back { margin-left: auto; font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; color: var(--t-secondary); text-decoration: none; transition: color .2s; }
-    .tb-back:hover { color: var(--aurum); }
-
-    .page { max-width: 1100px; margin: 0 auto; padding: 72px var(--space-xl) 96px; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 48px var(--space-xl) 96px; }
 
     /* ── HERO ── */
     .hero {

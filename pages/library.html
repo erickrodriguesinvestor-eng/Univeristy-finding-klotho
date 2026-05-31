@@ -15,28 +15,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
 
-    /* TOP BAR */
-    .top-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 52px; background: rgba(1,2,3,0.94);
-      backdrop-filter: blur(16px); border-bottom: 1px solid var(--b-ghost);
-      display: flex; align-items: center; padding: 0 var(--space-xl); gap: 14px;
-    }
-    .tb-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-    .tb-mark {
-      width: 22px; height: 22px; background: var(--aurum); border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--f-mono); font-size: 0.55rem; font-weight: 700;
-      color: var(--void); letter-spacing: 0.04em;
-    }
-    .tb-name { font-family: var(--f-serif); font-size: 0.9rem; color: var(--t-primary); letter-spacing: 0.08em; }
-    .tb-sep  { font-family: var(--f-mono); font-size: 0.58rem; color: var(--t-tertiary); }
-    .tb-page { font-family: var(--f-mono); font-size: 0.6rem; color: var(--t-secondary); letter-spacing: 0.1em; }
-    .tb-back { margin-left: auto; font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--t-secondary); text-decoration: none; transition: color var(--dur-fast) ease; }
-    .tb-back:hover { color: var(--aurum); }
-
     /* LAYOUT */
-    .page { max-width: 1100px; margin: 0 auto; padding: 72px var(--space-xl) 96px; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 48px var(--space-xl) 96px; }
 
     /* HERO */
     .hero {
@@ -56,7 +36,7 @@
     /* FILTER NAV */
     .filter-nav {
       display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px;
-      position: sticky; top: 52px; z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background: rgba(1,2,3,0.94); backdrop-filter: blur(12px);
       padding: 12px 0; border-bottom: 1px solid var(--b-ghost);
     }
