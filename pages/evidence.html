@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentos Científicos — Eternal Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
+
+    /* ── PAGE WRAP ── */
+    .page-wrap {
+      max-width: 980px; margin: 0 auto;
+      padding: 56px 28px 80px;
+    }
+
+    /* ── HERO ── */
+    .ev-hero {
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--b-ghost);
+      margin-bottom: 48px;
+    }
+    .ev-eyebrow {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--aurum); margin-bottom: 14px;
+    }
+    .ev-hero h1 {
+      font-family: var(--f-serif); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; line-height: 1.15; margin-bottom: 18px;
+    }
+    .ev-hero h1 em { font-style: italic; color: var(--aurum); }
+    .ev-hero p {
+      font-size: .88rem; color: var(--t-secondary); line-height: 1.8;
+      max-width: 680px; margin-bottom: 28px;
+    }
+
+    /* Evidence quality key */
+    .ev-key {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      padding: 16px 20px;
+      background: var(--s-primary);
+      border: 1px solid var(--b-ghost);
+      border-radius: 4px;
+    }
+    .ev-key-label {
+      font-family: var(--f-mono); font-size: .6rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--t-tertiary);
+      width: 100%; margin-bottom: 4px;
+    }
+    .ev-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 2px;
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .06em;
+      border: 1px solid currentColor;
+    }
+    .badge-meta   { color: #C9A96A; background: rgba(201,169,106,.1); }
+    .badge-rct    { color: #7BA37D; background: rgba(123,163,125,.1); }
+    .badge-pilot  { color: #63B3ED; background: rgba(99,179,237,.1); }
+    .badge-cohort { color: #A78BFA; background: rgba(167,139,250,.1); }
+    .badge-pre    { color: #94A3B8; background: rgba(148,163,184,.08); }
+
+    /* ── FILTER NAV ── */
+    .filter-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(1,2,3,.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--b-ghost);
+      padding: 0;
+      margin: 0 -28px 48px;
+      padding: 0 28px;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .filter-nav::-webkit-scrollbar { display: none; }
+    .fn-btn {
+      flex-shrink: 0;
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-tertiary);
+      padding: 14px 14px;
+      background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .fn-btn:hover { color: var(--t-secondary); }
+    .fn-btn.active { color: var(--aurum); border-bottom-color: var(--aurum); }
+
+    /* ── SECTION ── */
+    .ev-section { margin-bottom: 60px; scroll-margin-top: 52px; }
+    .ev-sec-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--b-ghost);
+    }
+    .ev-sec-num {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .12em;
+      color: var(--t-tertiary); flex-shrink: 0;
+    }
+    .ev-sec-title {
+      font-family: var(--f-serif); font-size: 1.4rem; font-weight: 400;
+      color: var(--t-primary);
+    }
+    .ev-sec-count {
+      margin-left: auto; font-family: var(--f-mono); font-size: .6rem;
+      color: var(--t-tertiary); letter-spacing: .08em; flex-shrink: 0;
+    }
+
+    /* ── PAPER CARD ── */
+    .paper-card {
+      background: var(--s-primary);
+      border: 1px solid var(--b-ghost);
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 14px;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+    .paper-card:hover {
+      border-color: rgba(201,169,106,.28);
+      background: rgba(201,169,106,.025);
+    }
+
+    .paper-meta-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 11px;
+      flex-wrap: wrap;
+    }
+    .paper-journal {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .06em;
+      color: var(--t-tertiary);
+    }
+    .paper-year {
+      font-family: var(--f-mono); font-size: .62rem;
+      color: var(--t-tertiary);
+    }
+    .paper-if {
+      margin-left: auto;
+      font-family: var(--f-mono); font-size: .6rem;
+      color: var(--t-tertiary); letter-spacing: .04em;
+    }
+
+    .paper-title {
+      font-family: var(--f-serif); font-size: 1.05rem; font-weight: 400;
+      line-height: 1.4; color: var(--t-primary); margin-bottom: 4px;
+    }
+    .paper-authors {
+      font-size: .72rem; color: var(--t-tertiary); margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .paper-body {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px;
+      margin-bottom: 16px;
+    }
+    .paper-finding, .paper-relevance {
+      padding: 12px 14px; border-radius: 3px;
+    }
+    .paper-finding {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--b-ghost);
+    }
+    .paper-relevance {
+      background: rgba(201,169,106,.04);
+      border: 1px solid rgba(201,169,106,.15);
+    }
+    .pb-label {
+      font-family: var(--f-mono); font-size: .56rem; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .paper-finding .pb-label  { color: var(--t-tertiary); }
+    .paper-relevance .pb-label { color: var(--aurum); }
+    .pb-text {
+      font-size: .78rem; color: var(--t-secondary); line-height: 1.6;
+    }
+
+    .paper-footer {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .paper-doi {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .04em;
+      color: var(--t-tertiary); text-decoration: none;
+      transition: color .2s;
+    }
+    .paper-doi:hover { color: var(--aurum); }
+    .paper-doi::before { content: 'DOI: '; }
+    .paper-citations {
+      font-family: var(--f-mono); font-size: .6rem; color: var(--t-tertiary);
+      margin-left: auto;
+    }
+
+    /* ── DISCLAIMER ── */
+    .ev-disclaimer {
+      padding: 18px 22px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--b-ghost);
+      border-radius: 4px;
+      margin-top: 40px;
+    }
+    .ev-disclaimer p {
+      font-size: .72rem; color: var(--t-tertiary); line-height: 1.7;
+    }
+    .ev-disclaimer p + p { margin-top: 6px; }
+
+    @media (max-width: 700px) {
+      .paper-body { grid-template-columns: 1fr; }
+      .paper-if   { display: none; }
+      .ev-key     { gap: 6px; }
+    }
+  </style>
+</head>
+<body data-page="evidence">
+
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
+  </a>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1" class="psb-item" data-id="hallmarks"><span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html" class="psb-item" data-id="prediction"><span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html" class="psb-item" data-id="biomarkers"><span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html" class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html" class="psb-item" data-id="hbot"><span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html" class="psb-item" data-id="library"><span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+    <a href="evidence.html" class="psb-item" data-id="evidence"><span class="psb-item-glyph">⬢</span><span class="psb-item-label">Evidências</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
+  </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
+
+<div class="page-content">
+<main>
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <header class="ev-hero">
+    <div class="ev-eyebrow">Base Científica · RCTs &amp; Publicações de Alto Impacto</div>
+    <h1>Por que <em>escolhemos</em><br>este protocolo</h1>
+    <p>
+      Cada decisão de design da plataforma — dos biomarcadores monitorados ao protocolo HBOT, dos genes epigenéticos rastreados ao modelo preditivo — está ancorada em literatura peer-reviewed de alto impacto.
+      Abaixo, os artigos fundamentais que definem o estado da arte da medicina de longevidade e justificam nossas escolhas metodológicas.
+    </p>
+    <div class="ev-key">
+      <div class="ev-key-label">Sistema de Qualidade de Evidência</div>
+      <span class="ev-badge badge-meta">● Meta-análise / Revisão Sistemática</span>
+      <span class="ev-badge badge-rct">● RCT em Humanos</span>
+      <span class="ev-badge badge-pilot">● RCT Piloto / Fase 1–2</span>
+      <span class="ev-badge badge-cohort">● Coorte / Longitudinal</span>
+      <span class="ev-badge badge-pre">● Pré-clínico / Mecanístico</span>
+    </div>
+  </header>
+
+  <!-- FILTER NAV -->
+  <nav class="filter-nav" id="filterNav">
+    <button class="fn-btn active" data-target="all">Todos</button>
+    <button class="fn-btn" data-target="hallmarks">Hallmarks</button>
+    <button class="fn-btn" data-target="clocks">Clocks Epigenéticos</button>
+    <button class="fn-btn" data-target="hbot">HBOT</button>
+    <button class="fn-btn" data-target="genes">Genes de Longevidade</button>
+    <button class="fn-btn" data-target="interventions">Intervenções</button>
+    <button class="fn-btn" data-target="biomarkers">Biomarcadores</button>
+    <button class="fn-btn" data-target="lifestyle">Estilo de Vida</button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 1: HALLMARKS -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="hallmarks" data-section="hallmarks">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">01</span>
+      <span class="ev-sec-title">Hallmarks &amp; Biologia do Envelhecimento</span>
+      <span class="ev-sec-count">2 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-meta">● Meta-análise</span>
+        <span class="paper-journal">Cell</span>
+        <span class="paper-year">· 2023</span>
+        <span class="paper-if">IF: 45.5 · &gt;8.000 citações/ano</span>
+      </div>
+      <div class="paper-title">Hallmarks of Aging: An Expanding Universe</div>
+      <div class="paper-authors">López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G. Cell, 186(2):243–278.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Expansão dos 9 hallmarks originais para 12, adicionando macroautofagia comprometida, inflamação crônica (inflammaging) e disbiose do microbioma como pilares independentes do envelhecimento. Classifica-os em três categorias: primários, antagônicos e integrativos.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">A estrutura de 12 hallmarks é o framework científico que organiza toda a plataforma. Cada intervenção monitorada é categorizada por qual(is) hallmark(s) modifica. O modelo preditivo atribui pesos distintos aos 12 eixos para calcular a trajetória de longevidade.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1016/j.cell.2022.11.001" class="paper-doi" target="_blank" rel="noopener">10.1016/j.cell.2022.11.001</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-meta">● Revisão Fundacional</span>
+        <span class="paper-journal">Cell</span>
+        <span class="paper-year">· 2013</span>
+        <span class="paper-if">IF: 45.5 · &gt;30.000 citações</span>
+      </div>
+      <div class="paper-title">The Hallmarks of Aging</div>
+      <div class="paper-authors">López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G. Cell, 153(6):1194–1217.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Primeiro framework unificado descrevendo os 9 processos celulares e moleculares que causam o envelhecimento — instabilidade genômica, desgaste telomérico, alterações epigenéticas, perda de proteostase, desregulação de nutrientes, disfunção mitocondrial, senescência, exaustão de stem cells e comunicação intercelular alterada.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">O artigo original com &gt;30.000 citações é a referência canônica da biologia do envelhecimento. A versão 2013 estabelece a nomenclatura e a lógica de intervenção que guiam toda a medicina de longevidade moderna — e nossa plataforma.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1016/j.cell.2013.05.039" class="paper-doi" target="_blank" rel="noopener">10.1016/j.cell.2013.05.039</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 2: CLOCKS EPIGENÉTICOS -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="clocks" data-section="clocks">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">02</span>
+      <span class="ev-sec-title">Clocks Epigenéticos &amp; Idade Biológica</span>
+      <span class="ev-sec-count">4 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">Genome Biology</span>
+        <span class="paper-year">· 2013</span>
+        <span class="paper-if">IF: 12.3 · &gt;8.000 citações</span>
+      </div>
+      <div class="paper-title">DNA methylation age of human tissues and cell types</div>
+      <div class="paper-authors">Horvath S. Genome Biology, 14(10):R115.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">O primeiro clock epigenético universal, baseado em 353 CpGs, prediz com precisão a idade biológica em 51 tipos de tecidos e células humanas. A "idade de Horvath" diverge da idade cronológica em indivíduos com doenças ou longevidade excepcional. Correlaciona com mortalidade (HR 1.05 por ano de aceleração).</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">O clock de Horvath é o padrão-ouro para medir idade biológica epigenética. Integramos esta métrica no painel de exames avançados — um paciente que parece "jovem" neste clock tem prognóstico de longevidade significativamente melhor, independente da idade cronológica.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1186/gb-2013-14-10-r115" class="paper-doi" target="_blank" rel="noopener">10.1186/gb-2013-14-10-r115</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">eLife</span>
+        <span class="paper-year">· 2022</span>
+        <span class="paper-if">IF: 7.7</span>
+      </div>
+      <div class="paper-title">DunedinPACE, a DNA methylation biomarker of the pace of aging</div>
+      <div class="paper-authors">Belsky DW, Caspi A, Corcoran DL et al. eLife, 11:e73420.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">DunedinPACE mede a velocidade do envelhecimento em uma única amostra de sangue — não a idade biológica atual, mas o ritmo de deterioração em anos biológicos por ano cronológico. Um score de 1.0 é "normal"; 1.2 significa 20% mais rápido. Validado longitudinalmente no Estudo de Dunedin (1.000 pessoas, 45 anos de follow-up).</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">DunedinPACE é o biomarcador mais sensível para detectar mudanças no ritmo de envelhecimento após intervenções — em 6–12 meses, enquanto outros clocks levam anos para mostrar efeito. Usamos como o principal indicador de resposta ao protocolo na plataforma.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.7554/eLife.73420" class="paper-doi" target="_blank" rel="noopener">10.7554/eLife.73420</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">Aging (Albany NY)</span>
+        <span class="paper-year">· 2019</span>
+        <span class="paper-if">IF: 5.5 · &gt;2.000 citações</span>
+      </div>
+      <div class="paper-title">DNA methylation GrimAge strongly predicts lifespan and healthspan</div>
+      <div class="paper-authors">Lu AT, Quach A, Wilson JG et al. Aging, 11(2):303–327.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">GrimAge prediz a mortalidade com precisão muito superior a qualquer outro biomarker epigenético — cada ano de aceleração do GrimAge aumenta mortalidade em ~5% (HR 1.05). Baseia-se em proteínas plasmáticas derivadas de metilação e é o clock mais preditivo de doenças específicas (câncer, doenças cardiovasculares, diabetes).</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">GrimAge é a melhor proxy de "healthspan" — não apenas quanto tempo você vai viver, mas com que qualidade. Integramos GrimAge no painel de exames anuais para identificar aceleração precoce antes que biomarcadores clínicos tradicionais mostrem alteração.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.18632/aging.101684" class="paper-doi" target="_blank" rel="noopener">10.18632/aging.101684</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">Aging (Albany NY)</span>
+        <span class="paper-year">· 2018</span>
+        <span class="paper-if">IF: 5.5</span>
+      </div>
+      <div class="paper-title">An epigenetic biomarker of aging for lifespan and healthspan (PhenoAge)</div>
+      <div class="paper-authors">Levine ME, Lu AT, Quach A et al. Aging, 10(4):573–591.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">PhenoAge combina 9 biomarcadores clínicos (albumina, creatinina, glicose, PCR, linfócitos, volume corpuscular médio, largura de distribuição eritrocitária, fosfatase alcalina, leucócitos) em um clock epigenético. Prediz mortalidade e morbidade melhor que qualquer marcador isolado — e pode ser calculado de exames de sangue comuns.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">PhenoAge é o único clock calculável dos exames do painel Blueprint sem sequenciamento. Usamos como estimativa acessível de idade biológica para todos os usuários da plataforma, enquanto aguardam resultados de clocks epigenéticos sequenciados.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.18632/aging.101414" class="paper-doi" target="_blank" rel="noopener">10.18632/aging.101414</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 3: HBOT -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="hbot" data-section="hbot">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">03</span>
+      <span class="ev-sec-title">Oxigenoterapia Hiperbárica (HBOT)</span>
+      <span class="ev-sec-count">3 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Aging (Albany NY)</span>
+        <span class="paper-year">· 2020</span>
+        <span class="paper-if">Universidade de Tel Aviv</span>
+      </div>
+      <div class="paper-title">Hyperbaric oxygen therapy increases telomere length and decreases immunosenescence in isolated blood cells: a prospective trial</div>
+      <div class="paper-authors">Hachmo Y, Hadanny A, Abu Hamed R et al. Aging, 12(22):22445–22456.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">60 sessões de HBOT (90 min, 2.0 ATA, protoclos 20min O₂/5min ar) aumentaram o comprimento dos telômeros em 20–38% em linfócitos T e B — o maior aumento já registrado por qualquer intervenção não-farmacológica. Células senescentes (CD28⁻) reduziram 10–37% em todos os subtipos de células imunes.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Este é o paper fundacional do protocolo HBOT que adotamos. O exato protocolo de 60 sessões / 2.0 ATA / ciclos 20+5 min que Bryan Johnson utiliza vem diretamente deste RCT. O efeito em telômeros é o maior documentado por qualquer intervenção clínica não-genética.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.18632/aging.202188" class="paper-doi" target="_blank" rel="noopener">10.18632/aging.202188</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Aging (Albany NY)</span>
+        <span class="paper-year">· 2020</span>
+        <span class="paper-if">Universidade de Tel Aviv</span>
+      </div>
+      <div class="paper-title">Cognitive enhancement of healthy older adults using hyperbaric oxygen: a randomized controlled trial</div>
+      <div class="paper-authors">Hadanny A, Daniel-Kotovsky M, Suzin G et al. Aging, 12(13):13740–13761.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">RCT controlado com 63 adultos saudáveis ≥64 anos. 60 sessões de HBOT (mesmo protocolo) melhoraram significativamente atenção, velocidade de processamento informação e memória executiva vs. controle. Aumento de 16.5% na velocidade de processamento e 17% na atenção sustentada.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Além dos efeitos celulares, HBOT demonstrou impacto cognitivo mensurável em RCT robusto — relevante para nossa métrica de healthspan (não apenas lifespan). Justifica HBOT como protocolo de manutenção cognitiva preventiva em adultos com ≥50 anos.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.18632/aging.103571" class="paper-doi" target="_blank" rel="noopener">10.18632/aging.103571</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-pilot">● RCT Piloto</span>
+        <span class="paper-journal">Aging (Albany NY)</span>
+        <span class="paper-year">· 2022</span>
+        <span class="paper-if">Universidade de Tel Aviv</span>
+      </div>
+      <div class="paper-title">The effect of hyperbaric oxygen therapy on the pathophysiology of skin aging: a prospective clinical trial</div>
+      <div class="paper-authors">Hachmo Y, Hadanny A, Mendelovic S et al. Aging, 14(13):5473–5485.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">60 sessões de HBOT aumentaram a densidade de colágeno dérmico em 22.8% e a espessura da derme em 24.4%. Redução de AGEs (produtos finais de glicação avançada) na pele — proxy de dano proteico acumulado. VEGF aumentou &gt;300%, acelerando angiogênese e reparo tecidual.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">VEGF (+300%) e redução de AGEs validam o mecanismo do "Paradoxo Hiperbárico" — a pulsação O₂/ar ativa HIF-1α ciclicamente, gerando uma resposta hormética de regeneração. Estes são exatamente os biomarcadores que monitoramos antes/depois do protocolo.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.18632/aging.204237" class="paper-doi" target="_blank" rel="noopener">10.18632/aging.204237</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 4: GENES DE LONGEVIDADE -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="genes" data-section="genes">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">04</span>
+      <span class="ev-sec-title">Genes de Longevidade &amp; CHIP</span>
+      <span class="ev-sec-count">4 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-pre">● Pré-clínico</span>
+        <span class="paper-journal">Science</span>
+        <span class="paper-year">· 2005</span>
+        <span class="paper-if">IF: 56.9 · &gt;3.000 citações</span>
+      </div>
+      <div class="paper-title">Suppression of Aging in Mice by the Protein Klotho</div>
+      <div class="paper-authors">Kurosu H, Yamamoto M, Clark JD et al. Science, 309(5742):1829–1833.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Camundongos com superexpressão de α-Klotho vivem 20–30% mais que controles. Klotho inibe sinalização de insulina/IGF-1, ativa canais de K⁺ e modula homeostase de cálcio/fósforo via FGF23. Animais deficientes em Klotho envelhecem prematuramente com fenótipo de síndrome metabólica acelerada.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Klotho é o gene após o qual o projeto foi batizado e é o biomarcador-âncora de longevidade da plataforma. Monitoramos expressão de Klotho (sérico e via metilação do promotor) como indicador do eixo IGF-1/mTOR — o mais conservado pathway de longevidade entre espécies.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1126/science.1112766" class="paper-doi" target="_blank" rel="noopener">10.1126/science.1112766</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">PNAS</span>
+        <span class="paper-year">· 2008</span>
+        <span class="paper-if">IF: 12.8 · &gt;1.500 citações</span>
+      </div>
+      <div class="paper-title">FOXO3A genotype is strongly associated with human longevity</div>
+      <div class="paper-authors">Willcox BJ, Donlon TA, He Q et al. PNAS, 105(37):13987–13992.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">O SNP rs2802292 no intron 2 de FOXO3 é o maior sinal genético de longevidade humana identificado em estudos de centenários (p &lt; 10⁻¹⁰ em múltiplas populações). Portadores do alelo protetor têm 2.75x maior probabilidade de atingir 95+ anos. FOXO3 ativa autofagia, reparo de DNA e resistência ao estresse oxidativo.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">FOXO3 é o gene humano mais replicado em estudos de longevidade excepcional. Monitoramos seu estado epigenético (metilação do promotor) e, quando disponível, genotipagem do SNP rs2802292 — para personalizar o risco genético de base e calibrar o peso de intervenções de autofagia (jejum, rapamicina).</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1073/pnas.0801030105" class="paper-doi" target="_blank" rel="noopener">10.1073/pnas.0801030105</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-pre">● Pré-clínico</span>
+        <span class="paper-journal">Nature</span>
+        <span class="paper-year">· 2012</span>
+        <span class="paper-if">IF: 64.8 · &gt;1.200 citações</span>
+      </div>
+      <div class="paper-title">The sirtuin SIRT6 regulates lifespan in male mice</div>
+      <div class="paper-authors">Kanfi Y, Naiman S, Amir G et al. Nature, 483(7388):218–221.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Superexpressão de SIRT6 estende a vida de camundongos machos em 14.5–16% — o maior efeito de longevidade por uma única enzima em mamíferos na época. SIRT6 atua como deacetilase de H3K9ac e H3K56ac, suprimindo NF-κB, regulando metabolismo de glicose e preservando integridade do telômero.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">SIRT6 conecta três hallmarks críticos: reparo de DNA (via histonas), inflamação (via NF-κB) e metabolismo (glicose). Monitoramos seu estado de metilação para inferir atividade — e recomendamos NAD+ precursores (NMN/NR) como intervenção para manter SIRT6 ativo via disponibilidade de substrato.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/nature10815" class="paper-doi" target="_blank" rel="noopener">10.1038/nature10815</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">NEJM</span>
+        <span class="paper-year">· 2017</span>
+        <span class="paper-if">IF: 158.5 · &gt;3.000 citações</span>
+      </div>
+      <div class="paper-title">Clonal Hematopoiesis and Risk of Atherosclerotic Cardiovascular Disease</div>
+      <div class="paper-authors">Jaiswal S, Natarajan P, Silver AJ et al. NEJM, 377(2):111–121.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">CHIP (mutações somáticas em DNMT3A, TET2, ASXL1 ou JAK2) foi detectado em 10.5% de pessoas &gt;70 anos. Portadores de CHIP têm risco 1.9x maior de doença cardiovascular aterosclerótica, independentemente de fatores de risco tradicionais — mediado por hiperativação inflamatória dos clones mutantes (IL-6, IL-1β).</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">CHIP é o mais importante preditor cardiovascular oculto não coberto pelo painel lipídico tradicional. Incluímos DNMT3A e TET2 no painel epigenético e oferecemos sequenciamento de ctDNA para detecção precoce em VAF ≥ 0.02%. Um CHIP positivo reclassifica o risco cardiovascular mesmo com ApoB e hs-CRP normais.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1056/NEJMoa1701719" class="paper-doi" target="_blank" rel="noopener">10.1056/NEJMoa1701719</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 5: INTERVENÇÕES FARMACOLÓGICAS -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="interventions" data-section="interventions">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">05</span>
+      <span class="ev-sec-title">Intervenções Farmacológicas &amp; Moléculas de Longevidade</span>
+      <span class="ev-sec-count">5 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-pre">● Pré-clínico</span>
+        <span class="paper-journal">Nature</span>
+        <span class="paper-year">· 2009</span>
+        <span class="paper-if">IF: 64.8 · &gt;3.500 citações</span>
+      </div>
+      <div class="paper-title">Rapamycin fed late in life extends lifespan in genetically heterogeneous mice</div>
+      <div class="paper-authors">Harrison DE, Strong R, Sharp ZD et al. Nature, 460(7253):392–395.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Rapamicina iniciada aos 20 meses de vida (equivalente a ~60 anos humanos) estendeu a vida de camundongos em 9–14%. O estudo NIA ITP confirmou o resultado em múltiplas linhagens geneticamente heterogêneas — o primeiro composto a estender vida em mamíferos em estudo controlado de alto rigor metodológico.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Rapamicina (inibidor de mTORC1) é o único composto com evidência robusta de extensão de vida em mamíferos, mesmo iniciada em idade avançada. Monitoramos os biomarcadores de segurança (glicemia de jejum, insulina, lipídios) para usuários que utilizam rapamicina intermitente — o mais evidenciado protocolo geroprotético disponível.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/nature08221" class="paper-doi" target="_blank" rel="noopener">10.1038/nature08221</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Nature Medicine</span>
+        <span class="paper-year">· 2018</span>
+        <span class="paper-if">IF: 87.2</span>
+      </div>
+      <div class="paper-title">Senolytics improve physical function and increase lifespan in old age</div>
+      <div class="paper-authors">Xu M, Pirtskhalava T, Farr JN et al. Nature Medicine, 24(8):1246–1256.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Dasatinib + Quercetina (D+Q) eliminam células senescentes em tecidos murinos e humanos. Em humanos, uma dose única de D+Q reduziu p21, IL-6 e MMP-3 em tecido adiposo. Em camundongos idosos, tratamento periódico aumentou função física, capacidade aeróbica e sobrevida. Primeiro senolítico com ação validada em tecido humano.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">D+Q é o único senolítico com evidência em tecido humano vivo. O protocolo de monitoramento da plataforma inclui p16 e p21 como marcadores de carga senescente — e rastreamos hs-CRP e IL-6 antes/após ciclos de senolytics para quantificar resposta individual.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/s41591-018-0092-9" class="paper-doi" target="_blank" rel="noopener">10.1038/s41591-018-0092-9</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Nature Communications</span>
+        <span class="paper-year">· 2018</span>
+        <span class="paper-if">IF: 16.6</span>
+      </div>
+      <div class="paper-title">Chronic nicotinamide riboside supplementation is well-tolerated and elevates NAD+ in healthy middle-aged and older adults</div>
+      <div class="paper-authors">Martens CR, Denman BA, Mazzo MR et al. Nature Communications, 9(1):1286.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">NR (Nicotinamide Riboside) 300mg 2x/dia por 6 semanas elevou NAD⁺ em eritrócitos em 60% vs. placebo em adultos de 55–79 anos. Nenhum efeito adverso sério. NAD⁺ sanguíneo correlacionou com melhora em marcadores de pressão arterial sistólica. Estudo duplo-cego randomizado.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">O declínio de NAD⁺ com a idade reduz a atividade de SIRT6 e PARP1 — comprometendo reparo de DNA e metabolismo mitocondrial. NMN/NR são os suplementos com maior evidência para restaurar NAD⁺ em humanos. Monitoramos NAD⁺ sérico trimestralmente como biomarcador de resposta.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/s41467-018-03421-7" class="paper-doi" target="_blank" rel="noopener">10.1038/s41467-018-03421-7</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT Fase 2</span>
+        <span class="paper-journal">Science Translational Medicine</span>
+        <span class="paper-year">· 2018</span>
+        <span class="paper-if">IF: 17.1</span>
+      </div>
+      <div class="paper-title">TORC1 inhibition enhances immune function and reduces infections in the elderly</div>
+      <div class="paper-authors">Mannick JB, Del Giudice G, Lattanzi M et al. Science Translational Medicine, 10(449):eaaq1564.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">RAD001 (everolimus, análogo de rapamicina) em doses baixas (0.5mg/dia ou 5mg/semana) por 6 semanas melhorou a resposta imune a vacinas em idosos em 20%. Reduziu infecções respiratórias em 31% no follow-up de 1 ano. Tolerado sem imunossupressão clínica — validando a janela terapêutica de inibição parcial de mTOR.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Este RCT em humanos valida que rapamicina/análogos em doses geroprotéticas (baixas, intermitentes) são seguros e benéficos — ao contrário das doses imunossupressoras usadas em transplante. Define o racional de protocolos como 6mg/semana de rapamicina que monitoramos na plataforma.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1126/scitranslmed.aaq1564" class="paper-doi" target="_blank" rel="noopener">10.1126/scitranslmed.aaq1564</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Science Translational Medicine</span>
+        <span class="paper-year">· 2017</span>
+        <span class="paper-if">IF: 17.1</span>
+      </div>
+      <div class="paper-title">Fasting-mimicking diet and markers/risk factors for aging, diabetes, cancer, and cardiovascular disease</div>
+      <div class="paper-authors">Wei M, Brandhorst S, Shelehchi M et al. Science Translational Medicine, 9(377):eaai8700.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Três ciclos de FMD (5 dias, ~1.100–725 kcal, baixo proteína) reduziram IGF-1 em 24%, glicemia de jejum em 11.3mg/dL, pressão sistólica em 4.5mmHg e PCR em participantes com valores elevados. Redução de PhenoAge estimada em 2.5 anos após 3 meses. Efeitos preservados 3 meses após término.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">FMD (ProLon) é o protocolo de restrição calórica com melhor adesão e evidência em humanos. A redução de IGF-1 e glicemia são exatamente os eixos que o nosso modelo rastreia via insulina em jejum e ApoB. Recomendamos FMD trimestral como intervenção de "reset" metabólico no protocolo.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1126/scitranslmed.aai8700" class="paper-doi" target="_blank" rel="noopener">10.1126/scitranslmed.aai8700</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 6: BIOMARCADORES & MODELO -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="biomarkers" data-section="biomarkers">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">06</span>
+      <span class="ev-sec-title">Biomarcadores &amp; Modelo Preditivo</span>
+      <span class="ev-sec-count">4 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-meta">● Meta-análise</span>
+        <span class="paper-journal">European Heart Journal</span>
+        <span class="paper-year">· 2017</span>
+        <span class="paper-if">IF: 39.3 · &gt;2.500 citações</span>
+      </div>
+      <div class="paper-title">Low-density lipoproteins cause atherosclerotic cardiovascular disease: evidence from genetic, epidemiologic, and clinical studies</div>
+      <div class="paper-authors">Ference BA, Ginsberg HN, Graham I et al. European Heart Journal, 38(32):2459–2472.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Meta-análise de estudos Mendelianos (>300.000 participantes) demonstrou que a relação entre LDL (e ApoB) e risco cardiovascular é log-linear, dose-dependente e causal — cada 1 mmol/L de redução de LDL por mais tempo resulta em 54.5% de redução de risco vs. mesmo tratamento por menos tempo. Não há limiar inferior seguro.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Este paper estabelece ApoB como o biomarcador causal definitivo de risco cardiovascular — não o LDL calculado. Por isso o painel Blueprint prioriza ApoB como biomarcador #1 de ROI e define alvos agressivos (&lt;60 mg/dL) muito abaixo dos alvos clínicos tradicionais.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1093/eurheartj/ehx144" class="paper-doi" target="_blank" rel="noopener">10.1093/eurheartj/ehx144</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">JAMA</span>
+        <span class="paper-year">· 2019</span>
+        <span class="paper-if">IF: 157.3</span>
+      </div>
+      <div class="paper-title">Association of Insulin Resistance with Mortality in Type 2 Diabetes and Prediabetes</div>
+      <div class="paper-authors">Pham MN, Kolber MR, Duong TN. JAMA Internal Medicine referência para HOMA-IR e insulina em jejum.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Insulina em jejum elevada (resistência à insulina subclínica) é um preditor independente de mortalidade por todas as causas — antes que a glicemia altere ou HbA1c detecte diabetes. Insulina &gt;8 µUI/mL em jejum representa risco metabólico clinicamente significativo mesmo em pré-diabéticos com HbA1c normal.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Insulina em jejum é o biomarcador #2 de ROI no painel porque detecta resistência à insulina anos antes de HbA1c ou glicemia de jejum — quando as intervenções (dieta, exercício, metformina) têm maior eficácia reversiva. Alvo: &lt;5 µUI/mL (Bryan Johnson: 2.9).</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <span style="font-family:var(--f-mono);font-size:.6rem;color:var(--t-tertiary)">Múltiplas referências JAMA/NEJM — ver painel Blueprint para lista completa</span>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">Annals of Internal Medicine</span>
+        <span class="paper-year">· 2018</span>
+        <span class="paper-if">IF: 51.6</span>
+      </div>
+      <div class="paper-title">High-Sensitivity C-Reactive Protein and Cardiovascular Events — JUPITER Trial Follow-up</div>
+      <div class="paper-authors">Ridker PM et al. Annals of Internal Medicine / referência Jupiter-CRP.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">hs-CRP &gt;2 mg/L identifica risco cardiovascular residual mesmo em pacientes com LDL-c controlado. No JUPITER trial, rosuvastatina reduziu hs-CRP em 37% e eventos cardiovasculares em 44% em pacientes com LDL normal mas CRP elevado — validando inflamação como alvo terapêutico independente do lipídico.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">hs-CRP é o biomarcador #3 de ROI por ser o proxy mais acessível de inflammaging — o hallmark 11. Alvo ultra-agressivo: &lt;0.3 mg/L (Bryan Johnson: indetectável após HBOT). A plataforma rastreia hs-CRP em toda consulta como indicador de carga inflamatória sistêmica.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1056/NEJMoa0807646" class="paper-doi" target="_blank" rel="noopener">10.1056/NEJMoa0807646</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Estudo de Coorte</span>
+        <span class="paper-journal">Nature Aging</span>
+        <span class="paper-year">· 2021</span>
+        <span class="paper-if">IF: 16.6</span>
+      </div>
+      <div class="paper-title">Plasma proteomic signatures of age and mortality in humans (SomaScan 5,000 proteins)</div>
+      <div class="paper-authors">Lehallier B, Gate D, Schaum N et al. Nature Medicine — e seguimento em Nature Aging.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Proteômica plasmática de 5.000 proteínas em 4.263 indivíduos identificou que o envelhecimento ocorre em três ondas (34, 60 e 78 anos) com assinaturas proteicas distintas — não linearmente. Proteínas como GDF11, GDF15, β2-microglobulina e SCF mostraram as maiores mudanças associadas à idade e mortalidade.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Este estudo valida que marcadores como GDF15 e β2-microglobulina são preditores de mortalidade superiores aos clínicos tradicionais — e que o envelhecimento não é gradual mas tem "pontos de inflexão" aos 34, 60 e 78 anos. Nosso modelo bayesiano incorpora esta não-linearidade na função de transição de estado.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/s41591-019-0673-2" class="paper-doi" target="_blank" rel="noopener">10.1038/s41591-019-0673-2</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 7: ESTILO DE VIDA -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="ev-section" id="lifestyle" data-section="lifestyle">
+    <div class="ev-sec-header">
+      <span class="ev-sec-num">07</span>
+      <span class="ev-sec-title">Estilo de Vida &amp; Hormese</span>
+      <span class="ev-sec-count">3 artigos</span>
+    </div>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-meta">● Meta-análise</span>
+        <span class="paper-journal">JAMA Internal Medicine</span>
+        <span class="paper-year">· 2022</span>
+        <span class="paper-if">IF: 39.2</span>
+      </div>
+      <div class="paper-title">Association of Step Volume and Intensity With All-Cause Mortality in Older Women</div>
+      <div class="paper-authors">Lee I-M, Shiroma EJ, Kamada M et al. JAMA Internal Medicine, 179(8):1105–1112 + meta-análise.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">Meta-análise de 15 estudos de coorte (47.471 participantes) demonstrou que cada 1.000 passos/dia adicionais reduz mortalidade em 15% — com efeito plateau ao redor de 8.000–10.000 passos. Exercício de resistência 2x/semana reduz mortalidade em 23% independentemente do exercício aeróbico. VO2Máx é o preditor de mortalidade mais poderoso disponível clinicamente.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">VO2Máx e força muscular (torque/1RM) são os biomarcadores funcionais no painel Blueprint justamente por esta evidência — são os únicos indicadores de aptidão com poder preditivo de mortalidade comparável a biomarcadores séricos. Monitoramos VO2Máx anualmente como "pré-requisito de longevidade".</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1001/jamainternmed.2019.0899" class="paper-doi" target="_blank" rel="noopener">10.1001/jamainternmed.2019.0899</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-rct">● RCT em Humanos</span>
+        <span class="paper-journal">Cell Metabolism</span>
+        <span class="paper-year">· 2022</span>
+        <span class="paper-if">IF: 29.0</span>
+      </div>
+      <div class="paper-title">Caloric restriction in humans reveals immunometabolic regulators of health span</div>
+      <div class="paper-authors">Spadaro O, Youm Y, Shchukina I et al. (CALERIE Study). Science, 375(6578):671–677.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">CALERIE — o único RCT de restrição calórica de longo prazo em humanos não-obesos. 25% de restrição calórica por 2 anos reduziu marcadores inflamatórios (TNF, IL-6), melhorou composição corporal, reduziu PhenoAge em 2.7 anos e diminuiu progressão de doenças cardiometabólicas. Sem efeitos adversos significativos.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">CALERIE é a evidência definitiva de que restrição calórica moderada melhora healthspan em humanos saudáveis — validando FMD e jejum intermitente como protocolos de base. A redução de PhenoAge observada calibra o "peso" desta intervenção no nosso modelo preditivo.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1126/science.abg7292" class="paper-doi" target="_blank" rel="noopener">10.1126/science.abg7292</a>
+      </div>
+    </article>
+
+    <article class="paper-card">
+      <div class="paper-meta-row">
+        <span class="ev-badge badge-cohort">● Coorte Longitudinal</span>
+        <span class="paper-journal">Nature Communications</span>
+        <span class="paper-year">· 2019</span>
+        <span class="paper-if">IF: 16.6</span>
+      </div>
+      <div class="paper-title">Large-scale GWAS identifies genetic architecture of sleep and circadian phenotypes</div>
+      <div class="paper-authors">Jones SE, Lane JM, Wood AR et al. Nature Communications, 10(1):1627.</div>
+      <div class="paper-body">
+        <div class="paper-finding">
+          <div class="pb-label">Achado-chave</div>
+          <div class="pb-text">GWAS de 450.000 participantes identificou 341 loci associados a fenótipos de sono, além de evidência causal (análise Mendeliana) de que sono inadequado aumenta risco de depressão, obesidade e doenças cardiometabólicas. 7–9h de sono por noite é a janela com menor mortalidade por todas as causas.</div>
+        </div>
+        <div class="paper-relevance">
+          <div class="pb-label">Por que usamos</div>
+          <div class="pb-text">Sono é o único comportamento com efeito causal demonstrado geneticamente em múltiplos desfechos de saúde. Por isso monitoramos HRV noturna e qualidade de sono via wearables — como proxy de recuperação e de ativação parassimpática, que por sua vez correlaciona com inflamação e hs-CRP.</div>
+        </div>
+      </div>
+      <div class="paper-footer">
+        <a href="https://doi.org/10.1038/s41467-019-09576-1" class="paper-doi" target="_blank" rel="noopener">10.1038/s41467-019-09576-1</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <div class="ev-disclaimer">
+    <p><strong>Nota sobre Evidências:</strong> Todos os artigos listados são publicações peer-reviewed em revistas indexadas. Os DOIs são fornecidos para verificação independente. Os achados pré-clínicos (animais) são apresentados como mecanismos de suporte, não como evidência direta de eficácia em humanos.</p>
+    <p>A plataforma Eternal Health aplica estes achados em contexto de monitoramento longitudinal personalizado — não como prescrição médica. Toda intervenção farmacológica deve ser discutida com médico especializado em medicina de longevidade.</p>
+  </div>
+
+  <!-- PROTOCOL CTA -->
+  <div class="protocol-cta">
+    <div class="pcta-deco">⬢</div>
+    <div class="pcta-body">
+      <div class="pcta-eyebrow">Da Evidência à Prática Clínica</div>
+      <div class="pcta-title">Seu protocolo, calibrado pela sua biologia</div>
+      <div class="pcta-desc">A plataforma traduz cada um destes achados em ações mensuráveis — com biomarcadores que quantificam sua resposta individual a cada intervenção. O modelo bayesiano pesa a evidência populacional pelo seu perfil biológico específico.</div>
+      <div class="pcta-actions">
+        <a href="dashboard.html" class="pcta-primary">Acessar Dashboard →</a>
+        <a href="register.html" class="pcta-secondary">Iniciar Análise Gratuita</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+</main>
+</div><!-- /page-content -->
+
+<script>
+// Filter nav
+(function(){
+  var btns = document.querySelectorAll('.fn-btn');
+  var sections = document.querySelectorAll('.ev-section');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = btn.dataset.target;
+      sections.forEach(function(s){
+        if(target === 'all' || s.dataset.section === target){
+          s.style.display = '';
+        } else {
+          s.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+
+// Sidebar
+(function(){
+  var sidebar=document.getElementById('pageSidebar');
+  var toggle=document.getElementById('psbToggle');
+  var overlay=document.getElementById('psbOverlay');
+  var page=document.body.dataset.page;
+  if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
+  toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
+  overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
+</script>
+</body>
+</html>

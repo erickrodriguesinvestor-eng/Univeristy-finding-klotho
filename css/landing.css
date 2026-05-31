@@ -1485,7 +1485,7 @@
 
 .resources-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
 }
 
@@ -1601,3 +1601,5 @@
 @media (max-width: 900px) {
   .resources-grid { grid-template-columns: 1fr; }
 }
+
+.rc-icon-ev { background: rgba(167,139,250,0.12); color: #A78BFA; border: 1px solid rgba(167,139,250,0.25); }
