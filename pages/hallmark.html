@@ -1246,9 +1246,8 @@ function renderHallmark(id) {
     return;
   }
 
-  // Update page title & crumb
+  // Update page title
   document.title = hm.title + ' — Eternal Health';
-  document.getElementById('topBarCrumb').textContent = 'HALLMARK ' + formatNum(id);
 
   // Prev / Next
   const idx = HM_ORDER.indexOf(id);
