@@ -446,6 +446,229 @@
     .notice-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .notice-text { font-size: .8rem; color: var(--t-secondary); line-height: 1.7; }
     .notice-text strong { color: var(--t-primary); }
+
+    /* ═══ E-BOOK DE RECEITAS ═══ */
+    .ebook-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; margin-bottom: 28px;
+    }
+    .ebook-count {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em;
+      color: var(--t-tertiary); border: 1px solid var(--b-subtle);
+      padding: 5px 12px; border-radius: 2px;
+    }
+
+    /* Meal type tabs */
+    .meal-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 32px;
+    }
+    .meal-tab {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: 4px; padding: 8px 14px; cursor: pointer;
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .08em;
+      color: var(--t-tertiary); transition: all .2s;
+    }
+    .meal-tab:hover { border-color: rgba(201,169,106,.3); color: var(--t-secondary); }
+    .meal-tab.active {
+      background: rgba(201,169,106,.1); border-color: rgba(201,169,106,.4);
+      color: var(--aurum);
+    }
+    .meal-tab-icon { font-size: 1rem; }
+    .meal-tab-count {
+      margin-left: 4px;
+      background: var(--b-ghost); border-radius: 2px; padding: 1px 5px;
+      font-size: .58rem;
+    }
+
+    /* Recipe grid */
+    .recipe-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    @media (max-width: 900px) { .recipe-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .recipe-grid { grid-template-columns: 1fr; } }
+
+    /* Recipe card */
+    .recipe-card {
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: var(--r-lg); overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .recipe-card:hover {
+      border-color: rgba(201,169,106,.25);
+      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+    }
+    .recipe-card.open {
+      border-color: rgba(201,169,106,.35);
+    }
+
+    /* Card top color band */
+    .recipe-band {
+      height: 4px;
+    }
+    .band-cafe    { background: linear-gradient(90deg, #C9A96A, rgba(201,169,106,.3)); }
+    .band-almoco  { background: linear-gradient(90deg, #7BA37D, rgba(123,163,125,.3)); }
+    .band-jantar  { background: linear-gradient(90deg, #7F9EC9, rgba(127,158,201,.3)); }
+    .band-lanche  { background: linear-gradient(90deg, #A78BFA, rgba(167,139,250,.3)); }
+
+    .recipe-icon-wrap {
+      padding: 20px 20px 0;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    .recipe-icon {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: var(--depth-1); border: 1px solid var(--b-subtle);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .recipe-kcal-badge {
+      text-align: right;
+    }
+    .recipe-kcal-num {
+      font-family: var(--f-serif); font-size: 1.5rem; font-weight: 300;
+      color: var(--aurum); line-height: 1;
+    }
+    .recipe-kcal-unit {
+      font-family: var(--f-mono); font-size: .55rem; letter-spacing: .1em;
+      color: var(--t-tertiary);
+    }
+
+    .recipe-body { padding: 14px 20px 0; }
+    .recipe-meal-label {
+      font-family: var(--f-mono); font-size: .58rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 5px;
+    }
+    .recipe-name {
+      font-family: var(--f-serif); font-size: 1.05rem; font-weight: 400;
+      line-height: 1.3; color: var(--t-primary); margin-bottom: 4px;
+    }
+    .recipe-zone {
+      font-family: var(--f-mono); font-size: .6rem; letter-spacing: .08em;
+      color: var(--t-tertiary); margin-bottom: 14px;
+    }
+
+    /* Macro pills */
+    .recipe-macros {
+      display: flex; gap: 6px; margin-bottom: 12px;
+    }
+    .macro-pill {
+      flex: 1; text-align: center; padding: 6px 4px;
+      border-radius: 3px; border: 1px solid var(--b-ghost);
+      background: var(--depth-1);
+    }
+    .macro-pill-val {
+      font-family: var(--f-mono); font-size: .72rem; font-weight: 700;
+      display: block; line-height: 1;
+    }
+    .macro-pill-label {
+      font-family: var(--f-mono); font-size: .52rem; letter-spacing: .08em;
+      color: var(--t-tertiary); display: block; margin-top: 2px;
+    }
+    .pill-p .macro-pill-val { color: var(--aurum); }
+    .pill-c .macro-pill-val { color: #7BA37D; }
+    .pill-g .macro-pill-val { color: #7F9EC9; }
+    .pill-f .macro-pill-val { color: #A78BFA; }
+
+    .recipe-tags-row {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px;
+    }
+    .recipe-tag {
+      font-family: var(--f-mono); font-size: .56rem; letter-spacing: .06em;
+      padding: 3px 7px; border-radius: 2px;
+      border: 1px solid var(--b-subtle); color: var(--t-tertiary);
+      background: var(--depth-1);
+    }
+
+    /* Time row */
+    .recipe-meta-row {
+      display: flex; gap: 12px; padding: 10px 0;
+      border-top: 1px solid var(--b-ghost); border-bottom: 1px solid var(--b-ghost);
+      margin-bottom: 0;
+    }
+    .recipe-meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: .72rem; color: var(--t-tertiary);
+    }
+    .recipe-meta-item span { font-family: var(--f-mono); font-size: .65rem; color: var(--t-secondary); }
+
+    /* Expand button */
+    .recipe-expand-btn {
+      width: 100%; background: none; border: none;
+      padding: 11px 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em;
+      color: var(--t-tertiary); transition: color .2s;
+    }
+    .recipe-expand-btn:hover { color: var(--aurum); }
+    .recipe-expand-arrow {
+      display: inline-block; transition: transform .25s ease;
+      font-style: normal;
+    }
+    .recipe-card.open .recipe-expand-arrow { transform: rotate(180deg); }
+
+    /* Expandable details */
+    .recipe-details {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s cubic-bezier(.23,1,.32,1);
+      border-top: 1px solid transparent;
+    }
+    .recipe-card.open .recipe-details {
+      max-height: 800px;
+      border-top-color: var(--b-ghost);
+    }
+    .recipe-details-inner { padding: 18px 20px 20px; }
+
+    .recipe-section-label {
+      font-family: var(--f-mono); font-size: .58rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--aurum);
+      margin-bottom: 10px; margin-top: 14px;
+    }
+    .recipe-section-label:first-child { margin-top: 0; }
+
+    .recipe-ingredients-list {
+      list-style: none; display: flex; flex-direction: column; gap: 6px;
+    }
+    .recipe-ingredients-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: .78rem; color: var(--t-secondary); line-height: 1.5;
+    }
+    .recipe-ingredients-list li::before {
+      content: '—'; color: var(--aurum); opacity: .5;
+      flex-shrink: 0; margin-top: 1px;
+      font-family: var(--f-mono); font-size: .7rem;
+    }
+
+    .recipe-steps-list {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+    }
+    .recipe-steps-list li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: .78rem; color: var(--t-secondary); line-height: 1.6;
+    }
+    .step-num {
+      flex-shrink: 0; width: 20px; height: 20px;
+      border-radius: 50%; border: 1px solid rgba(201,169,106,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-mono); font-size: .6rem; color: var(--aurum);
+      margin-top: 1px;
+    }
+
+    /* Micronutrients */
+    .recipe-micros {
+      display: flex; flex-direction: column; gap: 8px; margin-top: 4px;
+    }
+    .micro-row {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .micro-name {
+      font-size: .72rem; color: var(--t-secondary); width: 100px; flex-shrink: 0;
+    }
+    .micro-bar-wrap { flex: 1; height: 3px; background: var(--b-subtle); border-radius: 2px; }
+    .micro-bar-fill { height: 100%; border-radius: 2px; background: var(--vitae); }
+    .micro-val {
+      font-family: var(--f-mono); font-size: .62rem; color: var(--t-tertiary);
+      width: 60px; text-align: right; flex-shrink: 0;
+    }
   </style>
 </head>
 <body data-page="nutrition">
@@ -513,6 +736,7 @@
     <button class="fn-btn" data-target="calculadora">Calculadora</button>
     <button class="fn-btn" data-target="protocolo">Protocolo</button>
     <button class="fn-btn" data-target="evidencias">Evidências</button>
+    <button class="fn-btn" data-target="receitas">E-Book Receitas</button>
   </nav>
 
   <!-- ═══ SEÇÃO: DIETAS ═══ -->
@@ -1077,9 +1301,476 @@
     </div>
   </section>
 
+  <!-- ═══ SEÇÃO: E-BOOK DE RECEITAS ═══ -->
+  <section class="section-block" id="receitas">
+    <div class="ebook-header">
+      <div>
+        <div class="section-eyebrow">E-Book de Receitas · Protocolo Eternal Health</div>
+        <h2 class="section-title">12 Receitas para <em>Longevidade</em></h2>
+        <p class="section-lead" style="margin-bottom:0">Cada receita foi formulada para cobrir macronutrientes, micronutrientes e calorias ideais dentro do protocolo — inspiradas nas dietas Mediterrânea, DASH e Zonas Azuis.</p>
+      </div>
+      <div class="ebook-count">12 receitas · 4 refeições</div>
+    </div>
+
+    <div class="meal-tabs" id="mealTabs">
+      <button class="meal-tab active" data-meal="todos"><span class="meal-tab-icon">◍</span> Todas <span class="meal-tab-count">12</span></button>
+      <button class="meal-tab" data-meal="cafe"><span class="meal-tab-icon">☀</span> Café da Manhã <span class="meal-tab-count">3</span></button>
+      <button class="meal-tab" data-meal="almoco"><span class="meal-tab-icon">◑</span> Almoço <span class="meal-tab-count">3</span></button>
+      <button class="meal-tab" data-meal="jantar"><span class="meal-tab-icon">◐</span> Jantar <span class="meal-tab-count">3</span></button>
+      <button class="meal-tab" data-meal="lanche"><span class="meal-tab-icon">◒</span> Lanches <span class="meal-tab-count">3</span></button>
+    </div>
+
+    <div class="recipe-grid" id="recipeGrid"></div>
+  </section>
+
 </main></div>
 
 <script>
+/* ═══════════════════════════════════════
+   E-BOOK DE RECEITAS — DATA + RENDER
+   ═══════════════════════════════════════ */
+const RECIPES = [
+  {
+    id:'oats', meal:'cafe', band:'band-cafe', mealLabel:'Café da Manhã',
+    icon:'🌾', name:'Overnight Oats com Blueberry e Nozes',
+    zone:'Blue Zones · Zonas Temperadas',
+    kcal:382, protein:15, carbs:54, fat:13, fiber:8,
+    timePrep:'10 min + 8h geladeira', servings:1,
+    tags:['alto-fibra','anti-inflamatório','prebiótico'],
+    micros:[
+      {name:'Manganês',  val:'2,1 mg', pct:91},
+      {name:'Vitamina C',val:'18 mg',  pct:20},
+      {name:'Antocianinas',val:'~180 mg',pct:72},
+    ],
+    ingredients:[
+      '60g aveia em flocos finos (orgânica)',
+      '200ml leite vegetal de aveia ou amêndoa',
+      '80g blueberry fresco ou congelado',
+      '30g nozes picadas grosseiramente',
+      '1 col sopa de sementes de chia',
+      '1 col chá de mel cru (opcional)',
+      'Canela em pó a gosto',
+    ],
+    steps:[
+      'Misture aveia, leite vegetal e chia num pote com tampa de vidro.',
+      'Deixe repousar na geladeira por no mínimo 8 horas.',
+      'Pela manhã, cubra com blueberry, nozes e um fio de mel.',
+      'Polvilhe canela. Sirva frio — não aqueça para preservar beta-glucanas.',
+    ],
+  },
+  {
+    id:'omelete', meal:'cafe', band:'band-cafe', mealLabel:'Café da Manhã',
+    icon:'🥚', name:'Omelete Mediterrânea de Espinafre e Feta',
+    zone:'Dieta Mediterrânea · Grécia',
+    kcal:318, protein:24, carbs:7, fat:22, fiber:2,
+    timePrep:'5 min + 8 min cozimento', servings:1,
+    tags:['alto-proteína','baixo-carb','cetogênico-friendly'],
+    micros:[
+      {name:'Vitamina B12',val:'1,4 μg', pct:58},
+      {name:'Cálcio',      val:'180 mg', pct:18},
+      {name:'Vitamina K',  val:'120 μg', pct:100},
+    ],
+    ingredients:[
+      '3 ovos caipiras ou pastagem',
+      '40g espinafre baby fresco',
+      '30g queijo feta esfarelado',
+      '5 tomates-cereja cortados ao meio',
+      '1 col sopa de azeite extra-virgem',
+      'Orégano fresco e sal marinho a gosto',
+    ],
+    steps:[
+      'Bata os ovos levemente com sal e orégano.',
+      'Aqueça azeite em frigideira antiaderente em fogo médio.',
+      'Adicione espinafre e refogue 1 min até murchar levemente.',
+      'Despeje os ovos, incline a frigideira para distribuir.',
+      'Adicione feta e tomates. Dobre e sirva ao ponto (gema ligeiramente mole).',
+    ],
+  },
+  {
+    id:'smoothie', meal:'cafe', band:'band-cafe', mealLabel:'Café da Manhã',
+    icon:'🥑', name:'Smoothie Verde de Abacate e Proteína Vegetal',
+    zone:'Blue Zones · Loma Linda',
+    kcal:344, protein:18, carbs:38, fat:14, fiber:9,
+    timePrep:'5 min', servings:1,
+    tags:['plant-based','anti-inflamatório','ômega-3'],
+    micros:[
+      {name:'Folato',     val:'120 μg', pct:30},
+      {name:'Potássio',   val:'820 mg', pct:17},
+      {name:'ALA ω-3',    val:'2,4 g',  pct:100},
+    ],
+    ingredients:[
+      '½ abacate maduro (80g)',
+      '1 banana média congelada',
+      '2 punhados de espinafre baby (60g)',
+      '1 col sopa de sementes de linhaça moída',
+      '200ml leite vegetal sem açúcar',
+      '1 dose de proteína de ervilha ou arroz (opcional, 20g)',
+      '1 col chá de mel cru',
+    ],
+    steps:[
+      'Coloque todos os ingredientes no liquidificador.',
+      'Bata até ficar completamente homogêneo (aprox. 60s em velocidade alta).',
+      'Se necessário, ajuste a consistência com mais leite vegetal.',
+      'Sirva imediatamente para preservar vitaminas oxidáveis (C, folato).',
+    ],
+  },
+  {
+    id:'lentilha', meal:'almoco', band:'band-almoco', mealLabel:'Almoço',
+    icon:'🫘', name:'Sopa de Lentilha Vermelha com Cúrcuma e Gengibre',
+    zone:'Blue Zones · Icária, Grécia',
+    kcal:285, protein:19, carbs:44, fat:5, fiber:14,
+    timePrep:'10 min + 25 min cozimento', servings:2,
+    tags:['anti-inflamatório','longevidade','plant-based'],
+    micros:[
+      {name:'Ferro',      val:'6,6 mg', pct:37},
+      {name:'Curcumina',  val:'~80 mg', pct:null},
+      {name:'Zinco',      val:'2,8 mg', pct:25},
+    ],
+    ingredients:[
+      '200g lentilha vermelha seca (lavada)',
+      '1 cebola média picada',
+      '3 dentes de alho amassados',
+      '1 col chá de cúrcuma em pó',
+      '1 col chá de gengibre fresco ralado',
+      '1 col sopa de azeite extra-virgem',
+      '800ml caldo de legumes low-sodium',
+      'Suco de ½ limão, sal e pimenta-do-reino',
+      'Coentro fresco para finalizar',
+    ],
+    steps:[
+      'Refogue cebola no azeite em fogo médio por 5 min, adicione alho mais 2 min.',
+      'Adicione cúrcuma e gengibre, mexa 30 segundos.',
+      'Junte lentilha lavada e caldo. Cozinhe 20-25 min até lentilha desmanchando.',
+      'Bata metade da sopa com mixer para dar cremosidade, mantendo textura.',
+      'Finalize com suco de limão e coentro. A gordura do azeite potencializa absorção da curcumina.',
+    ],
+  },
+  {
+    id:'bowl', meal:'almoco', band:'band-almoco', mealLabel:'Almoço',
+    icon:'🥗', name:'Bowl Mediterrâneo de Grão-de-Bico Assado',
+    zone:'Dieta Mediterrânea · Sardenha',
+    kcal:428, protein:21, carbs:58, fat:14, fiber:12,
+    timePrep:'15 min + 25 min forno', servings:1,
+    tags:['alto-fibra','saciante','anti-inflamatório'],
+    micros:[
+      {name:'Vitamina E',  val:'4,2 mg', pct:28},
+      {name:'Magnésio',    val:'95 mg',  pct:23},
+      {name:'Licopeno',    val:'~8 mg',  pct:null},
+    ],
+    ingredients:[
+      '150g grão-de-bico cozido (ou 1 lata escorrida)',
+      '80g quinoa cozida',
+      '60g tomate-cereja assado',
+      '40g pepino em cubos',
+      '30g azeitonas kalamata sem caroço',
+      '20g folhas de rúcula',
+      '2 col sopa de azeite extra-virgem',
+      '1 col sopa de vinagre de vinho tinto',
+      'Za\'atar, sal e pimenta-do-reino',
+    ],
+    steps:[
+      'Tempere o grão-de-bico com za\'atar, azeite e sal. Asse a 200°C por 20 min até crocante.',
+      'Asse os tomates-cereja com um fio de azeite por 15 min na mesma temperatura.',
+      'Monte o bowl: base de quinoa, rúcula, pepino, azeitonas.',
+      'Finalize com grão-de-bico crocante e tomates. Regue com azeite e vinagre.',
+    ],
+  },
+  {
+    id:'sardinha', meal:'almoco', band:'band-almoco', mealLabel:'Almoço',
+    icon:'🐟', name:'Sardinha Assada com Batata-Doce e Brócolis',
+    zone:'Blue Zones · Nicoya, Costa Rica',
+    kcal:476, protein:36, carbs:42, fat:16, fiber:7,
+    timePrep:'10 min + 30 min forno', servings:1,
+    tags:['ômega-3','anti-inflamatório','vitamina-D'],
+    micros:[
+      {name:'Vitamina D',  val:'8,2 μg', pct:54},
+      {name:'EPA+DHA',     val:'1,8 g',  pct:100},
+      {name:'Selênio',     val:'42 μg',  pct:76},
+    ],
+    ingredients:[
+      '2 sardinhas frescas (ou 1 lata em azeite, escorrida)',
+      '200g batata-doce cortada em cubos',
+      '150g floretes de brócolis',
+      '2 col sopa de azeite extra-virgem',
+      '2 dentes de alho fatiados',
+      'Suco de 1 limão-siciliano',
+      'Alecrim fresco, sal marinho e pimenta',
+    ],
+    steps:[
+      'Pré-aqueça o forno a 200°C. Tempere a batata-doce com azeite, alho e sal.',
+      'Asse a batata-doce por 15 min, depois adicione o brócolis.',
+      'Tempere as sardinhas com limão, azeite e alecrim. Adicione à assadeira.',
+      'Asse por mais 12-15 min até as sardinhas dourarem e o brócolis caramelizar nas pontas.',
+    ],
+  },
+  {
+    id:'salmao', meal:'jantar', band:'band-jantar', mealLabel:'Jantar',
+    icon:'🐠', name:'Salmão com Ervas Frescas, Azeite e Aspargos',
+    zone:'Dieta Mediterrânea · Grécia / Sardenha',
+    kcal:452, protein:41, carbs:11, fat:28, fiber:4,
+    timePrep:'10 min + 15 min cozimento', servings:1,
+    tags:['alto-proteína','ômega-3','keto-friendly'],
+    micros:[
+      {name:'EPA+DHA',     val:'2,4 g',  pct:100},
+      {name:'Vitamina B12',val:'3,1 μg', pct:129},
+      {name:'Astaxantina', val:'~3 mg',  pct:null},
+    ],
+    ingredients:[
+      '180g filé de salmão selvagem (atlântico ou sockeye)',
+      '200g aspargos frescos com ponta',
+      '2 col sopa de azeite extra-virgem',
+      '1 limão-siciliano (raspas + suco)',
+      'Endro (dill) e salsinha fresca',
+      '2 dentes de alho amassados',
+      'Sal marinho e pimenta-do-reino',
+    ],
+    steps:[
+      'Marine o salmão 10 min com azeite, raspas de limão, alho e ervas.',
+      'Aqueça frigideira de ferro em fogo alto até fumegar levemente.',
+      'Sele o salmão 3 min lado pele, vire e cozinhe mais 2 min (centro ainda rosado).',
+      'Na mesma frigideira, salteie aspargos com azeite 3-4 min, temperando com sal.',
+      'Finalize com suco de limão fresco e ervas. Sirva imediatamente.',
+    ],
+  },
+  {
+    id:'dal', meal:'jantar', band:'band-jantar', mealLabel:'Jantar',
+    icon:'🍲', name:'Dal de Lentilha Vermelha com Arroz Integral',
+    zone:'Blue Zones · Inspiração Global — Icária + Okinawa',
+    kcal:388, protein:19, carbs:62, fat:8, fiber:13,
+    timePrep:'10 min + 30 min cozimento', servings:2,
+    tags:['plant-based','longevidade','gut-health'],
+    micros:[
+      {name:'Folato',      val:'180 μg', pct:45},
+      {name:'Ferro',       val:'7,2 mg', pct:40},
+      {name:'Potássio',    val:'740 mg', pct:16},
+    ],
+    ingredients:[
+      '180g lentilha vermelha seca',
+      '160g arroz integral cozido (por porção)',
+      '1 lata de tomates pelados (400g)',
+      '1 cebola média, 3 dentes de alho',
+      '1 col sopa de ghee ou azeite extra-virgem',
+      '1 col chá de cominho, coentro em pó, cúrcuma',
+      '½ col chá de garam masala',
+      'Leite de coco light 100ml',
+      'Coentro fresco, sal e pimenta',
+    ],
+    steps:[
+      'Tempere cebola e alho no ghee até dourar (8 min). Adicione especiarias.',
+      'Adicione lentilha lavada, tomates esmagados e 500ml de água.',
+      'Cozinhe em fogo médio-baixo por 20 min, mexendo ocasionalmente.',
+      'Adicione leite de coco e ajuste sal. Cozinhe mais 5 min.',
+      'Sirva sobre arroz integral com coentro fresco e limão.',
+    ],
+  },
+  {
+    id:'frango', meal:'jantar', band:'band-jantar', mealLabel:'Jantar',
+    icon:'🍗', name:'Peito de Frango com Tomate, Azeitonas e Tomilho',
+    zone:'Dieta Mediterrânea · Sul da Itália',
+    kcal:362, protein:39, carbs:12, fat:19, fiber:3,
+    timePrep:'10 min + 25 min cozimento', servings:1,
+    tags:['alto-proteína','baixo-carb','anti-inflamatório'],
+    micros:[
+      {name:'Vitamina B6', val:'1,1 mg', pct:65},
+      {name:'Niacina',     val:'14 mg',  pct:88},
+      {name:'Licopeno',    val:'~12 mg', pct:null},
+    ],
+    ingredients:[
+      '180g peito de frango orgânico',
+      '200g tomate pelado (lata)',
+      '50g azeitonas verdes sem caroço',
+      '1 cebola pequena em fatias',
+      '2 col sopa de azeite extra-virgem',
+      'Tomilho, alecrim fresco e 2 dentes de alho',
+      '50ml vinho branco seco (opcional)',
+      'Sal, pimenta e raspas de limão',
+    ],
+    steps:[
+      'Tempere o frango com sal, pimenta, tomilho e alho. Sele em azeite 3 min cada lado.',
+      'Retire o frango. Refogue cebola na mesma frigideira até amaciar.',
+      'Adicione vinho (se usar) e reduza 1 min. Junte tomates e azeitonas.',
+      'Devolva o frango. Cubra e cozinhe em fogo baixo 15-18 min até 74°C interno.',
+      'Finalize com raspas de limão e alecrim fresco.',
+    ],
+  },
+  {
+    id:'nuts', meal:'lanche', band:'band-lanche', mealLabel:'Lanche',
+    icon:'🌰', name:'Mix Mediterrâneo de Castanhas e Frutas Secas',
+    zone:'Blue Zones · Sardhenha e Icária',
+    kcal:218, protein:6, carbs:14, fat:17, fiber:3,
+    timePrep:'5 min (montar)', servings:1,
+    tags:['ômega-3','vitamina-E','saciante'],
+    micros:[
+      {name:'Vitamina E',  val:'5,1 mg', pct:34},
+      {name:'Selênio',     val:'70 μg',  pct:127},
+      {name:'Magnésio',    val:'62 mg',  pct:15},
+    ],
+    ingredients:[
+      '10g amêndoas cruas sem pele',
+      '10g nozes inteiras (2 metades)',
+      '5g castanha-do-pará (2 unidades — limite selênio)',
+      '10g pistaches sem sal',
+      '5g passas ou tâmaras picadas',
+      '5g sementes de abóbora',
+    ],
+    steps:[
+      'Porcione em recipiente hermético (ideal: preparo semanal para 5 dias).',
+      'Misture todos os ingredientes e divida em porções de 45g.',
+      'Consuma como lanche da tarde (14-16h) para estabilizar glicemia.',
+      'Dica: toste levemente nozes e amêndoas (10 min a 160°C) para elevar aroma e Maillard.',
+    ],
+  },
+  {
+    id:'homus', meal:'lanche', band:'band-lanche', mealLabel:'Lanche',
+    icon:'🫛', name:'Homus Caseiro com Cenoura e Pepino Crudités',
+    zone:'Blue Zones · Nicoya e Icária',
+    kcal:187, protein:9, carbs:24, fat:8, fiber:6,
+    timePrep:'15 min (+ 1 hora geladeira)', servings:2,
+    tags:['plant-based','alto-fibra','prebiótico'],
+    micros:[
+      {name:'Vitamina A',  val:'520 μg', pct:58},
+      {name:'Betacaroteno',val:'3,1 mg', pct:null},
+      {name:'Zinco',       val:'1,9 mg', pct:17},
+    ],
+    ingredients:[
+      '1 lata de grão-de-bico cozido (400g, escorrido)',
+      '2 col sopa de tahine de alta qualidade',
+      '2 col sopa de azeite extra-virgem + fio para finalizar',
+      'Suco de 1 limão-siciliano',
+      '1 dente de alho pequeno (ou ½ se for delicado)',
+      'Sal marinho, cominho e páprica defumada',
+      '2 cenouras médias e 1 pepino japonês em palitos',
+    ],
+    steps:[
+      'Reserve 2 col sopa da água do grão-de-bico (aquafaba).',
+      'Processe grão-de-bico, tahine, limão, alho e aquafaba até cremoso (3-4 min).',
+      'Com processador ligado, adicione azeite aos poucos. Ajuste sal e cominho.',
+      'Refrigere 1h para sabores desenvolverem. Sirva com fio de azeite e páprica.',
+      'Acompanhe com palitos de cenoura e pepino — fibra + proteína = saciedade longa.',
+    ],
+  },
+  {
+    id:'iogurte', meal:'lanche', band:'band-lanche', mealLabel:'Lanche',
+    icon:'🫐', name:'Parfait de Iogurte Grego com Chia e Frutas Vermelhas',
+    zone:'Blue Zones · Ikária (adaptado com laticínio)',
+    kcal:214, protein:17, carbs:27, fat:5, fiber:5,
+    timePrep:'5 min', servings:1,
+    tags:['probiótico','alto-proteína','anti-inflamatório'],
+    micros:[
+      {name:'Cálcio',      val:'210 mg', pct:21},
+      {name:'Vitamina C',  val:'22 mg',  pct:24},
+      {name:'Ômega-3 ALA', val:'1,2 g',  pct:55},
+    ],
+    ingredients:[
+      '150g iogurte grego natural integral (mín. 8% gordura)',
+      '80g mix de frutas vermelhas (morango, framboesa, mirtilo)',
+      '1 col sopa de sementes de chia',
+      '1 col chá de mel cru ou geleia de frutas sem açúcar',
+      '10g amêndoas laminadas tostadas',
+      'Extrato de baunilha natural (1 gota)',
+    ],
+    steps:[
+      'Coloque o iogurte grego numa taça ou bowl.',
+      'Misture levemente com mel e extrato de baunilha.',
+      'Cubra com frutas vermelhas e polvilhe chia.',
+      'Finalize com amêndoas laminadas para crocância e vitamina E.',
+      'Consuma imediatamente ou cubra e refrigere por até 4h (chia gelifica).',
+    ],
+  },
+];
+
+function renderRecipes(meal) {
+  const grid = document.getElementById('recipeGrid');
+  if (!grid) return;
+  const data = meal === 'todos' ? RECIPES : RECIPES.filter(r => r.meal === meal);
+  grid.innerHTML = data.map(r => `
+    <div class="recipe-card" id="card-${r.id}">
+      <div class="recipe-band ${r.band}"></div>
+      <div class="recipe-icon-wrap">
+        <div class="recipe-icon">${r.icon}</div>
+        <div class="recipe-kcal-badge">
+          <div class="recipe-kcal-num">${r.kcal}</div>
+          <div class="recipe-kcal-unit">kcal/porção</div>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-meal-label">${r.mealLabel}</div>
+        <div class="recipe-name">${r.name}</div>
+        <div class="recipe-zone">${r.zone}</div>
+        <div class="recipe-macros">
+          <div class="macro-pill pill-p">
+            <span class="macro-pill-val">${r.protein}g</span>
+            <span class="macro-pill-label">PROT</span>
+          </div>
+          <div class="macro-pill pill-c">
+            <span class="macro-pill-val">${r.carbs}g</span>
+            <span class="macro-pill-label">CARB</span>
+          </div>
+          <div class="macro-pill pill-g">
+            <span class="macro-pill-val">${r.fat}g</span>
+            <span class="macro-pill-label">GORD</span>
+          </div>
+          <div class="macro-pill pill-f">
+            <span class="macro-pill-val">${r.fiber}g</span>
+            <span class="macro-pill-label">FIBRA</span>
+          </div>
+        </div>
+        <div class="recipe-tags-row">
+          ${r.tags.map(t => `<span class="recipe-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="recipe-meta-row" style="margin:0 20px">
+        <div class="recipe-meta-item">⏱ <span>${r.timePrep}</span></div>
+        <div class="recipe-meta-item">◎ <span>${r.servings} porção</span></div>
+      </div>
+      <button class="recipe-expand-btn" onclick="toggleRecipe('${r.id}')">
+        VER RECEITA COMPLETA
+        <em class="recipe-expand-arrow">▾</em>
+      </button>
+      <div class="recipe-details">
+        <div class="recipe-details-inner">
+          <div class="recipe-section-label">Ingredientes</div>
+          <ul class="recipe-ingredients-list">
+            ${r.ingredients.map(i => `<li>${i}</li>`).join('')}
+          </ul>
+          <div class="recipe-section-label">Modo de Preparo</div>
+          <ol class="recipe-steps-list">
+            ${r.steps.map((s,i) => `<li><div class="step-num">${i+1}</div><div>${s}</div></li>`).join('')}
+          </ol>
+          <div class="recipe-section-label">Micronutrientes Principais</div>
+          <div class="recipe-micros">
+            ${r.micros.map(m => `
+              <div class="micro-row">
+                <div class="micro-name">${m.name}</div>
+                <div class="micro-bar-wrap"><div class="micro-bar-fill" style="width:${m.pct != null ? Math.min(m.pct,100) : 60}%"></div></div>
+                <div class="micro-val">${m.val}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleRecipe(id) {
+  const card = document.getElementById('card-' + id);
+  if (card) card.classList.toggle('open');
+}
+
+(function initRecipes() {
+  renderRecipes('todos');
+  const tabs = document.getElementById('mealTabs');
+  if (!tabs) return;
+  tabs.querySelectorAll('.meal-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.querySelectorAll('.meal-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRecipes(btn.dataset.meal);
+    });
+  });
+})();
+
 /* ── SIDEBAR TOGGLE ── */
 (function(){
   const sidebar = document.getElementById('pageSidebar');
@@ -1108,7 +1799,7 @@
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-  const sections = ['dietas','zonas','calculadora','protocolo','evidencias'].map(id => document.getElementById(id)).filter(Boolean);
+  const sections = ['dietas','zonas','calculadora','protocolo','evidencias','receitas'].map(id => document.getElementById(id)).filter(Boolean);
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
