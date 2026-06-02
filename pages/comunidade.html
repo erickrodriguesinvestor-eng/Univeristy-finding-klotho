@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidade & Longevidade — Eternal Health</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .page-wrap { display:flex; min-height:100vh; }
+
+    /* ── content ── */
+    .page-content {
+      margin-left: 210px;
+      flex: 1;
+      padding: 48px 48px 80px;
+      max-width: 980px;
+    }
+
+    /* ── filter nav ── */
+    .filter-nav {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin: 0 0 48px;
+      position: sticky; top: 0; z-index: 80;
+      background: var(--void);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--b-subtle);
+    }
+    .fn-btn {
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 3px;
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      color: var(--t-secondary); cursor: pointer; transition: all .15s;
+    }
+    .fn-btn:hover, .fn-btn.active {
+      background: var(--aurum-12); border-color: var(--aurum);
+      color: var(--aurum);
+    }
+
+    /* ── hero ── */
+    .hero-eyebrow {
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--aurum); margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: var(--f-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; color: var(--t-primary); line-height: 1.15;
+      margin: 0 0 16px;
+    }
+    .hero-sub {
+      font-size: 14px; line-height: 1.7; color: var(--t-secondary);
+      max-width: 640px; margin-bottom: 36px;
+    }
+
+    /* ── hero stat row ── */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .hstat {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 6px; padding: 16px 20px;
+    }
+    .hstat-val {
+      font-family: var(--f-mono); font-size: 1.6rem; font-weight: 700;
+      color: var(--aurum); line-height: 1;
+    }
+    .hstat-val.green  { color: var(--optimal); }
+    .hstat-val.red    { color: var(--critical); }
+    .hstat-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-secondary); margin-top: 6px;
+    }
+
+    /* ── section title ── */
+    .sec-title {
+      font-family: var(--f-serif); font-size: 1.7rem; font-weight: 400;
+      color: var(--t-primary); margin: 56px 0 6px;
+      border-bottom: 1px solid var(--b-subtle); padding-bottom: 10px;
+    }
+    .sec-sub {
+      font-size: 13px; color: var(--t-secondary); margin: 0 0 28px; line-height: 1.65;
+    }
+
+    /* ── evidence cards ── */
+    .ev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .ev-card {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 20px 22px; position: relative;
+    }
+    .ev-card:hover { border-color: var(--b-medium); }
+    .ev-num {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 8px;
+    }
+    .ev-title { font-size: 13px; font-weight: 600; color: var(--t-primary); margin-bottom: 8px; }
+    .ev-body { font-size: 12px; color: var(--t-secondary); line-height: 1.65; }
+    .ev-badge {
+      display: inline-block; font-family: var(--f-mono); font-size: 8px;
+      letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px;
+      border-radius: 2px; margin-bottom: 10px;
+    }
+    .ev-badge-meta   { background: var(--aurum-12);   border: 1px solid var(--aurum-d);   color: var(--aurum); }
+    .ev-badge-rct    { background: var(--optimal-12); border: 1px solid var(--optimal);    color: var(--optimal); }
+    .ev-badge-cohort { background: var(--depth-3);    border: 1px solid var(--b-medium);   color: var(--t-secondary); }
+    .ev-badge-review { background: var(--depth-4);    border: 1px solid var(--b-medium);   color: var(--t-secondary); }
+    .ev-doi { display: block; margin-top: 10px; font-family: var(--f-mono); font-size: 9px; color: var(--t-tertiary); text-decoration: none; }
+    .ev-doi:hover { color: var(--aurum); }
+    .ev-kf {
+      margin-top: 12px; padding: 10px 14px;
+      background: var(--aurum-04); border-left: 2px solid var(--aurum);
+      border-radius: 0 4px 4px 0;
+      font-size: 12px; color: var(--aurum);
+      font-family: var(--f-mono);
+    }
+    .ev-kf-label { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; color: var(--t-tertiary); display: block; margin-bottom: 3px; }
+
+    /* ── Blue Zone cards ── */
+    .bz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 32px; }
+    .bz-card {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 18px 20px;
+      text-align: center;
+    }
+    .bz-glyph { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .bz-region { font-family: var(--f-serif); font-size: 1rem; color: var(--aurum); margin-bottom: 4px; }
+    .bz-tag { font-family: var(--f-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; color: var(--t-tertiary); margin-bottom: 10px; display: block; }
+    .bz-pattern { font-size: 12px; color: var(--t-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .bz-stat { font-family: var(--f-mono); font-size: 11px; color: var(--optimal); }
+
+    /* ── comparison table ── */
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+    .comp-table th {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-tertiary);
+      border-bottom: 1px solid var(--b-dim); padding: 8px 12px; text-align: left;
+    }
+    .comp-table td { padding: 10px 12px; border-bottom: 1px solid var(--b-subtle); color: var(--t-secondary); vertical-align: top; }
+    .comp-table tr:hover td { background: var(--depth-2); }
+    .ct-good { color: var(--optimal); }
+    .ct-bad  { color: var(--critical); }
+    .ct-warn { color: var(--caution); }
+    .ct-name { color: var(--t-primary); font-weight: 500; }
+
+    /* ── protocol cards ── */
+    .proto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 32px; }
+    .proto-card {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 20px 22px;
+    }
+    .proto-icon { font-size: 1.4rem; margin-bottom: 10px; display: block; }
+    .proto-title { font-size: 13px; font-weight: 600; color: var(--t-primary); margin-bottom: 6px; }
+    .proto-dose {
+      font-family: var(--f-mono); font-size: 10px; color: var(--aurum);
+      background: var(--aurum-08); border-radius: 3px; padding: 3px 8px;
+      display: inline-block; margin-bottom: 10px;
+    }
+    .proto-body { font-size: 12px; color: var(--t-secondary); line-height: 1.65; }
+    .proto-evidence { margin-top: 10px; font-size: 11px; color: var(--t-tertiary); font-family: var(--f-mono); }
+
+    /* ── dose table ── */
+    .dose-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+    .dose-table th {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-tertiary);
+      border-bottom: 1px solid var(--b-dim); padding: 8px 12px; text-align: left; background: var(--depth-3);
+    }
+    .dose-table td { padding: 10px 12px; border-bottom: 1px solid var(--b-subtle); color: var(--t-secondary); vertical-align: top; }
+    .dose-table tr:hover td { background: var(--depth-2); }
+    .dose-optimal { color: var(--optimal); font-family: var(--f-mono); }
+
+    /* ── quote block ── */
+    .quote-block {
+      background: var(--depth-2); border-left: 3px solid var(--aurum);
+      border-radius: 0 8px 8px 0; padding: 20px 24px; margin: 24px 0;
+    }
+    .quote-text { font-family: var(--f-serif); font-size: 1.1rem; color: var(--t-primary); line-height: 1.7; font-style: italic; }
+    .quote-source { font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--t-tertiary); margin-top: 10px; }
+
+    /* ── alert box ── */
+    .alert-box {
+      background: var(--critical-12); border: 1px solid var(--critical);
+      border-radius: 6px; padding: 16px 20px; margin: 20px 0;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .alert-icon { font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; }
+    .alert-title { font-size: 13px; font-weight: 600; color: var(--t-primary); margin-bottom: 4px; }
+    .alert-body { font-size: 12px; color: var(--t-secondary); line-height: 1.6; }
+
+    .info-box {
+      background: var(--optimal-12); border: 1px solid var(--optimal);
+      border-radius: 6px; padding: 16px 20px; margin: 20px 0;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+
+    /* ── calculator ── */
+    .calc-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 28px 32px; margin-bottom: 32px;
+    }
+    .calc-title { font-family: var(--f-serif); font-size: 1.2rem; color: var(--t-primary); margin-bottom: 20px; }
+    .calc-row { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+    .calc-label { font-size: 12px; color: var(--t-secondary); min-width: 240px; }
+    .calc-input {
+      width: 70px; padding: 5px 10px; background: var(--depth-3);
+      border: 1px solid var(--b-medium); border-radius: 4px;
+      color: var(--t-primary); font-family: var(--f-mono); font-size: 12px;
+    }
+    .calc-unit { font-family: var(--f-mono); font-size: 10px; color: var(--t-tertiary); }
+    .calc-btn {
+      margin-top: 16px; padding: 10px 24px;
+      background: var(--aurum-12); border: 1px solid var(--aurum);
+      color: var(--aurum); font-family: var(--f-mono); font-size: 11px;
+      text-transform: uppercase; letter-spacing: .08em; border-radius: 4px;
+      cursor: pointer; transition: all .15s;
+    }
+    .calc-btn:hover { background: var(--aurum); color: var(--void); }
+    .calc-result { margin-top: 20px; display: none; }
+    .calc-score-wrap { display: flex; align-items: center; gap: 24px; }
+    .calc-score-num {
+      font-family: var(--f-mono); font-size: 3rem; font-weight: 700; color: var(--aurum);
+    }
+    .calc-score-label { font-size: 12px; color: var(--t-secondary); max-width: 300px; line-height: 1.6; }
+    .calc-bars { margin-top: 16px; }
+    .calc-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .calc-bar-label { font-family: var(--f-mono); font-size: 9px; color: var(--t-tertiary); text-transform: uppercase; width: 160px; flex-shrink: 0; }
+    .calc-bar-track { flex: 1; height: 4px; background: var(--depth-4); border-radius: 2px; }
+    .calc-bar-fill { height: 100%; border-radius: 2px; transition: width .5s; }
+
+    /* ── canvas charts ── */
+    .chart-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 20px; margin-bottom: 24px;
+    }
+    .chart-title { font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--t-secondary); margin-bottom: 14px; }
+
+    /* ── cortisol mechanism cards ── */
+    .mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .mech-card {
+      background: var(--depth-3); border: 1px solid var(--b-subtle);
+      border-radius: 6px; padding: 16px 18px;
+    }
+    .mech-label { font-family: var(--f-mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--aurum); margin-bottom: 8px; }
+    .mech-title { font-size: 12px; font-weight: 600; color: var(--t-primary); margin-bottom: 6px; }
+    .mech-body { font-size: 11px; color: var(--t-secondary); line-height: 1.6; }
+    .mech-arrow { font-size: 1rem; color: var(--caution); margin-top: 8px; display: block; }
+
+    /* ── memory timeline ── */
+    .memory-timeline { position: relative; margin: 20px 0 32px; padding-left: 24px; }
+    .memory-timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--b-dim);
+    }
+    .mt-item { position: relative; margin-bottom: 20px; }
+    .mt-item::before {
+      content: ''; position: absolute; left: -28px; top: 4px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--aurum); border: 2px solid var(--depth-2);
+    }
+    .mt-era { font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--aurum); margin-bottom: 4px; }
+    .mt-title { font-size: 13px; font-weight: 500; color: var(--t-primary); margin-bottom: 4px; }
+    .mt-body { font-size: 12px; color: var(--t-secondary); line-height: 1.6; }
+
+    /* ── section marker ── */
+    .sec-marker { display: flex; align-items: center; gap: 12px; margin: 56px 0 6px; }
+    .sec-marker-line { flex: 1; height: 1px; background: var(--b-subtle); }
+    .sec-marker-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--t-tertiary); white-space: nowrap; }
+
+    /* ── responsive ── */
+    @media (max-width: 768px) {
+      .page-content { margin-left: 0; padding: 24px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="page-sidebar" id="pageSidebar">
+    <div class="psb-logo">
+      <a href="../index.html" class="psb-logo-link">
+        <span class="psb-logo-mark">EH</span>
+        <span class="psb-logo-name">Eternal Health</span>
+      </a>
+    </div>
+    <nav class="psb-nav">
+      <a href="hallmark.html?h=1"       class="psb-item" data-id="hallmarks">  <span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+      <a href="prediction-engine.html"  class="psb-item" data-id="prediction"> <span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+      <a href="biomarkers-panel.html"   class="psb-item" data-id="biomarkers"> <span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+      <a href="epigenetics.html"        class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+      <a href="hbot.html"               class="psb-item" data-id="hbot">       <span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+      <a href="library.html"            class="psb-item" data-id="library">    <span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+      <a href="evidence.html"           class="psb-item" data-id="evidence">   <span class="psb-item-glyph">⬢</span><span class="psb-item-label">Evidências</span></a>
+      <a href="nutrition.html"          class="psb-item" data-id="nutrition">  <span class="psb-item-glyph">◍</span><span class="psb-item-label">Nutrição</span></a>
+      <a href="digital-twin.html"       class="psb-item" data-id="digital-twin"><span class="psb-item-glyph">◬</span><span class="psb-item-label">Gêmeo Digital</span></a>
+      <a href="hdi.html"                class="psb-item" data-id="hdi">        <span class="psb-item-glyph">Δ</span><span class="psb-item-label">HDI</span></a>
+      <a href="comunidade.html"         class="psb-item" data-id="comunidade"> <span class="psb-item-glyph">◎</span><span class="psb-item-label">Comunidade</span></a>
+    </nav>
+    <div class="psb-footer">
+      <a href="login.html" class="psb-footer-link">Entrar</a>
+      <a href="register.html" class="psb-footer-link">Registrar</a>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main class="page-content" id="pageContent">
+
+    <!-- FILTER NAV -->
+    <nav class="filter-nav" id="filterNav">
+      <button class="fn-btn active" data-section="zonas">Zonas Azuis</button>
+      <button class="fn-btn" data-section="redes">Redes Sociais</button>
+      <button class="fn-btn" data-section="cortisol">Cortisol & HPA</button>
+      <button class="fn-btn" data-section="memoria">Memória</button>
+      <button class="fn-btn" data-section="protocolos">Protocolos</button>
+      <button class="fn-btn" data-section="calculadora">Calculadora</button>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero-eyebrow">◎ — Medicina Social da Longevidade</div>
+    <h1 class="hero-title">Comunidade &<br>Longevidade</h1>
+    <p class="hero-sub">
+      Isolamento social aumenta mortalidade equivalente a fumar 15 cigarros por dia.
+      Conexão genuína reduz cortisol crônico, consolida memórias episódicas de alta densidade e
+      é o preditor #1 de satisfação de vida aos 80 anos — segundo o estudo de longevidade mais longo da história.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-val">1,29×</div>
+        <div class="hstat-label">risco mortalidade · isolamento vs. conectado</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val red">2–3×</div>
+        <div class="hstat-label">depressão · 5h/dia em redes sociais</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val green">−50%</div>
+        <div class="hstat-label">cortisol · oxitocina + suporte social</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">−43%</div>
+        <div class="hstat-label">solidão · limitar redes a 30 min/dia</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val green">+9,7</div>
+        <div class="hstat-label">anos de vida · relações de alta qualidade</div>
+      </div>
+    </div>
+
+    <!-- ══ ZONAS AZUIS ══ -->
+    <div class="sec-marker" id="zonas"><div class="sec-marker-line"></div><div class="sec-marker-label">01 · Zonas Azuis</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">O Padrão das Zonas Azuis</h2>
+    <p class="sec-sub">As cinco regiões com maior concentração de centenários compartilham um denominador social idêntico: vínculos profundos, papéis comunitários ativos e restrição natural ao isolamento. O geneticista não é a diferença — a arquitetura social sim.</p>
+
+    <div class="bz-grid">
+      <div class="bz-card">
+        <span class="bz-glyph">🏝</span>
+        <div class="bz-region">Okinawa, Japão</div>
+        <span class="bz-tag">Moai · Círculo de 5</span>
+        <p class="bz-pattern">Grupos de 5 pessoas formados na infância e mantidos por toda a vida. Compartilham recursos, cuidado emocional e presença física semanal. Centenários todos relatam moai ativo.</p>
+        <div class="bz-stat">Centenários/100k: 68 · 5× média mundial</div>
+      </div>
+      <div class="bz-card">
+        <span class="bz-glyph">🏔</span>
+        <div class="bz-region">Sardenha, Itália</div>
+        <span class="bz-tag">Família multigeracional</span>
+        <p class="bz-pattern">Refeições diárias com família extensa, papéis ativos para os mais velhos, visitas de netos diárias. Avós inseridos na vida familiar — não segregados em residências.</p>
+        <div class="bz-stat">Homens centenários: taxa 3× global</div>
+      </div>
+      <div class="bz-card">
+        <span class="bz-glyph">☀️</span>
+        <div class="bz-region">Nicoya, Costa Rica</div>
+        <span class="bz-tag">Plan de vida · Propósito</span>
+        <p class="bz-pattern">Sentido de papel social claro em todas as idades. Visitas de família regulares reforçam identidade. Comunidade religiosa como estrutura de pertencimento.</p>
+        <div class="bz-stat">Mortalidade 40–60 anos: −60% vs. média CR</div>
+      </div>
+      <div class="bz-card">
+        <span class="bz-glyph">⛪</span>
+        <div class="bz-region">Loma Linda, EUA</div>
+        <span class="bz-tag">Comunidade de fé · Sabbath</span>
+        <p class="bz-pattern">Adventistas do 7° Dia: 24h semanais sem trabalho nem telas. Comunidade religiosa como suporte social obrigatório. Voluntariado integrado à identidade.</p>
+        <div class="bz-stat">Longevidade média +7–10 anos vs. EUA</div>
+      </div>
+      <div class="bz-card">
+        <span class="bz-glyph">🏛</span>
+        <div class="bz-region">Ikaria, Grécia</div>
+        <span class="bz-tag">Comunidade orgânica</span>
+        <p class="bz-pattern">Jantares coletivos frequentes, sonesta comunitária (não individual), atividade física social — caminhar junto, dançar. Sem ansiedade de agenda.</p>
+        <div class="bz-stat">Demência: 1/3 da taxa europeia média</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">"A coisa mais impressionante que aprendi em quarenta anos estudando zonas azuis é que saúde não é uma prática individual. É a soma das pessoas ao seu redor."</div>
+      <div class="quote-source">— Dan Buettner, National Geographic Fellow · Blue Zones: Lessons for Living Longer (2009)</div>
+    </div>
+
+    <!-- Evidence: social isolation mortality -->
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-meta">Meta-análise · N=3,4 milhões</span>
+        <div class="ev-title">Isolamento Social = 15 cigarros/dia</div>
+        <div class="ev-body">Holt-Lunstad et al. analisaram 148 estudos prospectivos. Isolamento social: HR 1,29 para mortalidade prematura. Solidão: HR 1,26. Viver sozinho: HR 1,32. Magnitude equivalente ao tabagismo moderado.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>HR 1,29 mortalidade · isolamento · 148 estudos · N=3,4 M</div>
+        <a class="ev-doi" href="https://doi.org/10.1371/journal.pmed.1001576" target="_blank" rel="noopener">doi:10.1371/journal.pmed.1001576 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Coorte 80 anos · Harvard</span>
+        <div class="ev-title">Estudo de Harvard sobre Adultos em Desenvolvimento</div>
+        <div class="ev-body">O estudo de longevidade mais longo do mundo (1938–2023). Qualidade das relações aos 50 anos prediz saúde física aos 80 melhor do que colesterol, IMC ou genética. Relações de alta qualidade: +9,7 anos de vida saudável estimados.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Relações #1 preditor saúde aos 80 · superior a colesterol e genética</div>
+        <a class="ev-doi" href="https://doi.org/10.1097/PSY.0000000000001030" target="_blank" rel="noopener">doi:10.1097/PSY.0000000000001030 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-review">Revisão sistemática</span>
+        <div class="ev-title">Voluntariado e Mortalidade</div>
+        <div class="ev-body">Okun et al. meta-análise de 40 estudos prospectivos. Voluntariado ≥2h/semana associado a −22% mortalidade por todas as causas. Mecanismo: propósito, integração comunitária e atividade física incidental.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>−22% mortalidade · voluntariado ≥2h/sem · 40 estudos</div>
+        <a class="ev-doi" href="https://doi.org/10.1037/a0031620" target="_blank" rel="noopener">doi:10.1037/a0031620 ↗</a>
+      </div>
+    </div>
+
+    <!-- ══ REDES SOCIAIS ══ -->
+    <div class="sec-marker" id="redes"><div class="sec-marker-line"></div><div class="sec-marker-label">02 · Redes Sociais</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Redes Sociais: Evidência sobre Depressão & Ansiedade</h2>
+    <p class="sec-sub">A adoção do smartphone e das mídias sociais entre 2011 e 2014 correlaciona-se com a maior crise de saúde mental de adolescentes já documentada. O mecanismo não é correlação — é causal: experimentos de restrição demonstram reversibilidade.</p>
+
+    <div class="alert-box">
+      <div class="alert-icon">⚠</div>
+      <div>
+        <div class="alert-title">A Grande Divergência Mental</div>
+        <div class="alert-body">Entre 2010 e 2023, taxas de depressão em adolescentes nos EUA subiram 134% em meninas e 72% em meninos. O mesmo padrão se repete em todos os países onde o smartphone foi adotado em massa — simultaneamente, independente de fatores econômicos ou políticos locais (Haidt & Allen, Nature Human Behaviour, 2020).</div>
+      </div>
+    </div>
+
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-rct">RCT · Randomizado</span>
+        <div class="ev-title">30 Minutos/dia Elimina Depressão e Solidão</div>
+        <div class="ev-body">Hunt et al. randomizaram 143 estudantes universitários para uso irrestrito vs. ≤30 min/dia de Facebook, Instagram e Snapchat por 3 semanas. Grupo restrito: −43% solidão, −50% depressão medida por PHQ-9. Efeitos sustentados pós-intervenção.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>−43% solidão · −50% depressão · 30 min/dia · 3 semanas</div>
+        <a class="ev-doi" href="https://doi.org/10.1521/jscp.2018.37.10.751" target="_blank" rel="noopener">doi:10.1521/jscp.2018.37.10.751 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Coorte · N=506.820</span>
+        <div class="ev-title">5h/dia → Depressão 2–3× Mais Frequente</div>
+        <div class="ev-body">Twenge et al. analisaram 506.820 adolescentes no survey nacional americano (1991–2016). Uso de telas ≥5h/dia vs. ≤1h/dia: risco de depressão 2–3× maior. Usuários pesados de redes sociais: RR 2,7 para tentativa de suicídio.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>5h/dia → RR 2,7 tentativa suicídio · N=506k</div>
+        <a class="ev-doi" href="https://doi.org/10.1001/jamapediatrics.2018.2223" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2018.2223 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-rct">Experimento · Facebook</span>
+        <div class="ev-title">Facebook Aumenta Cortisol e Afeto Negativo</div>
+        <div class="ev-body">Kross et al. enviaram SMSs 5×/dia a 82 adultos durante 2 semanas, rastreando bem-estar subjetivo e uso de Facebook. Maior uso de Facebook → menor bem-estar no intervalo seguinte. Efeito longitudinal e dose-dependente. Interação presencial teve efeito oposto.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>↑ uso FB → ↓ bem-estar · contato presencial → ↑ bem-estar</div>
+        <a class="ev-doi" href="https://doi.org/10.1371/journal.pone.0069841" target="_blank" rel="noopener">doi:10.1371/journal.pone.0069841 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-review">Parecer Cirúrgico Geral · EUA</span>
+        <div class="ev-title">Alerta Oficial: Redes Sociais e Saúde Mental</div>
+        <div class="ev-body">Vivek Murthy (Surgeon General dos EUA, 2023) emitiu parecer oficial classificando redes sociais como risco à saúde pública, especialmente &lt;16 anos. Recomendação: limites de tempo, design de plataforma regulado, educação parental mandatória.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Risco de saúde pública oficial · EUA 2023 · Murthy</div>
+        <a class="ev-doi" href="https://www.hhs.gov/sites/default/files/sg-advisory-social-media-mental-health.pdf" target="_blank" rel="noopener">Surgeon General Advisory 2023 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Coorte nacional · Haidt & Allen</span>
+        <div class="ev-title">Causalidade, Não Apenas Correlação</div>
+        <div class="ev-body">Análise de séries temporais em 37 países mostrou que declínio de saúde mental adolescente começa 1–3 anos após a difusão do smartphone em cada país — independente de crises econômicas, políticas ou climáticas. O timing da adoção tecnológica prediz o timing da crise.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Lag de 1–3 anos · 37 países · causalidade temporal</div>
+        <a class="ev-doi" href="https://doi.org/10.1038/s41562-020-0839-4" target="_blank" rel="noopener">doi:10.1038/s41562-020-0839-4 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-review">Análise de bem-estar</span>
+        <div class="ev-title">Tempo Social vs. Tempo de Tela</div>
+        <div class="ev-body">Kahneman et al. (Princeton) aplicaram DRM (Day Reconstruction Method) a 909 mulheres. Interação social apareceu consistentemente no topo de atividades que geram bem-estar positivo. Tempo de commute e uso passivo de telas: no fundo da escala. Efeito "illusão de foco": superestimamos bem-estar de conquistas materiais.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Contato social = atividade mais feliz · tela passiva = mais infeliz</div>
+        <a class="ev-doi" href="https://doi.org/10.1126/science.1103572" target="_blank" rel="noopener">doi:10.1126/science.1103572 ↗</a>
+      </div>
+    </div>
+
+    <!-- comparison: real vs virtual -->
+    <h3 style="font-family:var(--f-serif);font-size:1.1rem;color:var(--t-primary);margin:28px 0 12px;font-weight:400;">Contato Real vs. Digital: O Que a Fisiologia Diz</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Variável</th>
+          <th>Contato Presencial</th>
+          <th>Ligação de Vídeo</th>
+          <th>Redes Sociais Passivas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ct-name">Oxitocina</td>
+          <td class="ct-good">↑↑ forte (toque físico)</td>
+          <td class="ct-warn">↑ moderado</td>
+          <td class="ct-bad">Neutro ou ↓</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Cortisol pós-estressor</td>
+          <td class="ct-good">↓↓ −50% (Heinrichs 2003)</td>
+          <td class="ct-warn">↓ parcial</td>
+          <td class="ct-bad">↑ ou neutro</td>
+        </tr>
+        <tr>
+          <td class="ct-name">BDNF / neuroplasticidade</td>
+          <td class="ct-good">↑ (novidade + narrativa)</td>
+          <td class="ct-warn">↑ baixo</td>
+          <td class="ct-bad">↓ (atenção fragmentada)</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Memória episódica</td>
+          <td class="ct-good">Alta consolidação</td>
+          <td class="ct-warn">Moderada</td>
+          <td class="ct-bad">Baixa (scroll passivo)</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Bem-estar subjetivo</td>
+          <td class="ct-good">+2,4 pts (escala 1–10)</td>
+          <td class="ct-warn">+0,8 pts</td>
+          <td class="ct-bad">−0,6 pts (Kross 2013)</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Longevidade associada</td>
+          <td class="ct-good">HR 0,78 mortalidade</td>
+          <td class="ct-warn">Dados limitados</td>
+          <td class="ct-bad">HR 1,1–1,3 (pesados)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ══ CORTISOL ══ -->
+    <div class="sec-marker" id="cortisol"><div class="sec-marker-line"></div><div class="sec-marker-label">03 · Cortisol & HPA</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Cortisol Crônico: O Mecanismo Molecular</h2>
+    <p class="sec-sub">Isolamento social ativa o eixo HPA da mesma forma que ameaças físicas reais. Cortisol crônico suprime imunidade, acelera telômeros, aumenta inflamação e compromete cognição. Suporte social e toque físico são os reguladores mais potentes do HPA disponíveis sem farmacologia.</p>
+
+    <div class="mech-grid">
+      <div class="mech-card">
+        <div class="mech-label">Mecanismo 1</div>
+        <div class="mech-title">Isolamento → Ativação HPA</div>
+        <div class="mech-body">O sistema nervoso interpreta isolamento social como ameaça de sobrevivência. CRH → ACTH → cortisol. Cacioppo & Hawkley demostraram que solidão eleva cortisol noturno mesmo sem estressor externo identificável.</div>
+        <span class="mech-arrow">Isolamento → ↑ CRH → ↑ ACTH → ↑ Cortisol crônico</span>
+      </div>
+      <div class="mech-card">
+        <div class="mech-label">Mecanismo 2</div>
+        <div class="mech-title">Redes Sociais → Micro-estressores</div>
+        <div class="mech-body">Comparação social, FOMO, validação por likes e interrupção de dopamina criam micro-ativações HPA repetidas. Cortisol pulsátil cumulativo é tão danoso quanto cortisol basal elevado — sem o pico de ativação adaptativa.</div>
+        <span class="mech-arrow">Scroll → comparação → micro-cortisol → acumulação crônica</span>
+      </div>
+      <div class="mech-card">
+        <div class="mech-label">Mecanismo 3</div>
+        <div class="mech-title">Toque Físico → Oxitocina → Silencia HPA</div>
+        <div class="mech-body">Oxitocina (hipotálamo) inibe diretamente a liberação de CRH. Heinrichs 2003: administração de oxitocina + suporte social antes de estressor (TSST) reduziu cortisol em −50%. Cohen 2015: ≥8 abraços/dia reduz inflamação e probabilidade de adoecer.</div>
+        <span class="mech-arrow">Abraço → oxitocina → ↓ CRH → ↓ cortisol −50%</span>
+      </div>
+      <div class="mech-card">
+        <div class="mech-label">Mecanismo 4</div>
+        <div class="mech-title">Cortisol Crônico → Aceleração Biológica</div>
+        <div class="mech-body">Cortisol elevado → ↑ NF-κB → inflamação → ↑ senescência celular. Epstein et al. demostraram encurtamento telomêrico acelerado em indivíduos solitários. Blackburn & Epel (Nobel 2009): estresse crônico reduz telomerase.</div>
+        <span class="mech-arrow">Cortisol crônico → ↑ inflamação → ↓ telômeros → envelhecimento ↑</span>
+      </div>
+    </div>
+
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-rct">RCT duplo-cego</span>
+        <div class="ev-title">Oxitocina + Suporte Social: −50% Cortisol</div>
+        <div class="ev-body">Heinrichs et al. (PNAS 2003): 37 homens randomizados para oxitocina intranasal ± suporte social antes do Trier Social Stress Test. Grupo oxitocina + suporte: −50% cortisol vs. controle. Suporte social sem oxitocina: −30%. Interação sinérgica confirmada.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>−50% cortisol · oxitocina + suporte · TSST · n=37</div>
+        <a class="ev-doi" href="https://doi.org/10.1073/pnas.1332373100" target="_blank" rel="noopener">doi:10.1073/pnas.1332373100 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-rct">RCT · toque físico</span>
+        <div class="ev-title">Abraços Diários: −32% Probabilidade de Adoecer</div>
+        <div class="ev-body">Cohen et al. (Psychological Science 2015): 404 adultos, telefone diário por 14 dias rastreando conflito e abraços, depois exposição ao rinovírus. Maior frequência de abraços amorteceu efeitos de conflito na infecção. Participantes com ≥8 abraços/dia: −32% probabilidade de desenvolver sintomas.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>≥8 abraços/dia → −32% infecção · n=404 · Cohen 2015</div>
+        <a class="ev-doi" href="https://doi.org/10.1177/0956797614559284" target="_blank" rel="noopener">doi:10.1177/0956797614559284 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Coorte prospectiva</span>
+        <div class="ev-title">Solidão → Cortisol Noturno Elevado</div>
+        <div class="ev-body">Cacioppo & Hawkley (J Personal Social Psych, 2006): solidão prediz cortisol matutino e noturno elevados independentemente de depressão, qualidade do sono e IMC. Cada desvio-padrão adicional de solidão: +17% cortisol noturno médio. Reversível com intervenção social.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>+17% cortisol noturno/DP solidão · independente de depressão</div>
+        <a class="ev-doi" href="https://doi.org/10.1037/0022-3514.90.6.1014" target="_blank" rel="noopener">doi:10.1037/0022-3514.90.6.1014 ↗</a>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Cortisol Diurno: Isolado vs. Conectado vs. Redes Sociais Intensas (simulação esquemática)</div>
+      <canvas id="cortisolChart" height="160"></canvas>
+    </div>
+
+    <!-- ══ MEMÓRIA ══ -->
+    <div class="sec-marker" id="memoria"><div class="sec-marker-line"></div><div class="sec-marker-label">04 · Memória & Identidade</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Memória, Identidade e o Vácuo das Telas</h2>
+    <p class="sec-sub">Memórias de alta valência emocional formadas em contextos sociais reais são a substância da identidade e da satisfação de vida retrospectiva. Atenção fragmentada por telas impede a consolidação hipocampal dessas memórias — gerando um vácuo fenomenológico progressivo.</p>
+
+    <div class="memory-timeline">
+      <div class="mt-item">
+        <div class="mt-era">Antes de 2007</div>
+        <div class="mt-title">Alta Densidade de Memória Episódica Social</div>
+        <div class="mt-body">Interações presenciais sem competição de atenção. Eventos sociais sem registro fotográfico compulsivo. Atenção sustentada gerava consolidação hipocampal profunda. Narrativa de vida rica em episódios sensorialmente codificados.</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-era">2007–2012 · Adoção do iPhone / Facebook</div>
+        <div class="mt-title">Início da Fragmentação Atencional</div>
+        <div class="mt-body">Primeiras interrupções de atenção durante eventos sociais. Documentação fotográfica começa a substituir experiência direta ("observer effect": tirar foto piora consolidação do evento em si — Henkel, Psychological Science 2014). Primeiros sinais de FOMO como estado ansioso crônico.</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-era">2012–2018 · Instagram, Snapchat, TikTok</div>
+        <div class="mt-title">Ruptura da Memória Autobiográfica Densa</div>
+        <div class="mt-body">Scroll infinito fragmenta atenção em janelas de 2–8 segundos. Consolidação hipocampal requer atenção sustentada ≥30 segundos (McGaugh 2000). Déficit cumulativo: menos episódios de alta valência disponíveis para recordação autobiográfica.</div>
+      </div>
+      <div class="mt-item">
+        <div class="mt-era">Presente · Adulto hiperconectado</div>
+        <div class="mt-title">Vácuo Fenomenológico Progressivo</div>
+        <div class="mt-body">Relatos clínicos consistentes de "não lembro o que fiz semana passada" com agenda repleta. Tempo objetivamente cheio — experiência subjetivamente vazia. Paralelo com queixas de pacientes com déficit de BDNF: cognição intacta, memória autobiográfica empobrecida.</div>
+      </div>
+    </div>
+
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-rct">Experimento · Henkel 2014</span>
+        <div class="ev-title">Fotografar Piora Memória do Evento</div>
+        <div class="ev-body">Participantes visitaram museu e foram instruídos a observar alguns objetos vs. fotografar outros. Objetos fotografados foram recordados com menos detalhes e menor precisão — mesmo sem rever as fotos. A intenção de registrar delega a memória à câmera e desativa encoding hipocampal.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Fotografar → memória mais fraca do evento fotografado</div>
+        <a class="ev-doi" href="https://doi.org/10.1177/0956797613504438" target="_blank" rel="noopener">doi:10.1177/0956797613504438 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-review">Neurociência · Walker 2017</span>
+        <div class="ev-title">Sono Social e Consolidação da Memória</div>
+        <div class="ev-body">Walker (Why We Sleep, 2017): privação de sono por isolamento social compromete consolidação hipocampal de memórias episódicas do dia anterior. Sono de qualidade mediocre elimina 40–60% da capacidade de transferência de memória para armazenamento de longo prazo.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Privação sono → −40 a −60% consolidação memória episódica</div>
+        <a class="ev-doi" href="https://doi.org/10.1126/science.1211835" target="_blank" rel="noopener">doi:10.1126/science.1211835 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Psicologia positiva</span>
+        <div class="ev-title">Experiências Pico vs. Scroll Passivo</div>
+        <div class="ev-body">Csikszentmihalyi (Flow, 1990) e pesquisas subsequentes: estados de "flow" social — conversas profundas, atividade física compartilhada, criação coletiva — geram memórias de alta valência e satisfação retrospectiva de vida. Consumo passivo de conteúdo: zero contribuição para bem-estar retrospectivo.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Flow social → memória pico · scroll passivo → bem-estar zero</div>
+        <a class="ev-doi" href="https://doi.org/10.1017/S0140525X00031525" target="_blank" rel="noopener">doi:10.1017/S0140525X00031525 ↗</a>
+      </div>
+    </div>
+
+    <!-- ══ PROTOCOLOS ══ -->
+    <div class="sec-marker" id="protocolos"><div class="sec-marker-line"></div><div class="sec-marker-label">05 · Protocolos Clínicos</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Protocolos Baseados em Evidências</h2>
+    <p class="sec-sub">Intervenções específicas com dosagem, mecanismo e suporte de literatura. Implementação progressiva recomendada: comece pela restrição de telas (maior impacto imediato), depois construa a estrutura social positiva.</p>
+
+    <div class="proto-grid">
+      <div class="proto-card">
+        <span class="proto-icon">📱</span>
+        <div class="proto-title">Restrição de Redes Sociais</div>
+        <div class="proto-dose">≤ 30 min/dia · Instagram, TikTok, X</div>
+        <div class="proto-body">Usar timer de tela nativo (iOS Screen Time / Android Digital Wellbeing). Agrupar uso em 1 janela única (ex: 12h–12h30). Remover apps da tela inicial — fricção reduz uso em 40%. Notificações off permanente exceto mensagens diretas de pessoas reais.</div>
+        <div class="proto-evidence">Hunt 2018: −43% solidão · −50% depressão em 3 sem</div>
+      </div>
+      <div class="proto-card">
+        <span class="proto-icon">◎</span>
+        <div class="proto-title">Construir Seu Moai</div>
+        <div class="proto-dose">5 pessoas · encontro semanal</div>
+        <div class="proto-body">Grupo de 5 com comprometimento explícito de longo prazo. Atividade física compartilhada preferível (caminhada, natação, esporte). Refeição juntos ≥1×/semana. Regra: presença física prioritária, vídeo como exceção. Diversidade etária desejável (20+ anos de diferença).</div>
+        <div class="proto-evidence">Okinawa moai · todos os centenários tinham moai ativo</div>
+      </div>
+      <div class="proto-card">
+        <span class="proto-icon">🤝</span>
+        <div class="proto-title">Toque Físico Diário</div>
+        <div class="proto-dose">≥ 8 abraços/dia · ≥ 20 seg cada</div>
+        <div class="proto-body">Abraço de ≥20 segundos: duração necessária para liberação sustentada de oxitocina. Inclui abraços de parceiros, familiares, amigos próximos. Massagem profissional ≥1×/mês. Contato físico casual (mão no ombro) conta mas com menor magnitude.</div>
+        <div class="proto-evidence">Cohen 2015: −32% infecção · Heinrichs 2003: −50% cortisol</div>
+      </div>
+      <div class="proto-card">
+        <span class="proto-icon">🍽</span>
+        <div class="proto-title">Refeições Comunitárias</div>
+        <div class="proto-dose">≥ 5 refeições/semana com outra pessoa</div>
+        <div class="proto-body">Comer com outros ativa conversação de baixa ansiedade, refeições mais lentas (→ menor insulina pós-prandial) e satisfação social. Celular fora da mesa. Padrão das Zonas Azuis: almoço e jantar sociais, não solitários. Refeição solitária = sinal amarelo de isolamento.</div>
+        <div class="proto-evidence">Blue Zones: refeições sociais universais em centenários</div>
+      </div>
+      <div class="proto-card">
+        <span class="proto-icon">🌿</span>
+        <div class="proto-title">Sabbath Digital Semanal</div>
+        <div class="proto-dose">24h/semana · telas mínimas</div>
+        <div class="proto-body">1 dia completo sem redes sociais, news feeds ou streaming passivo. Atividades permitidas: leitura física, conversas, natureza, esporte, cozinha. Adventistas de Loma Linda praticam há décadas. Efeito: reset de dopamina, redução de cortisol basal, melhora de sono.</div>
+        <div class="proto-evidence">Loma Linda: +7–10 anos longevidade · Sabbath como pilar</div>
+      </div>
+      <div class="proto-card">
+        <span class="proto-icon">🙌</span>
+        <div class="proto-title">Voluntariado Estruturado</div>
+        <div class="proto-dose">≥ 2h/semana · causa pessoal</div>
+        <div class="proto-body">Escolher causa alinhada com valores — a congruência amplifica efeito de propósito. Atividade presencial preferível a doação monetária. Beneficiário real visível: neurônios-espelho ativados. Consistência mensal mais importante que intensidade episódica.</div>
+        <div class="proto-evidence">Okun 2013: −22% mortalidade · meta-análise 40 estudos</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--f-serif);font-size:1.1rem;color:var(--t-primary);margin:28px 0 12px;font-weight:400;">Dosagem de Intervenções Sociais — Referência Clínica</h3>
+    <table class="dose-table">
+      <thead>
+        <tr>
+          <th>Intervenção</th>
+          <th>Dose Mínima Efetiva</th>
+          <th>Dose Ideal</th>
+          <th>Desfecho Principal</th>
+          <th>Suporte</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ct-name">Restrição redes sociais</td>
+          <td>≤30 min/dia</td>
+          <td class="dose-optimal">≤15 min/dia</td>
+          <td>−43% solidão, −50% depressão</td>
+          <td>Hunt 2018 · RCT</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Encontros presenciais</td>
+          <td>1×/semana</td>
+          <td class="dose-optimal">3–4×/semana</td>
+          <td>↓ cortisol, ↑ bem-estar</td>
+          <td>Waldinger 2023 · Coorte 80a</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Abraços físicos</td>
+          <td>4 abraços/dia</td>
+          <td class="dose-optimal">≥8 abraços/dia (≥20s)</td>
+          <td>−32% infecção, −50% cortisol</td>
+          <td>Cohen 2015 · RCT</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Refeições sociais</td>
+          <td>3/semana</td>
+          <td class="dose-optimal">5+/semana</td>
+          <td>↑ bem-estar, ↓ solidão</td>
+          <td>Blue Zones observacional</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Sabbath digital</td>
+          <td>12h/semana</td>
+          <td class="dose-optimal">24h/semana</td>
+          <td>↓ cortisol basal, ↑ sono</td>
+          <td>Loma Linda · coorte</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Voluntariado</td>
+          <td>1h/semana</td>
+          <td class="dose-optimal">2–4h/semana</td>
+          <td>−22% mortalidade</td>
+          <td>Okun 2013 · meta-análise</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Conversas profundas</td>
+          <td>1×/semana &gt;30 min</td>
+          <td class="dose-optimal">3–5×/semana</td>
+          <td>↑ memória episódica, ↑ flow</td>
+          <td>Kahneman 2006 · DRM</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Atividade física grupal</td>
+          <td>1×/semana</td>
+          <td class="dose-optimal">3×/semana</td>
+          <td>Duplo benefício: HRV + social</td>
+          <td>Blue Zones · meta-análise geral</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Contato multigeracional</td>
+          <td>2×/mês</td>
+          <td class="dose-optimal">Semanal</td>
+          <td>↓ cognitivo, ↑ propósito</td>
+          <td>Buettner 2012 · Blue Zones</td>
+        </tr>
+        <tr>
+          <td class="ct-name">Natureza grupal</td>
+          <td>1×/mês</td>
+          <td class="dose-optimal">Semanal ≥120 min</td>
+          <td>−28% cortisol · ↑ bem-estar</td>
+          <td>White 2019 · NEJM · n=20k</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ══ CALCULADORA ══ -->
+    <div class="sec-marker" id="calculadora"><div class="sec-marker-line"></div><div class="sec-marker-label">06 · Calculadora</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Score de Saúde Social</h2>
+    <p class="sec-sub">Pontuação baseada nos protocolos com maior suporte de evidências. Use como diagnóstico inicial — não como avaliação clínica formal.</p>
+
+    <div class="calc-wrap">
+      <div class="calc-title">Avaliação de Vínculos Sociais</div>
+
+      <div class="calc-row">
+        <div class="calc-label">Horas/dia em redes sociais (média)</div>
+        <input class="calc-input" id="cSocial" type="number" value="2" min="0" max="16" step="0.5">
+        <span class="calc-unit">h/dia</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Encontros presenciais com amigos/família (semana)</div>
+        <input class="calc-input" id="cMeet" type="number" value="2" min="0" max="21" step="1">
+        <span class="calc-unit">×/sem</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Abraços ou contato físico recebidos (dia)</div>
+        <input class="calc-input" id="cTouch" type="number" value="3" min="0" max="20" step="1">
+        <span class="calc-unit">×/dia</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Refeições sociais com outras pessoas (semana)</div>
+        <input class="calc-input" id="cMeals" type="number" value="3" min="0" max="21" step="1">
+        <span class="calc-unit">×/sem</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Horas de Sabbath digital semanal (sem redes)</div>
+        <input class="calc-input" id="cSabbath" type="number" value="6" min="0" max="48" step="1">
+        <span class="calc-unit">h/sem</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Horas de voluntariado ou serviço comunitário (semana)</div>
+        <input class="calc-input" id="cVolunteer" type="number" value="0" min="0" max="20" step="0.5">
+        <span class="calc-unit">h/sem</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Você tem um "moai" — grupo estável de 3–6 pessoas?</div>
+        <select class="calc-input" id="cMoai" style="width:120px;">
+          <option value="0">Não</option>
+          <option value="0.5">Em formação</option>
+          <option value="1">Sim, ativo</option>
+        </select>
+      </div>
+
+      <button class="calc-btn" onclick="calcSocialScore()">Calcular Score</button>
+
+      <div class="calc-result" id="calcResult">
+        <div class="calc-score-wrap">
+          <div class="calc-score-num" id="scoreNum">0</div>
+          <div class="calc-score-label" id="scoreLabel"></div>
+        </div>
+        <div class="calc-bars" id="calcBars"></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="alert-icon">◎</div>
+      <div>
+        <div class="alert-title">Protocolo de Implementação Progressivo</div>
+        <div class="alert-body">Semana 1–2: Instalar Screen Time/Digital Wellbeing e definir limite de 30 min para todas as redes sociais. Semana 3–4: Identificar 5 pessoas para o seu moai e propor encontro semanal fixo. Semana 5–8: Adicionar refeições sociais e Sabbath digital. Mês 3+: Voluntariado e multigeracionalidade. Não tente implementar tudo simultaneamente — mudança de comportamento social requer progressão.</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  /* ── Sidebar active state ── */
+  (function() {
+    const sidebar = document.getElementById('pageSidebar');
+    if (!sidebar) return;
+    const page = 'comunidade';
+    if (page) {
+      const active = sidebar.querySelector('.psb-item[data-id="' + page + '"]');
+      if (active) active.classList.add('active');
+    }
+  })();
+
+  /* ── Filter nav ── */
+  (function() {
+    const btns = document.querySelectorAll('.fn-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const id = btn.dataset.section;
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+
+  /* ── Cortisol Chart ── */
+  (function() {
+    const ctx = document.getElementById('cortisolChart');
+    if (!ctx) return;
+
+    const hours = Array.from({length: 24}, (_, i) => i + ':00');
+    // Cortisol normal (nM): peaks at 8am ~600, drops through day
+    const normal   = [200,170,150,140,150,300,550,620,580,480,380,300,250,220,200,190,180,170,165,160,155,150,148,180];
+    const isolated = [220,200,190,185,200,340,600,660,620,530,440,370,320,290,280,270,265,260,255,250,245,240,238,260];
+    const heavy_sm = [210,185,175,170,185,320,570,640,600,510,420,340,290,270,280,320,350,340,310,290,275,260,250,230]; // spikes in afternoon/evening from social media use
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: hours,
+        datasets: [
+          {
+            label: 'Conectado (vínculos reais)',
+            data: normal,
+            borderColor: '#5E9968',
+            backgroundColor: 'rgba(94,153,104,0.08)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: false,
+            pointRadius: 0,
+          },
+          {
+            label: 'Isolado socialmente',
+            data: isolated,
+            borderColor: '#955252',
+            backgroundColor: 'rgba(149,82,82,0.08)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: false,
+            pointRadius: 0,
+          },
+          {
+            label: 'Redes sociais intensas (>4h/dia)',
+            data: heavy_sm,
+            borderColor: '#B07D44',
+            backgroundColor: 'rgba(176,125,68,0.08)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: false,
+            pointRadius: 0,
+            borderDash: [4, 4],
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#878491', font: { family: 'Space Mono', size: 10 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' nM'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#45434D',
+              font: { family: 'Space Mono', size: 9 },
+              maxTicksLimit: 8,
+            },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          },
+          y: {
+            ticks: {
+              color: '#45434D',
+              font: { family: 'Space Mono', size: 9 },
+              callback: v => v + ' nM'
+            },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          }
+        }
+      }
+    });
+  })();
+
+  /* ── Social Health Calculator ── */
+  function calcSocialScore() {
+    const socialH   = parseFloat(document.getElementById('cSocial').value)    || 0;
+    const meetW     = parseFloat(document.getElementById('cMeet').value)       || 0;
+    const touchD    = parseFloat(document.getElementById('cTouch').value)      || 0;
+    const mealsW    = parseFloat(document.getElementById('cMeals').value)      || 0;
+    const sabbathH  = parseFloat(document.getElementById('cSabbath').value)    || 0;
+    const voluntH   = parseFloat(document.getElementById('cVolunteer').value)  || 0;
+    const moai      = parseFloat(document.getElementById('cMoai').value)       || 0;
+
+    // Score components (each 0–100, then weighted)
+    // 1. Social media: ideal ≤0.5h, penalizes up to 16h
+    const s1 = Math.max(0, 100 - Math.min(100, socialH * 14));
+
+    // 2. Meetings: ideal ≥5/week = 100
+    const s2 = Math.min(100, meetW * 20);
+
+    // 3. Touch: ideal ≥8/day = 100
+    const s3 = Math.min(100, touchD * 12.5);
+
+    // 4. Meals: ideal ≥7/week = 100
+    const s4 = Math.min(100, mealsW * 14.3);
+
+    // 5. Sabbath: ideal ≥24h = 100
+    const s5 = Math.min(100, sabbathH * 4.2);
+
+    // 6. Volunteer: ideal ≥2h = 100
+    const s6 = Math.min(100, voluntH * 50);
+
+    // 7. Moai: 0/50/100
+    const s7 = moai * 100;
+
+    // Weights (sum=1): social media restriction most impactful short-term
+    const W = [0.20, 0.20, 0.15, 0.12, 0.12, 0.10, 0.11];
+    const scores = [s1, s2, s3, s4, s5, s6, s7];
+    const total = Math.round(scores.reduce((acc, s, i) => acc + s * W[i], 0));
+
+    // Labels
+    let label = '';
+    if (total >= 80) label = `Score excelente. Seus vínculos sociais estão alinhados com os padrões das Zonas Azuis. Mantenha o moai ativo e as telas sob controle.`;
+    else if (total >= 60) label = `Score moderado. Vínculos presentes mas com gargalos claros. Foque nos pontos vermelhos abaixo — pequenas mudanças têm retorno alto.`;
+    else if (total >= 40) label = `Score de atenção. Isolamento parcial com risco de cortisol crônico e empobrecimento de memória autobiográfica. Prioridade: reduzir redes sociais e construir moai.`;
+    else label = `Score crítico. Padrão consistente com isolamento social de alto risco (HR 1,29 mortalidade). Intervenção imediata recomendada — comece pela restrição de telas hoje.`;
+
+    document.getElementById('scoreNum').textContent = total;
+    document.getElementById('scoreLabel').textContent = label;
+
+    // Bars
+    const barLabels = [
+      'Restrição redes sociais',
+      'Encontros presenciais',
+      'Contato físico/abraços',
+      'Refeições sociais',
+      'Sabbath digital',
+      'Voluntariado',
+      'Moai'
+    ];
+    const barColors = scores.map(s =>
+      s >= 70 ? '#5E9968' : s >= 40 ? '#B07D44' : '#955252'
+    );
+    const barsHtml = scores.map((s, i) => `
+      <div class="calc-bar-row">
+        <div class="calc-bar-label">${barLabels[i]}</div>
+        <div class="calc-bar-track">
+          <div class="calc-bar-fill" style="width:${s}%;background:${barColors[i]};"></div>
+        </div>
+        <span style="font-family:var(--f-mono);font-size:9px;color:${barColors[i]};width:28px;text-align:right;">${Math.round(s)}</span>
+      </div>
+    `).join('');
+
+    document.getElementById('calcBars').innerHTML = barsHtml;
+    const result = document.getElementById('calcResult');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
