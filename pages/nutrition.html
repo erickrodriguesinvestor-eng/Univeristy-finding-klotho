@@ -418,6 +418,45 @@
       transition: opacity .2s;
     }
     .study-doi:hover { opacity: 1; }
+    .study-kf {
+      background: var(--depth-1); border: 1px solid var(--b-ghost);
+      border-left: 3px solid var(--aurum); border-radius: 3px;
+      padding: 9px 14px; margin: 10px 0;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .study-kf-label {
+      font-family: var(--f-mono); font-size: .58rem; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--t-tertiary); flex-shrink: 0;
+    }
+    .study-kf-val {
+      font-family: var(--f-mono); font-size: .72rem; color: var(--aurum); font-weight: 600;
+    }
+    /* DOSING TABLE */
+    .dose-table-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-ghost);
+      border-radius: 4px; overflow-x: auto; margin-top: 40px;
+    }
+    .dose-table {
+      width: 100%; border-collapse: collapse; font-size: .78rem;
+    }
+    .dose-table thead th {
+      font-family: var(--f-mono); font-size: .58rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--aurum);
+      background: var(--depth-1); padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--b-subtle);
+    }
+    .dose-table tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--b-ghost);
+      color: var(--t-secondary); vertical-align: top; line-height: 1.5;
+    }
+    .dose-table tbody tr:last-child td { border-bottom: none; }
+    .dose-table tbody tr:hover td { background: rgba(255,255,255,.02); }
+    .dose-optimal { font-weight: 600; color: var(--vitae); }
+    .dose-ref { font-family: var(--f-mono); font-size: .6rem; color: var(--t-tertiary); }
+    @media (max-width: 700px) {
+      .dose-table thead th:nth-child(3),
+      .dose-table tbody td:nth-child(3) { display: none; }
+    }
 
     /* PROTOCOL SUMMARY */
     .protocol-table {
@@ -1148,6 +1187,7 @@
         <div class="study-finding">
           7.447 participantes em alto risco cardiovascular randomizados para Dieta Mediterrânea + azeite extra-virgem, Dieta Mediterrânea + nozes, ou dieta controle de baixa gordura. Após 4,8 anos de seguimento, ambos os grupos mediterrâneos reduziram eventos cardiovasculares maiores (IAM, AVC, morte CV) em 30–31% comparado ao controle (HR 0,70; IC 95%, 0,54–0,92).
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">HR 0,70 · −30% eventos CV maiores · N=7.447 · 4,8 anos</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">Este é o maior RCT de intervenção dietética para desfechos cardiovasculares duros. A magnitude do efeito (30% de redução) é comparável a estatinas e anti-hipertensivos. Formou a base do pilar de gorduras do nosso protocolo: azeite extra-virgem ≥4 colheres/dia e nozes ≥30g/dia são obrigatórios.</div>
@@ -1168,6 +1208,7 @@
         <div class="study-finding">
           459 adultos com hipertensão estágio 1 e pré-hipertensão. A dieta DASH reduziu PAS em 5,5 mmHg e PAD em 3,0 mmHg versus controle (p&lt;0,001). Em hipertensos, a redução foi ainda maior: −11,4 mmHg na PAS. Resultados replicados em meta-análise de 2019 (Chiavaroli et al., JAMA): 27 RCTs, n=3.230.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">−11,4 mmHg PAS (hipertensos) · −5,5 mmHg geral · efeito = 1 classe anti-hipertensivo</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">Hipertensão é responsável por 13% de todas as mortes globais e é o principal fator de risco para AVC e insuficiência renal. A DASH demonstrou eficácia comparável a uma classe de anti-hipertensivos sem efeitos colaterais. Integramos seus princípios de restrição de sódio e equilíbrio de cátions (K+, Mg²+, Ca²+) ao protocolo base.</div>
@@ -1189,6 +1230,7 @@
         <div class="study-finding">
           Análise de 5 coortes independentes (Japão, Suécia, Grécia, Austrália) com 785 idosos acima de 70 anos. O consumo de leguminosas foi o único grupo alimentar associado de forma consistente com redução de mortalidade em todas as 5 populações (−8% de mortalidade por 20g adicionais/dia). Nenhum outro grupo alimentar mostrou efeito replicável em todas as culturas.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">−8% mortalidade por 20g adicionais/dia · único alimento replicável em 5 culturas</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">Esta é a evidência mais robusta de um único alimento com efeito de longevidade transcultural. Leguminosas são a principal fonte proteica do protocolo não apenas por serem econômicas, mas por combinar proteína + fibra solúvel + fitatos + saponinas — sinergia que reduz glicemia pós-prandial, LDL e inflamação intestinal simultaneamente.</div>
@@ -1209,6 +1251,7 @@
         <div class="study-finding">
           218 adultos saudáveis não-obesos randomizados para 25% de restrição calórica ou alimentação ad libitum por 2 anos. O grupo com restrição calórica reduziu significativamente: insulina em jejum (−17%), fator de necrose tumoral-α (−13,9%), IGF-1 (−−19,3%) e triglicerídeos (−24%). Marcadores epigenéticos indicaram desaceleração do envelhecimento biológico estimada em 0,11 anos por ano de restrição.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">−17% insulina · −0,11 anos biológicos/ano · −24% triglicerídeos · N=218 · RCT 2 anos</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">O princípio do "Hara Hachi Bu" das Zonas Azuis é agora respaldado por dados de RCT em humanos. A opção de "restrição calórica leve (−15%)" na calculadora baseia-se diretamente neste ensaio. Não recomendamos restrição acima de 20% cronicamente — perda muscular (sarcopenia) e imunossupressão aparecem acima desse limiar.</div>
@@ -1229,6 +1272,7 @@
         <div class="study-finding">
           6.381 adultos (NHANES III) seguidos por 18 anos. Consumo elevado de proteína animal (&gt;20% das calorias) em adultos de 50–65 anos associou-se a 4× mais chance de mortalidade por câncer e 2× mais chance de mortalidade geral versus baixo consumo proteico. O efeito foi mediado por IGF-1. Acima de 65 anos, proteína alta foi protetora (perda muscular predomina sobre IGF-1).
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">×4 mortalidade câncer (50–65 anos, proteína animal elevada) · via IGF-1 · ÷ aos 65+</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">Este estudo justifica nossa recomendação de proteínas vegetais (que elevam menos IGF-1) como base, com proteína animal (peixe, aves) como complemento. Também explica por que a calculadora usa 1,8g/kg — adequado para composição corporal sem ativar IGF-1 excessivamente. Acima de 65 anos, ajustamos para 2,0–2,2g/kg para contrariar sarcopenia.</div>
@@ -1249,6 +1293,7 @@
         <div class="study-finding">
           96.469 adventistas do 7º dia seguidos por 5,8 anos. Adventistas vegetarianos viveram em média 9,5 anos a mais que a população geral americana. Dentro dos vegetarianos: pesco-vegetarianos (que comem peixe) tiveram menor mortalidade geral (HR 0,81), seguidos por veganos (HR 0,85). Mortalidade cardiovascular foi 29% menor em vegetarianos versus não-vegetarianos.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">HR 0,81 pesco-vegetariano · +9,5 anos vs. população geral · −29% mortalidade CV · N=96.469</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">Loma Linda (California) é uma das Zonas Azuis justamente por ser a principal comunidade adventista dos EUA. Este estudo de coorte de larga escala valida o padrão alimentar predominantemente vegetal + peixe que utilizamos. O diferencial do pesco-vegetarianismo sugere que ômega-3 do peixe é o principal fator protetor ausente na dieta vegana estrita.</div>
@@ -1269,6 +1314,7 @@
         <div class="study-finding">
           92.383 americanos seguidos por 28 anos (Nurses' Health Study + Health Professionals Follow-up Study). Consumo de &gt;7g de azeite/dia (≈ ½ colher) associou-se a 19% menor mortalidade geral, 19% menor mortalidade CV, 17% menor mortalidade por câncer e 29% menor mortalidade por doenças neurodegenerativas versus não-consumidores.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">−19% mortalidade geral · −29% neurodegeneração · dose mínima &gt;7g/dia · N=92.383 · 28 anos</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">A magnitude do efeito neuroprotetor (−29% Alzheimer/Parkinson) é notável e consistente com dados mecanísticos sobre oleocantal (inibidor da formação de oligômeros beta-amiloides) e polifenóis do azeite. Esta é a razão pela qual azeite extra-virgem de alta qualidade (acidez &lt;0,5%, colhido no mesmo ano) é o único óleo recomendado no protocolo.</div>
@@ -1289,6 +1335,7 @@
         <div class="study-finding">
           5.309 adultos (NHANES). Consumo diário de 240ml de refrigerante açucarado associou-se a telômeros 1,9 anos mais curtos que os de não-consumidores (p&lt;0,001). O efeito foi dose-dependente e independente de IMC, tabagismo e atividade física. Calculado como equivalente ao efeito do tabagismo sobre comprimento telomérico.
         </div>
+        <div class="study-kf"><span class="study-kf-label">Efeito-chave</span><span class="study-kf-val">−1,9 anos telômeros por 240ml/dia de refrigerante · equivalente ao tabagismo · N=5.309</span></div>
         <div class="study-why">
           <div class="study-why-label">Por que usamos</div>
           <div class="study-why-text">O comprimento telomérico é um dos 12 hallmarks do envelhecimento que monitoramos. Este dado quantifica o custo biológico do açúcar em anos de envelhecimento celular — tornando a recomendação de evitar açúcar não uma questão estética, mas de longevidade mensurável. O mecanismo provável envolve glicação (AGEs), estresse oxidativo e ativação do NF-κB.</div>
@@ -1299,6 +1346,97 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- DOSING REFERENCE TABLE -->
+    <div style="margin-top:40px">
+      <div style="font-family:var(--f-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t-tertiary);margin-bottom:8px">Protocolo Quantitativo · Dose Efetiva Mínima (DEM)</div>
+      <h3 style="font-family:var(--f-serif);font-size:1.6rem;font-weight:400;font-style:italic;color:var(--t-primary);margin-bottom:20px">Referência Clínica de Doses com Suporte Científico</h3>
+      <div class="dose-table-wrap">
+        <table class="dose-table">
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Dose Mínima Efetiva</th>
+              <th class="dose-optimal">Dose Ótima Protocolo</th>
+              <th>Frequência</th>
+              <th>Estudo Suporte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Azeite extra-virgem</td>
+              <td>&gt;7g/dia (≈ ½ col. sopa)</td>
+              <td class="dose-optimal">≥4 col. sopa/dia (56g)</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Guasch-Ferré et al. JACC 2022<br>Estruch et al. NEJM 2013</span></td>
+            </tr>
+            <tr>
+              <td>Nozes / castanhas (mix)</td>
+              <td>15g/dia</td>
+              <td class="dose-optimal">30g/dia (~1 punhado)</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">PREDIMED (NEJM 2013)</span></td>
+            </tr>
+            <tr>
+              <td>Peixe gordo (salmão, sardinha, atum)</td>
+              <td>2× semana</td>
+              <td class="dose-optimal">3× semana · 150g/porção</td>
+              <td>Semanal</td>
+              <td><span class="dose-ref">AHA Scientific Statement 2021<br>Orlich et al. JAMA IM 2013</span></td>
+            </tr>
+            <tr>
+              <td>Leguminosas (feijão, lentilha, grão-de-bico)</td>
+              <td>100g cozido/dia</td>
+              <td class="dose-optimal">150–200g cozido/dia</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Darmadi-Blackberry et al. 2004</span></td>
+            </tr>
+            <tr>
+              <td>Vegetais folhosos escuros</td>
+              <td>2 porções/dia (80g/porção)</td>
+              <td class="dose-optimal">3+ porções/dia</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">PREDIMED / Morris et al. Neurology 2018</span></td>
+            </tr>
+            <tr>
+              <td>Proteína total</td>
+              <td>1,2g/kg peso corporal</td>
+              <td class="dose-optimal">1,6–2,0g/kg (≥65 anos: 2,2g/kg)</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Levine et al. Cell Metab 2014<br>Phillips et al. JAMDA 2016</span></td>
+            </tr>
+            <tr>
+              <td>Açúcar adicionado</td>
+              <td>&lt;25g/dia (OMS threshold)</td>
+              <td class="dose-optimal">&lt;10g/dia · zero refrigerantes</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Leung et al. AJPH 2014<br>OMS Guideline 2015</span></td>
+            </tr>
+            <tr>
+              <td>Sódio (NaCl)</td>
+              <td>&lt;2.300mg/dia</td>
+              <td class="dose-optimal">&lt;1.500mg/dia (DASH ideal)</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Appel et al. NEJM 1997 (DASH)</span></td>
+            </tr>
+            <tr>
+              <td>Restrição calórica (vs. TDEE)</td>
+              <td>−10% TDEE (leve)</td>
+              <td class="dose-optimal">−15% TDEE · sem ultrapassar −20%</td>
+              <td>Crônico</td>
+              <td><span class="dose-ref">Ravussin et al. Lancet DE 2015 (CALERIE)</span></td>
+            </tr>
+            <tr>
+              <td>Proporção proteína vegetal</td>
+              <td>&gt;40% da proteína total</td>
+              <td class="dose-optimal">&gt;60% vegetal · &lt;40% animal</td>
+              <td>Diária</td>
+              <td><span class="dose-ref">Orlich et al. JAMA IM 2013<br>Levine et al. Cell Metab 2014</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

@@ -138,6 +138,44 @@
     .tag-hypo  { background: rgba(99,179,237,.15); color: #63B3ED; border: 1px solid rgba(99,179,237,.3); }
     .tag-chip  { background: rgba(245,158,11,.15); color: #F5A623; border: 1px solid rgba(245,158,11,.3); }
     .tag-loss  { background: rgba(123,163,125,.15); color: var(--vitae); border: 1px solid rgba(123,163,125,.3); }
+    .gene-doi {
+      display: inline-block; margin-top: 8px;
+      font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary);
+      text-decoration: none; transition: color .15s;
+    }
+    .gene-doi:hover { color: var(--aurum); }
+
+    /* BIOLOGICAL CLOCKS TABLE */
+    .clocks-section { margin-bottom: 64px; }
+    .clocks-table {
+      width: 100%; border-collapse: collapse;
+      font-size: .78rem; background: var(--depth-2);
+      border: 1px solid var(--b-ghost); border-radius: 4px; overflow: hidden;
+    }
+    .clocks-table thead th {
+      font-family: var(--f-mono); font-size: .58rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--aurum);
+      background: var(--depth-1); padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--b-subtle);
+    }
+    .clocks-table tbody td {
+      padding: 11px 14px; border-bottom: 1px solid var(--b-ghost);
+      color: var(--t-secondary); vertical-align: top; line-height: 1.5;
+    }
+    .clocks-table tbody tr:last-child td { border-bottom: none; }
+    .clocks-table tbody tr:hover td { background: rgba(255,255,255,.02); }
+    .clock-name { font-weight: 600; color: var(--t-primary); }
+    .clock-doi { font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); }
+    .clock-doi a { color: inherit; text-decoration: none; transition: color .15s; }
+    .clock-doi a:hover { color: var(--aurum); }
+    .clock-badge-strong { font-family: var(--f-mono); font-size: .58rem; padding: 2px 7px; border-radius: 2px; background: rgba(220,80,80,.12); color: rgba(220,100,100,.9); border: 1px solid rgba(220,80,80,.25); }
+    .clock-badge-yes    { font-family: var(--f-mono); font-size: .58rem; padding: 2px 7px; border-radius: 2px; background: rgba(123,163,125,.12); color: var(--vitae); border: 1px solid rgba(123,163,125,.25); }
+    .clock-badge-lab    { font-family: var(--f-mono); font-size: .58rem; padding: 2px 7px; border-radius: 2px; background: rgba(201,169,106,.1); color: var(--aurum); border: 1px solid rgba(201,169,106,.25); }
+    .clock-badge-research { font-family: var(--f-mono); font-size: .58rem; padding: 2px 7px; border-radius: 2px; background: rgba(127,158,201,.1); color: #7F9EC9; border: 1px solid rgba(127,158,201,.25); }
+    @media (max-width: 700px) {
+      .clocks-table thead th:nth-child(4),
+      .clocks-table tbody td:nth-child(4) { display: none; }
+    }
 
     /* METHYLATION HEATMAP */
     .heatmap-section { margin-bottom: 64px; }
@@ -514,6 +552,7 @@
               Animais knockin Klotho vivem 30% mais.
             </div>
             <span class="gene-aging-tag tag-loss">Hipometilação = ↑ proteção</span>
+            <a href="https://doi.org/10.1126/science.1112766" target="_blank" rel="noopener" class="gene-doi">Kurosu et al. Science 2005 ↗</a>
           </div>
 
           <div class="gene-card">
@@ -525,6 +564,7 @@
               mantém SIRT6 ativo, preservando a integridade cromatínica e suprimindo NF-κB.
             </div>
             <span class="gene-aging-tag tag-loss">Hipometilação = ↑ NAD⁺</span>
+            <a href="https://doi.org/10.1038/nature10789" target="_blank" rel="noopener" class="gene-doi">Kanfi et al. Nature 2012 ↗</a>
           </div>
 
           <div class="gene-card">
@@ -536,6 +576,7 @@
               centenários (p&lt;10⁻¹⁰). A hipometilação do promotor mantém FOXO3 expresso e ativo.
             </div>
             <span class="gene-aging-tag tag-loss">Hipometilação = ↑ autofagia</span>
+            <a href="https://doi.org/10.1073/pnas.0801030105" target="_blank" rel="noopener" class="gene-doi">Willcox et al. PNAS 2008 ↗</a>
           </div>
         </div>
       </div>
@@ -558,6 +599,7 @@
               vantagem proliferativa de clones hematopoiéticos.
             </div>
             <span class="gene-aging-tag tag-chip">CHIP · R882H</span>
+            <a href="https://doi.org/10.1056/NEJMoa1408617" target="_blank" rel="noopener" class="gene-doi">Jaiswal et al. NEJM 2014 ↗</a>
           </div>
 
           <div class="gene-card">
@@ -570,6 +612,7 @@
               para eventos MACE em portadores vs. não-portadores).
             </div>
             <span class="gene-aging-tag tag-chip">CHIP · Risco MACE ×1.9</span>
+            <a href="https://doi.org/10.1056/NEJMoa1408123" target="_blank" rel="noopener" class="gene-doi">Genovese et al. NEJM 2014 ↗</a>
           </div>
         </div>
       </div>
@@ -825,6 +868,89 @@
               <td>USD 100–300</td>
               <td>DunedinPACE, Horvath, GrimAge — clocks de envelhecimento biológico</td>
               <td><span class="method-badge badge-current">Atual</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BIOLOGICAL CLOCKS TABLE -->
+    <section class="clocks-section">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Epigenetic Aging Clocks · Validados em Humanos</div>
+        <div class="sec-title">Comparativo dos 6 Relógios Biológicos</div>
+        <p class="sec-desc">
+          Cada relógio mede uma dimensão diferente do envelhecimento biológico. A plataforma usa DunedinPACE como
+          métrica primária de velocidade de envelhecimento por sua maior correlação com outcomes longitudinais.
+        </p>
+      </div>
+      <div class="heatmap-wrap">
+        <table class="clocks-table">
+          <thead>
+            <tr>
+              <th>Relógio</th>
+              <th>Autor · Ano</th>
+              <th>Base (CpGs)</th>
+              <th>r² Cronológico</th>
+              <th>Prediz Mortalidade</th>
+              <th>Disponível</th>
+              <th>DOI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="clock-name">Horvath<br>Pan-tissue</span></td>
+              <td>Horvath S. · 2013</td>
+              <td>353 CpGs · 450k array · multi-tecido</td>
+              <td>0.96</td>
+              <td><span class="clock-badge-yes">HR 1.05/ano</span></td>
+              <td><span class="clock-badge-lab">TruAge</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.1186/gb-2013-14-10-r115" target="_blank" rel="noopener">10.1186/gb-2013-14-10-r115 ↗</a></td>
+            </tr>
+            <tr>
+              <td><span class="clock-name">Hannum<br>Blood</span></td>
+              <td>Hannum G. · 2013</td>
+              <td>71 CpGs · sangue periférico</td>
+              <td>0.91</td>
+              <td><span class="clock-badge-yes">HR 1.03/ano</span></td>
+              <td><span class="clock-badge-lab">TruAge</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.1016/j.molcel.2012.10.016" target="_blank" rel="noopener">10.1016/j.molcel.2012.10.016 ↗</a></td>
+            </tr>
+            <tr>
+              <td><span class="clock-name">PhenoAge<br>Phenotypic</span></td>
+              <td>Levine M. · 2018</td>
+              <td>513 CpGs + 9 biomarcadores séricos</td>
+              <td>0.94</td>
+              <td><span class="clock-badge-strong">HR 1.17/ano</span></td>
+              <td><span class="clock-badge-lab">TruAge</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.18632/aging.101414" target="_blank" rel="noopener">10.18632/aging.101414 ↗</a></td>
+            </tr>
+            <tr>
+              <td><span class="clock-name">GrimAge<br>Mortality</span></td>
+              <td>Lu A.T. · 2019</td>
+              <td>1.030 CpGs + plasma proteomics (7 proteínas)</td>
+              <td>0.92</td>
+              <td><span class="clock-badge-strong">HR 1.61/ano ← mais forte</span></td>
+              <td><span class="clock-badge-lab">TruAge</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.18632/aging.101684" target="_blank" rel="noopener">10.18632/aging.101684 ↗</a></td>
+            </tr>
+            <tr>
+              <td><span class="clock-name">DunedinPACE<br>Pace of Aging</span></td>
+              <td>Belsky D.W. · 2022</td>
+              <td>173 CpGs · EPIC 850k · mede velocidade</td>
+              <td>—</td>
+              <td><span class="clock-badge-strong">HR 1.16 / +0.1u · Mortalidade +16%</span></td>
+              <td><span class="clock-badge-lab">TruDiagnostic</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.7554/eLife.73420" target="_blank" rel="noopener">10.7554/eLife.73420 ↗</a></td>
+            </tr>
+            <tr>
+              <td><span class="clock-name">PCGrimAge<br>2nd Gen</span></td>
+              <td>Lu A.T. · 2023</td>
+              <td>~1K CpGs + proteômica expandida · 2ª geração</td>
+              <td>—</td>
+              <td><span class="clock-badge-strong">Supera GrimAge em coortes independentes</span></td>
+              <td><span class="clock-badge-research">Pesquisa</span></td>
+              <td class="clock-doi"><a href="https://doi.org/10.1038/s43587-022-00248-2" target="_blank" rel="noopener">10.1038/s43587-022-00248-2 ↗</a></td>
             </tr>
           </tbody>
         </table>

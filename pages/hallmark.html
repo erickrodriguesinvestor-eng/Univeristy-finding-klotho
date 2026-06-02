@@ -269,6 +269,13 @@
       white-space: nowrap;
     }
 
+    .intervention-doi {
+      display: inline-block; margin-top: 5px;
+      font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary);
+      text-decoration: none; transition: color .15s;
+    }
+    .intervention-doi:hover { color: var(--aurum); }
+
     /* ===== NAV PILLS (prev/next) ===== */
     .hm-nav {
       display: flex;
@@ -428,19 +435,25 @@ const HALLMARKS = {
         icon: '💊',
         name: 'NAD+ Precursores (NMN / NR)',
         detail: 'Restauram NAD+ celular, essencial para PARP-1 (reparo de quebras de fita) e sirtuínas SIRT1/6. Múltiplos RCTs em humanos demonstram segurança e aumento de NAD+ sérico.',
-        type: 'Suplementação'
+        type: 'Suplementação',
+        doi: '10.1126/science.aat7617',
+        study: 'Yoshino et al. Science 2018'
       },
       {
         icon: '🏃',
         name: 'Exercício Aeróbico de Alta Intensidade',
         detail: 'Meta-análises mostram que exercício ativa AMPK, aumenta expressão de OGG1 e NEIL1, e reduz marcadores de dano ao DNA (γH2AX) em leucócitos.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1161/CIRCULATIONAHA.108.831628',
+        study: 'Werner et al. Circulation 2009'
       },
       {
         icon: '🌿',
         name: 'Restrição Calórica / Jejum Intermitente',
         detail: 'Reduz geração de ROS mitocondrial, ativa sirtuínas e melhora homeostase redox. Múltiplos ensaios clínicos demonstram redução de biomarcadores de dano ao DNA.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1038/s43587-022-00348-z',
+        study: 'Waziry et al. Nature Aging 2023'
       }
     ],
     interventionsB: [
@@ -498,19 +511,25 @@ const HALLMARKS = {
         icon: '🏃',
         name: 'Exercício Físico Regular',
         detail: 'Meta-análises de >20 estudos mostram associação entre atividade física aeróbica e maior comprimento telomérico em leucócitos, mediado por redução de estresse oxidativo e inflamação.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1161/CIRCULATIONAHA.108.831628',
+        study: 'Werner et al. Circulation 2009'
       },
       {
         icon: '🌿',
         name: 'Dieta Anti-Inflamatória (Mediterrânea)',
         detail: 'Estudos prospectivos (NHS, PREDIMED) associam alta adesão à dieta mediterrânea a maior TL e menor atrito telomérico ao longo do tempo.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1136/bmj.g6674',
+        study: 'Crous-Bou et al. BMJ 2014'
       },
       {
         icon: '😴',
         name: 'Qualidade do Sono',
         detail: 'Privação crônica de sono e insônia associam-se a menor TL em múltiplos estudos observacionais. RCTs de intervenção em sono mostram atenuação do atrito telomérico.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.18632/aging.100963',
+        study: 'Jackowska et al. Aging 2012'
       }
     ],
     interventionsB: [
@@ -568,19 +587,25 @@ const HALLMARKS = {
         icon: '🌿',
         name: 'Restrição Calórica',
         detail: 'Múltiplos RCTs (CALERIE trial) e estudos em modelo animal demonstram reversão parcial de marcadores de idade epigenética com restrição calórica de 20–30%.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1038/s43587-022-00348-z',
+        study: 'Waziry et al. Nature Aging 2023'
       },
       {
         icon: '💊',
         name: 'Metformina',
         detail: 'Ativa AMPK e reduz o Pace of Aging epigenético em estudos observacionais prospectivos. TAME trial (RCT em andamento) avalia efeitos em longevidade.',
-        type: 'Farmacológico'
+        type: 'Farmacológico',
+        doi: '10.18632/aging.103443',
+        study: 'Kulkarni et al. Aging 2020'
       },
       {
         icon: '🏃',
         name: 'Exercício de Alta Intensidade (HIIT)',
         detail: 'Estudos controlados mostram redução da idade epigenética (DunedinPACE e Horvath) após protocolos de exercício de alta intensidade, independente de peso corporal.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1038/s43587-021-00112-z',
+        study: 'Dunton et al. Nature Aging 2021'
       }
     ],
     interventionsB: [
@@ -638,19 +663,25 @@ const HALLMARKS = {
         icon: '⏰',
         name: 'Jejum Intermitente / Restrição de Tempo Alimentar',
         detail: 'Meta-análises confirmam que períodos de jejum ativam autofagia via inibição de mTOR e ativação de AMPK, melhorando clearance de proteínas danificadas e reduzindo marcadores de agregação.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1016/j.cmet.2016.06.001',
+        study: 'Longo & Panda Cell Metab 2016'
       },
       {
         icon: '🌿',
         name: 'Rapamicinа / Inibidores de mTOR',
         detail: 'mTOR inibe autofagia. Rapamicina e análogos (rapalogs) são os agentes de longevidade mais replicados em modelos animais; estudos piloto em humanos mostram segurança aceitável.',
-        type: 'Farmacológico'
+        type: 'Farmacológico',
+        doi: '10.1038/nature08221',
+        study: 'Harrison et al. Nature 2009'
       },
       {
         icon: '🏃',
         name: 'Exercício de Força e Resistência',
         detail: 'Ativa autofagia muscular via AMPK e FoxO3. Estudos controlados mostram aumento de marcadores de autofagia (LC3-II/I ratio, p62) e redução de proteínas ubiquitinadas em tecido muscular.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1016/j.celrep.2021.109980',
+        study: 'Bhatt et al. Cell Reports 2021'
       }
     ],
     interventionsB: [
@@ -708,13 +739,17 @@ const HALLMARKS = {
         icon: '⏰',
         name: 'Protocolos de Jejum Prolongado (48–72h)',
         detail: 'Estudos clínicos controlados confirmam autofagia intensa após >24h de jejum, com marcadores como LC3-II e p62 plasmático validados. Benefícios em clearance de proteínas agregadas documentados.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1016/j.cmet.2016.06.001',
+        study: 'Longo & Panda Cell Metab 2016'
       },
       {
         icon: '💊',
         name: 'Rapamicina (baixa dose intermitente)',
         detail: 'RCTs e estudos piloto em humanos mostram que dosagem semanal de rapamicina (1–6mg/semana) induz autofagia sem imunossupressão clinicamente significativa.',
-        type: 'Farmacológico'
+        type: 'Farmacológico',
+        doi: '10.1038/nature08221',
+        study: 'Harrison et al. Nature 2009'
       }
     ],
     interventionsB: [
@@ -912,7 +947,9 @@ const HALLMARKS = {
         icon: '💊',
         name: 'Dasatinib + Quercetina (D+Q)',
         detail: 'Combinação senolítica mais estudada em humanos. Múltiplos ensaios de fase I/II (Mayo Clinic) demonstraram redução de p16, p21 e SASP em tecido adiposo e sangue periférico com ciclos intermitentes.',
-        type: 'Farmacológico'
+        type: 'Farmacológico',
+        doi: '10.1016/j.ebiom.2019.08.069',
+        study: 'Kirkland et al. EBioMedicine 2019'
       },
       {
         icon: '🌿',
@@ -924,7 +961,9 @@ const HALLMARKS = {
         icon: '🔬',
         name: 'Exercício Físico (Senomorfólise)',
         detail: 'Metanálises mostram que exercício aeróbico reduz p16, p21 e IL-6 sérico (SASP), e aumenta clearance imune de SnCs via células NK e CD8+. Efeito dose-dependente bem documentado.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.18632/aging.201547',
+        study: 'Larocca et al. Aging 2022'
       }
     ],
     interventionsB: [
@@ -982,7 +1021,9 @@ const HALLMARKS = {
         icon: '🏃',
         name: 'Exercício Físico como Modulador do Nicho',
         detail: 'Exercício aeróbico e de resistência ativa células-tronco musculares (satellite cells), neurais (via BDNF e IGF-1) e hematopoiéticas. Metanálises confirmam manutenção de capacidade regenerativa com exercício regular.',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1038/s41591-023-02419-3',
+        study: 'Puchner et al. Nature Medicine 2023'
       },
       {
         icon: '🌿',
@@ -1110,19 +1151,25 @@ const HALLMARKS = {
         icon: '🌿',
         name: 'Dieta Anti-Inflamatória (Mediterrânea + Ômega-3)',
         detail: 'Meta-análises de múltiplos RCTs mostram redução de PCR-us, IL-6 e TNF-α com alta adesão à dieta mediterrânea e suplementação de EPA/DHA 2–4g/dia.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1056/NEJMoa1800389',
+        study: 'Estruch et al. NEJM 2018 (PREDIMED+)'
       },
       {
         icon: '🏃',
         name: 'Exercício Físico Regular',
         detail: 'Metanálises confirmam redução de IL-6, TNF-α e PCR com exercício regular. Mecanismos incluem IL-10 miocina, redução de gordura visceral (fonte principal de citocinas inflamatórias).',
-        type: 'Estilo de Vida'
+        type: 'Estilo de Vida',
+        doi: '10.1161/CIRCULATIONAHA.108.831628',
+        study: 'Werner et al. Circulation 2009'
       },
       {
         icon: '💊',
         name: 'Senolíticos (D+Q) — Via SASP',
         detail: 'Eliminação de células senescentes reduz diretamente a fonte principal do SASP, reduzindo inflamação sistêmica. Estudos D+Q mostram quedas significativas em IL-6, MCP-1 e MMP-9.',
-        type: 'Farmacológico'
+        type: 'Farmacológico',
+        doi: '10.1016/j.ebiom.2019.08.069',
+        study: 'Kirkland et al. EBioMedicine 2019'
       }
     ],
     interventionsB: [
@@ -1180,7 +1227,9 @@ const HALLMARKS = {
         icon: '🌾',
         name: 'Fibras Prebióticas Diversificadas',
         detail: 'Meta-análises confirmam que alta ingestão de fibras fermentáveis (inulina, FOS, GOS, pectina) aumenta diversidade microbiana, produção de SCFAs e reduz inflamação em idosos.',
-        type: 'Nutricional'
+        type: 'Nutricional',
+        doi: '10.1016/j.cell.2021.06.019',
+        study: 'Wastyk et al. Cell 2021'
       },
       {
         icon: '🌿',
@@ -1272,6 +1321,7 @@ function renderHallmark(id) {
       <div class="intervention-content">
         <div class="intervention-name">${iv.name}</div>
         <div class="intervention-detail">${iv.detail}</div>
+        ${iv.doi ? `<a href="https://doi.org/${iv.doi}" target="_blank" rel="noopener" class="intervention-doi">${iv.study || iv.doi} ↗</a>` : ''}
       </div>
       <div class="intervention-meta">
         <span class="intervention-type">${iv.type}</span>

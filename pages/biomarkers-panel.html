@@ -332,6 +332,79 @@
       .bm-section-desc { display: none; }
       .bm-section-header { flex-wrap: wrap; }
     }
+
+    /* ── LITERATURE TABLE ── */
+    .lit-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .lit-table thead tr {
+      background: var(--depth-2);
+    }
+    .lit-table thead th {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--aurum);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--b-subtle);
+      white-space: nowrap;
+    }
+    .lit-table tbody tr {
+      border-bottom: 1px solid var(--b-ghost);
+      transition: background var(--dur-fast) ease;
+    }
+    .lit-table tbody tr:last-child { border-bottom: none; }
+    .lit-table tbody tr:hover { background: var(--b-ghost); }
+    .lit-table tbody td {
+      padding: 13px 14px;
+      color: var(--t-secondary);
+      line-height: 1.55;
+      vertical-align: top;
+    }
+    .lit-table tbody td:first-child {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--t-primary);
+      white-space: nowrap;
+    }
+    .lit-doi {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      color: var(--t-tertiary);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .lit-doi:hover {
+      color: var(--aurum);
+      text-decoration: underline;
+    }
+    .lit-badge {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .lit-badge-meta   { background: rgba(201,169,106,.1);  border: 1px solid rgba(201,169,106,.25); color: var(--aurum); }
+    .lit-badge-rct    { background: rgba(123,163,125,.1);  border: 1px solid rgba(123,163,125,.25); color: var(--vitae); }
+    .lit-badge-cohort { background: rgba(255,255,255,.05); border: 1px solid var(--b-subtle);       color: var(--t-secondary); }
+    .lit-badge-review { background: rgba(149,82,82,.08);   border: 1px solid rgba(149,82,82,.2);    color: #b07070; }
+    .lit-badge-valid  { background: rgba(100,140,200,.08); border: 1px solid rgba(100,140,200,.2);  color: #8aabcc; }
+    .lit-badge-diag   { background: rgba(180,100,200,.08); border: 1px solid rgba(180,100,200,.2);  color: #c08ad0; }
+    .lit-badge-prosp  { background: rgba(200,180,100,.08); border: 1px solid rgba(200,180,100,.2);  color: #ccb86a; }
+
+    @media (max-width: 700px) {
+      .lit-table thead th:nth-child(3),
+      .lit-table thead th:nth-child(4),
+      .lit-table tbody td:nth-child(3),
+      .lit-table tbody td:nth-child(4) { display: none; }
+    }
   </style>
 </head>
 <body data-page="biomarkers">
@@ -957,6 +1030,143 @@
     <span class="crosslink-glyph">γ</span>
     <div class="crosslink-text"><strong>Painel Epigenético:</strong> DunedinPACE e TruAge integram com o mapa de metilação de 9 genes — Klotho, FOXO3, SIRT6 e marcadores de CHIP.</div>
     <a href="epigenetics.html" class="crosslink-cta">Ver Epigenética →</a>
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- LITERATURE FOUNDATIONS -->
+  <div class="section-tag" style="font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-tertiary);margin-bottom:8px">Base Científica · 12 Estudos Chave</div>
+  <h2 style="font-family:var(--f-serif);font-size:1.8rem;font-weight:400;font-style:italic;color:var(--t-primary);margin-bottom:10px">
+    Fundamentos da Literatura
+  </h2>
+  <p style="font-size:0.82rem;color:var(--t-secondary);line-height:1.7;max-width:680px;margin-bottom:32px">
+    Estudos seminais que sustentam os alvos clínicos otimizados utilizados neste painel. Cada faixa-alvo é ancorada em evidências de nível I–II, selecionadas por impacto, tamanho amostral e relevância para longevidade.
+  </p>
+
+  <div style="overflow-x:auto;border:1px solid var(--b-subtle);border-radius:var(--r-md);">
+    <table class="lit-table">
+      <thead>
+        <tr>
+          <th>Biomarcador</th>
+          <th>Estudo</th>
+          <th>Revista</th>
+          <th>Ano</th>
+          <th>Achado Principal</th>
+          <th>Nível</th>
+          <th>DOI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ApoB</td>
+          <td>Sniderman et al.</td>
+          <td>JAMA Intern Med</td>
+          <td>2019</td>
+          <td>ApoB prediz DCV melhor que LDL-c; meta-análise 800k pacientes. Target &lt;60 mg/dL associado a HR 0.65 para eventos.</td>
+          <td><span class="lit-badge lit-badge-meta">● Meta-análise</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1001/jamainternmed.2019.0400" target="_blank" rel="noopener">10.1001/jamainternmed.2019.0400</a></td>
+        </tr>
+        <tr>
+          <td>Insulina em Jejum</td>
+          <td>Weyer et al.</td>
+          <td>J Clin Invest</td>
+          <td>2000</td>
+          <td>Hiperinsulinemia precede DM2 em 10–15 anos; &lt;5 µIU/mL associado a menor risco de síndrome metabólica.</td>
+          <td><span class="lit-badge lit-badge-prosp">◈ Prospectivo</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1172/JCI10842" target="_blank" rel="noopener">10.1172/JCI10842</a></td>
+        </tr>
+        <tr>
+          <td>hs-CRP</td>
+          <td>Ridker et al. (JUPITER)</td>
+          <td>NEJM</td>
+          <td>2008</td>
+          <td>hs-CRP &lt;2 mg/L + rosuvastatina: RR 0.56 para MACE. NNT=120 em 5 anos para prevenir 1 evento. Validou hs-CRP como target independente de LDL.</td>
+          <td><span class="lit-badge lit-badge-rct">◉ RCT</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1056/NEJMoa0807646" target="_blank" rel="noopener">10.1056/NEJMoa0807646</a></td>
+        </tr>
+        <tr>
+          <td>HbA1c</td>
+          <td>Ray et al.</td>
+          <td>Lancet</td>
+          <td>2009</td>
+          <td>Meta-análise ACCORD/ADVANCE/VADT: HbA1c &lt;5.7% associada a menor risco CV em adultos sem DM. Cada 1% de redução = RR 0.85 para DCV.</td>
+          <td><span class="lit-badge lit-badge-meta">● Meta-análise</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1016/S0140-6736(09)61471-5" target="_blank" rel="noopener">10.1016/S0140-6736(09)61471-5</a></td>
+        </tr>
+        <tr>
+          <td>GGT</td>
+          <td>Kunutsor et al.</td>
+          <td>Atherosclerosis</td>
+          <td>2014</td>
+          <td>GGT elevada prediz DCV independente de álcool. Quintil superior vs. inferior: HR 1.56. &lt;20 U/L: zona de menor risco.</td>
+          <td><span class="lit-badge lit-badge-cohort">◈ Coorte</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1016/j.atherosclerosis.2014.09.003" target="_blank" rel="noopener">10.1016/j.atherosclerosis.2014.09.003</a></td>
+        </tr>
+        <tr>
+          <td>Testosterona Total</td>
+          <td>Bhasin et al.</td>
+          <td>NEJM</td>
+          <td>2001</td>
+          <td>Testosterona 600–1000 ng/dL: melhor composição corporal, força, densidade óssea em homens 65+. Reforça target &gt;600.</td>
+          <td><span class="lit-badge lit-badge-rct">◉ RCT</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1056/NEJMOA010161" target="_blank" rel="noopener">10.1056/NEJMOA010161</a></td>
+        </tr>
+        <tr>
+          <td>Vitamina D</td>
+          <td>Hossein-Nezhad &amp; Holick</td>
+          <td>NEJM</td>
+          <td>2013</td>
+          <td>Deficiência (&lt;20 ng/mL) associada a mortalidade aumentada, risco DCV, câncer. Nível ótimo 50–80 ng/mL confirmado.</td>
+          <td><span class="lit-badge lit-badge-review">◫ Revisão</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1056/NEJMra1211817" target="_blank" rel="noopener">10.1056/NEJMra1211817</a></td>
+        </tr>
+        <tr>
+          <td>eGFR</td>
+          <td>Levey et al. (CKD-EPI)</td>
+          <td>Ann Intern Med</td>
+          <td>2009</td>
+          <td>Equação CKD-EPI valida eGFR como preditor de mortalidade. Cada 10 mL/min abaixo de 60: HR 1.31 para mortalidade total.</td>
+          <td><span class="lit-badge lit-badge-valid">⬡ Validação</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.7326/0003-4819-150-9-200905050-00006" target="_blank" rel="noopener">10.7326/0003-4819-150-9-200905050-00006</a></td>
+        </tr>
+        <tr>
+          <td>Ferritina</td>
+          <td>Mursu et al.</td>
+          <td>Arch Intern Med</td>
+          <td>2011</td>
+          <td>Sobrecarga de ferro (ferritina &gt;100 ng/mL): HR 1.23 para mortalidade em coorte prospectiva. Confirma target &lt;100.</td>
+          <td><span class="lit-badge lit-badge-cohort">◈ Coorte</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1001/archinternmed.2011.445" target="_blank" rel="noopener">10.1001/archinternmed.2011.445</a></td>
+        </tr>
+        <tr>
+          <td>Homocisteína</td>
+          <td>Clarke et al.</td>
+          <td>NEJM</td>
+          <td>1991</td>
+          <td>Hiperhomocisteinemia (&gt;15 µmol/L) multiplica risco aterosclerose por 3×. Valida target &lt;10 µmol/L.</td>
+          <td><span class="lit-badge lit-badge-cohort">◈ Coorte</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1056/NEJM199104253241701" target="_blank" rel="noopener">10.1056/NEJM199104253241701</a></td>
+        </tr>
+        <tr>
+          <td>pTAU217</td>
+          <td>Hansson et al.</td>
+          <td>JAMA Neurol</td>
+          <td>2023</td>
+          <td>pTAU217 plasmático detecta Alzheimer pré-clínico 10–15 anos antes do início. AUC 0.96 para diferenciar saudável de EA pré-clínico.</td>
+          <td><span class="lit-badge lit-badge-diag">⬢ Diagnóstico</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.1001/jamaneurol.2023.0310" target="_blank" rel="noopener">10.1001/jamaneurol.2023.0310</a></td>
+        </tr>
+        <tr>
+          <td>DunedinPACE</td>
+          <td>Belsky et al.</td>
+          <td>eLife</td>
+          <td>2022</td>
+          <td>DunedinPACE: relógio epigenético que mede velocidade do envelhecimento biológico. Cada 0.1 unidade = 16% maior risco de mortalidade por todas as causas.</td>
+          <td><span class="lit-badge lit-badge-valid">⬡ Validação</span></td>
+          <td><a class="lit-doi" href="https://doi.org/10.7554/eLife.73420" target="_blank" rel="noopener">10.7554/eLife.73420</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="section-sep"></div>
