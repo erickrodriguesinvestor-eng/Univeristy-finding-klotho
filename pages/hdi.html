@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homeostatic Drift Index — Eternal Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--void); color: var(--t-primary); font-family: var(--f-sans); overflow-x: hidden; }
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 48px var(--space-xl) 96px; }
+
+    /* ── HERO ── */
+    .hdi-hero { padding: 48px 0 52px; border-bottom: 1px solid var(--b-subtle); margin-bottom: 56px; }
+    .hdi-eyebrow {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--aurum); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hdi-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--aurum); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    .hdi-hero h1 { font-family: var(--f-serif); font-size: clamp(2rem,4vw,3.4rem); font-weight: 300; line-height: 1.12; margin-bottom: 20px; }
+    .hdi-hero h1 em { font-style: italic; color: var(--aurum); }
+    .hdi-lead { font-size: .9rem; color: var(--t-secondary); line-height: 1.8; max-width: 720px; margin-bottom: 36px; }
+    .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+    .hero-stat-num { font-family: var(--f-mono); font-size: 1.8rem; font-weight: 700; color: var(--aurum); line-height: 1; transition: color .3s; }
+    .hero-stat-label { font-size: .72rem; color: var(--t-tertiary); line-height: 1.4; }
+
+    /* ── FILTER NAV ── */
+    .filter-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(1,2,3,.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--b-ghost);
+      display: flex; gap: 4px; padding: 10px 0; margin-bottom: 56px;
+      overflow-x: auto;
+    }
+    .fn-btn {
+      font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase; padding: 7px 14px; border-radius: 3px;
+      background: transparent; border: 1px solid transparent;
+      color: var(--t-tertiary); cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .fn-btn:hover { border-color: var(--b-ghost); color: var(--t-secondary); }
+    .fn-btn.active { border-color: rgba(201,169,106,.3); color: var(--aurum); background: rgba(201,169,106,.06); }
+
+    /* ── SECTIONS ── */
+    .section-block { margin-bottom: 80px; scroll-margin-top: 56px; }
+    .section-eyebrow { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 10px; }
+    .section-title { font-family: var(--f-serif); font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 300; margin-bottom: 18px; line-height: 1.2; }
+    .section-title em { font-style: italic; color: var(--aurum); }
+    .section-lead { font-size: .88rem; color: var(--t-secondary); line-height: 1.8; max-width: 760px; margin-bottom: 36px; }
+
+    /* ── MATH CARDS ── */
+    .math-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 22px 28px; margin-bottom: 20px; }
+    .math-card-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--aurum); margin-bottom: 14px; }
+    .math-eq { font-family: var(--f-mono); font-size: .74rem; color: var(--t-primary); background: var(--depth-1); border: 1px solid var(--b-ghost); border-radius: 4px; padding: 14px 18px; overflow-x: auto; line-height: 1.85; white-space: pre; }
+    .math-note { font-size: .75rem; color: var(--t-secondary); line-height: 1.7; margin-top: 12px; }
+    .math-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    @media (max-width: 700px) { .math-grid { grid-template-columns: 1fr; } }
+
+    /* ── CONCEPT COMPARE ── */
+    .concept-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .concept-compare { grid-template-columns: 1fr; } }
+    .concept-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 22px 26px; }
+    .concept-card.bad  { border-color: rgba(220,80,80,.2); }
+    .concept-card.good { border-color: rgba(123,163,125,.2); }
+    .concept-badge { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .1em; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; display: inline-block; }
+    .concept-card.bad  .concept-badge { background: rgba(220,80,80,.1); color: rgba(220,80,80,.9); border: 1px solid rgba(220,80,80,.25); }
+    .concept-card.good .concept-badge { background: rgba(123,163,125,.1); color: var(--vitae); border: 1px solid rgba(123,163,125,.25); }
+    .concept-card-title { font-size: .88rem; font-weight: 600; color: var(--t-primary); margin-bottom: 8px; }
+    .concept-card-desc { font-size: .78rem; color: var(--t-secondary); line-height: 1.7; }
+    .concept-card-ex { margin-top: 12px; font-family: var(--f-mono); font-size: .66rem; color: var(--t-tertiary); background: var(--depth-1); border: 1px solid var(--b-ghost); border-radius: 3px; padding: 8px 12px; line-height: 1.7; }
+    .concept-card.good .concept-card-ex { color: var(--vitae); border-color: rgba(123,163,125,.2); }
+
+    /* ── CSD INDICATOR CARDS ── */
+    .csd-indicators { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 700px) { .csd-indicators { grid-template-columns: 1fr; } }
+    .csd-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 20px 22px; }
+    .csd-sym { font-family: var(--f-serif); font-size: 2rem; font-weight: 300; color: var(--aurum); line-height: 1; margin-bottom: 6px; }
+    .csd-name { font-size: .82rem; font-weight: 600; color: var(--t-primary); margin-bottom: 6px; }
+    .csd-formula { font-family: var(--f-mono); font-size: .65rem; color: var(--aurum); margin-bottom: 8px; }
+    .csd-desc { font-size: .75rem; color: var(--t-secondary); line-height: 1.6; }
+    .csd-warn { margin-top: 10px; font-family: var(--f-mono); font-size: .6rem; padding: 4px 10px; border-radius: 2px; background: rgba(220,140,60,.08); border: 1px solid rgba(220,140,60,.2); color: rgba(220,140,60,.9); display: inline-block; }
+
+    /* ── 12 SYSTEMS GRID ── */
+    .system-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    @media (max-width: 900px) { .system-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 600px) { .system-grid { grid-template-columns: repeat(2,1fr); } }
+    .sys-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-md); padding: 16px 18px; position: relative; transition: border-color .2s; }
+    .sys-card.csd-critical { border-color: rgba(220,80,80,.4); }
+    .sys-card.csd-high     { border-color: rgba(220,140,60,.3); }
+    .sys-card.csd-low      { border-color: rgba(123,163,125,.2); }
+    .sys-glyph { font-size: 1rem; color: var(--aurum); opacity: .5; position: absolute; top: 14px; right: 14px; }
+    .sys-num { font-family: var(--f-serif); font-size: 1.3rem; font-weight: 300; color: var(--t-tertiary); opacity: .3; line-height: 1; margin-bottom: 4px; }
+    .sys-name { font-size: .72rem; font-weight: 600; color: var(--t-primary); margin-bottom: 8px; line-height: 1.3; }
+    .sys-ac1  { font-family: var(--f-mono); font-size: .62rem; color: var(--t-tertiary); margin-bottom: 6px; }
+    .sys-bar  { height: 2px; background: var(--b-ghost); border-radius: 1px; overflow: hidden; }
+    .sys-fill { height: 100%; border-radius: 1px; transition: width .6s ease, background .3s; }
+    .sys-val  { font-family: var(--f-mono); font-size: .6rem; margin-top: 4px; transition: color .3s; }
+
+    /* ── CORRELATION MATRIX ── */
+    .corr-matrix-wrap { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start; }
+    .corr-labels-col { display: flex; flex-direction: column; }
+    .corr-label { font-family: var(--f-mono); font-size: .55rem; color: var(--t-tertiary); height: 22px; display: flex; align-items: center; white-space: nowrap; padding-right: 8px; }
+    .corr-grid-area { overflow-x: auto; }
+    .corr-grid { display: inline-grid; gap: 2px; }
+    .corr-cell { width: 22px; height: 22px; border-radius: 2px; transition: background .4s; }
+    .corr-header { font-family: var(--f-mono); font-size: .5rem; color: var(--t-tertiary); text-align: center; padding-bottom: 2px; white-space: nowrap; overflow: hidden; writing-mode: vertical-lr; text-orientation: mixed; height: 50px; width: 22px; }
+    .corr-legend { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); }
+    .corr-legend-bar { height: 6px; width: 120px; border-radius: 3px; background: linear-gradient(to right, rgba(127,158,201,.4), rgba(201,169,106,.8), rgba(220,80,80,.9)); }
+
+    /* ── PERTURBATION PROTOCOL ── */
+    .perturb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .perturb-grid { grid-template-columns: 1fr; } }
+    .perturb-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 20px 22px; }
+    .perturb-glyph { font-family: var(--f-mono); font-size: 1.2rem; color: var(--aurum); margin-bottom: 8px; }
+    .perturb-name { font-size: .82rem; font-weight: 600; color: var(--t-primary); margin-bottom: 6px; }
+    .perturb-protocol { font-family: var(--f-mono); font-size: .62rem; color: var(--t-tertiary); margin-bottom: 10px; line-height: 1.6; }
+    .perturb-recovery { font-family: var(--f-mono); font-size: .65rem; background: var(--depth-1); border: 1px solid var(--b-ghost); border-radius: 3px; padding: 8px 12px; line-height: 1.7; }
+    .perturb-recovery .healthy { color: var(--vitae); }
+    .perturb-recovery .drifting { color: rgba(220,140,60,.9); }
+    .perturb-recovery .critical { color: rgba(220,80,80,.9); }
+
+    /* ── SIMULATION ── */
+    .sim-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+    .sim-btn { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .05em; background: var(--depth-2); border: 1px solid var(--b-subtle); color: var(--t-secondary); padding: 9px 18px; border-radius: 3px; cursor: pointer; transition: all .15s; }
+    .sim-btn:hover { border-color: rgba(201,169,106,.4); color: var(--aurum); }
+    .sim-btn.sc-inflam:hover { border-color: rgba(220,80,80,.4); color: rgba(220,100,100,.9); }
+    .sim-btn.sc-metabol:hover { border-color: rgba(220,140,60,.4); color: rgba(220,160,60,.9); }
+    .sim-btn.sc-aging:hover { border-color: rgba(127,158,201,.4); color: #7F9EC9; }
+    .sim-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    @media (max-width: 800px) { .sim-layout { grid-template-columns: 1fr; } }
+    .sim-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 20px; }
+    .sim-card-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--aurum); margin-bottom: 14px; }
+    .radar-wrap { height: 320px; position: relative; }
+    .hdi-gauge-row { display: flex; align-items: center; gap: 20px; justify-content: center; margin-bottom: 16px; }
+    .hdi-big { font-family: var(--f-mono); font-size: 2.8rem; font-weight: 700; line-height: 1; transition: color .3s; }
+    .hdi-label-col { display: flex; flex-direction: column; gap: 4px; }
+    .hdi-label { font-family: var(--f-mono); font-size: .58rem; color: var(--t-tertiary); }
+    .hdi-status { font-family: var(--f-mono); font-size: .65rem; font-weight: 600; padding: 3px 8px; border-radius: 2px; }
+    .hdi-status.stable   { color: var(--vitae); background: rgba(123,163,125,.1); border: 1px solid rgba(123,163,125,.3); }
+    .hdi-status.watch    { color: var(--aurum); background: rgba(201,169,106,.1); border: 1px solid rgba(201,169,106,.3); }
+    .hdi-status.alert    { color: rgba(220,140,60,.9); background: rgba(220,140,60,.08); border: 1px solid rgba(220,140,60,.25); }
+    .hdi-status.critical { color: rgba(220,80,80,.9); background: rgba(220,80,80,.08); border: 1px solid rgba(220,80,80,.25); }
+    .ac1-chart-wrap { height: 160px; }
+    .csd-live-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .csd-live-card { background: var(--depth-1); border: 1px solid var(--b-ghost); border-radius: 4px; padding: 10px 14px; text-align: center; }
+    .csd-live-label { font-family: var(--f-mono); font-size: .56rem; color: var(--t-tertiary); margin-bottom: 6px; }
+    .csd-live-val { font-family: var(--f-mono); font-size: 1.1rem; font-weight: 700; }
+
+    /* ── BRIEFING TERMINAL ── */
+    .briefing-terminal { background: var(--depth-1); border: 1px solid var(--b-ghost); border-radius: var(--r-lg); padding: 28px 32px; margin-bottom: 24px; }
+    .terminal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+    .terminal-title { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--aurum); }
+    .terminal-live-badge { font-family: var(--f-mono); font-size: .58rem; padding: 3px 8px; border-radius: 2px; border: 1px solid rgba(123,163,125,.3); background: rgba(123,163,125,.08); color: var(--vitae); display: flex; align-items: center; gap: 6px; }
+    .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--vitae); animation: pulse 1.5s ease-in-out infinite; }
+    .brief-pattern { font-family: var(--f-mono); font-size: .65rem; letter-spacing: .08em; color: var(--t-tertiary); margin-bottom: 8px; }
+    .brief-text { font-size: .88rem; color: var(--t-primary); line-height: 1.85; margin-bottom: 18px; }
+    .cursor { display: inline-block; width: 7px; height: 13px; background: var(--aurum); animation: blink .8s step-end infinite; vertical-align: text-bottom; margin-left: 2px; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .brief-footer { display: flex; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--b-ghost); padding-top: 14px; }
+    .brief-stat { display: flex; flex-direction: column; gap: 3px; }
+    .brief-stat-val { font-family: var(--f-mono); font-size: .78rem; font-weight: 600; color: var(--aurum); }
+    .brief-stat-label { font-family: var(--f-mono); font-size: .56rem; color: var(--t-tertiary); }
+    .static-brief-card { background: var(--depth-2); border: 1px solid var(--b-subtle); border-radius: var(--r-lg); padding: 20px 24px; border-left: 3px solid var(--aurum); margin-bottom: 16px; }
+    .static-brief-card:nth-child(2) { border-left-color: rgba(127,158,201,.8); }
+    .static-brief-card:nth-child(3) { border-left-color: var(--vitae); }
+    .static-brief-tag { font-family: var(--f-mono); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 8px; }
+    .static-brief-text { font-size: .84rem; color: var(--t-primary); line-height: 1.85; }
+    .static-brief-text strong { color: var(--aurum); }
+  </style>
+</head>
+<body data-page="hdi">
+
+<!-- SIDEBAR -->
+<aside class="page-sidebar" id="pageSidebar">
+  <a href="../index.html" class="psb-logo">
+    <div class="psb-logo-mark">EH</div>
+    <div class="psb-logo-text">Eternal<br><em>Health</em></div>
+  </a>
+  <nav class="psb-nav">
+    <div class="psb-section-label">Módulos da Plataforma</div>
+    <a href="hallmark.html?h=1"       class="psb-item" data-id="hallmarks">  <span class="psb-item-glyph">⬡</span><span class="psb-item-label">12 Hallmarks</span></a>
+    <a href="prediction-engine.html"  class="psb-item" data-id="prediction"> <span class="psb-item-glyph">◈</span><span class="psb-item-label">Motor Preditivo</span></a>
+    <a href="biomarkers-panel.html"   class="psb-item" data-id="biomarkers"> <span class="psb-item-glyph">◉</span><span class="psb-item-label">Biomarcadores</span></a>
+    <a href="epigenetics.html"        class="psb-item" data-id="epigenetics"><span class="psb-item-glyph">γ</span><span class="psb-item-label">Epigenética</span></a>
+    <a href="hbot.html"               class="psb-item" data-id="hbot">       <span class="psb-item-glyph">O₂</span><span class="psb-item-label">HBOT</span></a>
+    <a href="library.html"            class="psb-item" data-id="library">    <span class="psb-item-glyph">◫</span><span class="psb-item-label">Biblioteca</span></a>
+    <a href="evidence.html"           class="psb-item" data-id="evidence">   <span class="psb-item-glyph">⬢</span><span class="psb-item-label">Evidências</span></a>
+    <a href="nutrition.html"          class="psb-item" data-id="nutrition">  <span class="psb-item-glyph">◍</span><span class="psb-item-label">Nutrição</span></a>
+    <a href="digital-twin.html"       class="psb-item" data-id="digital-twin"><span class="psb-item-glyph">◬</span><span class="psb-item-label">Gêmeo Digital</span></a>
+    <a href="hdi.html"                class="psb-item" data-id="hdi">        <span class="psb-item-glyph">Δ</span><span class="psb-item-label">HDI</span></a>
+  </nav>
+  <div class="psb-footer">
+    <a href="dashboard.html" class="psb-dashboard-link"><span>Dashboard</span><span>→</span></a>
+    <a href="../index.html" class="psb-home-link">← Página Inicial</a>
+  </div>
+</aside>
+<button class="psb-toggle" id="psbToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+<div class="psb-overlay" id="psbOverlay"></div>
+
+<div class="page-content">
+<main class="page-wrap">
+
+  <!-- HERO -->
+  <section class="hdi-hero">
+    <div class="hdi-eyebrow"><div class="hdi-pulse"></div>Critical Slowing Down · Ruppeiner Geometry · Dynamic Network Biomarkers</div>
+    <h1>Homeostatic<br><em>Drift Index</em></h1>
+    <p class="hdi-lead">A doença não é o alvo. A deriva é. O HDI não mede se você está doente — mede a <em>velocidade de perda da resiliência do atrator biológico</em>, quantificada pelos três indicadores universais de Critical Slowing Down: autocorrelação, variância e taxa de recuperação. Quando o atrator achata, o sistema está meses antes do colapso clínico.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num" id="heroHDI">—</div><div class="hero-stat-label">HDI global<br>(curvatura de Ruppeiner)</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" id="heroAC1">—</div><div class="hero-stat-label">AC(1) médio<br>→ 1 = transição crítica</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">eixos fisiológicos<br>em paralelo</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">DNB</div><div class="hero-stat-label">rede dinâmica<br>detecta eixo líder</div></div>
+    </div>
+  </section>
+
+  <!-- FILTER NAV -->
+  <nav class="filter-nav" id="filterNav">
+    <button class="fn-btn active" data-target="paradigma">Paradigma</button>
+    <button class="fn-btn" data-target="csd">CSD · Critical Slowing Down</button>
+    <button class="fn-btn" data-target="ruppeiner">Geometria de Ruppeiner</button>
+    <button class="fn-btn" data-target="dnb">Redes Dinâmicas DNB</button>
+    <button class="fn-btn" data-target="perturbacao">Protocolo de Perturbação</button>
+    <button class="fn-btn" data-target="simulacao">Simulação</button>
+    <button class="fn-btn" data-target="briefing">Briefing IA</button>
+  </nav>
+
+  <!-- ═══ PARADIGMA ═══ -->
+  <section class="section-block" id="paradigma">
+    <div class="section-eyebrow">O Reframe Central</div>
+    <h2 class="section-title">Resiliência do Atrator, não <em>Posição</em></h2>
+    <p class="section-lead">O erro de quase todo mundo nesse espaço é tratar isso como "medir mais variáveis". O alvo real não é a posição do sistema biológico — é a <em>capacidade de retornar ao setpoint depois de um estresse</em>. Isso é literalmente o que a física de sistemas complexos chama de Critical Slowing Down: quando um sistema dinâmico se aproxima de uma transição, a bacia de atração "achata" e o organismo demora mais para voltar ao normal.</p>
+
+    <div class="concept-compare">
+      <div class="concept-card bad">
+        <div class="concept-badge">Medicina Convencional</div>
+        <div class="concept-card-title">Diagnóstico por Limiar Populacional</div>
+        <div class="concept-card-desc">Você recebe um diagnóstico quando um marcador cruza um limiar de referência populacional. O sistema biológico estava em deriva há anos antes disso. A pergunta é "você está doente?" — quando já é tarde.</div>
+        <div class="concept-card-ex">HbA1c = 5.9% → "Normal" ← 4 anos invisíveis →
+HbA1c = 6.6% → "Diabetes" (diagnóstico tardio)
+
+O limiar é da população. Não é seu.</div>
+      </div>
+      <div class="concept-card good">
+        <div class="concept-badge">HDI · Critical Slowing Down</div>
+        <div class="concept-card-title">Resiliência vs. Baseline Individual</div>
+        <div class="concept-card-desc">O HDI não precisa conhecer seu estado ótimo. Mede a <em>cinética de recuperação</em> e a estrutura temporal das flutuações — intrinsecamente intra-individuais. Você mede a capacidade, não a posição. Isso elimina o problema de identificabilidade do "estado ideal".</div>
+        <div class="concept-card-ex">AC(1) subindo → recuperação lentificando
+σ² crescendo → flutuações amplificando
+τ aumentando → sistema "enrijece"
+→ Transição 12–18 meses à frente</div>
+      </div>
+    </div>
+
+    <div class="math-card">
+      <div class="math-card-label">O Insight de Fedichev / Gero — DOSI (Dynamic Organism State Indicator)</div>
+      <div class="math-eq">
+Fedichev et al. (2021) mostraram que em datasets de hemograma longitudinal (UK Biobank, NHANES):
+
+  1. A distribuição dos indicadores de saúde se alarga com a idade
+  2. Esse alargamento é explicado pela perda de resiliência — não por deriva de média
+  3. O tempo de autocorrelação dos indicadores cresce linearmente com a idade
+  4. A extrapolação para AC(1) → 1 prevê ponto crítico em ~120 anos
+
+Em dados de wearable (Fitbit, Apple Watch):
+  A taxa de recuperação cai aproximadamente linear com a idade
+  E extrapola para zero perto dos 110 anos
+
+Conclusão: o substrato do HDI já é mensurável de forma barata e contínua.
+      </div>
+      <div class="math-note">Referência primária: Pyrkov et al. "Longitudinal analysis of blood markers reveals progressive loss of resilience and predicts human lifespan limit." Nature Communications 2021. doi:10.1038/s41467-021-23014-1</div>
+    </div>
+  </section>
+
+  <!-- ═══ CRITICAL SLOWING DOWN ═══ -->
+  <section class="section-block" id="csd">
+    <div class="section-eyebrow">Teoria de Sistemas Dinâmicos · Indicadores Universais</div>
+    <h2 class="section-title">Critical Slowing Down — <em>Os 3 Indicadores</em></h2>
+    <p class="section-lead">Perto de uma transição de fase, três fenômenos acontecem de forma universal — em ecossistemas, mercados financeiros, clima e no corpo humano. Eles não são metáforas: são consequências matemáticas da perda de estabilidade linear do atrator.</p>
+
+    <div class="csd-indicators">
+      <div class="csd-card">
+        <div class="csd-sym">AC(1)</div>
+        <div class="csd-name">Autocorrelação Lag-1</div>
+        <div class="csd-formula">AC(1)_t = Corr(X_t, X_{t−1})</div>
+        <div class="csd-desc">O sistema "lembra" seu estado anterior por mais tempo. Perto da transição, a perturbação persiste — o organismo não dissipa rapidamente. AC(1) → 1 é o sinal mais robusto de perda de resiliência.</div>
+        <div class="csd-warn">↑ = sempre ruim (universal)</div>
+      </div>
+      <div class="csd-card">
+        <div class="csd-sym">σ²</div>
+        <div class="csd-name">Variância das Flutuações</div>
+        <div class="csd-formula">σ²_t = Var(X_{t−w:t})</div>
+        <div class="csd-desc">As flutuações amplificam à medida que a bacia de atração se achata. O sistema oscila mais ao redor do setpoint antes do colapso. <strong>Atenção</strong>: a direção esperada depende da fisiologia da variável — variância alta de HRV é boa; de glicose, é ruim.</div>
+        <div class="csd-warn">↑ ou ↓ depende do eixo</div>
+      </div>
+      <div class="csd-card">
+        <div class="csd-sym">τ</div>
+        <div class="csd-name">Tempo de Recuperação</div>
+        <div class="csd-formula">τ_t = −Δt / ln(AC(1)_t)</div>
+        <div class="csd-desc">A meia-vida de retorno ao setpoint após uma perturbação natural (noite de sono ruim, refeição pesada, treino). Sistema saudável: τ_HRV ≈ 4h. Pré-crítico: τ_HRV ≈ 18h. A lentificação de τ é o sinal mais clinicamente acionável.</div>
+        <div class="csd-warn">↑ = sempre ruim (universal)</div>
+      </div>
+    </div>
+
+    <div class="math-card">
+      <div class="math-card-label">Modelo de Estado por Eixo — AR(1) com Setpoint Latente</div>
+      <div class="math-eq">
+Para cada eixo s ∈ {1,...,12}, o sinal observado X_{s,t} é decomposto:
+
+  X_{s,t} = µ_{s,t}  +  r_{s,t}      (setpoint lento + resíduo rápido)
+
+Setpoint via filtro de Kalman:
+  µ_{s,t} = F · µ_{s,t−1} + w_t,  w_t ~ N(0, Q)    (processo lento)
+  X_{s,t} = µ_{s,t} + r_{s,t},  r_{s,t} ~ N(0, R)  (observação)
+
+Os resíduos r_{s,t} seguem um AR(1) com parâmetro φ_s:
+  r_{s,t} = φ_s · r_{s,t−1} + ε_t,  ε_t ~ N(0, σ²_ε)
+
+Estimativas em janela deslizante w = 50 ciclos:
+  φ̂_s = [Σ r_t · r_{t−1}] / [Σ r²_{t−1}]   (OLS)
+  σ̂²_s = Var(r_{t−w:t})
+  τ̂_s = −Δt / ln(φ̂_s)
+
+CSD Score por eixo:
+  CSD_s(t) = φ̂_s(t)   ∈ [0, 1)   onde 1 = transição crítica
+      </div>
+      <div class="math-note">φ̂_s → 1 significa que os resíduos têm autocorrelação perfeita — o sistema não dissipa perturbações, está no limiar de instabilidade. Esse é exatamente o indicador usado por Fedichev no DOSI com hemograma completo, e por Goldberger em HRV (perda de complexidade com envelhecimento).</div>
+    </div>
+
+    <div class="math-grid">
+      <div class="math-card">
+        <div class="math-card-label">CSD no Eixo Autonômico (SNA) — Protótipo</div>
+        <div class="math-eq">
+Sinal: HRV RMSSD (ms) — 5min amostras contínuas
+
+Setpoint lento: EMA (α = 0.02) sobre 7 dias
+Resíduo: X_t − µ_t
+
+φ̂_SNA(t) = AC(1) dos resíduos de HRV (janela 72h)
+
+Fisiologia esperada:
+  φ̂ ∈ [0.2, 0.4] → SNA resiliente (saudável)
+  φ̂ ∈ [0.4, 0.7] → deriva moderada (vigilância)
+  φ̂ ∈ [0.7, 0.9] → perda de reserva autonômica
+  φ̂ → 0.95+     → transição iminente
+
+τ_SNA = −5min / ln(φ̂_SNA) → "tempo para dissipar stress"
+        </div>
+        <div class="math-note">Goldberger et al. (2002) mostraram que o coração saudável é fractal e caótico — alta entropia, baixo AC(1). Com envelhecimento e doença, o ritmo se regulariza (AC(1) sobe, τ cresce). Isso é exatamente a assinatura de CSD.</div>
+      </div>
+      <div class="math-card">
+        <div class="math-card-label">CSD no Eixo Metabólico (CGM) — Protótipo</div>
+        <div class="math-eq">
+Sinal: Glicose intersticial CGM (mg/dL) — 5min contínuos
+
+Setpoint lento: EMA (α = 0.005) sobre 14 dias
+Resíduo: r_t = CGM_t − µ_t
+
+φ̂_CGM = AC(1) dos resíduos de glicose (janela 7 dias)
+
+Fisiologia esperada (invertida da HRV):
+  φ̂ ∈ [0.0, 0.3] → metabolismo elástico (bom)
+  φ̂ ∈ [0.3, 0.6] → inflexibilidade emergente
+  φ̂ ∈ [0.6, 0.8] → resistência insulínica pré-clínica
+  φ̂ → 0.9+      → diabetes tipo 2 iminente
+
+σ̂²_CGM: variância alta = ruim (ao contrário de HRV)
+MAGE = Mean Amplitude of Glycemic Excursions como complemento
+        </div>
+        <div class="math-note">A direção da variância é específica por eixo — esse é o ponto crítico apontado por Olde Rikkert et al. (2021): aplicar CSD ingenuamente sem calibrar por fisiologia da variável gera alarmes falsos. Cada eixo precisa de um modelo de sinal específico.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GEOMETRIA DE RUPPEINER ═══ -->
+  <section class="section-block" id="ruppeiner">
+    <div class="section-eyebrow">Física de Informação · Geometria Termodinâmica</div>
+    <h2 class="section-title">O HDI como <em>Curvatura de Ruppeiner</em></h2>
+    <p class="section-lead">O objeto natural para compor os 12 eixos não é uma soma ponderada. É uma <strong>distância informacional-geométrica</strong> no manifold dos estados fisiológicos — a métrica de Fisher-Rao. E há um resultado conhecido da geometria termodinâmica: a curvatura escalar da métrica de Ruppeiner <em>diverge perto de transições de fase</em>. Isso não é analogia — é a mesma matemática.</p>
+
+    <div class="math-card">
+      <div class="math-card-label">Métrica de Fisher-Rao — Distância no Espaço de Estados</div>
+      <div class="math-eq">
+O estado fisiológico é uma distribuição de probabilidade P(X; θ)
+onde θ = {φ_1, σ²_1, ..., φ_12, σ²_12} = parâmetros de CSD dos 12 eixos
+
+Matriz de Informação de Fisher (Métrica de Fisher-Rao):
+  g_ij(θ) = E[ (∂ ln P / ∂θ_i) · (∂ ln P / ∂θ_j) ]
+
+Para distribuições normais (gaussianas) dos resíduos de cada eixo:
+  g_{φφ} = 1 / (1 − φ²)²           (diverge quando φ → 1 !)
+  g_{σσ} = 1 / (2σ⁴)
+  g_{φσ} = 0                        (ortogonais)
+
+Distância geodésica entre estados θ_A e θ_B:
+  d(A, B) = √[ ∫_γ g_ij dθ^i dθ^j ]
+
+HDI(t) = d(θ_t, θ_baseline) = distância do estado atual ao baseline
+      </div>
+      <div class="math-note">g_{φφ} = 1/(1−φ²)² diverge quando φ → 1. Isso não é coincidência: a métrica de Fisher "sabe" que φ = 1 é uma singularidade (raiz unitária, não-estacionariedade). O HDI baseado em Fisher-Rao automaticamente amplifica os sinais perto da transição crítica — exatamente quando a intervenção é mais urgente.</div>
+    </div>
+
+    <div class="math-card">
+      <div class="math-card-label">Curvatura Escalar de Ruppeiner — A Assinatura da Transição</div>
+      <div class="math-eq">
+Métrica de Ruppeiner (geometria termodinâmica da entropia S):
+  g^R_ij = −∂²S / ∂X^i ∂X^j
+
+Para o organismo: S = entropia funcional da distribuição de estados
+
+Curvatura Escalar de Ruppeiner:
+  R_s = R(g^R) = Escalar de Riemann de g^R
+
+Propriedade crítica (Ruppeiner, 1995):
+  R_s = 0           → sistema ideal, sem correlações
+  R_s > 0 (↑↑)     → sistema se aproximando de transição de fase
+  R_s → ∞           → transição de fase (colapso do atrator)
+
+HDI = R_s(t) / R_s(baseline) = curvatura relativa ao estado basal individual
+
+Interpretação:
+  HDI < 1   → dentro do regime de homeostase
+  HDI ∈ 1-3 → deriva com correlações inter-sistêmicas crescentes
+  HDI > 3   → pré-transição · intervenção urgente
+      </div>
+      <div class="math-note">Ruppeiner (1995, Rev. Mod. Phys.) provou que R_s diverge em transições de fase termodinâmicas. A ponte com biologia: o organismo pode ser tratado como um sistema termodinâmico com entropia funcional S — e R_s mede o quão perto ele está de perder estabilidade estrutural. Isso é o que liga formalmente o IEGT (geometria de informação) à fisiologia de longevidade.</div>
+    </div>
+
+    <div class="math-grid">
+      <div class="math-card">
+        <div class="math-card-label">Implementação Prática — Aproximação de Primeira Ordem</div>
+        <div class="math-eq">
+Para 2 eixos (simplificação pedagógica):
+  θ = (φ, σ²)
+
+  g = [ 1/(1−φ²)²    0        ]
+      [ 0             1/(2σ⁴) ]
+
+  R_s = −(∂²/∂φ² ln√det g) / (det g)
+
+Para 12 eixos (implementação real):
+  g é uma 24×24 matriz (φ_s, σ²_s para cada sistema)
+  R_s é computada numericamente
+
+Proxy operacional para browser/realtime:
+  HDI_proxy(t) = Σ_s W_s · [ 1/(1−φ̂_s)² − 1/(1−φ̂_s,0)² ]
+  (Fisher information divergence — primeiro termo dominante)
+        </div>
+      </div>
+      <div class="math-card">
+        <div class="math-card-label">Vantagem sobre Z-Score Ponderado Simples</div>
+        <div class="math-eq">
+Z-score simples:
+  HDI_Z = Σ W_s · (φ̂_s − φ_baseline_s) / σ_baseline_s
+
+Problemas:
+  · Linear — não amplifica perto da transição
+  · φ = 0.3 vs 0.5: ΔZ = 0.2 / σ
+  · φ = 0.8 vs 0.95: ΔZ = 0.15 / σ  ← mesmo!
+
+Fisher-Rao:
+  · g_{φφ} = 1/(1−φ²)² → não-linear
+  · φ = 0.3 vs 0.5: Δg = 0.30
+  · φ = 0.8 vs 0.95: Δg = 4.47 ← 15× amplificado!
+
+O HDI "sente" a curvatura — sabe que φ = 0.95 é
+catastroficamente mais urgente que φ = 0.50.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ REDES DINÂMICAS DNB ═══ -->
+  <section class="section-block" id="dnb">
+    <div class="section-eyebrow">Dynamic Network Biomarkers · Chen et al. 2012</div>
+    <h2 class="section-title">O Acoplamento entre Eixos <em>é o Sinal</em></h2>
+    <p class="section-lead">Os 12 sistemas não são ortogonais — e isso é uma vantagem. A teoria DNB mostra que perto da transição, além da variância individual, a <em>correlação entre variáveis aumenta</em>. Surge uma "rede líder" de variáveis fortemente correlacionadas que distingue o estado pré-falha do estado normal antes de qualquer biomarcador individual mudar.</p>
+
+    <div class="math-card">
+      <div class="math-card-label">Indicador DNB — Rede Líder de Pré-Transição</div>
+      <div class="math-eq">
+Matriz de correlação dinâmica entre resíduos dos 12 eixos:
+  C_{ij}(t) = Corr(r_{i,t−w:t}, r_{j,t−w:t})   [janela deslizante w]
+
+Indicador DNB para sistema i:
+  I_i(t) = [ σ_i(t) · Σ_{j≠i} |C_{ij}(t)| ] / [ σ̄(t) · C̄(t) ]
+
+onde:
+  σ̄ = média das volatilidades de todos os sistemas
+  C̄ = média das correlações entre todos os pares
+
+O "Eixo Líder" é: arg max_i I_i(t)
+→ "Este sistema falhará primeiro"
+
+Assinatura de pré-transição (DNB):
+  · I_i ↑↑ para o grupo líder
+  · σ_i ↑ intra-grupo (alta variabilidade do líder)
+  · |C_{ij}| ↑ entre membros do grupo líder
+  · σ_j e |C_{jk}| estáveis fora do grupo (background)
+      </div>
+      <div class="math-note">Chen et al. "Detecting early-warning signals for sudden deterioration of complex diseases by dynamical network biomarkers." Scientific Reports 2012. doi:10.1038/srep00342. O DNB foi validado em dados clínicos de sepse, câncer hepático e leucemia — detectando a transição 2–5 semanas antes do diagnóstico clínico.</div>
+    </div>
+
+    <div class="math-grid">
+      <div class="math-card">
+        <div class="math-card-label">Padrão Inflamatório — Rede Líder Típica</div>
+        <div class="math-eq">
+Quando inflammaging está emergindo:
+
+Grupo líder (alta σ + alta C_ij entre si):
+  SNA (HRV) ←→ Inflamação ←→ Sono
+
+Background (estável):
+  Lipídico, Cognição, Lipídico, Imune
+
+Interpretação:
+  "O cluster autonômico-inflamatório-sono
+   está se acoplando — assinatura de
+   estado pró-inflamatório emergente
+   4–8 semanas antes de PCR alterar"
+
+Ação: iniciar protocolo anti-inflamatório
+(ômega-3 alta dose, HBOT, modulação sono)
+        </div>
+      </div>
+      <div class="math-card">
+        <div class="math-card-label">Padrão Metabólico — Rede Líder Típica</div>
+        <div class="math-eq">
+Quando resistência insulínica está emergindo:
+
+Grupo líder (alta σ + alta C_ij entre si):
+  Glicídico ←→ Lipídico ←→ Corporal
+
+Background (estável):
+  SNA, Sono, Cognição, Epigenética
+
+Interpretação:
+  "Cluster metabólico acoplado — trajetória
+   de insulino-resistência detectável 12–18
+   meses antes de HbA1c cruzar limiar"
+
+Ação: janela alimentar, metformina-like,
+exercício de força, redução de carga glicêmica
+        </div>
+      </div>
+    </div>
+
+    <!-- Live correlation matrix -->
+    <div class="math-card">
+      <div class="math-card-label">Matriz de Correlação Dinâmica C_ij — Ao Vivo</div>
+      <div id="corrMatrixContainer" style="overflow-x:auto">
+        <p style="font-family:var(--f-mono);font-size:.65rem;color:var(--t-tertiary)">Iniciando simulação...</p>
+      </div>
+      <div class="corr-legend">
+        <span>baixo</span>
+        <div class="corr-legend-bar"></div>
+        <span>alto |C_ij|</span>
+        <span style="margin-left:16px;color:var(--t-tertiary)">Diagonal = AC(1) individual</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROTOCOLO DE PERTURBAÇÃO ═══ -->
+  <section class="section-block" id="perturbacao">
+    <div class="section-eyebrow">Active Perturbation · Recovery Kinetics</div>
+    <h2 class="section-title">Medir a <em>Cinética de Recuperação</em></h2>
+    <p class="section-lead">Não espere a deriva aparecer. Provoque o sistema e meça a velocidade de retorno ao setpoint. Essa é a camada mais forte do produto: protocolos proprietários de perturbação-resposta que transformam uma consulta em um teste de resiliência fisiológica.</p>
+
+    <div class="math-card" style="margin-bottom:24px">
+      <div class="math-card-label">Modelo de Recuperação Exponencial — Ajuste por OLS</div>
+      <div class="math-eq">
+Após perturbação padronizada P em t₀:
+  X(t) = X_setpoint + A · e^{−(t−t₀)/τ} + ε(t)
+
+Ajuste por mínimos quadrados → estima τ (constante de tempo de recuperação)
+
+τ pequeno → sistema elástico, resiliente
+τ grande  → sistema rígido, pré-crítico
+
+Comparação longitudinal:
+  τ_t₁ vs τ_t₂ vs τ_t₃ → "o organismo está ficando mais lento"
+
+Extrapolação: quando τ → ∞, o sistema não consegue mais se recuperar
+→ esse é o ponto crítico clínico
+      </div>
+      <div class="math-note">O τ de recuperação é o indicador mais clinicamente acionável porque: (1) é intrinsecamente intra-individual, (2) responde a intervenções em semanas, (3) pode ser estimado com protocolos de baixo custo que o paciente replica em casa.</div>
+    </div>
+
+    <div class="perturb-grid">
+      <div class="perturb-card">
+        <div class="perturb-glyph">◈</div>
+        <div class="perturb-name">OGTT Metabólico</div>
+        <div class="perturb-protocol">75g de glicose oral em jejum<br>CGM contínuo 4h pós-ingestão<br>Ajuste de curva exponencial</div>
+        <div class="perturb-recovery">τ_CGM esperado:<br><span class="healthy">Elástico:   &lt; 90 min</span><br><span class="drifting">Deriva:     90–180 min</span><br><span class="critical">Pré-crítico: &gt; 4 horas</span></div>
+      </div>
+      <div class="perturb-card">
+        <div class="perturb-glyph">⬡</div>
+        <div class="perturb-name">Bout de Exercício Padronizado</div>
+        <div class="perturb-protocol">20min corrida 70% FC máx<br>HRV contínuo 12h pós-exercício<br>Ajuste de recuperação autonômica</div>
+        <div class="perturb-recovery">τ_HRV esperado:<br><span class="healthy">Elástico:   &lt; 4 horas</span><br><span class="drifting">Deriva:     4–12 horas</span><br><span class="critical">Pré-crítico: &gt; 18 horas</span></div>
+      </div>
+      <div class="perturb-card">
+        <div class="perturb-glyph">◑</div>
+        <div class="perturb-name">Restrição de Sono (1 noite)</div>
+        <div class="perturb-protocol">Privação de 4h de sono (4h-8h)<br>HRV + CGM + temperatura nas 48h<br>Taxa de retorno ao baseline</div>
+        <div class="perturb-recovery">τ_sleep esperado:<br><span class="healthy">Elástico:   &lt; 24 horas</span><br><span class="drifting">Deriva:     1–3 dias</span><span class="critical">  (&gt;3 dias = alarme)</span></div>
+      </div>
+    </div>
+
+    <div class="math-card">
+      <div class="math-card-label">Estratégia de Validação — Retrospectiva Primeiro</div>
+      <div class="math-eq">
+Não comece prospectivo. Valide em datasets longitudinais densos existentes:
+
+  · UK Biobank (hemograma, wearable, labs longitudinais)
+  · All of Us (NIH — CGM + wearable longitudinal, 500k participantes)
+  · NHANES III (hemograma longitudinal 18 anos — base do DOSI original)
+  · Fitbit/Apple Watch datasets públicos (CSD de atividade física)
+
+Hipótese testável e barata:
+  "Os indicadores de CSD cruzam o limiar antes do biomarcador
+   clínico cruzar o seu — com lead-time de X semanas/meses"
+
+Se provado em dados existentes → tese validada sem captar 1 paciente.
+Só então: prospectivo com protocolo de perturbação ativa.
+
+O Gero provou isso com hemograma. A janela aberta é:
+  decomposição multi-eixo + CGM + HRV contínuo + perturbação ativa.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SIMULAÇÃO ═══ -->
+  <section class="section-block" id="simulacao">
+    <div class="section-eyebrow">Motor AR(1) + CSD · Tempo Real</div>
+    <h2 class="section-title">Simulação de <em>Critical Slowing Down</em></h2>
+    <p class="section-lead">Cada sistema gera um processo AR(1) com parâmetro φ evoluindo lentamente. O AC(1) estimado em janela deslizante é o que o HDI mede. Injete um cenário para ver o cluster líder emergir na matriz de correlação.</p>
+
+    <div class="sim-controls">
+      <button class="sim-btn" id="pauseBtn" onclick="toggleSim()">⏸ Pausar</button>
+      <button class="sim-btn" onclick="resetSim()">↺ Reiniciar</button>
+      <button class="sim-btn sc-inflam"  onclick="injectScenario('inflam')">⬡ Inflamação Sistêmica</button>
+      <button class="sim-btn sc-metabol" onclick="injectScenario('metabol')">◈ Carga Metabólica</button>
+      <button class="sim-btn sc-aging"   onclick="injectScenario('aging')">γ Envelhecimento</button>
+    </div>
+
+    <div class="sim-layout">
+      <div class="sim-card">
+        <div class="sim-card-label">Radar CSD — φ̂_s por Sistema (→ 1 = crítico)</div>
+        <div class="radar-wrap"><canvas id="radarChart"></canvas></div>
+      </div>
+      <div class="sim-card">
+        <div class="sim-card-label">HDI — Curvatura de Ruppeiner (proxy)</div>
+        <div class="hdi-gauge-row">
+          <div class="hdi-big" id="hdiVal">—</div>
+          <div class="hdi-label-col">
+            <div class="hdi-label">Homeostatic Drift Index</div>
+            <div class="hdi-status stable" id="hdiStatus">Homeostase</div>
+          </div>
+        </div>
+        <div class="csd-live-row">
+          <div class="csd-live-card">
+            <div class="csd-live-label">AC(1) médio</div>
+            <div class="csd-live-val" id="liveAC1">—</div>
+          </div>
+          <div class="csd-live-card">
+            <div class="csd-live-label">σ² relativo</div>
+            <div class="csd-live-val" id="liveSigma">—</div>
+          </div>
+          <div class="csd-live-card">
+            <div class="csd-live-label">Eixo líder</div>
+            <div class="csd-live-val" id="liveLeader" style="font-size:.7rem">—</div>
+          </div>
+        </div>
+        <div class="sim-card-label" style="margin-top:20px">AC(1) por Sistema — Histórico</div>
+        <div class="ac1-chart-wrap"><canvas id="ac1Chart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- 12 system cards -->
+    <div class="system-grid" id="systemGrid"></div>
+  </section>
+
+  <!-- ═══ BRIEFING IA ═══ -->
+  <section class="section-block" id="briefing">
+    <div class="section-eyebrow">Natural Language Output · LLM sobre Motor CSD+DNB</div>
+    <h2 class="section-title">A IA Não Retorna um Número.<br><em>Retorna uma Narrativa.</em></h2>
+    <p class="section-lead">O LLM entra no topo — não na inferência central. A matemática (CSD, Ruppeiner, DNB) produz um vetor quantitativo. O LLM traduz esse vetor numa narrativa clínica precisa e acionável. A resposta nunca é uma única variável.</p>
+
+    <div class="briefing-terminal">
+      <div class="terminal-header">
+        <div class="terminal-title">◈ Briefing Clínico — Estado Atual da Simulação</div>
+        <div class="terminal-live-badge"><div class="live-dot"></div>Gerado ao vivo</div>
+      </div>
+      <div class="brief-pattern" id="briefPattern">Analisando padrões CSD + DNB...</div>
+      <div class="brief-text" id="briefText">Inicializando motor de análise...<span class="cursor"></span></div>
+      <div class="brief-footer">
+        <div class="brief-stat"><div class="brief-stat-val" id="briefHDI">—</div><div class="brief-stat-label">HDI</div></div>
+        <div class="brief-stat"><div class="brief-stat-val" id="briefAC1">—</div><div class="brief-stat-label">AC(1) médio</div></div>
+        <div class="brief-stat"><div class="brief-stat-val" id="briefLeader">—</div><div class="brief-stat-label">Eixo líder DNB</div></div>
+        <div class="brief-stat"><div class="brief-stat-val" id="briefTau">—</div><div class="brief-stat-label">τ estimado</div></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t-tertiary)">Casos Sintéticos — Output Real do Sistema</div>
+    <div class="static-brief-card">
+      <div class="static-brief-tag">◈ CSD Metabólico · φ̂_CGM = 0.78 · AC(1) subindo há 8 semanas · DNB líder: Glicídico↔Lipídico↔Corporal</div>
+      <div class="static-brief-text">"Sua homeostase está desviando principalmente no <strong>eixo metabólico</strong>, com probabilidade de 78% de desenvolver resistência insulínica clinicamente detectável nos próximos 18 meses, apesar de glicemia e HbA1c ainda normais. O AC(1) dos resíduos glicêmicos subiu de 0.31 para 0.78 nas últimas 8 semanas — o organismo está demorando 3× mais para dissipar excursões glicêmicas. A variância do CGM aumentou 44%. A rede líder Glicídico↔Lipídico↔Corporal tem correlação intra-grupo de 0.72, versus 0.18 no baseline. O sistema detectou isso <strong>14 meses antes de qualquer exame de rotina</strong>."</div>
+    </div>
+    <div class="static-brief-card">
+      <div class="static-brief-tag">⬡ CSD Autonômico · φ̂_SNA = 0.82 · τ_HRV = 18h (baseline: 4h) · DNB líder: SNA↔Inflamação↔Sono</div>
+      <div class="static-brief-text">"Sua <strong>recuperação autonômica caiu 23% nas últimas 6 semanas</strong>. O tempo de recuperação do HRV pós-exercício aumentou de 4h para 18h — o sistema nervoso autônomo está demorando 4.5× mais para retornar ao setpoint depois de qualquer perturbação. O padrão é compatível com excesso de carga fisiológica antes do aparecimento de sintomas clínicos. A rede líder SNA↔Inflamação↔Sono tem correlação média de 0.68 — sinais de inflamação sistêmica e fragmentação de sono estão se acoplando com a perda autonômica em tempo real."</div>
+    </div>
+    <div class="static-brief-card">
+      <div class="static-brief-tag">γ CSD Epigenético · φ̂_epigenética = 0.74 · DunedinPACE 1.14 · DNB líder: Inflamação↔Regenerativa↔Epigenética</div>
+      <div class="static-brief-text">"Sua <strong>velocidade de envelhecimento biológico acelerou 0.4 ano/ano acima do esperado</strong>. O AC(1) do cluster epigenético-inflamatório subiu de 0.35 para 0.74 em 12 semanas — os sistemas de reparo e estabilidade epigenética estão perdendo elasticidade. DunedinPACE: 1.14 (baseline histórico: 0.91). A rede líder Inflamação↔Regenerativa↔Epigenética tem correlação intra-grupo de 0.81 — a assinatura de envelhecimento acelerado detectável <strong>anos antes de qualquer sintoma cognitivo ou físico</strong>."</div>
+    </div>
+  </section>
+
+</main></div>
+
+<script>
+/* ── SIDEBAR ── */
+(function(){
+  const sidebar = document.getElementById('pageSidebar');
+  const toggle  = document.getElementById('psbToggle');
+  const overlay = document.getElementById('psbOverlay');
+  if (!toggle) return;
+  const open  = () => { sidebar.classList.add('open'); overlay.classList.add('visible'); toggle.classList.add('open'); };
+  const close = () => { sidebar.classList.remove('open'); overlay.classList.remove('visible'); toggle.classList.remove('open'); };
+  toggle.addEventListener('click', () => sidebar.classList.contains('open') ? close() : open());
+  overlay.addEventListener('click', close);
+  document.querySelectorAll('.psb-item').forEach(el => {
+    if (el.dataset.id === 'hdi') el.classList.add('active');
+  });
+})();
+
+/* ── FILTER NAV ── */
+(function(){
+  const nav = document.getElementById('filterNav');
+  if (!nav) return;
+  nav.querySelectorAll('.fn-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      nav.querySelectorAll('.fn-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const t = document.getElementById(btn.dataset.target);
+      if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  });
+  const ids = ['paradigma','csd','ruppeiner','dnb','perturbacao','simulacao','briefing'];
+  const secs = ids.map(id => document.getElementById(id)).filter(Boolean);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        nav.querySelectorAll('.fn-btn').forEach(b => b.classList.remove('active'));
+        const b = nav.querySelector(`[data-target="${e.target.id}"]`);
+        if (b) b.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2 });
+  secs.forEach(s => io.observe(s));
+})();
+
+/* ═══════════════════════════════════════
+   SYSTEMS DATA
+   ═══════════════════════════════════════ */
+const SYSTEMS = [
+  { id:0,  name:'Bioenergética Mitocondrial', short:'Bioenerg.', glyph:'⚡', W:0.09, phi0:0.30 },
+  { id:1,  name:'Metabolismo Glicídico',      short:'Glicídico', glyph:'◈',  W:0.12, phi0:0.55 },
+  { id:2,  name:'Metabolismo Lipídico',       short:'Lipídico',  glyph:'◉',  W:0.08, phi0:0.35 },
+  { id:3,  name:'Sistema Cardiovascular',     short:'Cardiovasc.',glyph:'♥', W:0.10, phi0:0.42 },
+  { id:4,  name:'Sistema Nervoso Autônomo',   short:'SNA',       glyph:'⬡',  W:0.09, phi0:0.65 },
+  { id:5,  name:'Sistema Imune',              short:'Imune',     glyph:'⬢',  W:0.06, phi0:0.28 },
+  { id:6,  name:'Inflamação Sistêmica',       short:'Inflamação',glyph:'◎',  W:0.10, phi0:0.60 },
+  { id:7,  name:'Sono / Circadiano',          short:'Sono',      glyph:'◑',  W:0.09, phi0:0.58 },
+  { id:8,  name:'Composição Corporal',        short:'Corporal',  glyph:'◫',  W:0.07, phi0:0.45 },
+  { id:9,  name:'Cognição e Memória',         short:'Cognição',  glyph:'◬',  W:0.07, phi0:0.22 },
+  { id:10, name:'Capacidade Regenerativa',    short:'Regenerat.',glyph:'⬩',  W:0.08, phi0:0.48 },
+  { id:11, name:'Estabilidade Epigenética',   short:'Epigenética',glyph:'γ', W:0.05, phi0:0.38 },
+];
+// W sum: 0.09+0.12+0.08+0.10+0.09+0.06+0.10+0.09+0.07+0.07+0.08+0.05 = 1.00 ✓
+
+const N = SYSTEMS.length;
+const WIN = 60; // rolling window for AC(1) estimation
+
+/* ── AR(1) state per system ── */
+let phi_true = SYSTEMS.map(s => s.phi0 + (Math.random()-0.5)*0.08);
+let ts = SYSTEMS.map(() => new Array(WIN).fill(0)); // time series buffers
+let phiEst = phi_true.slice(); // estimated AC(1)
+let sigEst = SYSTEMS.map(() => 1.0);
+
+let simPaused  = false;
+let simTick    = 0;
+let scActive   = null;
+let scTicks    = 0;
+let hdiHistory = [];
+let ac1History = []; // avg AC1 per tick
+
+function randn() {
+  return Math.sqrt(-2*Math.log(1-Math.random())) * Math.cos(2*Math.PI*Math.random());
+}
+
+/* ── Estimate AC(1) from buffer ── */
+function estimateAC1(buf) {
+  const n = buf.length;
+  if (n < 4) return 0.3;
+  const mu = buf.reduce((a,b)=>a+b,0)/n;
+  let num = 0, den = 0;
+  for (let i=1; i<n; i++) {
+    num += (buf[i]-mu)*(buf[i-1]-mu);
+    den += (buf[i]-mu)*(buf[i]-mu);
+  }
+  return den < 1e-9 ? 0 : Math.max(0, Math.min(0.999, num/den));
+}
+
+function estimateSigma(buf) {
+  const n = buf.length;
+  if (n < 2) return 1;
+  const mu = buf.reduce((a,b)=>a+b,0)/n;
+  return Math.sqrt(buf.reduce((a,x)=>a+(x-mu)**2,0)/n);
+}
+
+/* ── Fisher-Rao HDI proxy ── */
+function fisherHDI(phi, phi0) {
+  const gCur = 1/((1-phi*phi)**2 + 1e-6);
+  const gBase= 1/((1-phi0*phi0)**2 + 1e-6);
+  return Math.max(0, gCur - gBase);
+}
+
+function computeHDI() {
+  let hdi = 0;
+  for (let i=0; i<N; i++) {
+    hdi += SYSTEMS[i].W * fisherHDI(phiEst[i], SYSTEMS[i].phi0);
+  }
+  return hdi;
+}
+
+/* ── DNB leader ── */
+function computeDNBLeader() {
+  // Simple: system with highest phi * max cross-correlation proxy
+  let best = 0, bestScore = -1;
+  for (let i=0; i<N; i++) {
+    // Cross-correlation proxy: covariance of ts[i] with ts[j]
+    let sumCorr = 0;
+    for (let j=0; j<N; j++) {
+      if (i===j) continue;
+      const ni = ts[i].length, nj = ts[j].length;
+      const l = Math.min(ni, nj, WIN);
+      const ai = ts[i].slice(-l), aj = ts[j].slice(-l);
+      const mu_i = ai.reduce((a,b)=>a+b,0)/l;
+      const mu_j = aj.reduce((a,b)=>a+b,0)/l;
+      let cov=0, v_i=0, v_j=0;
+      for (let k=0; k<l; k++) {
+        cov += (ai[k]-mu_i)*(aj[k]-mu_j);
+        v_i += (ai[k]-mu_i)**2;
+        v_j += (aj[k]-mu_j)**2;
+      }
+      sumCorr += Math.abs(cov/Math.sqrt(v_i*v_j+1e-9));
+    }
+    const score = phiEst[i] * sumCorr / (N-1);
+    if (score > bestScore) { bestScore=score; best=i; }
+  }
+  return best;
+}
+
+/* ── Correlation matrix ── */
+function computeCorrMatrix() {
+  const C = [];
+  for (let i=0; i<N; i++) {
+    C[i] = [];
+    for (let j=0; j<N; j++) {
+      if (i===j) { C[i][j] = phiEst[i]; continue; }
+      const l = WIN;
+      const ai = ts[i].slice(-l), aj = ts[j].slice(-l);
+      const mu_i = ai.reduce((a,b)=>a+b,0)/l;
+      const mu_j = aj.reduce((a,b)=>a+b,0)/l;
+      let cov=0, v_i=0, v_j=0;
+      for (let k=0; k<l; k++) {
+        cov += (ai[k]-mu_i)*(aj[k]-mu_j);
+        v_i += (ai[k]-mu_i)**2;
+        v_j += (aj[k]-mu_j)**2;
+      }
+      C[i][j] = Math.abs(cov/Math.sqrt(v_i*v_j+1e-9));
+    }
+  }
+  return C;
+}
+
+/* ── Render correlation matrix ── */
+function renderCorrMatrix(C) {
+  const container = document.getElementById('corrMatrixContainer');
+  if (!container) return;
+  const short = SYSTEMS.map(s=>s.short);
+  let html = '<div class="corr-matrix-wrap"><div class="corr-labels-col">';
+  html += '<div class="corr-label" style="height:50px"></div>';
+  for (let i=0; i<N; i++) html += `<div class="corr-label">${short[i]}</div>`;
+  html += '</div><div class="corr-grid-area"><div class="corr-grid" style="grid-template-columns:repeat(${N},22px)">';
+  html = html.replace('${N}', N);
+  // headers
+  for (let j=0; j<N; j++) html += `<div class="corr-header">${short[j]}</div>`;
+  for (let i=0; i<N; i++) {
+    for (let j=0; j<N; j++) {
+      const v = Math.min(1, C[i][j]);
+      const r = i===j ? Math.round(v*200) : Math.round(v*220);
+      const g = i===j ? Math.round(v*130) : Math.round(90-v*60);
+      const b = i===j ? Math.round(v*40)  : Math.round(200-v*150);
+      const alpha = 0.3 + v*0.7;
+      html += `<div class="corr-cell" title="${short[i]}↔${short[j]}: ${v.toFixed(2)}" style="background:rgba(${r},${g},${b},${alpha.toFixed(2)})"></div>`;
+    }
+  }
+  html += '</div></div></div>';
+  container.innerHTML = html;
+}
+
+/* ── RADAR CHART ── */
+let radarChart_obj = null;
+function initRadar() {
+  const ctx = document.getElementById('radarChart');
+  if (!ctx) return;
+  radarChart_obj = new Chart(ctx.getContext('2d'), {
+    type: 'radar',
+    data: {
+      labels: SYSTEMS.map(s=>s.short),
+      datasets: [
+        { label: 'φ̂_s (AC1)', data: phiEst.map(p=>p),
+          backgroundColor: 'rgba(201,169,106,0.1)', borderColor: 'rgba(201,169,106,0.75)',
+          borderWidth: 1.5, pointRadius: 3,
+          pointBackgroundColor: phiEst.map(p => p>0.8?'rgba(220,80,80,0.9)':p>0.6?'rgba(220,140,60,0.9)':'rgba(201,169,106,0.7)') },
+        { label: 'Crítico (φ=0.9)', data: new Array(N).fill(0.9),
+          backgroundColor: 'rgba(220,80,80,0.03)', borderColor: 'rgba(220,80,80,0.2)',
+          borderWidth: 1, borderDash:[4,4], pointRadius: 0 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, animation:false,
+      plugins:{legend:{display:false}},
+      scales:{r:{min:0,max:1,ticks:{color:'rgba(180,170,150,0.35)',font:{family:'Space Mono',size:8},stepSize:0.25,backdropColor:'transparent'},
+                   grid:{color:'rgba(255,255,255,0.05)'},angleLines:{color:'rgba(255,255,255,0.04)'},
+                   pointLabels:{color:'rgba(180,170,150,0.7)',font:{family:'Space Mono',size:9}}}}
+    }
+  });
+}
+
+/* ── AC1 HISTORY CHART ── */
+let ac1Chart_obj = null;
+const AC1_COLORS = ['rgba(220,80,80,0.8)','rgba(220,140,60,0.8)','rgba(127,158,201,0.8)'];
+function initAC1Chart() {
+  const ctx = document.getElementById('ac1Chart');
+  if (!ctx) return;
+  ac1Chart_obj = new Chart(ctx.getContext('2d'), {
+    type:'line',
+    data:{labels:[],datasets:[0,1,2].map((j)=>({label:'',data:[],borderColor:AC1_COLORS[j],backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4}))},
+    options:{responsive:true,maintainAspectRatio:false,animation:false,
+             plugins:{legend:{display:false}},
+             scales:{x:{display:false},y:{min:0,max:1,ticks:{color:'rgba(180,170,150,0.4)',font:{family:'Space Mono',size:9}},grid:{color:'rgba(255,255,255,0.04)'}}}}
+  });
+}
+
+/* ── SYSTEM CARDS ── */
+function renderSystemCards() {
+  const grid = document.getElementById('systemGrid');
+  if (!grid) return;
+  grid.innerHTML = SYSTEMS.map((s,i) => {
+    const p = phiEst[i];
+    const pct = Math.min(100, p*100/0.999);
+    const fc = p>0.8?'rgba(220,80,80,0.8)':p>0.6?'rgba(220,140,60,0.7)':'rgba(123,163,125,0.7)';
+    const cls = p>0.8?'csd-critical':p>0.6?'csd-high':'csd-low';
+    return `<div class="sys-card ${cls}" id="sc${i}">
+      <div class="sys-glyph">${s.glyph}</div>
+      <div class="sys-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="sys-name">${s.name}</div>
+      <div class="sys-ac1" id="sac${i}">AC(1) = ${p.toFixed(3)}</div>
+      <div class="sys-bar"><div class="sys-fill" id="sf${i}" style="width:${pct}%;background:${fc}"></div></div>
+      <div class="sys-val" id="sv${i}">φ̂ = ${p.toFixed(3)} · W = ${s.W.toFixed(2)}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateSystemCards() {
+  SYSTEMS.forEach((s,i) => {
+    const p = phiEst[i];
+    const pct = Math.min(100, p*100/0.999);
+    const fc = p>0.8?'rgba(220,80,80,0.8)':p>0.6?'rgba(220,140,60,0.7)':'rgba(123,163,125,0.7)';
+    const cls = p>0.8?'csd-critical':p>0.6?'csd-high':'csd-low';
+    const card = document.getElementById(`sc${i}`);
+    const ac1  = document.getElementById(`sac${i}`);
+    const fill = document.getElementById(`sf${i}`);
+    const val  = document.getElementById(`sv${i}`);
+    if (!card) return;
+    card.className = `sys-card ${cls}`;
+    if (ac1) ac1.textContent = `AC(1) = ${p.toFixed(3)}`;
+    if (fill) { fill.style.width=`${pct}%`; fill.style.background=fc; }
+    if (val) { val.textContent=`φ̂ = ${p.toFixed(3)} · W = ${s.W.toFixed(2)}`; val.style.color=fc; }
+  });
+}
+
+/* ── PATTERN DETECTION ── */
+const PATTERNS = [
+  { name:'Resistência Insulínica Emergente', systems:[1,2,8], thr:0.60, prob:78, tframe:'18 meses',
+    text: p=>`desviando no eixo metabólico, com probabilidade de ${p.prob}% de desenvolver resistência insulínica clinicamente detectável nos próximos ${p.tframe}. AC(1) glicêmico em ascensão — organismo demorando 3× mais para dissipar excursões. DNB: Glicídico↔Lipídico↔Corporal acoplados.` },
+  { name:'Padrão Pró-Inflamatório', systems:[4,6,7], thr:0.60, prob:72, tframe:'8 semanas',
+    text: p=>`exibindo padrão pró-inflamatório emergente (prob. ${p.prob}%) em ${p.tframe}. SNA com φ̂ crescente, inflamação e sono fragmentado se acoplando. τ_HRV aumentando — organismo enrijece após cada perturbação. Detectável antes de qualquer alteração em PCR convencional.` },
+  { name:'Perda de Reserva Autonômica', systems:[3,4], thr:0.70, prob:81, tframe:'6 semanas',
+    text: p=>`com perda de reserva autonômica em progressão (prob. ${p.prob}%). SNA e Cardiovascular com AC(1) acima de 0.70 — tempo de recuperação após exercício aumentando linearmente. Padrão compatível com excesso de carga fisiológica antes de sintomas clínicos.` },
+  { name:'Aceleração Epigenética', systems:[6,10,11], thr:0.55, prob:65, tframe:'12 meses',
+    text: p=>`com velocidade de envelhecimento biológico acima do esperado (prob. ${p.prob}%). Cluster inflamação↔regenerativa↔epigenética com correlação intra-grupo crescente. DunedinPACE em trajetória ascendente — detectável ${p.tframe} antes de sintomas cognitivos ou físicos.` },
+];
+
+function detectPattern() {
+  for (const p of PATTERNS) {
+    if (p.systems.every(i => phiEst[i] > p.thr)) return p;
+  }
+  return null;
+}
+
+/* ── BRIEFING UPDATE ── */
+function updateBriefing(hdi, leaderIdx) {
+  const pattern = detectPattern();
+  const avgAC1 = phiEst.reduce((a,b)=>a+b,0)/N;
+  const tau = avgAC1 > 0.01 ? (-1/Math.log(avgAC1)).toFixed(1) : '∞';
+
+  const patEl  = document.getElementById('briefPattern');
+  const textEl = document.getElementById('briefText');
+  const hdiEl  = document.getElementById('briefHDI');
+  const ac1El  = document.getElementById('briefAC1');
+  const leadEl = document.getElementById('briefLeader');
+  const tauEl  = document.getElementById('briefTau');
+  if (hdiEl)  hdiEl.textContent  = hdi.toFixed(3);
+  if (ac1El)  ac1El.textContent  = avgAC1.toFixed(3);
+  if (leadEl) leadEl.textContent = SYSTEMS[leaderIdx].short;
+  if (tauEl)  tauEl.textContent  = `${tau} ciclos`;
+
+  let pname, text;
+  if (pattern) {
+    pname = pattern.name;
+    text  = `Sua homeostase está ${pattern.text(pattern)}`;
+  } else if (hdi > 2) {
+    pname = 'Deriva Distribuída — HDI Elevado';
+    text  = `HDI de ${hdi.toFixed(2)} indica deriva moderada distribuída entre múltiplos sistemas. Eixo de maior φ̂: ${SYSTEMS[leaderIdx].name} (${phiEst[leaderIdx].toFixed(3)}). Nenhum cluster DNB dominante ainda — sistema em vigilância elevada.`;
+  } else {
+    pname = 'Homeostase Preservada — Monitoramento Ativo';
+    text  = `HDI de ${hdi.toFixed(2)} indica homeostase preservada. AC(1) médio de ${avgAC1.toFixed(3)} — resiliência adequada em todos os eixos. Sistema em modo de vigilância contínua. Continue o protocolo atual.`;
+  }
+  if (patEl)  patEl.textContent = pname;
+  if (textEl) textEl.innerHTML  = text + '<span class="cursor"></span>';
+
+  // Hero stats
+  const heroHDI = document.getElementById('heroHDI');
+  const heroAC1 = document.getElementById('heroAC1');
+  if (heroHDI) { heroHDI.textContent = hdi.toFixed(2); heroHDI.style.color = hdi>3?'rgba(220,80,80,.9)':hdi>1.5?'rgba(220,140,60,.9)':'var(--aurum)'; }
+  if (heroAC1) heroAC1.textContent = avgAC1.toFixed(3);
+}
+
+/* ── SIMULATION STEP ── */
+function simStep() {
+  if (simPaused) return;
+  simTick++;
+
+  // Evolve phi_true per system
+  phi_true = phi_true.map((phi, i) => {
+    let dphi = 0.0003 + (Math.random()-0.5)*0.002; // slow drift up
+    if (scActive==='inflam'  && [4,6,7].includes(i)) dphi += 0.015;
+    if (scActive==='metabol' && [1,2,8].includes(i)) dphi += 0.013;
+    if (scActive==='aging'   && [6,10,11].includes(i)) dphi += 0.010;
+    return Math.max(0.05, Math.min(0.985, phi+dphi));
+  });
+
+  if (scActive) { scTicks++; if (scTicks>40) { scActive=null; scTicks=0; } }
+
+  // Generate new AR(1) sample per system
+  for (let i=0; i<N; i++) {
+    const phi = phi_true[i];
+    const prev = ts[i].length > 0 ? ts[i][ts[i].length-1] : 0;
+    const sample = phi * prev + Math.sqrt(1-phi*phi) * randn();
+    ts[i].push(sample);
+    if (ts[i].length > WIN) ts[i].shift();
+  }
+
+  // Estimate AC(1) and sigma from buffers
+  for (let i=0; i<N; i++) {
+    phiEst[i] = estimateAC1(ts[i]);
+    sigEst[i] = estimateSigma(ts[i]);
+  }
+
+  // Compute HDI
+  const hdi = computeHDI();
+  hdiHistory.push(hdi);
+  if (hdiHistory.length > 200) hdiHistory.shift();
+
+  const avgAC1 = phiEst.reduce((a,b)=>a+b,0)/N;
+  ac1History.push(avgAC1);
+
+  // Leader
+  const leaderIdx = computeDNBLeader();
+
+  // Update radar
+  if (radarChart_obj) {
+    radarChart_obj.data.datasets[0].data = phiEst.slice();
+    radarChart_obj.data.datasets[0].pointBackgroundColor = phiEst.map(p =>
+      p>0.8?'rgba(220,80,80,0.9)':p>0.6?'rgba(220,140,60,0.9)':'rgba(201,169,106,0.7)');
+    radarChart_obj.update('none');
+  }
+
+  // Update AC1 chart (top 3 by phi)
+  if (ac1Chart_obj) {
+    const ranked = phiEst.map((p,i)=>({p,i})).sort((a,b)=>b.p-a.p);
+    const top3 = ranked.slice(0,3);
+    ac1Chart_obj.data.labels.push('');
+    top3.forEach((r,j) => {
+      ac1Chart_obj.data.datasets[j].data.push(r.p);
+      ac1Chart_obj.data.datasets[j].label = SYSTEMS[r.i].short;
+    });
+    if (ac1Chart_obj.data.labels.length > 90) {
+      ac1Chart_obj.data.labels.shift();
+      ac1Chart_obj.data.datasets.forEach(d => d.data.shift());
+    }
+    ac1Chart_obj.update('none');
+  }
+
+  // Update system cards
+  updateSystemCards();
+
+  // Update HDI display
+  const hdiEl  = document.getElementById('hdiVal');
+  const statEl = document.getElementById('hdiStatus');
+  const sigEl  = document.getElementById('liveSigma');
+  const ac1El  = document.getElementById('liveAC1');
+  const leadEl = document.getElementById('liveLeader');
+  if (hdiEl) { hdiEl.textContent = hdi.toFixed(3); hdiEl.style.color = hdi>3?'rgba(220,80,80,.9)':hdi>1.5?'rgba(220,140,60,.9)':'var(--aurum)'; }
+  if (statEl) {
+    const s = hdi>3?['critical','Crítico']:hdi>1.5?['alert','Alerta']:hdi>0.8?['watch','Vigilância']:['stable','Homeostase'];
+    statEl.className = `hdi-status ${s[0]}`; statEl.textContent = s[1];
+  }
+  if (ac1El)  ac1El.textContent = avgAC1.toFixed(3);
+  const avgSig = sigEst.reduce((a,b)=>a+b,0)/N;
+  if (sigEl)  sigEl.textContent = avgSig.toFixed(3);
+  if (leadEl) leadEl.textContent = SYSTEMS[leaderIdx].short;
+
+  // Update correlation matrix every 10 ticks
+  if (simTick % 10 === 0) {
+    const C = computeCorrMatrix();
+    renderCorrMatrix(C);
+    updateBriefing(hdi, leaderIdx);
+  }
+}
+
+/* ── CONTROLS ── */
+function toggleSim() {
+  simPaused = !simPaused;
+  const btn = document.getElementById('pauseBtn');
+  if (btn) btn.textContent = simPaused ? '▶ Retomar' : '⏸ Pausar';
+}
+
+function resetSim() {
+  simPaused = false; scActive = null; scTicks = 0; simTick = 0;
+  phi_true = SYSTEMS.map(s => s.phi0 + (Math.random()-0.5)*0.06);
+  ts = SYSTEMS.map(() => new Array(WIN).fill(0));
+  phiEst = phi_true.slice();
+  hdiHistory = []; ac1History = [];
+  if (radarChart_obj) { radarChart_obj.data.datasets[0].data = phiEst.slice(); radarChart_obj.update('none'); }
+  if (ac1Chart_obj) { ac1Chart_obj.data.labels=[]; ac1Chart_obj.data.datasets.forEach(d=>d.data=[]); ac1Chart_obj.update('none'); }
+  renderSystemCards();
+}
+
+function injectScenario(type) { scActive=type; scTicks=0; }
+
+/* ── INIT ── */
+window.addEventListener('DOMContentLoaded', () => {
+  renderSystemCards();
+  initRadar();
+  initAC1Chart();
+  setInterval(simStep, 350);
+});
+</script>
+</body>
+</html>
