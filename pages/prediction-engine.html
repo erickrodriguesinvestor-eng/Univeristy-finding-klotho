@@ -463,6 +463,220 @@
       .pipeline-grid { grid-template-columns: 1fr; }
       .survival-layout { grid-template-columns: 1fr; }
     }
+
+    /* ════════════════════════════════════════
+       BIOMARKER DRAWER
+    ════════════════════════════════════════ */
+    .bm-overlay {
+      position: fixed; inset: 0; background: rgba(1,2,3,.65);
+      backdrop-filter: blur(4px); z-index: 900;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .bm-overlay.open { opacity: 1; pointer-events: all; }
+
+    .bm-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(480px, 100vw);
+      background: var(--depth-1);
+      border-left: 1px solid var(--b-medium);
+      z-index: 901;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.32,0,.67,0);
+      box-shadow: -16px 0 48px rgba(0,0,0,.5);
+    }
+    .bm-drawer.open { transform: translateX(0); }
+
+    .bm-drawer-head {
+      padding: 20px 24px 0;
+      border-bottom: 1px solid var(--b-subtle);
+      flex-shrink: 0;
+    }
+    .bm-drawer-title {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .bm-drawer-name {
+      font-family: var(--f-serif); font-size: 1.3rem;
+      font-weight: 400; color: var(--t-primary);
+    }
+    .bm-drawer-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--depth-3); border: 1px solid var(--b-dim);
+      color: var(--t-secondary); cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+    }
+    .bm-drawer-close:hover { background: var(--depth-4); color: var(--t-primary); }
+
+    /* Score bar in header */
+    .bm-score-bar {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0 16px;
+    }
+    .bm-score-num {
+      font-family: var(--f-mono); font-size: 2rem; font-weight: 700;
+      color: var(--aurum); line-height: 1; min-width: 52px;
+    }
+    .bm-score-info { flex: 1; }
+    .bm-score-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 5px;
+    }
+    .bm-score-track {
+      height: 4px; background: var(--depth-4); border-radius: 2px;
+    }
+    .bm-score-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--critical), var(--caution), var(--optimal));
+      transition: width .6s ease;
+    }
+
+    /* Tabs */
+    .bm-tabs {
+      display: flex; gap: 0;
+    }
+    .bm-tab {
+      flex: 1; padding: 10px 8px;
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--t-tertiary);
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all .15s;
+    }
+    .bm-tab:hover { color: var(--t-secondary); }
+    .bm-tab.active { color: var(--aurum); border-bottom-color: var(--aurum); }
+
+    /* Body */
+    .bm-drawer-body {
+      flex: 1; overflow-y: auto; padding: 20px 24px 32px;
+      scrollbar-width: thin; scrollbar-color: var(--b-dim) transparent;
+    }
+
+    /* Register form */
+    .bm-form { display: none; }
+    .bm-form.active { display: block; }
+
+    .bm-date-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .bm-date-label {
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--t-tertiary); flex-shrink: 0;
+    }
+    .bm-date-input {
+      flex: 1; padding: 7px 12px;
+      background: var(--depth-3); border: 1px solid var(--b-medium);
+      border-radius: 4px; color: var(--t-primary);
+      font-family: var(--f-mono); font-size: 12px;
+    }
+    .bm-date-input:focus { outline: none; border-color: var(--aurum); }
+
+    .bm-cat-group { margin-bottom: 20px; }
+    .bm-cat-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--aurum); margin-bottom: 8px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--b-subtle);
+    }
+    .bm-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .bm-field { display: flex; flex-direction: column; gap: 3px; }
+    .bm-field-label {
+      font-family: var(--f-mono); font-size: 9px; color: var(--t-tertiary);
+      letter-spacing: .04em;
+    }
+    .bm-field-wrap { display: flex; align-items: center; gap: 4px; }
+    .bm-field-input {
+      flex: 1; padding: 6px 8px;
+      background: var(--depth-3); border: 1px solid var(--b-dim);
+      border-radius: 3px; color: var(--t-primary);
+      font-family: var(--f-mono); font-size: 11px; min-width: 0;
+    }
+    .bm-field-input:focus { outline: none; border-color: var(--aurum); }
+    .bm-field-unit {
+      font-family: var(--f-mono); font-size: 8px; color: var(--t-tertiary);
+      white-space: nowrap;
+    }
+    .bm-field-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-left: 2px;
+    }
+
+    .bm-save-btn {
+      width: 100%; padding: 12px;
+      background: var(--aurum-12); border: 1px solid var(--aurum);
+      color: var(--aurum); font-family: var(--f-mono); font-size: 11px;
+      text-transform: uppercase; letter-spacing: .1em;
+      border-radius: 5px; cursor: pointer; margin-top: 8px;
+      transition: all .15s;
+    }
+    .bm-save-btn:hover { background: var(--aurum); color: var(--void); }
+
+    /* History tab */
+    .bm-history { display: none; }
+    .bm-history.active { display: block; }
+    .bm-entry-card {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 6px; padding: 14px 16px; margin-bottom: 10px;
+      position: relative;
+    }
+    .bm-entry-date {
+      font-family: var(--f-mono); font-size: 10px; color: var(--aurum);
+      margin-bottom: 8px; letter-spacing: .06em;
+    }
+    .bm-entry-score {
+      font-family: var(--f-mono); font-size: 1.1rem; font-weight: 700;
+      color: var(--t-primary); margin-bottom: 6px;
+    }
+    .bm-entry-vals {
+      display: flex; flex-wrap: wrap; gap: 4px;
+    }
+    .bm-entry-val {
+      font-family: var(--f-mono); font-size: 9px;
+      background: var(--depth-3); border: 1px solid var(--b-subtle);
+      border-radius: 2px; padding: 2px 6px; color: var(--t-secondary);
+    }
+    .bm-entry-del {
+      position: absolute; top: 10px; right: 12px;
+      background: none; border: none; color: var(--t-tertiary);
+      cursor: pointer; font-size: 14px; transition: color .15s;
+    }
+    .bm-entry-del:hover { color: var(--critical); }
+    .bm-empty {
+      text-align: center; padding: 40px 20px;
+      font-size: 13px; color: var(--t-tertiary); line-height: 1.7;
+    }
+
+    /* Timeline tab */
+    .bm-timeline { display: none; }
+    .bm-timeline.active { display: block; }
+    .bm-timeline-filters {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+    }
+    .bm-tf {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .05em;
+      padding: 3px 9px; border-radius: 20px;
+      background: var(--depth-3); border: 1px solid var(--b-dim);
+      color: var(--t-tertiary); cursor: pointer; transition: all .15s;
+    }
+    .bm-tf.active { color: #fff; border-color: transparent; }
+    .bm-chart-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: 6px; padding: 16px; margin-bottom: 16px;
+    }
+    .bm-chart-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 10px;
+    }
+
+    /* Overall opt score chart */
+    .bm-radar-wrap {
+      background: var(--depth-2); border: 1px solid var(--b-subtle);
+      border-radius: 6px; padding: 16px;
+    }
+
+    /* Crosslink override */
+    .crosslink { cursor: pointer; transition: border-color .2s, background .2s; }
+    .crosslink:hover { border-color: var(--aurum); background: var(--aurum-04); }
   </style>
 </head>
 <body data-page="prediction">
@@ -736,10 +950,10 @@
     </div>
   </div>
 
-  <div class="crosslink">
+  <div class="crosslink" onclick="openBMDrawer()" role="button" tabindex="0">
     <span class="crosslink-glyph">◉</span>
-    <div class="crosslink-text"><strong>Painel Blueprint:</strong> Os 38 biomarcadores reais do protocolo Bryan Johnson alimentam estes sliders com dados longitudinais.</div>
-    <a href="biomarkers-panel.html" class="crosslink-cta">Ver Biomarcadores →</a>
+    <div class="crosslink-text"><strong>Painel Blueprint:</strong> Registre seus biomarcadores ao longo do tempo e acompanhe a evolução do seu score de otimização — a mesma lógica que alimenta este motor preditivo.</div>
+    <button class="crosslink-cta" onclick="openBMDrawer(); event.stopPropagation()">Registrar Biomarcadores →</button>
   </div>
 
   <!-- MATH: particle filter equations -->
@@ -1604,6 +1818,416 @@ updateSurvivalCharts();
   if(page){var active=sidebar.querySelector('.psb-item[data-id="'+page+'"]');if(active)active.classList.add('active');}
   toggle.addEventListener('click',function(){var open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);toggle.classList.toggle('open',open);});
   overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');toggle.classList.remove('open');});
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     BIOMARKER DRAWER — HTML
+═══════════════════════════════════════════════════ -->
+<div class="bm-overlay" id="bmOverlay" onclick="closeBMDrawer()"></div>
+<div class="bm-drawer" id="bmDrawer">
+
+  <!-- HEAD -->
+  <div class="bm-drawer-head">
+    <div class="bm-drawer-title">
+      <span class="bm-drawer-name">Biomarcadores · Linha do Tempo</span>
+      <button class="bm-drawer-close" onclick="closeBMDrawer()">✕</button>
+    </div>
+    <div class="bm-score-bar">
+      <div class="bm-score-num" id="bmScoreNum">—</div>
+      <div class="bm-score-info">
+        <div class="bm-score-label">Score de Otimização Longevidade</div>
+        <div class="bm-score-track">
+          <div class="bm-score-fill" id="bmScoreFill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="bm-tabs">
+      <button class="bm-tab active" onclick="switchTab('form')">Registrar</button>
+      <button class="bm-tab" onclick="switchTab('history')">Histórico</button>
+      <button class="bm-tab" onclick="switchTab('timeline')">Linha do Tempo</button>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="bm-drawer-body">
+
+    <!-- TAB: REGISTRAR -->
+    <div class="bm-form active" id="tabForm">
+      <div class="bm-date-row">
+        <div class="bm-date-label">Data do exame</div>
+        <input type="date" class="bm-date-input" id="bmDate">
+      </div>
+      <div id="bmFieldGroups"></div>
+      <button class="bm-save-btn" onclick="saveEntry()">Salvar Registro</button>
+    </div>
+
+    <!-- TAB: HISTÓRICO -->
+    <div class="bm-history" id="tabHistory">
+      <div id="bmHistoryList"></div>
+    </div>
+
+    <!-- TAB: LINHA DO TEMPO -->
+    <div class="bm-timeline" id="tabTimeline">
+      <div class="bm-chart-label">Score de Otimização ao Longo do Tempo</div>
+      <div class="bm-chart-wrap">
+        <canvas id="bmTimelineChart" height="180"></canvas>
+      </div>
+      <div class="bm-chart-label" style="margin-top:16px">Biomarcadores Individuais (% do ótimo)</div>
+      <div class="bm-timeline-filters" id="bmFilters"></div>
+      <div class="bm-chart-wrap">
+        <canvas id="bmDetailChart" height="220"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     BIOMARKER DRAWER — JS
+═══════════════════════════════════════════════════ -->
+<script>
+(function() {
+'use strict';
+
+/* ── Biomarker definitions ── */
+const BM = [
+  { id:'apob',    label:'ApoB',               unit:'mg/dL',      cat:'Cardiovascular', lowerBetter:true,  opt:[0,70],   ref:[70,110] },
+  { id:'ldl',     label:'LDL-C',              unit:'mg/dL',      cat:'Cardiovascular', lowerBetter:true,  opt:[0,100],  ref:[100,160] },
+  { id:'hdl',     label:'HDL-C',              unit:'mg/dL',      cat:'Cardiovascular', lowerBetter:false, opt:[60,999], ref:[40,60] },
+  { id:'tg',      label:'Triglicerídeos',     unit:'mg/dL',      cat:'Cardiovascular', lowerBetter:true,  opt:[0,100],  ref:[100,200] },
+  { id:'hscrp',   label:'hs-PCR',             unit:'mg/L',       cat:'Inflamação',     lowerBetter:true,  opt:[0,0.5],  ref:[0.5,3] },
+  { id:'hcy',     label:'Homocisteína',       unit:'μmol/L',     cat:'Inflamação',     lowerBetter:true,  opt:[0,8],    ref:[8,15] },
+  { id:'glucose', label:'Glicose Jejum',      unit:'mg/dL',      cat:'Metabólico',     lowerBetter:true,  opt:[70,90],  ref:[90,110] },
+  { id:'hba1c',   label:'HbA1c',              unit:'%',          cat:'Metabólico',     lowerBetter:true,  opt:[0,5.3],  ref:[5.3,6.4] },
+  { id:'insulin', label:'Insulina Jejum',     unit:'μIU/mL',     cat:'Metabólico',     lowerBetter:true,  opt:[0,5],    ref:[5,15] },
+  { id:'testo',   label:'Testosterona Total', unit:'ng/dL',      cat:'Hormonal',       lowerBetter:false, opt:[700,999],ref:[300,700] },
+  { id:'dheas',   label:'DHEA-S',             unit:'μg/dL',      cat:'Hormonal',       lowerBetter:false, opt:[200,350],ref:[80,200] },
+  { id:'igf1',    label:'IGF-1',              unit:'ng/mL',      cat:'Hormonal',       lowerBetter:false, opt:[150,250],ref:[80,150] },
+  { id:'vo2max',  label:'VO₂ Máx',            unit:'mL/kg/min',  cat:'Fitness',        lowerBetter:false, opt:[50,999], ref:[35,50] },
+  { id:'hrv',     label:'HRV (RMSSD)',         unit:'ms',         cat:'Fitness',        lowerBetter:false, opt:[60,999], ref:[20,60] },
+  { id:'bioage',  label:'Idade Biológica',    unit:'anos',       cat:'Relógio',        lowerBetter:true,  opt:[0,999],  ref:[0,999] },
+  { id:'bfat',    label:'Gordura Corporal',   unit:'%',          cat:'Composição',     lowerBetter:true,  opt:[0,15],   ref:[15,25] },
+];
+
+const CAT_COLORS = {
+  'Cardiovascular': '#C9A96A',
+  'Inflamação':     '#955252',
+  'Metabólico':     '#B07D44',
+  'Hormonal':       '#7BA37D',
+  'Fitness':        '#5E9968',
+  'Relógio':        '#7F9EC9',
+  'Composição':     '#A78BC9',
+};
+
+const STORAGE_KEY = 'eh_biomarker_entries';
+let entries = [];
+let timelineChart = null;
+let detailChart = null;
+let activeFilters = new Set(BM.map(b => b.id));
+
+/* ── Persistence ── */
+function loadEntries() {
+  try { entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch(e) { entries = []; }
+}
+function saveEntries() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+/* ── Score computation: 0–100 for each biomarker ── */
+function scoreOne(bm, val) {
+  if (val === null || val === '' || isNaN(val)) return null;
+  const v = parseFloat(val);
+  const [optLow, optHigh] = bm.opt;
+  const [refLow, refHigh] = bm.ref;
+
+  if (bm.lowerBetter) {
+    if (v <= optHigh) return 100;
+    if (v <= refHigh) return Math.round(50 + 50 * (refHigh - v) / (refHigh - optHigh));
+    return Math.max(0, Math.round(50 * (refHigh * 2 - v) / refHigh));
+  } else {
+    if (v >= optLow) return 100;
+    if (v >= refLow) return Math.round(50 + 50 * (v - refLow) / (optLow - refLow));
+    return Math.max(0, Math.round(50 * v / refLow));
+  }
+}
+
+function scoreEntry(entry) {
+  const scores = BM.map(b => scoreOne(b, entry[b.id])).filter(s => s !== null);
+  if (!scores.length) return null;
+  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}
+
+/* ── Build form fields ── */
+function buildForm() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('bmDate').value = today;
+
+  const cats = [...new Set(BM.map(b => b.cat))];
+  const container = document.getElementById('bmFieldGroups');
+  container.innerHTML = cats.map(cat => {
+    const fields = BM.filter(b => b.cat === cat);
+    return `<div class="bm-cat-group">
+      <div class="bm-cat-label" style="color:${CAT_COLORS[cat] || 'var(--aurum)'}">· ${cat}</div>
+      <div class="bm-fields">${fields.map(b => `
+        <div class="bm-field">
+          <div class="bm-field-label">${b.label}</div>
+          <div class="bm-field-wrap">
+            <input class="bm-field-input" id="bmi_${b.id}" type="number" step="any" placeholder="—">
+            <span class="bm-field-unit">${b.unit}</span>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Live score update
+  container.querySelectorAll('.bm-field-input').forEach(inp => {
+    inp.addEventListener('input', updateLiveScore);
+  });
+}
+
+function updateLiveScore() {
+  const draft = {};
+  BM.forEach(b => {
+    const el = document.getElementById('bmi_' + b.id);
+    draft[b.id] = el && el.value !== '' ? el.value : null;
+  });
+  const s = scoreEntry(draft);
+  if (s !== null) {
+    document.getElementById('bmScoreNum').textContent = s;
+    document.getElementById('bmScoreFill').style.width = s + '%';
+  }
+}
+
+/* ── Save entry ── */
+function saveEntry() {
+  const date = document.getElementById('bmDate').value;
+  if (!date) { alert('Selecione a data do exame.'); return; }
+
+  const entry = { date, _id: Date.now() };
+  let hasAny = false;
+  BM.forEach(b => {
+    const el = document.getElementById('bmi_' + b.id);
+    if (el && el.value !== '') { entry[b.id] = parseFloat(el.value); hasAny = true; }
+  });
+  if (!hasAny) { alert('Preencha ao menos um biomarcador.'); return; }
+
+  // Remove existing entry for same date then push
+  entries = entries.filter(e => e.date !== date);
+  entries.push(entry);
+  entries.sort((a, b) => a.date.localeCompare(b.date));
+  saveEntries();
+
+  updateHeaderScore();
+  renderHistory();
+  switchTab('history');
+}
+
+/* ── Update header score (latest entry) ── */
+function updateHeaderScore() {
+  if (!entries.length) {
+    document.getElementById('bmScoreNum').textContent = '—';
+    document.getElementById('bmScoreFill').style.width = '0%';
+    return;
+  }
+  const latest = entries[entries.length - 1];
+  const s = scoreEntry(latest);
+  if (s !== null) {
+    document.getElementById('bmScoreNum').textContent = s;
+    document.getElementById('bmScoreFill').style.width = s + '%';
+  }
+}
+
+/* ── Render history list ── */
+function renderHistory() {
+  const el = document.getElementById('bmHistoryList');
+  if (!entries.length) {
+    el.innerHTML = `<div class="bm-empty">Nenhum registro ainda.<br>Vá em "Registrar" para adicionar seus primeiros exames.</div>`;
+    return;
+  }
+  el.innerHTML = [...entries].reverse().map(e => {
+    const s = scoreEntry(e);
+    const scoreColor = s >= 75 ? 'var(--optimal)' : s >= 50 ? 'var(--caution)' : 'var(--critical)';
+    const vals = BM.filter(b => e[b.id] != null)
+      .map(b => `<span class="bm-entry-val">${b.label} ${e[b.id]} ${b.unit}</span>`)
+      .join('');
+    return `<div class="bm-entry-card">
+      <div class="bm-entry-date">${formatDate(e.date)}</div>
+      <div class="bm-entry-score" style="color:${scoreColor}">Score ${s !== null ? s : '—'}/100</div>
+      <div class="bm-entry-vals">${vals}</div>
+      <button class="bm-entry-del" onclick="deleteEntry(${e._id})">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function deleteEntry(id) {
+  entries = entries.filter(e => e._id !== id);
+  saveEntries();
+  updateHeaderScore();
+  renderHistory();
+  if (timelineChart) renderTimeline();
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+/* ── Render timeline charts ── */
+function renderTimeline() {
+  if (!entries.length) return;
+
+  const labels = entries.map(e => formatDate(e.date));
+  const overallScores = entries.map(e => scoreEntry(e));
+
+  // Overall score line chart
+  const ctx1 = document.getElementById('bmTimelineChart');
+  if (timelineChart) { timelineChart.destroy(); timelineChart = null; }
+  timelineChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Score de Otimização',
+        data: overallScores,
+        borderColor: '#C9A96A',
+        backgroundColor: 'rgba(201,169,106,0.10)',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointBackgroundColor: '#C9A96A',
+        tension: 0.35,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          min: 0, max: 100,
+          ticks: { color: '#45434D', font: { family: 'Space Mono', size: 9 }, callback: v => v + '%' },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        x: {
+          ticks: { color: '#878491', font: { family: 'Space Mono', size: 9 }, maxRotation: 30 },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => 'Score ' + c.parsed.y + '/100' } }
+      }
+    }
+  });
+
+  // Build filter chips
+  const filtersEl = document.getElementById('bmFilters');
+  if (!filtersEl.children.length) {
+    BM.forEach(b => {
+      const chip = document.createElement('button');
+      chip.className = 'bm-tf active';
+      chip.textContent = b.label;
+      chip.style.background = CAT_COLORS[b.cat] || '#888';
+      chip.dataset.id = b.id;
+      chip.onclick = () => {
+        chip.classList.toggle('active');
+        if (chip.classList.contains('active')) {
+          activeFilters.add(b.id); chip.style.background = CAT_COLORS[b.cat] || '#888';
+        } else {
+          activeFilters.delete(b.id); chip.style.background = 'var(--depth-3)';
+        }
+        renderDetailChart();
+      };
+      filtersEl.appendChild(chip);
+    });
+  }
+
+  renderDetailChart();
+}
+
+function renderDetailChart() {
+  if (!entries.length) return;
+  const labels = entries.map(e => formatDate(e.date));
+  const activeBMs = BM.filter(b => activeFilters.has(b.id));
+
+  const datasets = activeBMs.map(b => ({
+    label: b.label,
+    data: entries.map(e => e[b.id] != null ? scoreOne(b, e[b.id]) : null),
+    borderColor: CAT_COLORS[b.cat] || '#888',
+    backgroundColor: 'transparent',
+    borderWidth: 1.5,
+    pointRadius: 4,
+    spanGaps: true,
+    tension: 0.3,
+  }));
+
+  const ctx2 = document.getElementById('bmDetailChart');
+  if (detailChart) { detailChart.destroy(); detailChart = null; }
+  if (!datasets.length) return;
+
+  detailChart = new Chart(ctx2, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          min: 0, max: 100,
+          ticks: { color: '#45434D', font: { family: 'Space Mono', size: 9 }, callback: v => v + '%' },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        x: {
+          ticks: { color: '#878491', font: { family: 'Space Mono', size: 9 }, maxRotation: 30 },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#878491', font: { family: 'Space Mono', size: 9 }, boxWidth: 10 }
+        },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${c.parsed.y !== null ? c.parsed.y + '%' : 'sem dado'}`
+          }
+        }
+      }
+    }
+  });
+}
+
+/* ── Tab switching ── */
+window.switchTab = function(name) {
+  document.querySelectorAll('.bm-tab').forEach((t, i) => {
+    t.classList.toggle('active', ['form','history','timeline'][i] === name);
+  });
+  document.getElementById('tabForm').classList.toggle('active', name === 'form');
+  document.getElementById('tabHistory').classList.toggle('active', name === 'history');
+  document.getElementById('tabTimeline').classList.toggle('active', name === 'timeline');
+
+  if (name === 'timeline') renderTimeline();
+  if (name === 'history') renderHistory();
+};
+
+/* ── Open / Close ── */
+window.openBMDrawer = function() {
+  document.getElementById('bmDrawer').classList.add('open');
+  document.getElementById('bmOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateHeaderScore();
+};
+window.closeBMDrawer = function() {
+  document.getElementById('bmDrawer').classList.remove('open');
+  document.getElementById('bmOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+/* ── Init ── */
+loadEntries();
+buildForm();
+updateHeaderScore();
+
 })();
 </script>
 </body>
