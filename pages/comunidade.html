@@ -267,9 +267,99 @@
     .sec-marker-line { flex: 1; height: 1px; background: var(--b-subtle); }
     .sec-marker-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--t-tertiary); white-space: nowrap; }
 
+    /* ── Dunbar rings ── */
+    .dunbar-wrap { display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: center; margin-bottom: 28px; }
+    .dunbar-rings {
+      position: relative; width: 320px; height: 320px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dring {
+      position: absolute; border-radius: 50%;
+      display: flex; align-items: flex-start; justify-content: center;
+      border: 1px solid var(--b-dim);
+    }
+    .dring-1500 { width: 320px; height: 320px; background: rgba(201,169,106,0.015); }
+    .dring-500  { width: 264px; height: 264px; background: rgba(201,169,106,0.025); }
+    .dring-150  { width: 208px; height: 208px; background: rgba(201,169,106,0.04);  border-color: var(--aurum-d); }
+    .dring-50   { width: 152px; height: 152px; background: rgba(201,169,106,0.06);  }
+    .dring-15   { width: 96px;  height: 96px;  background: rgba(201,169,106,0.09);  }
+    .dring-5    {
+      width: 52px; height: 52px; background: var(--aurum-12);
+      border: 1px solid var(--aurum); align-items: center;
+    }
+    .dring-core { font-family: var(--f-mono); font-size: 1.3rem; font-weight: 700; color: var(--aurum); }
+    .dring-tag {
+      font-family: var(--f-mono); font-size: 8px; letter-spacing: .04em;
+      color: var(--t-tertiary); margin-top: 4px; white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .dring-150 .dring-tag { color: var(--aurum); }
+    .dunbar-legend { display: flex; flex-direction: column; gap: 12px; }
+    .dl-item { display: flex; gap: 14px; align-items: flex-start; }
+    .dl-num {
+      font-family: var(--f-mono); font-size: 1rem; font-weight: 700;
+      color: var(--t-secondary); min-width: 38px; text-align: right;
+      flex-shrink: 0; padding-top: 1px;
+    }
+    .dl-core .dl-num { color: var(--aurum); }
+    .dl-text { font-size: 12px; color: var(--t-secondary); line-height: 1.6; }
+    .dl-text strong { color: var(--t-primary); font-weight: 600; }
+
+    /* ── biomarker grid ── */
+    .biomarker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .bm-card {
+      background: var(--depth-2); border: 1px solid var(--b-dim);
+      border-radius: 8px; padding: 18px 20px;
+    }
+    .bm-card:hover { border-color: var(--b-medium); }
+    .bm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .bm-name { font-family: var(--f-mono); font-size: 13px; font-weight: 700; color: var(--t-primary); letter-spacing: .02em; }
+    .bm-trend { font-size: 1.1rem; font-weight: 700; }
+    .bm-trend.up   { color: var(--critical); }
+    .bm-trend.down { color: var(--caution); }
+    .bm-effect { font-size: 12px; color: var(--t-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .bm-stat {
+      font-family: var(--f-mono); font-size: 10px; color: var(--aurum);
+      background: var(--aurum-04); border-left: 2px solid var(--aurum);
+      padding: 6px 10px; border-radius: 0 4px 4px 0; margin-bottom: 10px;
+    }
+
+    /* ── prescrição social ── */
+    .rx-card {
+      display: none;
+      background: linear-gradient(160deg, var(--depth-3), var(--depth-2));
+      border: 1px solid var(--aurum-d); border-radius: 10px;
+      padding: 28px 32px; margin-top: 24px;
+      box-shadow: 0 0 32px rgba(201,169,106,0.06);
+    }
+    .rx-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+    .rx-brand { font-family: var(--f-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--t-tertiary); margin-bottom: 4px; }
+    .rx-title { font-family: var(--f-serif); font-size: 1.5rem; color: var(--aurum); font-weight: 400; }
+    .rx-glyph { font-family: var(--f-serif); font-size: 2.4rem; color: var(--aurum); opacity: .5; line-height: 1; }
+    .rx-sub { font-size: 12px; color: var(--t-secondary); line-height: 1.6; margin-bottom: 18px; }
+    .rx-list { list-style: none; padding: 0; margin: 0; counter-reset: rx; }
+    .rx-list li {
+      counter-increment: rx; position: relative;
+      padding: 14px 16px 14px 48px; margin-bottom: 10px;
+      background: var(--depth-1); border: 1px solid var(--b-subtle);
+      border-radius: 6px;
+    }
+    .rx-list li::before {
+      content: counter(rx); position: absolute; left: 14px; top: 14px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--aurum-12); border: 1px solid var(--aurum);
+      color: var(--aurum); font-family: var(--f-mono); font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rx-item-name { font-size: 13px; font-weight: 600; color: var(--t-primary); margin-bottom: 3px; }
+    .rx-item-dose { font-family: var(--f-mono); font-size: 10px; color: var(--aurum); margin-bottom: 5px; }
+    .rx-item-why { font-size: 11px; color: var(--t-secondary); line-height: 1.55; }
+    .rx-foot { font-size: 11px; color: var(--t-tertiary); margin-top: 16px; font-style: italic; line-height: 1.5; }
+
     /* ── responsive ── */
     @media (max-width: 768px) {
       .page-content { margin-left: 0; padding: 24px 20px 60px; }
+      .dunbar-wrap { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -309,8 +399,10 @@
     <!-- FILTER NAV -->
     <nav class="filter-nav" id="filterNav">
       <button class="fn-btn active" data-section="zonas">Zonas Azuis</button>
+      <button class="fn-btn" data-section="vinculos">Vínculos</button>
       <button class="fn-btn" data-section="redes">Redes Sociais</button>
       <button class="fn-btn" data-section="cortisol">Cortisol & HPA</button>
+      <button class="fn-btn" data-section="biomarcadores">Biomarcadores</button>
       <button class="fn-btn" data-section="memoria">Memória</button>
       <button class="fn-btn" data-section="protocolos">Protocolos</button>
       <button class="fn-btn" data-section="calculadora">Calculadora</button>
@@ -421,8 +513,82 @@
       </div>
     </div>
 
+    <h3 style="font-family:var(--f-serif);font-size:1.1rem;color:var(--t-primary);margin:28px 0 6px;font-weight:400;">Onde o Isolamento se Posiciona entre os Fatores de Risco</h3>
+    <p class="sec-sub" style="margin-bottom:18px;">Redução estimada de sobrevida associada a cada fator de risco — meta-análise de Holt-Lunstad (2015). Isolamento social e solidão superam obesidade e rivalizam com tabagismo e sedentarismo como preditores de mortalidade precoce.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Aumento de Risco de Mortalidade por Fator (odds ratio ponderado)</div>
+      <canvas id="mortalityChart" height="200"></canvas>
+      <a class="ev-doi" href="https://doi.org/10.1177/1745691614568352" target="_blank" rel="noopener" style="margin-top:14px;">Holt-Lunstad et al., Perspectives on Psychological Science 2015 · doi:10.1177/1745691614568352 ↗</a>
+    </div>
+
+    <!-- ══ VÍNCULOS / DUNBAR ══ -->
+    <div class="sec-marker" id="vinculos"><div class="sec-marker-line"></div><div class="sec-marker-label">02 · Arquitetura dos Vínculos</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">A Arquitetura Neurocientífica dos Vínculos</h2>
+    <p class="sec-sub">O antropólogo Robin Dunbar demonstrou que o neocórtex humano impõe limites cognitivos ao número de relações estáveis que conseguimos manter. Não basta ter "muitos contatos" — a longevidade depende de preencher as <em>camadas internas</em>, onde mora a intimidade que regula o eixo HPA. Redes sociais inflam a camada externa (conhecidos) enquanto esvaziam o núcleo.</p>
+
+    <div class="dunbar-wrap">
+      <div class="dunbar-rings" id="dunbarRings">
+        <div class="dring dring-1500"><span class="dring-tag">1500 · rostos reconhecíveis</span></div>
+        <div class="dring dring-500"><span class="dring-tag">500 · conhecidos</span></div>
+        <div class="dring dring-150"><span class="dring-tag">150 · rede estável (nº de Dunbar)</span></div>
+        <div class="dring dring-50"><span class="dring-tag">50 · amigos</span></div>
+        <div class="dring dring-15"><span class="dring-tag">15 · círculo de simpatia</span></div>
+        <div class="dring dring-5"><span class="dring-core">5</span></div>
+      </div>
+      <div class="dunbar-legend">
+        <div class="dl-item dl-core">
+          <div class="dl-num">5</div>
+          <div class="dl-text"><strong>Núcleo de suporte.</strong> As pessoas que você chamaria em uma crise às 3h da manhã. É esta camada que regula cortisol e prediz mortalidade. O moai de Okinawa vive aqui.</div>
+        </div>
+        <div class="dl-item">
+          <div class="dl-num">15</div>
+          <div class="dl-text"><strong>Círculo de simpatia.</strong> Amigos íntimos com quem há vulnerabilidade emocional. Contato presencial regular é necessário para manter esta camada ativa.</div>
+        </div>
+        <div class="dl-item">
+          <div class="dl-num">50</div>
+          <div class="dl-text"><strong>Amigos.</strong> Pessoas que você convidaria para um evento social. Reforçam identidade e pertencimento, mas não substituem o núcleo.</div>
+        </div>
+        <div class="dl-item">
+          <div class="dl-num">150</div>
+          <div class="dl-text"><strong>Número de Dunbar.</strong> O limite cognitivo de relações estáveis que o cérebro humano sustenta. Comunidades das Zonas Azuis operam dentro deste limite — todos se conhecem.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <div class="alert-icon">⚠</div>
+      <div>
+        <div class="alert-title">A Ilusão da Hiperconexão</div>
+        <div class="alert-body">Ter 2.000 seguidores ativa a percepção de pertencimento sem entregar a regulação fisiológica. O cérebro contabiliza camadas externas infladas e conclui que está "conectado" — enquanto o núcleo de 5 permanece vazio. Resultado: solidão em meio à multidão digital, com cortisol de isolamento. A qualidade do núcleo, não o tamanho da rede, prediz longevidade.</div>
+      </div>
+    </div>
+
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-review">Neurociência social</span>
+        <div class="ev-title">Tamanho do Grupo e o Neocórtex</div>
+        <div class="ev-body">Dunbar (1992) correlacionou o volume do neocórtex de primatas com o tamanho do grupo social. Extrapolado ao humano: ~150 relações estáveis. Estudos posteriores com dados de telefonia e redes sociais confirmaram a estrutura em camadas (5–15–50–150).</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Limite cognitivo ~150 · camadas 5/15/50/150 confirmadas</div>
+        <a class="ev-doi" href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank" rel="noopener">doi:10.1016/0047-2484(92)90081-J ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Big data · telefonia</span>
+        <div class="ev-title">As Camadas São Reais e Mensuráveis</div>
+        <div class="ev-body">Análise de 6 bilhões de chamadas (Mac Carron, Kaski & Dunbar, 2016) confirmou as camadas de relacionamento com razão de escala ~3 entre elas. A frequência de contato — não apenas a existência do vínculo — define em qual camada alguém reside.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>6 bi de chamadas · razão de escala ~3× entre camadas</div>
+        <a class="ev-doi" href="https://doi.org/10.1016/j.socnet.2016.04.002" target="_blank" rel="noopener">doi:10.1016/j.socnet.2016.04.002 ↗</a>
+      </div>
+      <div class="ev-card">
+        <span class="ev-badge ev-badge-cohort">Coorte · qualidade vs. quantidade</span>
+        <div class="ev-title">Qualidade do Núcleo &gt; Tamanho da Rede</div>
+        <div class="ev-body">No estudo de Harvard (Waldinger), o número de amigos aos 50 anos não previu saúde aos 80 — mas a <em>satisfação</em> com as relações próximas sim. Um único confidente de alta qualidade tem efeito protetor maior que dezenas de laços fracos.</div>
+        <div class="ev-kf"><span class="ev-kf-label">Efeito-chave</span>Satisfação com o núcleo prediz saúde · nº de amigos não</div>
+        <a class="ev-doi" href="https://doi.org/10.1097/PSY.0000000000001030" target="_blank" rel="noopener">doi:10.1097/PSY.0000000000001030 ↗</a>
+      </div>
+    </div>
+
     <!-- ══ REDES SOCIAIS ══ -->
-    <div class="sec-marker" id="redes"><div class="sec-marker-line"></div><div class="sec-marker-label">02 · Redes Sociais</div><div class="sec-marker-line"></div></div>
+    <div class="sec-marker" id="redes"><div class="sec-marker-line"></div><div class="sec-marker-label">03 · Redes Sociais</div><div class="sec-marker-line"></div></div>
     <h2 class="sec-title">Redes Sociais: Evidência sobre Depressão & Ansiedade</h2>
     <p class="sec-sub">A adoção do smartphone e das mídias sociais entre 2011 e 2014 correlaciona-se com a maior crise de saúde mental de adolescentes já documentada. O mecanismo não é correlação — é causal: experimentos de restrição demonstram reversibilidade.</p>
 
@@ -531,7 +697,7 @@
     </table>
 
     <!-- ══ CORTISOL ══ -->
-    <div class="sec-marker" id="cortisol"><div class="sec-marker-line"></div><div class="sec-marker-label">03 · Cortisol & HPA</div><div class="sec-marker-line"></div></div>
+    <div class="sec-marker" id="cortisol"><div class="sec-marker-line"></div><div class="sec-marker-label">04 · Cortisol & HPA</div><div class="sec-marker-line"></div></div>
     <h2 class="sec-title">Cortisol Crônico: O Mecanismo Molecular</h2>
     <p class="sec-sub">Isolamento social ativa o eixo HPA da mesma forma que ameaças físicas reais. Cortisol crônico suprime imunidade, acelera telômeros, aumenta inflamação e compromete cognição. Suporte social e toque físico são os reguladores mais potentes do HPA disponíveis sem farmacologia.</p>
 
@@ -591,8 +757,60 @@
       <canvas id="cortisolChart" height="160"></canvas>
     </div>
 
+    <!-- ══ BIOMARCADORES SOCIAIS ══ -->
+    <div class="sec-marker" id="biomarcadores"><div class="sec-marker-line"></div><div class="sec-marker-label">05 · Biomarcadores Sociais</div><div class="sec-marker-line"></div></div>
+    <h2 class="sec-title">Biomarcadores Sociais: O Que o Laboratório Mostra</h2>
+    <p class="sec-sub">Conexão e isolamento não são abstrações — deixam assinaturas mensuráveis no sangue. Estes são os mesmos marcadores rastreados no <a href="biomarkers-panel.html" style="color:var(--aurum);">Painel de Biomarcadores</a>, agora lidos sob a ótica da saúde social. Isolamento crônico produz um fenótipo inflamatório distinto — o que Cole chamou de CTRA (Conserved Transcriptional Response to Adversity).</p>
+
+    <div class="biomarker-grid">
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">IL-6</span><span class="bm-trend up">↑</span></div>
+        <div class="bm-effect">Interleucina-6 elevada em isolados sociais. Citocina pró-inflamatória que acelera senescência e doença cardiovascular.</div>
+        <div class="bm-stat">+9% por ano de solidão sustentada</div>
+        <a class="ev-doi" href="https://doi.org/10.1073/pnas.1514249112" target="_blank" rel="noopener">Cole et al. PNAS 2015 ↗</a>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">PCR-us</span><span class="bm-trend up">↑</span></div>
+        <div class="bm-effect">Proteína C-reativa ultrassensível elevada. Marcador inflamatório sistêmico e preditor cardiovascular independente.</div>
+        <div class="bm-stat">Isolamento ≈ +1 quartil de risco CV</div>
+        <a class="ev-doi" href="https://doi.org/10.1073/pnas.1511085112" target="_blank" rel="noopener">Yang et al. PNAS 2016 ↗</a>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">Cortisol</span><span class="bm-trend up">↑</span></div>
+        <div class="bm-effect">Slope diurno achatado e cortisol noturno elevado. Assinatura clássica de desregulação crônica do eixo HPA.</div>
+        <div class="bm-stat">+17% cortisol noturno / DP de solidão</div>
+        <a class="ev-doi" href="https://doi.org/10.1037/0022-3514.90.6.1014" target="_blank" rel="noopener">Cacioppo 2006 ↗</a>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">Telômeros</span><span class="bm-trend down">↓</span></div>
+        <div class="bm-effect">Encurtamento telomérico acelerado sob estresse crônico. Reduz a capacidade replicativa celular e marca idade biológica.</div>
+        <div class="bm-stat">Estresse crônico ↓ telomerase (Nobel 2009)</div>
+        <a class="ev-doi" href="https://doi.org/10.1073/pnas.0407162101" target="_blank" rel="noopener">Epel et al. PNAS 2004 ↗</a>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">Expressão Gênica</span><span class="bm-trend up">⇅</span></div>
+        <div class="bm-effect">CTRA: ↑ genes pró-inflamatórios + ↓ genes antivirais (interferon). Fenótipo molecular do isolamento descrito por Cole.</div>
+        <div class="bm-stat">Reversível com reconexão social</div>
+        <a class="ev-doi" href="https://doi.org/10.1186/gb-2007-8-9-r189" target="_blank" rel="noopener">Cole et al. Genome Biol 2007 ↗</a>
+      </div>
+      <div class="bm-card">
+        <div class="bm-head"><span class="bm-name">Fibrinogênio</span><span class="bm-trend up">↑</span></div>
+        <div class="bm-effect">Fator de coagulação elevado em isolados. Aumenta risco trombótico e é mediador da ligação isolamento → doença CV.</div>
+        <div class="bm-stat">Gradiente dose-resposta com isolamento</div>
+        <a class="ev-doi" href="https://doi.org/10.1073/pnas.1511085112" target="_blank" rel="noopener">Yang et al. PNAS 2016 ↗</a>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="alert-icon">◉</div>
+      <div>
+        <div class="alert-title">CTRA — A Resposta Transcricional à Adversidade</div>
+        <div class="alert-body">Steve Cole (UCLA) descobriu que o isolamento social reprograma a expressão gênica dos leucócitos: ativa genes inflamatórios (NF-κB) e suprime a defesa antiviral (interferon). É a ponte molecular entre "sentir-se sozinho" e "adoecer fisicamente". O achado mais esperançoso: o padrão <strong>reverte</strong> quando a pessoa reconstrói vínculos genuínos — a biologia social é plástica.</div>
+      </div>
+    </div>
+
     <!-- ══ MEMÓRIA ══ -->
-    <div class="sec-marker" id="memoria"><div class="sec-marker-line"></div><div class="sec-marker-label">04 · Memória & Identidade</div><div class="sec-marker-line"></div></div>
+    <div class="sec-marker" id="memoria"><div class="sec-marker-line"></div><div class="sec-marker-label">06 · Memória & Identidade</div><div class="sec-marker-line"></div></div>
     <h2 class="sec-title">Memória, Identidade e o Vácuo das Telas</h2>
     <p class="sec-sub">Memórias de alta valência emocional formadas em contextos sociais reais são a substância da identidade e da satisfação de vida retrospectiva. Atenção fragmentada por telas impede a consolidação hipocampal dessas memórias — gerando um vácuo fenomenológico progressivo.</p>
 
@@ -644,7 +862,7 @@
     </div>
 
     <!-- ══ PROTOCOLOS ══ -->
-    <div class="sec-marker" id="protocolos"><div class="sec-marker-line"></div><div class="sec-marker-label">05 · Protocolos Clínicos</div><div class="sec-marker-line"></div></div>
+    <div class="sec-marker" id="protocolos"><div class="sec-marker-line"></div><div class="sec-marker-label">07 · Protocolos Clínicos</div><div class="sec-marker-line"></div></div>
     <h2 class="sec-title">Protocolos Baseados em Evidências</h2>
     <p class="sec-sub">Intervenções específicas com dosagem, mecanismo e suporte de literatura. Implementação progressiva recomendada: comece pela restrição de telas (maior impacto imediato), depois construa a estrutura social positiva.</p>
 
@@ -779,7 +997,7 @@
     </table>
 
     <!-- ══ CALCULADORA ══ -->
-    <div class="sec-marker" id="calculadora"><div class="sec-marker-line"></div><div class="sec-marker-label">06 · Calculadora</div><div class="sec-marker-line"></div></div>
+    <div class="sec-marker" id="calculadora"><div class="sec-marker-line"></div><div class="sec-marker-label">08 · Calculadora</div><div class="sec-marker-line"></div></div>
     <h2 class="sec-title">Score de Saúde Social</h2>
     <p class="sec-sub">Pontuação baseada nos protocolos com maior suporte de evidências. Use como diagnóstico inicial — não como avaliação clínica formal.</p>
 
@@ -836,6 +1054,20 @@
       </div>
     </div>
 
+    <!-- PRESCRIÇÃO SOCIAL -->
+    <div class="rx-card" id="rxCard">
+      <div class="rx-head">
+        <div>
+          <div class="rx-brand">Eternal Health · Medicina Social</div>
+          <div class="rx-title">Prescrição Social</div>
+        </div>
+        <div class="rx-glyph">℞</div>
+      </div>
+      <div class="rx-sub">Suas 3 intervenções de maior alavancagem — priorizadas pelos seus pontos mais fracos e pela força da evidência.</div>
+      <ol class="rx-list" id="rxList"></ol>
+      <div class="rx-foot">Reavalie o score em 4 semanas. Mudança de comportamento social responde melhor à consistência do que à intensidade.</div>
+    </div>
+
     <div class="info-box">
       <div class="alert-icon">◎</div>
       <div>
@@ -859,17 +1091,98 @@
     }
   })();
 
-  /* ── Filter nav ── */
+  /* ── Filter nav + scroll-spy ── */
   (function() {
-    const btns = document.querySelectorAll('.fn-btn');
+    const btns = Array.from(document.querySelectorAll('.fn-btn'));
+    let clickLock = false;
+
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
         btns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const id = btn.dataset.section;
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (el) {
+          clickLock = true;
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => { clickLock = false; }, 700);
+        }
       });
+    });
+
+    // Scroll-spy: highlight the section currently in view
+    const sections = btns
+      .map(b => document.getElementById(b.dataset.section))
+      .filter(Boolean);
+
+    const spy = new IntersectionObserver((entries) => {
+      if (clickLock) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          btns.forEach(b => b.classList.toggle('active', b.dataset.section === id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(s => spy.observe(s));
+  })();
+
+  /* ── Mortality risk comparison chart ── */
+  (function() {
+    const ctx = document.getElementById('mortalityChart');
+    if (!ctx) return;
+
+    // Odds ratios for mortality (Holt-Lunstad 2010/2015 + reference factors)
+    const labels = [
+      'Pouca conexão social',
+      'Solidão',
+      'Viver sozinho',
+      'Tabagismo (≤15/dia)',
+      'Sedentarismo',
+      'Obesidade',
+      'Poluição do ar',
+      'Consumo de álcool'
+    ];
+    const data = [1.91, 1.26, 1.32, 1.92, 1.28, 1.21, 1.05, 1.31];
+    const colors = data.map((_, i) =>
+      i < 3 ? '#C9A96A' : 'rgba(135,132,145,0.55)'
+    );
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Odds ratio de mortalidade',
+          data,
+          backgroundColor: colors,
+          borderColor: data.map((_, i) => i < 3 ? '#C9A96A' : 'rgba(135,132,145,0.7)'),
+          borderWidth: 1,
+          borderRadius: 3,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: c => 'OR ' + c.parsed.x + ' · ' + (c.parsed.x >= 1.5 ? 'risco alto' : 'risco moderado') }
+          }
+        },
+        scales: {
+          x: {
+            min: 1,
+            ticks: { color: '#45434D', font: { family: 'Space Mono', size: 9 }, callback: v => v + '×' },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          },
+          y: {
+            ticks: { color: '#878491', font: { family: 'Space Mono', size: 10 } },
+            grid: { display: false }
+          }
+        }
+      }
     });
   })();
 
@@ -1030,6 +1343,48 @@
     const result = document.getElementById('calcResult');
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // ── Generate Social Prescription: 3 weakest dimensions, weighted by impact ──
+    const RX = [
+      { name: 'Restrinja redes sociais', dose: '≤ 30 min/dia · 1 janela única',
+        why: 'RCT de Hunt (2018): cortar para 30 min/dia reduziu solidão em 43% e depressão em 50% em apenas 3 semanas. É a alavanca de maior retorno imediato.' },
+      { name: 'Agende encontros presenciais', dose: '3–4×/semana · prioridade sobre vídeo',
+        why: 'O contato físico libera oxitocina, que silencia o eixo HPA. O estudo de Harvard aponta a qualidade das relações como o preditor #1 de saúde aos 80 anos.' },
+      { name: 'Aumente o contato físico', dose: '≥ 8 abraços/dia · ≥ 20 s cada',
+        why: 'Cohen (2015): maior frequência de abraços reduziu em 32% a chance de adoecer. 20 segundos é o tempo necessário para a liberação sustentada de oxitocina.' },
+      { name: 'Faça refeições sociais', dose: '5+/semana · celular fora da mesa',
+        why: 'Padrão universal das Zonas Azuis. Refeições compartilhadas reduzem ansiedade, desaceleram a alimentação e combatem o isolamento silencioso.' },
+      { name: 'Institua um Sabbath digital', dose: '24h/semana sem redes/streaming',
+        why: 'Pilar de Loma Linda (+7–10 anos de longevidade). Um dia sem telas reseta a dopamina, reduz cortisol basal e melhora a qualidade do sono.' },
+      { name: 'Comece a voluntariar', dose: '2–4h/semana · causa pessoal',
+        why: 'Meta-análise de Okun (2013): voluntariado ≥2h/semana associado a −22% mortalidade por todas as causas, via propósito e integração comunitária.' },
+      { name: 'Construa seu moai', dose: '5 pessoas · encontro semanal fixo',
+        why: 'O segredo de Okinawa: um núcleo estável de 5 que se mantém por décadas. É a camada que regula cortisol e prediz longevidade — qualidade acima de quantidade.' }
+    ];
+
+    // Rank dimensions by deficit × weight (where the patient loses the most)
+    const ranked = scores
+      .map((s, i) => ({ i, deficit: (100 - s) * W[i] }))
+      .sort((a, b) => b.deficit - a.deficit)
+      .slice(0, 3)
+      .filter(d => d.deficit > 0.5);
+
+    const rxCard = document.getElementById('rxCard');
+    const rxList = document.getElementById('rxList');
+
+    if (ranked.length === 0) {
+      rxList.innerHTML = `<li><div class="rx-item-name">Manutenção</div><div class="rx-item-dose">Continue o protocolo atual</div><div class="rx-item-why">Todos os seus pilares sociais estão em nível ótimo. Mantenha a consistência e reavalie trimestralmente.</div></li>`;
+    } else {
+      rxList.innerHTML = ranked.map(d => {
+        const rx = RX[d.i];
+        return `<li>
+          <div class="rx-item-name">${rx.name}</div>
+          <div class="rx-item-dose">${rx.dose}</div>
+          <div class="rx-item-why">${rx.why}</div>
+        </li>`;
+      }).join('');
+    }
+    rxCard.style.display = 'block';
   }
 </script>
 </body>
