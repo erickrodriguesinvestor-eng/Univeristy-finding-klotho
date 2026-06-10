@@ -21,7 +21,7 @@ except ImportError:  # mensagem clara se faltar a dependencia
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 
-MODEL = os.environ.get("MODEL", "claude-sonnet-4-6")
+MODEL = os.environ.get("MODEL", "claude-fable-5")
 MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "2000"))
 # Limites de entrada: evitam custo descontrolado e abuso do endpoint.
 MAX_INPUT_CHARS = int(os.environ.get("MAX_INPUT_CHARS", "30000"))

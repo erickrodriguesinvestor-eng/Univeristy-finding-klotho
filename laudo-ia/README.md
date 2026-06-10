@@ -65,8 +65,8 @@ Defina `ANTHROPIC_API_KEY` nas variáveis de ambiente do host. **Nunca** suba o 
 ## Trocar o motor de IA
 Tudo passa por `app.py` → função `generate`. Para usar modelo local (privacidade total,
 LGPD), troque a chamada `Anthropic(...)` pelo seu endpoint local. A interface não muda.
-Modelo e custo controlados por `MODEL` (padrão `claude-sonnet-4-6`; troque por
-`claude-haiku-4-5` para baratear em escala).
+Modelo e custo controlados por `MODEL` (padrão `claude-fable-5`, o modelo mais
+capaz; troque por `claude-sonnet-4-6` ou `claude-haiku-4-5` para baratear em escala).
 
 ## Como vender (primeiros R$)
 1. Use você mesmo por uma semana na sua rotina. Cronometre antes/depois.
