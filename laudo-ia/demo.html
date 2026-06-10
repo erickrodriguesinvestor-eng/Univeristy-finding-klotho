@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Laudo IA — documento clínico com médico no loop</title>
+<style>
+  :root {
+    --ink: #14201c;
+    --paper: #f6f5f1;
+    --card: #ffffff;
+    --line: #d9d8d0;
+    --muted: #6b7670;
+    --accent: #0f6e5c;        /* teal clínico, confiança */
+    --accent-soft: #e3efeb;
+    --amber: #9a6b00;
+    --amber-soft: #fbf0d8;
+    --green: #1c6b3a;
+    --green-soft: #e0efe4;
+    --danger: #9a2b2b;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  header.top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  header.top h1 {
+    font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; font-weight: 650;
+  }
+  .tag {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 3px 9px; border-radius: 999px; font-weight: 600;
+  }
+  .sub { color: var(--muted); font-size: 0.92rem; margin: 0 0 22px; }
+
+  /* trilha de estados: a assinatura da interface */
+  .track { display: flex; gap: 0; margin: 0 0 24px; border: 1px solid var(--line);
+           border-radius: 12px; overflow: hidden; background: var(--card); }
+  .step { flex: 1; padding: 12px 14px; font-size: 0.85rem; color: var(--muted);
+          display: flex; align-items: center; gap: 8px; border-right: 1px solid var(--line); }
+  .step:last-child { border-right: none; }
+  .step .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line);
+               display: grid; place-items: center; font-size: 0.7rem; color: var(--muted); flex: none; }
+  .step.active { color: var(--ink); font-weight: 600; }
+  .step.active .dot { border-color: var(--accent); color: var(--accent); }
+  .step.done .dot { background: var(--green); border-color: var(--green); color: #fff; }
+  .step.done { color: var(--ink); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+          padding: 20px; margin-bottom: 18px; }
+  label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
+  .hint { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+  textarea, input, select {
+    width: 100%; font-family: inherit; font-size: 0.95rem; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 8px; padding: 11px 12px; background: #fff;
+  }
+  textarea { resize: vertical; min-height: 150px; line-height: 1.55; }
+  textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 200px; }
+  .counter { font-size: 0.75rem; color: var(--muted); text-align: right; margin-top: 4px; }
+  .counter.over { color: var(--danger); font-weight: 600; }
+
+  button {
+    font-family: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff;
+    padding: 11px 18px; border-radius: 8px; transition: filter .15s;
+  }
+  button:hover:not(:disabled) { filter: brightness(1.08); }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  button.ghost { background: #fff; color: var(--accent); }
+  button.amber { background: var(--amber); border-color: var(--amber); }
+
+  .draft-box { min-height: 280px; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; }
+  .banner { font-size: 0.85rem; padding: 10px 12px; border-radius: 8px; margin-bottom: 14px; display: none; }
+  .banner.show { display: block; }
+  .banner.ai { background: var(--amber-soft); color: var(--amber); border: 1px solid #e6d49a; }
+  .banner.err { background: #f6e1e1; color: var(--danger); border: 1px solid #e6b3b3; }
+  .banner.ok { background: var(--green-soft); color: var(--green); border: 1px solid #b8d8c2; }
+
+  .check { display: flex; align-items: flex-start; gap: 8px; font-size: 0.88rem;
+           margin: 14px 0 0; cursor: pointer; font-weight: 500; }
+  .check input { width: auto; margin-top: 3px; accent-color: var(--accent); }
+
+  .hidden { display: none; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #ffffff80;
+             border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* documento final */
+  .final-doc { font-family: Georgia, "Times New Roman", serif; line-height: 1.65; }
+  .final-doc .body { white-space: pre-wrap; font-size: 1rem; }
+  .stamp { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 10px; font-size: 0.9rem; }
+  .disclosure { margin-top: 18px; font-size: 0.78rem; color: var(--muted); border: 1px dashed var(--line);
+                padding: 10px 12px; border-radius: 8px; font-family: system-ui, sans-serif; }
+
+  footer { color: var(--muted); font-size: 0.78rem; text-align: center; margin-top: 30px; }
+
+  @media print {
+    body { background: #fff; }
+    .no-print { display: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    .card { border: none; padding: 0; margin: 0; }
+    .disclosure { border: 1px solid #999; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top no-print">
+    <h1>Laudo IA <small style='font-size:0.7rem;color:#9a6b00;'>DEMO OFFLINE</small></h1>
+    <span class="tag">médico no loop · CFM 2.454</span>
+  </header>
+  <p class="sub no-print">Texto clínico entra, rascunho estruturado sai. Você revisa, assina e exporta. A IA é apoio — a decisão e a assinatura são suas.</p>
+
+  <div class="track no-print">
+    <div class="step active" id="st1"><span class="dot">1</span> Entrada</div>
+    <div class="step" id="st2"><span class="dot">2</span> Rascunho IA</div>
+    <div class="step" id="st3"><span class="dot">3</span> Revisão</div>
+    <div class="step" id="st4"><span class="dot">4</span> Assinado</div>
+  </div>
+
+  <!-- Etapa 1: entrada -->
+  <section class="card no-print" id="cardInput">
+    <div class="row" style="margin-bottom:14px;">
+      <div>
+        <label for="docType">Tipo de documento</label>
+        <select id="docType">
+          <option value="relatorio">Relatório médico / parecer clínico</option>
+          <option value="sumario_alta">Sumário de alta</option>
+          <option value="laudo_exame">Laudo de exame</option>
+          <option value="atestado">Atestado / relatório circunstanciado</option>
+        </select>
+      </div>
+      <div>
+        <label for="specialty">Especialidade <span class="hint">(opcional)</span></label>
+        <input id="specialty" maxlength="120" placeholder="ex.: clínica médica" />
+      </div>
+    </div>
+    <label for="raw">Informações clínicas <span class="hint">— dite ou cole suas notas. Não invente nada por mim; o que faltar eu marco.</span></label>
+    <textarea id="raw" placeholder="Ex.: Paciente 54a, masc, HAS, queixa de dor torácica há 2h, irradiando p/ braço E. PA 160x100, FC 92. ECG com supra de ST em parede inferior. Conduta: AAS, encaminhado p/ hemodinâmica..."></textarea>
+    <div class="counter" id="rawCounter">0 / 30.000</div>
+    <div style="margin-top:10px;">
+      <button id="btnGen">Gerar rascunho</button>
+      <span class="hint" style="margin-left:10px;">Ctrl+Enter também gera</span>
+    </div>
+  </section>
+
+  <!-- Etapa 2/3: rascunho + revisão -->
+  <section class="card hidden" id="cardDraft">
+    <div class="banner ai show" id="aiBanner">⚠ Rascunho gerado por IA. Leia, corrija e só então marque como revisado. Você é o responsável pelo conteúdo.</div>
+    <div class="banner err" id="errBanner" role="alert"></div>
+    <label for="draft">Rascunho — edite livremente</label>
+    <textarea id="draft" class="draft-box"></textarea>
+    <label class="check no-print">
+      <input type="checkbox" id="chkReviewed" />
+      <span>Li e revisei integralmente o conteúdo acima, incluindo os marcadores <code>[PREENCHER]</code>, e assumo a responsabilidade pelo documento.</span>
+    </label>
+    <div class="row" style="margin-top:14px; align-items:center;">
+      <div style="flex:none;"><button class="ghost no-print" id="btnRegen">Gerar de novo</button></div>
+      <div style="flex:none;"><button class="amber" id="btnReviewed" disabled>Avançar para assinatura</button></div>
+    </div>
+  </section>
+
+  <!-- Etapa 4: assinatura -->
+  <section class="card hidden" id="cardSign">
+    <div class="banner ok show">Revisado. Preencha seus dados para assinar.</div>
+    <div class="row">
+      <div><label for="docName">Nome do médico</label><input id="docName" placeholder="Dr(a). Nome Completo" autocomplete="name" /></div>
+      <div><label for="docCRM">CRM</label><input id="docCRM" placeholder="CRM/UF 000000" /></div>
+    </div>
+    <div style="margin-top:14px;">
+      <button id="btnSign" disabled>Assinar e finalizar</button>
+    </div>
+  </section>
+
+  <!-- Documento final -->
+  <section class="card hidden final-doc" id="cardFinal">
+    <div class="body" id="finalBody"></div>
+    <div class="stamp" id="finalStamp"></div>
+    <div class="disclosure" id="finalDisclosure"></div>
+    <div class="no-print" style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;">
+      <button onclick="window.print()">Imprimir / salvar PDF</button>
+      <button class="ghost" id="btnCopy">Copiar texto</button>
+      <button class="ghost" id="btnNew">Novo documento</button>
+    </div>
+  </section>
+
+  <footer class="no-print">
+    Apoio à redação clínica. Não emite diagnóstico autônomo. O médico revisa e responde pelo documento (Resolução CFM nº 2.454/2026).
+  </footer>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const MAX_CHARS = 30000;
+  const steps = ["st1","st2","st3","st4"];
+  let finalized = false;
+
+  function setStep(active, done) {
+    steps.forEach((s,i) => {
+      const el = $(s);
+      el.classList.remove("active","done");
+      if (i < done) el.classList.add("done");
+      else if (i === active) el.classList.add("active");
+    });
+  }
+
+  function updateCounter() {
+    const len = $("raw").value.length;
+    const c = $("rawCounter");
+    c.textContent = len.toLocaleString("pt-BR") + " / " + MAX_CHARS.toLocaleString("pt-BR");
+    c.classList.toggle("over", len > MAX_CHARS);
+  }
+  $("raw").addEventListener("input", updateCounter);
+
+  async function generate() {
+    const raw = $("raw").value.trim();
+    if (!raw) { showErr("Cole as informações clínicas antes de gerar."); $("cardDraft").classList.remove("hidden"); return; }
+    if (raw.length > MAX_CHARS) { showErr("Texto muito longo. Reduza para até " + MAX_CHARS.toLocaleString("pt-BR") + " caracteres."); $("cardDraft").classList.remove("hidden"); return; }
+    hideErr();
+    const btn = $("btnGen"); const reBtn = $("btnRegen");
+    [btn, reBtn].forEach(b => { if (b) { b.disabled = true; } });
+    btn.innerHTML = '<span class="spinner"></span>Gerando...';
+    $("cardDraft").classList.remove("hidden");
+    $("chkReviewed").checked = false;
+    $("btnReviewed").disabled = true;
+    setStep(1, 1);
+    try {
+      // DEMO: IA simulada — sem servidor, sem chave de API
+      await new Promise(r => setTimeout(r, 1200));
+      $("draft").value =
+        "RELATORIO MEDICO\n\n" +
+        "IDENTIFICACAO\nPaciente masculino, 54 anos. [PREENCHER: nome completo]\n\n" +
+        "HISTORIA CLINICA\nPaciente hipertenso, com queixa de dor toracica ha 2 horas, " +
+        "com irradiacao para membro superior esquerdo.\n\n" +
+        "EXAME FISICO\nPA 160x100 mmHg, FC 92 bpm. [PREENCHER: demais sinais vitais]\n\n" +
+        "EXAMES COMPLEMENTARES\nECG com supradesnivelamento de ST em parede inferior.\n\n" +
+        "HIPOTESES DIAGNOSTICAS\nSindrome coronariana aguda com supra de ST (parede inferior).\n\n" +
+        "CONDUTA\nAAS administrado. Encaminhado para hemodinamica.\n\n" +
+        "CONCLUSAO\nPaciente com quadro compativel com IAM de parede inferior, " +
+        "encaminhado para tratamento intervencionista.";
+      $("cardDraft").scrollIntoView({ behavior: "smooth" });
+    } catch (e) {
+      showErr(e.message);
+    } finally {
+      btn.disabled = false; btn.textContent = "Gerar rascunho";
+      if (reBtn) reBtn.disabled = false;
+    }
+  }
+
+  function showErr(m){ const b=$("errBanner"); b.textContent="Erro: "+m; b.classList.add("show"); }
+  function hideErr(){ $("errBanner").classList.remove("show"); }
+
+  $("btnGen").addEventListener("click", generate);
+  $("btnRegen").addEventListener("click", () => {
+    if ($("draft").value.trim() &&
+        !confirm("Gerar de novo descarta as edições feitas neste rascunho. Continuar?")) return;
+    generate();
+  });
+  $("raw").addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") generate();
+  });
+
+  $("chkReviewed").addEventListener("change", () => {
+    $("btnReviewed").disabled = !$("chkReviewed").checked;
+  });
+
+  $("btnReviewed").addEventListener("click", () => {
+    if (!$("draft").value.trim()) { showErr("O rascunho está vazio."); return; }
+    if ($("draft").value.includes("[PREENCHER") &&
+        !confirm("Ainda existem marcadores [PREENCHER] no documento. Avançar mesmo assim?")) return;
+    $("cardSign").classList.remove("hidden");
+    $("aiBanner").classList.remove("show");
+    setStep(2, 2);
+    $("cardSign").scrollIntoView({ behavior: "smooth" });
+  });
+
+  function checkSign(){
+    $("btnSign").disabled = !($("docName").value.trim() && $("docCRM").value.trim());
+  }
+  $("docName").addEventListener("input", checkSign);
+  $("docCRM").addEventListener("input", checkSign);
+
+  $("btnSign").addEventListener("click", () => {
+    const name = $("docName").value.trim();
+    const crm = $("docCRM").value.trim();
+    const now = new Date();
+    const stamp = now.toLocaleString("pt-BR", { dateStyle: "long", timeStyle: "short" });
+    $("finalBody").textContent = $("draft").value.trim();
+    const stampEl = $("finalStamp");
+    stampEl.textContent = "";
+    stampEl.append(
+      "_______________________________________",
+      document.createElement("br"),
+      Object.assign(document.createElement("strong"), { textContent: name }),
+      document.createElement("br"),
+      crm,
+      document.createElement("br"),
+      "Assinado em " + stamp
+    );
+    $("finalDisclosure").textContent =
+      "Documento elaborado com auxílio de inteligência artificial e revisado e validado pelo médico " +
+      "responsável, nos termos da Resolução CFM nº 2.454/2026. A IA atuou como ferramenta de apoio; " +
+      "a decisão clínica e a responsabilidade pelo conteúdo são do médico signatário.";
+    ["cardInput","cardDraft","cardSign"].forEach(c => $(c).classList.add("hidden"));
+    $("cardFinal").classList.remove("hidden");
+    finalized = true;
+    setStep(3, 4);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  $("btnCopy").addEventListener("click", async () => {
+    const text = $("finalBody").textContent + "\n\n" + $("finalStamp").innerText + "\n\n" + $("finalDisclosure").textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      $("btnCopy").textContent = "Copiado ✓";
+      setTimeout(() => { $("btnCopy").textContent = "Copiar texto"; }, 2000);
+    } catch {
+      showErr("Não foi possível copiar. Selecione o texto manualmente.");
+    }
+  });
+
+  $("btnNew").addEventListener("click", () => {
+    if (!finalized && ($("raw").value.trim() || $("draft").value.trim()) &&
+        !confirm("Começar um novo documento descarta o atual. Continuar?")) return;
+    $("raw").value = ""; $("draft").value = "";
+    $("docName").value = ""; $("docCRM").value = ""; $("btnSign").disabled = true;
+    $("chkReviewed").checked = false; $("btnReviewed").disabled = true;
+    ["cardDraft","cardSign","cardFinal"].forEach(c => $(c).classList.add("hidden"));
+    $("cardInput").classList.remove("hidden");
+    $("aiBanner").classList.add("show");
+    hideErr();
+    finalized = false;
+    setStep(0, 0);
+    updateCounter();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // protege contra perda acidental de texto clinico nao finalizado
+  window.addEventListener("beforeunload", (e) => {
+    if (!finalized && ($("raw").value.trim() || $("draft").value.trim())) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+</script>
+</body>
+</html>
