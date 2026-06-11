@@ -34,12 +34,16 @@
         if (a.alta) { total8020++; if (ok) feitas8020++; }
       });
     });
+    const pctGeral = total ? Math.round(feitas / total * 100) : 0;
+    const pct8020 = total8020 ? Math.round(feitas8020 / total8020 * 100) : 0;
     $('vgTotal').textContent = total;
     $('vgAssistidas').textContent = feitas;
-    $('vgProgresso').textContent = total ? Math.round(feitas / total * 100) + '%' : '0%';
+    $('vgProgresso').textContent = pctGeral + '%';
+    $('vgBarra').style.width = pctGeral + '%';
     $('vgTotal8020').textContent = total8020;
     $('vgAssistidas8020').textContent = feitas8020;
-    $('vgProgresso8020').textContent = total8020 ? Math.round(feitas8020 / total8020 * 100) + '%' : '0%';
+    $('vgProgresso8020').textContent = pct8020 + '%';
+    $('vgBarra8020').style.width = pct8020 + '%';
   }
 
   /* ---------- Render dos módulos ---------- */

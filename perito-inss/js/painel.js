@@ -50,7 +50,7 @@
 
     const arco = $('gaugeArco');
     arco.style.strokeDashoffset = circ * (1 - p);
-    arco.style.stroke = p >= 0.6 ? '#2e9e6b' : p >= 0.25 ? '#c4953b' : '#c44545';
+    arco.style.stroke = p >= 0.6 ? '#10b981' : p >= 0.25 ? '#f59e0b' : '#ef4444';
   }
 
   /* ---------- Configuração ---------- */

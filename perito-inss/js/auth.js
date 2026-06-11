@@ -56,11 +56,29 @@ const PMFAuth = (() => {
     return u;
   }
 
-  function ativar(codigo) {
+  async function ativar(codigo) {
     const s = getSessao();
     if (!s) throw new Error('Entre na sua conta antes de ativar.');
-    const valido = (codigo || '').trim().toUpperCase() === (PMF_CONFIG.CODIGO_ATIVACAO || '').toUpperCase();
-    if (!valido) throw new Error('Código inválido. Confira o e-mail de confirmação da compra ou fale com o suporte.');
+
+    let valido = false;
+    if (PMF_CONFIG.API_URL) {
+      // validação no backend: código individual vinculado ao e-mail da compra
+      try {
+        const r = await fetch(PMF_CONFIG.API_URL.replace(/\/$/, '') + '/api/validar-codigo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: s.email, codigo: (codigo || '').trim() })
+        });
+        valido = r.ok && (await r.json()).valido === true;
+      } catch {
+        throw new Error('Não foi possível contatar o servidor de ativação. Verifique sua conexão e tente novamente.');
+      }
+      if (!valido) throw new Error('Código inválido para este e-mail. Use o MESMO e-mail da compra e o código recebido por e-mail.');
+    } else {
+      valido = (codigo || '').trim().toUpperCase() === (PMF_CONFIG.CODIGO_ATIVACAO || '').toUpperCase();
+      if (!valido) throw new Error('Código inválido. Confira o e-mail de confirmação da compra ou fale com o suporte.');
+    }
+
     const usuarios = getUsuarios();
     usuarios[s.email].ativo = true;
     usuarios[s.email].ativadoEm = new Date().toISOString();

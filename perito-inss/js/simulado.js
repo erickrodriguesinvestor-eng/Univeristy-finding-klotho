@@ -186,8 +186,8 @@
     window.scrollTo(0, 0);
 
     $('resNota').textContent = reg.notaLiquida + ' / ' + reg.total;
-    $('resNota').style.color = reg.percentualLiquido >= 65 ? '#4dc98f'
-      : reg.percentualLiquido >= 40 ? '#d8b36a' : '#e06d6d';
+    $('resNota').style.color = reg.percentualLiquido >= 65 ? '#34d399'
+      : reg.percentualLiquido >= 40 ? '#fbbf24' : '#f87171';
     $('resLegenda').textContent =
       (porTempo ? 'Tempo esgotado — prova entregue automaticamente. ' : '') +
       'Nota líquida (certas − erradas), padrão Cebraspe.';
@@ -204,7 +204,7 @@
       const linha = (rotulo, x) => `
         <li>
           <span>${rotulo} <small style="color:var(--text-faint)">(mínimo ${x.min} de ${x.total})</small></span>
-          <b style="color:${x.ok ? '#4dc98f' : '#e06d6d'}">${x.nota} pts ${x.ok ? '✓' : '✗'}</b>
+          <b style="color:${x.ok ? '#34d399' : '#f87171'}">${x.nota} pts ${x.ok ? '✓' : '✗'}</b>
         </li>`;
       secElim.classList.remove('oculto');
       $('elimStatus').innerHTML = e.aprovado

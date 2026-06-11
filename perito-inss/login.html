@@ -6,7 +6,7 @@
   <title>Entrar — Perito Médico Federal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;650;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/perito.css">
 </head>
 <body>
@@ -58,7 +58,7 @@
     <div class="card oculto" id="abaAtivar">
       <h3>Ativar meu acesso</h3>
       <p class="sub" style="font-size:13px; margin-bottom:14px;">
-        Insira o código de ativação enviado ao seu e-mail após a confirmação do pagamento.
+        Insira o código de ativação enviado ao seu e-mail após a confirmação do pagamento. Importante: sua conta deve usar o <b>mesmo e-mail da compra</b>.
       </p>
       <label class="campo"><span>Código de ativação</span>
         <input type="text" id="ativCodigo" placeholder="PMF-XXXX-XXXX" style="text-transform:uppercase; font-family:var(--font-mono);">
@@ -70,7 +70,7 @@
     </div>
 
     <div class="aviso oculto" id="msgErro" style="margin-top:16px;"></div>
-    <div class="aviso oculto" id="msgOk" style="margin-top:16px; background:var(--accent-soft); border-color:rgba(46,158,107,.4); color:#4dc98f;"></div>
+    <div class="aviso oculto" id="msgOk" style="margin-top:16px; background:var(--accent-soft); border-color:var(--accent-border); color:#34d399;"></div>
 
   </main>
 
@@ -119,9 +119,9 @@
         } catch (e) { erro(e.message); }
       });
 
-      $('btnAtivar').addEventListener('click', () => {
+      $('btnAtivar').addEventListener('click', async () => {
         try {
-          PMFAuth.ativar($('ativCodigo').value);
+          await PMFAuth.ativar($('ativCodigo').value);
           ok('Acesso liberado! Redirecionando…');
           setTimeout(() => location.href = 'index.html', 900);
         } catch (e) { erro(e.message); }

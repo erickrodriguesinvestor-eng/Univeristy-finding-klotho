@@ -14,9 +14,14 @@ const PMF_CONFIG = {
   // exibe instruções de contato.
   STRIPE_PAYMENT_LINK: '',
 
-  // Código de ativação entregue ao aluno após a compra
-  // (envie por e-mail na confirmação de pagamento da Stripe).
-  // Troque periodicamente se desejar.
+  // URL do backend (Vercel) com webhook Stripe + validação de códigos.
+  // Veja backend/README.md. Com a URL preenchida, cada comprador recebe
+  // por e-mail um código individual vinculado ao e-mail da compra.
+  // Ex.: 'https://pmf-backend.vercel.app'
+  API_URL: '',
+
+  // Código de ativação MESTRE — usado apenas como fallback enquanto
+  // API_URL estiver vazia (envie manualmente após cada venda).
   CODIGO_ATIVACAO: 'PMF-APROVACAO-2026',
 
   // E-mail de suporte exibido no checkout
