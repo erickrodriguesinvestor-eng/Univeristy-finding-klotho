@@ -37,6 +37,9 @@ Após salvar, faça redeploy (`vercel deploy --prod`).
 
 ### 3. Stripe
 1. Crie o **Payment Link** de R$ 997,00 (Dashboard → Payment links).
+   Em **After payment → Don't show confirmation page → Redirect**, aponte para
+   `https://erickrodriguesinvestor-eng.github.io/Univeristy-finding-klotho/perito-inss/obrigado.html`
+   (página que orienta o comprador a conferir o e-mail e ativar a conta).
 2. Em **Developers → Webhooks → Add endpoint**:
    - URL: `https://SEU-PROJETO.vercel.app/api/stripe-webhook`
    - Evento: `checkout.session.completed`

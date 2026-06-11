@@ -65,7 +65,8 @@
       </label>
       <button class="btn btn-primario btn-bloco" id="btnAtivar">Ativar acesso →</button>
       <p class="sub" style="font-size:12.5px; margin-top:12px;">
-        Ainda não comprou? <a href="vendas.html#oferta" style="color:var(--accent);">Garanta seu acesso aqui</a>.
+        Ainda não comprou? <a href="vendas.html#oferta" style="color:var(--accent-bright);">Garanta seu acesso aqui</a>.<br>
+        Comprou e não recebeu o código? <a href="#" id="linkSuporteAtivar" style="color:var(--accent-bright);">Solicite ao suporte</a>.
       </p>
     </div>
 
@@ -126,6 +127,12 @@
           setTimeout(() => location.href = 'index.html', 900);
         } catch (e) { erro(e.message); }
       });
+
+      // suporte: solicitar código por e-mail
+      const ls = $('linkSuporteAtivar');
+      if (ls) ls.href = 'mailto:' + PMF_CONFIG.EMAIL_SUPORTE +
+        '?subject=' + encodeURIComponent('Não recebi meu código de ativação — Plataforma PMF') +
+        '&body=' + encodeURIComponent('Olá! Comprei o acesso e não recebi o código de ativação.\n\nE-mail usado na compra: \nData/hora do pagamento: ');
 
       // Enter para enviar
       document.addEventListener('keydown', ev => {

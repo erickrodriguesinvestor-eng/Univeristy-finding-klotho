@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra confirmada — Perito Médico Federal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;650;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/perito.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="vendas.html" class="tb-logo">
+        <div class="tb-mark">PMF</div>
+        <div>
+          Perito Médico Federal
+          <span class="tb-sub">Compra confirmada</span>
+        </div>
+      </a>
+      <div class="tb-links">
+        <a href="login.html">Área do aluno →</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width: 560px; padding-top: 56px; text-align: center;">
+    <div style="font-size: 52px; margin-bottom: 8px;">🎉</div>
+    <h1 style="font-size: 28px; font-weight: 700; letter-spacing: -0.03em;">Pagamento confirmado!</h1>
+    <p style="color: var(--text-dim); margin-top: 12px; line-height: 1.7;">
+      Bem-vindo(a) à preparação para <b style="color:var(--text)">Perito Médico Federal</b>.
+      Seu próximo passo:
+    </p>
+
+    <div class="card" style="text-align: left; margin-top: 26px;">
+      <ol style="margin-left: 18px; display: grid; gap: 14px; font-size: 14.5px; color: var(--text-dim); line-height: 1.65;">
+        <li><b style="color:var(--text)">Confira seu e-mail</b> (inclusive spam/promoções): enviamos o seu
+            <b style="color:var(--text)">código de ativação</b> para o endereço usado na compra.</li>
+        <li><a href="login.html#cadastrar" style="color:var(--accent-bright)">Crie sua conta</a>
+            usando <b style="color:var(--text)">o mesmo e-mail da compra</b>.</li>
+        <li>Insira o código na aba <b style="color:var(--text)">"Ativar acesso"</b> — e bons estudos.</li>
+      </ol>
+    </div>
+
+    <a href="login.html#cadastrar" class="btn btn-primario" style="margin-top: 22px; padding: 13px 30px;">
+      Criar minha conta agora →
+    </a>
+
+    <div class="aviso" style="margin-top: 26px; text-align: left;" id="avisoSuporte">
+      Não recebeu o código em até 10 minutos?
+      <a id="linkSuporte" href="#" style="color: var(--amber); text-decoration: underline;">
+        Clique aqui para solicitar ao suporte</a> — respondemos rápido.
+    </div>
+  </main>
+
+  <footer class="rodape container">
+    Plataforma de estudo independente, sem vínculo com o INSS ou com o Cebraspe.
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script>
+    document.getElementById('linkSuporte').href =
+      'mailto:' + PMF_CONFIG.EMAIL_SUPORTE +
+      '?subject=' + encodeURIComponent('Não recebi meu código de ativação — Plataforma PMF') +
+      '&body=' + encodeURIComponent('Olá! Acabei de comprar o acesso e não recebi o código de ativação.\n\nE-mail usado na compra: \nData/hora do pagamento: ');
+  </script>
+</body>
+</html>
