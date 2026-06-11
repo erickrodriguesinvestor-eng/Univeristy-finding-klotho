@@ -8,12 +8,18 @@
 
   const $ = id => document.getElementById(id);
 
+  /* Formato do edital: 120 itens (50 gerais + 70 específicos), 4 horas.
+     Eliminação: < 10 pts em gerais, < 21 pts em específicos, < 36 no total.
+     Modos menores mantêm a proporção e o ritmo de 2 min/item da prova. */
   const MODOS = {
-    rapido:        { rotulo: 'Rápido',        itens: 20,  minutos: 25 },
-    intermediario: { rotulo: 'Intermediário', itens: 50,  minutos: 65 },
-    completo:      { rotulo: 'Completo',      itens: 100, minutos: 210 },
-    disciplina:    { rotulo: 'Disciplina',    itens: 10,  minutos: 15 }
+    rapido:        { rotulo: 'Rápido',        gerais: 8,  especificos: 12, minutos: 40 },
+    intermediario: { rotulo: 'Intermediário', gerais: 25, especificos: 35, minutos: 120 },
+    completo:      { rotulo: 'Prova oficial', gerais: 50, especificos: 70, minutos: 240 },
+    disciplina:    { rotulo: 'Disciplina',    gerais: 0,  especificos: 0,  minutos: 20, itensDisc: 10 }
   };
+
+  // Cortes eliminatórios do edital, em proporção (10/50, 21/70, 36/120)
+  const CORTES = { gerais: 10 / 50, especificos: 21 / 70, total: 36 / 120 };
 
   const params = new URLSearchParams(location.search);
   const modoChave = params.get('modo');
@@ -25,20 +31,21 @@
 
   const modo = MODOS[modoChave];
 
-  /* ---------- Montagem da prova ---------- */
+  /* ---------- Montagem da prova ----------
+     Como na prova real: bloco de conhecimentos gerais primeiro,
+     depois o bloco de conhecimentos específicos. */
   function montarQuestoes() {
     if (modoChave === 'disciplina') {
       const disc = params.get('disc');
       const doDisc = BANCO_QUESTOES.filter(q => q.d === disc);
-      if (!doDisc.length) return PMF.embaralhar(BANCO_QUESTOES).slice(0, modo.itens);
-      return PMF.embaralhar(doDisc).slice(0, modo.itens);
+      if (!doDisc.length) return PMF.embaralhar(BANCO_QUESTOES).slice(0, modo.itensDisc);
+      return PMF.embaralhar(doDisc).slice(0, modo.itensDisc);
     }
-    // proporção aproximada do edital: 40% básicos (bloco 1), 60% específicos (bloco 2)
     const b1 = PMF.embaralhar(BANCO_QUESTOES.filter(q => q.b === 1));
     const b2 = PMF.embaralhar(BANCO_QUESTOES.filter(q => q.b === 2));
-    const n1 = Math.min(b1.length, Math.round(modo.itens * 0.4));
-    const n2 = Math.min(b2.length, modo.itens - n1);
-    return PMF.embaralhar(b1.slice(0, n1).concat(b2.slice(0, n2)));
+    const n1 = Math.min(b1.length, modo.gerais);
+    const n2 = Math.min(b2.length, modo.especificos);
+    return b1.slice(0, n1).concat(b2.slice(0, n2));
   }
 
   const questoes = montarQuestoes();
@@ -129,19 +136,35 @@
 
     let acertos = 0, erros = 0, branco = 0;
     const porDisc = {};
+    const porBloco = { 1: { liquida: 0, total: 0 }, 2: { liquida: 0, total: 0 } };
 
     questoes.forEach((q, i) => {
       const r = respostas[i];
       if (!porDisc[q.d]) porDisc[q.d] = { disciplina: q.d, acertos: 0, erros: 0, branco: 0, total: 0 };
       porDisc[q.d].total++;
+      porBloco[q.b].total++;
       if (r === null || r === 'B') { branco++; porDisc[q.d].branco++; }
-      else if (r === q.g) { acertos++; porDisc[q.d].acertos++; }
-      else { erros++; porDisc[q.d].erros++; }
+      else if (r === q.g) { acertos++; porDisc[q.d].acertos++; porBloco[q.b].liquida++; }
+      else { erros++; porDisc[q.d].erros++; porBloco[q.b].liquida--; }
     });
 
     const total = questoes.length;
     const liquida = PMF.notaLiquida(acertos, erros);
     const pct = PMF.percentualLiquido(acertos, erros, total);
+
+    // critério eliminatório do edital (proporcional ao tamanho do simulado)
+    let eliminatorio = null;
+    if (modoChave !== 'disciplina') {
+      const minG = Math.ceil(CORTES.gerais * porBloco[1].total);
+      const minE = Math.ceil(CORTES.especificos * porBloco[2].total);
+      const minT = Math.ceil(CORTES.total * total);
+      eliminatorio = {
+        gerais: { nota: porBloco[1].liquida, min: minG, total: porBloco[1].total, ok: porBloco[1].liquida >= minG },
+        especificos: { nota: porBloco[2].liquida, min: minE, total: porBloco[2].total, ok: porBloco[2].liquida >= minE },
+        conjunto: { nota: liquida, min: minT, total, ok: liquida >= minT }
+      };
+      eliminatorio.aprovado = eliminatorio.gerais.ok && eliminatorio.especificos.ok && eliminatorio.conjunto.ok;
+    }
 
     const registro = {
       data: new Date().toISOString(),
@@ -149,7 +172,8 @@
       total, acertos, erros, branco,
       notaLiquida: liquida,
       percentualLiquido: pct,
-      porDisciplina: Object.values(porDisc)
+      porDisciplina: Object.values(porDisc),
+      eliminatorio
     };
     PMF.salvarSimulado(registro);
 
@@ -172,6 +196,33 @@
     $('resErradas').textContent = reg.erros;
     $('resBranco').textContent = reg.branco;
     $('resPct').textContent = PMF.fmtPct(reg.percentualLiquido, 0);
+
+    // critério eliminatório do edital
+    const secElim = $('secEliminatorio');
+    if (reg.eliminatorio) {
+      const e = reg.eliminatorio;
+      const linha = (rotulo, x) => `
+        <li>
+          <span>${rotulo} <small style="color:var(--text-faint)">(mínimo ${x.min} de ${x.total})</small></span>
+          <b style="color:${x.ok ? '#4dc98f' : '#e06d6d'}">${x.nota} pts ${x.ok ? '✓' : '✗'}</b>
+        </li>`;
+      secElim.classList.remove('oculto');
+      $('elimStatus').innerHTML = e.aprovado
+        ? '<span class="tag tag-verde" style="font-size:14px; padding:8px 18px;">✅ DENTRO DO CORTE ELIMINATÓRIO</span>'
+        : '<span class="tag tag-vermelha" style="font-size:14px; padding:8px 18px;">❌ ELIMINADO PELO CRITÉRIO DO EDITAL</span>';
+      $('elimDetalhe').innerHTML = `<ul class="gauge-detalhes" style="list-style:none;">
+        ${linha('Conhecimentos gerais', e.gerais)}
+        ${linha('Conhecimentos específicos', e.especificos)}
+        ${linha('Conjunto das provas', e.conjunto)}
+      </ul>
+      <div class="sub" style="font-size:12px; margin-top:10px; color:var(--text-faint);">
+        Critério do edital (proporcional ao tamanho deste simulado): mínimo de 10/50 em gerais,
+        21/70 em específicos e 36/120 no conjunto. Passar do corte não garante vaga — a
+        classificação depende da concorrência (veja a probabilidade no painel).
+      </div>`;
+    } else {
+      secElim.classList.add('oculto');
+    }
 
     // barras por disciplina
     const painel = $('resDisciplinas');

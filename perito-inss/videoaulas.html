@@ -84,6 +84,9 @@
     com o Cebraspe ou com canais/cursos citados nos resultados.
   </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>if (PMFAuth.exigirAcesso()) document.addEventListener('DOMContentLoaded', PMFAuth.montarBarraUsuario);</script>
   <script src="js/videoaulas-data.js"></script>
   <script src="js/videoaulas.js"></script>
 </body>

@@ -26,7 +26,10 @@ const MODULOS_VIDEO = [
         dica: 'Decore os impessoais: haver (existir) e fazer (tempo) não vão ao plural.' },
       { t: 'Pontuação: vírgula e dois-pontos', busca: 'pontuação vírgula cebraspe aula concurso', alta: true,
         dica: 'Vírgula entre sujeito e verbo = sempre errado. Vírgula antes de "e" com sujeitos diferentes = correta.' },
-      { t: 'Regência e crase', busca: 'regência verbal e crase cebraspe aula', alta: false }
+      { t: 'Regência e crase', busca: 'regência verbal e crase cebraspe aula', alta: false },
+      { t: 'Redação Oficial (Manual de Redação da Presidência da República)', busca: 'redação oficial manual presidência cebraspe aula', alta: true,
+        dica: 'Item literal do edital: impessoalidade, formalidade, padronização, clareza e concisão. Decore os pronomes de tratamento e o padrão ofício.' },
+      { t: 'Ortografia oficial e tipologia/gêneros textuais', busca: 'ortografia oficial tipos e gêneros textuais cebraspe aula', alta: false }
     ]
   },
 
@@ -64,7 +67,9 @@ const MODULOS_VIDEO = [
         dica: 'INSS = autarquia federal = direito PÚBLICO. Item dizendo "direito privado" está errado.' },
       { t: 'Responsabilidade civil do Estado (art. 37, § 6º)', busca: 'responsabilidade civil do estado risco administrativo aula cebraspe', alta: false },
       { t: 'Improbidade administrativa após a Lei 14.230/2021', busca: 'improbidade administrativa lei 14230 alterações aula', alta: false,
-        dica: 'Depois de 2021: TODAS as modalidades exigem dolo. Improbidade culposa acabou.' }
+        dica: 'Depois de 2021: TODAS as modalidades exigem dolo. Improbidade culposa acabou.' },
+      { t: 'LGPD (Lei 13.709/2018) na administração pública e na perícia', busca: 'LGPD lei geral proteção de dados cebraspe aula concurso', alta: true,
+        dica: 'A LGPD aparece QUATRO vezes no edital (adm, informática, previdenciário e SUS). Dado de saúde = dado SENSÍVEL (art. 5º, II).' }
     ]
   },
 
@@ -83,7 +88,10 @@ const MODULOS_VIDEO = [
         dica: 'Prescrição: 5 anos (demissão/cassação), 2 anos (suspensão), 180 dias (advertência).' },
       { t: 'Decreto 1.171/94: Código de Ética do Servidor', busca: 'decreto 1171 código de ética servidor público aula cebraspe', alta: true,
         dica: 'Deixar usuário esperando = "grave dano moral aos usuários", não simples falta de educação.' },
-      { t: 'Processo Administrativo Disciplinar (PAD) e sindicância', busca: 'processo administrativo disciplinar PAD lei 8112 aula', alta: false }
+      { t: 'Processo Administrativo Disciplinar (PAD) e sindicância', busca: 'processo administrativo disciplinar PAD lei 8112 aula', alta: false },
+      { t: 'Lei de Acesso à Informação (12.527/2011) e Lei de Conflito de Interesses (12.813/2013)', busca: 'lei de acesso à informação 12527 conflito de interesses cebraspe aula', alta: true,
+        dica: 'LAI: publicidade é a REGRA, sigilo a exceção. Itens de inversão são clássicos da banca.' },
+      { t: 'Decreto 6.029/2007 — Sistema de Gestão da Ética do Executivo Federal', busca: 'decreto 6029 sistema gestão da ética aula concurso', alta: false }
     ]
   },
 
@@ -99,7 +107,10 @@ const MODULOS_VIDEO = [
       { t: 'Internet e redes: navegadores, e-mail, protocolos (HTTP, HTTPS, DNS)', busca: 'redes internet protocolos cebraspe aula concurso', alta: false },
       { t: 'Computação em nuvem e armazenamento', busca: 'computação em nuvem cebraspe aula concurso', alta: false },
       { t: 'Editores de texto e planilhas (Word/Excel/LibreOffice)', busca: 'excel cebraspe questões aula concurso', alta: false },
-      { t: 'Sistemas operacionais Windows e Linux — o que a banca cobra', busca: 'windows linux cebraspe aula concurso', alta: false }
+      { t: 'Sistemas operacionais Windows e Linux — o que a banca cobra', busca: 'windows linux cebraspe aula concurso', alta: false },
+      { t: 'VPN, acesso remoto e correio eletrônico seguro', busca: 'VPN acesso remoto cebraspe aula concurso', alta: false,
+        dica: 'VPN = túnel criptografado sobre rede pública. Base do teletrabalho e da teleperícia.' },
+      { t: 'SEI (Sistema Eletrônico de Informações) e noções de inteligência artificial', busca: 'SEI sistema eletrônico de informações noções inteligência artificial concurso aula', alta: false }
     ]
   },
 
@@ -140,7 +151,9 @@ const MODULOS_VIDEO = [
         dica: 'Anexo I (grande invalidez) e os dispositivos sobre exames médicos periódicos são presença constante.' },
       { t: 'EC 103/2019: o que mudou nos benefícios por incapacidade', busca: 'EC 103 reforma da previdência benefícios incapacidade mudanças aula', alta: false },
       { t: 'Lei 13.846/2019: pente-fino, revisões e a Perícia Médica Federal', busca: 'lei 13846 perícia médica federal revisão benefícios aula', alta: true,
-        dica: 'Criou a carreira de Perito Médico Federal e o programa de revisão de benefícios por incapacidade.' }
+        dica: 'Criou a carreira de Perito Médico Federal e o programa de revisão de benefícios por incapacidade.' },
+      { t: 'IN PRES/INSS 128/2022 e processo administrativo previdenciário', busca: 'instrução normativa 128 2022 INSS processo administrativo previdenciário aula', alta: true,
+        dica: 'Citada nominalmente no edital: requerimento, recursos, revisões e o papel da perícia no fluxo do benefício.' }
     ]
   },
 
@@ -184,7 +197,13 @@ const MODULOS_VIDEO = [
         dica: 'Saturnismo = chumbo (linha de Burton, cólica). Hidrargirismo = mercúrio (tremor, eretismo). Benzeno = aplasia/leucemia.' },
       { t: 'Transtornos mentais relacionados ao trabalho e burnout (CID-11)', busca: 'transtornos mentais relacionados ao trabalho burnout CID-11 aula', alta: true },
       { t: 'Acidente de trabalho: conceito, equiparações e trajeto', busca: 'acidente de trabalho equiparações trajeto lei 8213 aula', alta: false },
-      { t: 'Ergonomia e NR-17', busca: 'NR-17 ergonomia aula medicina do trabalho concurso', alta: false }
+      { t: 'Ergonomia e NR-17 (incluindo ergonomia no trabalho remoto)', busca: 'NR-17 ergonomia aula medicina do trabalho concurso', alta: false },
+      { t: 'NR-15 (insalubridade), NR-31 (rural) e NR-32 (serviços de saúde)', busca: 'NR-15 NR-32 NR-31 atividades insalubres aula medicina do trabalho', alta: false },
+      { t: 'CLT Títulos I e II, teletrabalho e trabalho intermitente', busca: 'CLT teletrabalho trabalho intermitente reforma trabalhista aula', alta: false },
+      { t: 'eSocial, CAT eletrônica e Lei 14.457/2022 (saúde mental e assédio no trabalho)', busca: 'eSocial CAT lei 14457 assédio programa emprega mais mulheres aula', alta: false,
+        dica: 'A Lei 14.457/2022 obrigou CIPA a incluir prevenção ao assédio; burnout ganhou status de tema ocupacional de prova.' },
+      { t: 'Responsabilidade civil do empregador, indenizações e estabilidade do art. 118', busca: 'responsabilidade civil empregador acidente de trabalho estabilidade art 118 aula', alta: true,
+        dica: 'Estabilidade acidentária: 12 meses após cessar o auxílio acidentário (Súmula 378 do TST).' }
     ]
   },
 
@@ -209,7 +228,9 @@ const MODULOS_VIDEO = [
         dica: 'Incidência × prevalência; sensibilidade × especificidade; VPP/VPN — caem em itens diretos.' },
       { t: 'Sequelas pós-agudas de infecções graves (síndromes respiratórias e neurológicas)', busca: 'sequelas pós covid síndromes pós infecciosas avaliação funcional aula', alta: false },
       { t: 'Neoplasias: estadiamento e incapacidade', busca: 'oncologia estadiamento performance status ECOG aula', alta: false,
-        dica: 'Neoplasia maligna dispensa carência (lista ministerial). Performance status orienta a avaliação funcional.' }
+        dica: 'Neoplasia maligna dispensa carência (lista ministerial). Performance status orienta a avaliação funcional.' },
+      { t: 'Cirurgia geral e ginecologia/obstetrícia — visão médico-pericial', busca: 'cirurgia geral ginecologia obstetrícia revisão concurso médico aula', alta: false,
+        dica: 'O edital lista GO e cirurgia dentro de "clínica e conduta médico-pericial": foque em pós-operatórios, gestação de risco e prazos de recuperação.' }
     ]
   },
 
@@ -283,7 +304,11 @@ const MODULOS_VIDEO = [
       { t: 'LOAS (Lei 8.742/93) e BPC: requisitos e avaliação da deficiência', busca: 'BPC LOAS benefício prestação continuada critérios avaliação aula', alta: true,
         dica: 'Sem carência e sem contribuição: deficiência (impedimento ≥ 2 anos, avaliação biopsicossocial) ou 65+ anos, renda per capita < 1/4 SM.' },
       { t: 'Estatuto da Pessoa com Deficiência (Lei 13.146/2015) e LC 142/2013', busca: 'estatuto pessoa com deficiência lei 13146 LC 142 aposentadoria aula', alta: false },
-      { t: 'Vigilância em saúde do trabalhador no SUS (RENAST, notificações)', busca: 'saúde do trabalhador SUS RENAST notificação compulsória aula', alta: false }
+      { t: 'Vigilância em saúde do trabalhador no SUS (RENAST, notificações)', busca: 'saúde do trabalhador SUS RENAST notificação compulsória aula', alta: false },
+      { t: 'PNAB, Previne Brasil e programas nacionais de saúde (incl. PNI)', busca: 'política nacional atenção básica previne brasil programa nacional imunizações aula', alta: false },
+      { t: 'Decretos do BPC (6.214/2007, 10.604/2021) e avaliação socioeconômica', busca: 'decreto 6214 BPC avaliação deficiência socioeconômica aula', alta: false },
+      { t: 'Saúde mental no SUS: RAPS e política nacional', busca: 'rede de atenção psicossocial RAPS política nacional saúde mental aula', alta: false },
+      { t: 'Lei 14.289/2022 — sigilo da condição de saúde (PVHIV, hepatites, hanseníase, TB)', busca: 'lei 14289 2022 sigilo condição de saúde aula', alta: false }
     ]
   }
 ];

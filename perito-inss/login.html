@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Perito Médico Federal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/perito.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="vendas.html" class="tb-logo">
+        <div class="tb-mark">PMF</div>
+        <div>
+          Perito Médico Federal
+          <span class="tb-sub">Área do aluno</span>
+        </div>
+      </a>
+      <div class="tb-links">
+        <a href="vendas.html">← Página inicial</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width: 480px; padding-top: 46px;">
+
+    <div class="filtros-gab" style="justify-content:center;">
+      <button class="btn ativo" data-aba="entrar">Entrar</button>
+      <button class="btn" data-aba="cadastrar">Criar conta</button>
+      <button class="btn" data-aba="ativar">Ativar acesso</button>
+    </div>
+
+    <!-- ENTRAR -->
+    <div class="card" id="abaEntrar">
+      <h3>Entrar na plataforma</h3>
+      <label class="campo"><span>E-mail</span><input type="email" id="loginEmail" autocomplete="email"></label>
+      <label class="campo"><span>Senha</span><input type="password" id="loginSenha" autocomplete="current-password"></label>
+      <button class="btn btn-primario btn-bloco" id="btnEntrar">Entrar →</button>
+    </div>
+
+    <!-- CADASTRAR -->
+    <div class="card oculto" id="abaCadastrar">
+      <h3>Criar minha conta</h3>
+      <label class="campo"><span>Nome completo</span><input type="text" id="cadNome" autocomplete="name"></label>
+      <label class="campo"><span>E-mail</span><input type="email" id="cadEmail" autocomplete="email"></label>
+      <label class="campo"><span>Senha (mínimo 6 caracteres)</span><input type="password" id="cadSenha" autocomplete="new-password"></label>
+      <button class="btn btn-primario btn-bloco" id="btnCadastrar">Criar conta →</button>
+      <p class="sub" style="font-size:12.5px; margin-top:12px;">
+        Após criar a conta, insira o código de ativação recebido na compra para liberar o acesso.
+      </p>
+    </div>
+
+    <!-- ATIVAR -->
+    <div class="card oculto" id="abaAtivar">
+      <h3>Ativar meu acesso</h3>
+      <p class="sub" style="font-size:13px; margin-bottom:14px;">
+        Insira o código de ativação enviado ao seu e-mail após a confirmação do pagamento.
+      </p>
+      <label class="campo"><span>Código de ativação</span>
+        <input type="text" id="ativCodigo" placeholder="PMF-XXXX-XXXX" style="text-transform:uppercase; font-family:var(--font-mono);">
+      </label>
+      <button class="btn btn-primario btn-bloco" id="btnAtivar">Ativar acesso →</button>
+      <p class="sub" style="font-size:12.5px; margin-top:12px;">
+        Ainda não comprou? <a href="vendas.html#oferta" style="color:var(--accent);">Garanta seu acesso aqui</a>.
+      </p>
+    </div>
+
+    <div class="aviso oculto" id="msgErro" style="margin-top:16px;"></div>
+    <div class="aviso oculto" id="msgOk" style="margin-top:16px; background:var(--accent-soft); border-color:rgba(46,158,107,.4); color:#4dc98f;"></div>
+
+  </main>
+
+  <footer class="rodape container">
+    Plataforma de estudo independente, sem vínculo com o INSS ou com o Cebraspe.
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    (function () {
+      const $ = id => document.getElementById(id);
+      const abas = { entrar: 'abaEntrar', cadastrar: 'abaCadastrar', ativar: 'abaAtivar' };
+
+      function mostrar(aba) {
+        Object.values(abas).forEach(id => $(id).classList.add('oculto'));
+        $(abas[aba]).classList.remove('oculto');
+        document.querySelectorAll('[data-aba]').forEach(b =>
+          b.classList.toggle('ativo', b.dataset.aba === aba));
+        limparMsgs();
+      }
+
+      function limparMsgs() { $('msgErro').classList.add('oculto'); $('msgOk').classList.add('oculto'); }
+      function erro(m) { limparMsgs(); $('msgErro').textContent = m; $('msgErro').classList.remove('oculto'); }
+      function ok(m) { limparMsgs(); $('msgOk').textContent = m; $('msgOk').classList.remove('oculto'); }
+
+      document.querySelectorAll('[data-aba]').forEach(b =>
+        b.addEventListener('click', () => mostrar(b.dataset.aba)));
+
+      if (location.hash === '#ativar') mostrar('ativar');
+      if (location.hash === '#cadastrar') mostrar('cadastrar');
+
+      $('btnEntrar').addEventListener('click', async () => {
+        try {
+          const u = await PMFAuth.entrar($('loginEmail').value, $('loginSenha').value);
+          if (!u.ativo) { ok('Login feito! Agora ative seu acesso com o código da compra.'); mostrar('ativar'); return; }
+          location.href = 'index.html';
+        } catch (e) { erro(e.message); }
+      });
+
+      $('btnCadastrar').addEventListener('click', async () => {
+        try {
+          await PMFAuth.cadastrar($('cadNome').value, $('cadEmail').value, $('cadSenha').value);
+          ok('Conta criada! Agora insira o código de ativação recebido na compra.');
+          mostrar('ativar');
+        } catch (e) { erro(e.message); }
+      });
+
+      $('btnAtivar').addEventListener('click', () => {
+        try {
+          PMFAuth.ativar($('ativCodigo').value);
+          ok('Acesso liberado! Redirecionando…');
+          setTimeout(() => location.href = 'index.html', 900);
+        } catch (e) { erro(e.message); }
+      });
+
+      // Enter para enviar
+      document.addEventListener('keydown', ev => {
+        if (ev.key !== 'Enter') return;
+        if (!$('abaEntrar').classList.contains('oculto')) $('btnEntrar').click();
+        else if (!$('abaCadastrar').classList.contains('oculto')) $('btnCadastrar').click();
+        else $('btnAtivar').click();
+      });
+    })();
+  </script>
+</body>
+</html>

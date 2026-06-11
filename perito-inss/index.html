@@ -40,6 +40,17 @@
 
   <main class="container">
 
+    <!-- O FORMATO DA PROVA -->
+    <section class="secao">
+      <h2>A prova, segundo o edital</h2>
+      <div class="grid grid-4">
+        <div class="card"><h3>Itens</h3><div class="big">120</div><div class="sub">50 gerais + 70 específicos, Certo/Errado</div></div>
+        <div class="card"><h3>Duração</h3><div class="big">4h</div><div class="sub">ritmo de 2 minutos por item</div></div>
+        <div class="card"><h3>Eliminação</h3><div class="big">10·21·36</div><div class="sub">mínimos em gerais, específicos e conjunto</div></div>
+        <div class="card"><h3>Títulos</h3><div class="big">7 pts</div><div class="sub">avaliação classificatória de títulos</div></div>
+      </div>
+    </section>
+
     <!-- MÉTRICAS -->
     <section class="secao">
       <div class="grid grid-4">
@@ -137,18 +148,18 @@
       <div class="grid grid-3">
         <a class="card modo-card" href="simulado.html?modo=rapido">
           <div class="modo-titulo">⚡ Rápido</div>
-          <div class="modo-meta">20 itens · 25 min</div>
-          <p>Aquecimento diário com itens sorteados de todas as disciplinas.</p>
+          <div class="modo-meta">20 itens (8+12) · 40 min</div>
+          <p>Aquecimento diário na proporção e no ritmo da prova (2 min/item).</p>
         </a>
         <a class="card modo-card" href="simulado.html?modo=intermediario">
           <div class="modo-titulo">📋 Intermediário</div>
-          <div class="modo-meta">50 itens · 65 min</div>
-          <p>Metade de uma prova, com a proporção de blocos do edital.</p>
+          <div class="modo-meta">60 itens (25+35) · 2h</div>
+          <p>Meia prova oficial, com critério eliminatório proporcional.</p>
         </a>
         <a class="card modo-card" href="simulado.html?modo=completo">
-          <div class="modo-titulo">🎯 Prova completa</div>
-          <div class="modo-meta">100 itens · 3h30</div>
-          <p>Experiência integral: conhecimentos básicos + específicos, contra o relógio.</p>
+          <div class="modo-titulo">🎯 Prova oficial</div>
+          <div class="modo-meta">120 itens (50+70) · 4h</div>
+          <p>Formato exato do edital: 50 gerais + 70 específicos, cortes 10/21/36.</p>
         </a>
       </div>
       <div class="card" style="margin-top:16px;">
@@ -189,6 +200,9 @@
     Itens autorais inspirados no estilo da banca · Gabaritos comentados com base na legislação vigente.
   </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>if (PMFAuth.exigirAcesso()) document.addEventListener('DOMContentLoaded', PMFAuth.montarBarraUsuario);</script>
   <script src="js/banco-questoes.js"></script>
   <script src="js/core.js"></script>
   <script src="js/painel.js"></script>
