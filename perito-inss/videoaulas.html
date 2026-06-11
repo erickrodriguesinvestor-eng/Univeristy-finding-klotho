@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videoaulas — Perito Médico Federal · Curadoria 80/20</title>
+  <meta name="description" content="Trilha de videoaulas por tema para o concurso de Perito Médico Federal (INSS/Cebraspe), com curadoria 80/20 dos tópicos que mais caem e controle de progresso.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/perito.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="tb-logo">
+        <div class="tb-mark">PMF</div>
+        <div>
+          Perito Médico Federal
+          <span class="tb-sub">Banca Cebraspe · Certo ou Errado</span>
+        </div>
+      </a>
+      <div class="tb-links">
+        <a href="index.html">Painel</a>
+        <a href="simulado.html">Simulado</a>
+        <a href="videoaulas.html" class="ativa">Videoaulas</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-pmf container">
+    <div class="eyebrow">Trilha de estudo · Curadoria 80/20</div>
+    <h1>Videoaulas por tema,<br>na ordem do que mais cai.</h1>
+    <p>Todos os temas do edital organizados em módulos. As aulas marcadas com
+       <span class="tag tag-fogo">🔥 ALTA INCIDÊNCIA</span> são o núcleo 80/20: os ~20% de
+       tópicos que historicamente respondem por ~80% dos pontos nas provas da Cebraspe
+       para perícia médica. Marque as aulas assistidas para acompanhar seu progresso.</p>
+  </header>
+
+  <main class="container">
+
+    <!-- PROGRESSO GERAL -->
+    <section class="secao">
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Progresso geral</h3>
+          <div class="big" id="vgProgresso">0%</div>
+          <div class="sub"><span id="vgAssistidas">0</span> de <span id="vgTotal">0</span> aulas assistidas</div>
+        </div>
+        <div class="card">
+          <h3>Núcleo 80/20</h3>
+          <div class="big" id="vgProgresso8020">0%</div>
+          <div class="sub"><span id="vgAssistidas8020">0</span> de <span id="vgTotal8020">0</span> aulas de alta incidência</div>
+        </div>
+        <div class="card">
+          <h3>Estratégia</h3>
+          <div class="sub" style="margin-top:2px; font-size:13.5px; line-height:1.6;">
+            Complete primeiro as aulas 🔥 de <b>todos</b> os módulos; só depois
+            volte para as complementares. Após cada módulo, faça o treino por
+            disciplina no <a href="simulado.html" style="color:var(--accent)">simulado</a>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="secao">
+      <div class="filtros-gab">
+        <button class="btn ativo" data-vfiltro="todos">Todos os módulos</button>
+        <button class="btn" data-vfiltro="8020">🔥 Só alta incidência</button>
+        <button class="btn" data-vfiltro="b1">Bloco I — Básicos</button>
+        <button class="btn" data-vfiltro="b2">Bloco II — Específicos</button>
+        <button class="btn" data-vfiltro="pendentes">Não assistidas</button>
+      </div>
+      <div id="listaModulos"></div>
+    </section>
+
+  </main>
+
+  <footer class="rodape container">
+    Os links abrem buscas curadas no YouTube com os melhores termos para cada tópico —
+    escolha o professor que preferir. Plataforma de estudo independente, sem vínculo com o INSS,
+    com o Cebraspe ou com canais/cursos citados nos resultados.
+  </footer>
+
+  <script src="js/videoaulas-data.js"></script>
+  <script src="js/videoaulas.js"></script>
+</body>
+</html>
