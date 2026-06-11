@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perito Médico Federal — Plataforma de Treino · Cebraspe</title>
+  <meta name="description" content="Plataforma de treino para o concurso de Perito Médico Federal (INSS): simulados estilo Cebraspe (Certo/Errado), gabarito comentado e estimativa de probabilidade de aprovação.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/perito.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="tb-logo">
+        <div class="tb-mark">PMF</div>
+        <div>
+          Perito Médico Federal
+          <span class="tb-sub">Banca Cebraspe · Certo ou Errado</span>
+        </div>
+      </a>
+      <div class="tb-links">
+        <a href="index.html" class="ativa">Painel</a>
+        <a href="simulado.html">Simulado</a>
+        <a href="../index.html">← Eternal Health</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-pmf container">
+    <div class="eyebrow">Concurso INSS · Carreira de Perito Médico Federal</div>
+    <h1>Treine no padrão Cebraspe.<br>Saiba sua chance real de aprovação.</h1>
+    <p>Simulados Certo/Errado com pontuação líquida (item errado anula item certo), gabarito
+       comentado com base na legislação previdenciária e na medicina pericial, e um estimador
+       estatístico de probabilidade de aprovação calibrado pela taxa de aprovação do concurso.</p>
+  </header>
+
+  <main class="container">
+
+    <!-- MÉTRICAS -->
+    <section class="secao">
+      <div class="grid grid-4">
+        <div class="card">
+          <h3>Simulados feitos</h3>
+          <div class="big" id="mSimulados">0</div>
+          <div class="sub">no seu histórico</div>
+        </div>
+        <div class="card">
+          <h3>Média líquida</h3>
+          <div class="big" id="mMedia">—</div>
+          <div class="sub">certas − erradas (padrão Cebraspe)</div>
+        </div>
+        <div class="card">
+          <h3>Melhor simulado</h3>
+          <div class="big" id="mMelhor">—</div>
+          <div class="sub">maior % líquido obtido</div>
+        </div>
+        <div class="card">
+          <h3>Itens respondidos</h3>
+          <div class="big" id="mItens">0</div>
+          <div class="sub">de um banco de <span id="mBanco">0</span> itens</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBABILIDADE -->
+    <section class="secao">
+      <h2>Probabilidade de aprovação</h2>
+      <div class="card">
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <svg width="190" height="190" viewBox="0 0 190 190">
+              <circle cx="95" cy="95" r="82" fill="none" stroke="#1c2430" stroke-width="14"/>
+              <circle id="gaugeArco" cx="95" cy="95" r="82" fill="none" stroke="#2e9e6b"
+                      stroke-width="14" stroke-linecap="round"
+                      stroke-dasharray="515.2" stroke-dashoffset="515.2"/>
+            </svg>
+            <div class="gauge-valor">
+              <div class="pct" id="gaugePct">—</div>
+              <div class="rotulo">chance estimada</div>
+            </div>
+          </div>
+          <div class="gauge-detalhes">
+            <ul>
+              <li><span>Seu desempenho líquido estimado</span><b id="dDesempenho">—</b></li>
+              <li><span>Nota de corte estimada da concorrência</span><b id="dCorte">—</b></li>
+              <li><span>Taxa de aprovação (vagas ÷ presentes)</span><b id="dTaxa">—</b></li>
+              <li><span>Concorrentes presentes estimados</span><b id="dPresentes">—</b></li>
+            </ul>
+            <div class="aviso" id="avisoModelo">
+              ⚠ Estimativa estatística para fins de estudo: assume distribuição normal das notas
+              dos concorrentes e usa os parâmetros configuráveis abaixo. Não é garantia de resultado —
+              faça mais simulados para reduzir a incerteza.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARÂMETROS DO CONCURSO -->
+    <section class="secao">
+      <h2>Parâmetros do concurso (editáveis)</h2>
+      <div class="card">
+        <div class="grid grid-3">
+          <label class="campo"><span>Vagas previstas</span>
+            <input type="number" id="cfgVagas" min="1" step="1">
+          </label>
+          <label class="campo"><span>Inscritos estimados</span>
+            <input type="number" id="cfgInscritos" min="1" step="100">
+          </label>
+          <label class="campo"><span>Abstenção estimada (%)</span>
+            <input type="number" id="cfgAbstencao" min="0" max="90" step="1">
+          </label>
+          <label class="campo"><span>Média líquida dos concorrentes (%)</span>
+            <input type="number" id="cfgMedia" min="0" max="100" step="1">
+          </label>
+          <label class="campo"><span>Desvio-padrão dos concorrentes (p.p.)</span>
+            <input type="number" id="cfgDesvio" min="1" max="40" step="1">
+          </label>
+          <div style="display:flex; align-items:flex-end; padding-bottom:14px;">
+            <button class="btn btn-primario btn-bloco" id="btnSalvarCfg">Salvar e recalcular</button>
+          </div>
+        </div>
+        <div class="sub" style="font-size:12.5px; color:var(--text-faint);">
+          Referência: o concurso de Perito Médico Federal de 2022 (Cebraspe) ofertou cerca de 1.000 vagas.
+          Ajuste os valores conforme o edital vigente.
+        </div>
+      </div>
+    </section>
+
+    <!-- INICIAR SIMULADO -->
+    <section class="secao">
+      <h2>Iniciar simulado</h2>
+      <div class="grid grid-3">
+        <a class="card modo-card" href="simulado.html?modo=rapido">
+          <div class="modo-titulo">⚡ Rápido</div>
+          <div class="modo-meta">20 itens · 25 min</div>
+          <p>Aquecimento diário com itens sorteados de todas as disciplinas.</p>
+        </a>
+        <a class="card modo-card" href="simulado.html?modo=intermediario">
+          <div class="modo-titulo">📋 Intermediário</div>
+          <div class="modo-meta">50 itens · 65 min</div>
+          <p>Metade de uma prova, com a proporção de blocos do edital.</p>
+        </a>
+        <a class="card modo-card" href="simulado.html?modo=completo">
+          <div class="modo-titulo">🎯 Prova completa</div>
+          <div class="modo-meta">100 itens · 3h30</div>
+          <p>Experiência integral: conhecimentos básicos + específicos, contra o relógio.</p>
+        </a>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <div class="grid grid-2">
+          <label class="campo"><span>Treino por disciplina</span>
+            <select id="selDisciplina"></select>
+          </label>
+          <div style="display:flex; align-items:flex-end; padding-bottom:14px;">
+            <button class="btn btn-bloco" id="btnTreinoDisciplina">Treinar disciplina (10 itens)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESEMPENHO POR DISCIPLINA -->
+    <section class="secao">
+      <h2>Desempenho por disciplina</h2>
+      <div class="card" id="painelDisciplinas">
+        <div class="vazio">Faça seu primeiro simulado para ver o raio-x por disciplina.</div>
+      </div>
+    </section>
+
+    <!-- HISTÓRICO -->
+    <section class="secao">
+      <h2>Histórico de simulados</h2>
+      <div class="card" id="painelHistorico">
+        <div class="vazio">Nenhum simulado realizado ainda.</div>
+      </div>
+      <div style="margin-top:12px; text-align:right;">
+        <button class="btn btn-fantasma btn-perigo oculto" id="btnLimpar">Apagar histórico</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape container">
+    Plataforma de estudo independente, sem vínculo com o INSS ou com o Cebraspe.<br>
+    Itens autorais inspirados no estilo da banca · Gabaritos comentados com base na legislação vigente.
+  </footer>
+
+  <script src="js/banco-questoes.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/painel.js"></script>
+</body>
+</html>

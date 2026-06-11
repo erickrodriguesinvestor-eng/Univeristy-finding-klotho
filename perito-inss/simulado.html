@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado — Perito Médico Federal · Estilo Cebraspe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/perito.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="tb-logo">
+        <div class="tb-mark">PMF</div>
+        <div>
+          Perito Médico Federal
+          <span class="tb-sub">Banca Cebraspe · Certo ou Errado</span>
+        </div>
+      </a>
+      <div class="tb-links">
+        <a href="index.html">Painel</a>
+        <a href="simulado.html" class="ativa">Simulado</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ===== TELA: PROVA ===== -->
+    <section id="telaProva" class="oculto">
+      <div class="sim-topo">
+        <div class="sim-progresso" id="simProgresso">Item 1 de 20</div>
+        <div class="sim-timer" id="simTimer">25:00</div>
+      </div>
+      <div class="barra-progresso"><div id="simBarra" style="width:0%"></div></div>
+
+      <div class="questao-card">
+        <div class="questao-disc" id="qDisc"></div>
+        <div class="questao-bloco" id="qBloco"></div>
+        <div class="questao-cmd">Julgue o item a seguir.</div>
+        <div class="questao-texto" id="qTexto"></div>
+        <div class="resposta-botoes">
+          <button class="btn-resp certo" id="btnCerto">CERTO</button>
+          <button class="btn-resp errado" id="btnErrado">ERRADO</button>
+          <button class="btn-resp branco" id="btnBranco">EM BRANCO</button>
+        </div>
+      </div>
+
+      <div class="sim-nav">
+        <button class="btn btn-fantasma" id="btnAnterior">← Anterior</button>
+        <button class="btn" id="btnProximo">Próximo →</button>
+        <button class="btn btn-primario" id="btnEntregar">Entregar prova</button>
+      </div>
+      <div class="aviso" style="margin-top:18px;">
+        Pontuação Cebraspe: item certo soma 1 ponto, item errado <b>anula</b> 1 ponto certo.
+        Em caso de dúvida, deixar em branco pode ser estatisticamente melhor do que chutar.
+      </div>
+    </section>
+
+    <!-- ===== TELA: RESULTADO ===== -->
+    <section id="telaResultado" class="oculto">
+      <div class="resultado-hero">
+        <div class="nota" id="resNota">—</div>
+        <div class="legenda" id="resLegenda"></div>
+      </div>
+
+      <div class="secao">
+        <div class="grid grid-4">
+          <div class="card"><h3>Certas</h3><div class="big" id="resCertas" style="color:#4dc98f">0</div></div>
+          <div class="card"><h3>Erradas</h3><div class="big" id="resErradas" style="color:#e06d6d">0</div></div>
+          <div class="card"><h3>Em branco</h3><div class="big" id="resBranco">0</div></div>
+          <div class="card"><h3>% líquido</h3><div class="big" id="resPct">0%</div></div>
+        </div>
+      </div>
+
+      <div class="secao">
+        <h2>Desempenho por disciplina neste simulado</h2>
+        <div class="card" id="resDisciplinas"></div>
+      </div>
+
+      <div class="secao">
+        <h2>Gabarito comentado</h2>
+        <div class="filtros-gab">
+          <button class="btn ativo" data-filtro="todas">Todas</button>
+          <button class="btn" data-filtro="erradas">Só as que errei</button>
+          <button class="btn" data-filtro="branco">Só em branco</button>
+        </div>
+        <div id="gabaritoLista"></div>
+      </div>
+
+      <div style="display:flex; gap:12px; justify-content:center; margin:30px 0;">
+        <a class="btn btn-primario" href="index.html">Ver painel e probabilidade</a>
+        <a class="btn" href="simulado.html">Novo simulado</a>
+      </div>
+    </section>
+
+    <!-- ===== TELA: ESCOLHA DE MODO (fallback sem query string) ===== -->
+    <section id="telaEscolha" class="oculto">
+      <header class="hero-pmf">
+        <div class="eyebrow">Simulado</div>
+        <h1>Escolha o modo de prova</h1>
+      </header>
+      <div class="grid grid-3">
+        <a class="card modo-card" href="simulado.html?modo=rapido">
+          <div class="modo-titulo">⚡ Rápido</div>
+          <div class="modo-meta">20 itens · 25 min</div>
+          <p>Aquecimento com itens de todas as disciplinas.</p>
+        </a>
+        <a class="card modo-card" href="simulado.html?modo=intermediario">
+          <div class="modo-titulo">📋 Intermediário</div>
+          <div class="modo-meta">50 itens · 65 min</div>
+          <p>Metade de uma prova, na proporção do edital.</p>
+        </a>
+        <a class="card modo-card" href="simulado.html?modo=completo">
+          <div class="modo-titulo">🎯 Prova completa</div>
+          <div class="modo-meta">100 itens · 3h30</div>
+          <p>Experiência integral contra o relógio.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape container">
+    Plataforma de estudo independente, sem vínculo com o INSS ou com o Cebraspe.
+  </footer>
+
+  <script src="js/banco-questoes.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/simulado.js"></script>
+</body>
+</html>
