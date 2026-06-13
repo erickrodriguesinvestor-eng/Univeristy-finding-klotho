@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arena — Mythos 5 vs Fable 5</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="css/mythos-fable.css" />
+</head>
+<body class="arena-page">
+  <nav class="nav-bar">
+    <a class="nav-logo" href="index.html">← Início</a>
+    <span class="nav-title">Arena Ativa</span>
+    <button class="btn-ghost" id="btn-history">Histórico</button>
+  </nav>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard">
+    <div class="score-block score-mythos">
+      <span class="score-label">Mythos 5</span>
+      <span class="score-val" id="score-mythos">0</span>
+    </div>
+    <div class="score-divider">VS</div>
+    <div class="score-block score-fable">
+      <span class="score-val" id="score-fable">0</span>
+      <span class="score-label">Fable 5</span>
+    </div>
+  </div>
+
+  <!-- Prompt Input -->
+  <section class="prompt-section">
+    <div class="prompt-wrap">
+      <textarea
+        id="prompt-input"
+        class="prompt-textarea"
+        rows="3"
+        maxlength="2000"
+        placeholder="Digite sua pergunta ou desafio para os dois modelos…"
+      ></textarea>
+      <div class="prompt-controls">
+        <select id="category-select" class="category-select">
+          <option value="geral">Geral</option>
+          <option value="filosofia">Filosofia</option>
+          <option value="etica">Ética</option>
+          <option value="ciencia">Ciência</option>
+          <option value="historia">História</option>
+          <option value="criativo">Criativo</option>
+          <option value="tecnico">Técnico</option>
+        </select>
+        <span class="char-count" id="char-count">0 / 2000</span>
+        <button class="btn-primary" id="btn-battle">⚔ Batalhar</button>
+      </div>
+    </div>
+    <div class="prompt-examples" id="prompt-examples">
+      <span class="examples-label">Exemplos:</span>
+      <button class="example-chip">O que é consciência?</button>
+      <button class="example-chip">Como tomar uma decisão difícil?</button>
+      <button class="example-chip">Explique a morte com sabedoria.</button>
+      <button class="example-chip">O que é ser livre?</button>
+    </div>
+  </section>
+
+  <!-- Battle Arena -->
+  <main class="arena-grid" id="arena-grid">
+    <div class="arena-panel panel-mythos" id="panel-mythos">
+      <div class="panel-header">
+        <div class="panel-badge badge-mythos">Mythos 5</div>
+        <div class="panel-meta" id="meta-mythos">—</div>
+      </div>
+      <div class="panel-body">
+        <div class="panel-placeholder" id="placeholder-mythos">
+          <p>Mythos 5 aguarda seu desafio…</p>
+        </div>
+        <div class="panel-response hidden" id="response-mythos"></div>
+        <div class="panel-loader hidden" id="loader-mythos">
+          <div class="pulse-ring"></div>
+          <span>Mythos 5 contemplando…</span>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button class="btn-vote vote-mythos hidden" id="vote-mythos" data-model="mythos">
+          ▲ Esta resposta é melhor
+        </button>
+      </div>
+    </div>
+
+    <div class="arena-divider">
+      <div class="divider-line"></div>
+      <div class="divider-badge">VS</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="arena-panel panel-fable" id="panel-fable">
+      <div class="panel-header">
+        <div class="panel-badge badge-fable">Fable 5</div>
+        <div class="panel-meta" id="meta-fable">—</div>
+      </div>
+      <div class="panel-body">
+        <div class="panel-placeholder" id="placeholder-fable">
+          <p>Fable 5 aguarda seu desafio…</p>
+        </div>
+        <div class="panel-response hidden" id="response-fable"></div>
+        <div class="panel-loader hidden" id="loader-fable">
+          <div class="pulse-ring"></div>
+          <span>Fable 5 compondo…</span>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button class="btn-vote vote-fable hidden" id="vote-fable" data-model="fable">
+          ▲ Esta resposta é melhor
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tie Button (shown after both respond) -->
+  <div class="tie-wrap hidden" id="tie-wrap">
+    <button class="btn-ghost" id="btn-tie">Empate — Ambas são iguais</button>
+  </div>
+
+  <!-- History Drawer -->
+  <aside class="history-drawer hidden" id="history-drawer">
+    <div class="drawer-header">
+      <h3>Histórico de Batalhas</h3>
+      <button class="btn-ghost" id="btn-close-history">✕</button>
+    </div>
+    <div class="drawer-body" id="history-list">
+      <p class="empty-state">Nenhuma batalha ainda.</p>
+    </div>
+    <button class="btn-danger" id="btn-clear-history">Limpar histórico</button>
+  </aside>
+
+  <!-- Toast notifications -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/arena.js"></script>
+</body>
+</html>
