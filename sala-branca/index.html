@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALA BRANCA — Protocolo de Treinamento</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="screen-entry" class="screen active">
+  <div class="box">
+    <h1>SALA BRANCA</h1>
+    <p class="subtitle">PROTOCOLO DE DESENVOLVIMENTO DE ELEMENTOS</p>
+    <p class="line">Nomes não possuem função aqui. Designe um identificador.</p>
+    <input id="input-id" type="text" maxlength="12" placeholder="IDENTIFICADOR" autocomplete="off">
+    <button id="btn-enter" class="btn">INGRESSAR</button>
+  </div>
+</div>
+
+<div id="screen-hub" class="screen">
+  <header class="topbar">
+    <span id="hub-id"></span>
+    <span id="hub-rank">RANK: —</span>
+  </header>
+  <div class="box wide">
+    <h2>DISCIPLINAS</h2>
+    <p class="line">Cada disciplina exige <strong>5 acertos consecutivos</strong>. Um erro zera a sequência. Não há reforço positivo. Apenas conformidade com o padrão.</p>
+    <div id="module-list" class="module-list"></div>
+    <button id="btn-evaluate" class="btn secondary">SOLICITAR AVALIAÇÃO FINAL</button>
+  </div>
+</div>
+
+<div id="screen-module" class="screen">
+  <header class="topbar">
+    <span id="mod-name"></span>
+    <span id="mod-streak">SEQUÊNCIA: 0/5</span>
+  </header>
+  <div class="box">
+    <div id="mod-prompt" class="prompt"></div>
+    <div id="mod-input-area"></div>
+    <div id="mod-feedback" class="feedback"></div>
+    <button id="btn-abort" class="btn ghost">INTERROMPER</button>
+  </div>
+</div>
+
+<div id="screen-evaluation" class="screen">
+  <div class="box">
+    <h2>AVALIAÇÃO FINAL</h2>
+    <div id="eval-result"></div>
+    <button id="btn-restart" class="btn">REINICIAR PROTOCOLO</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
